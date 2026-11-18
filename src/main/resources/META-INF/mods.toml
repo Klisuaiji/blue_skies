@@ -1,0 +1,39 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+issueTrackerURL="https://gitlab.com/modding-legacy/blue-skies/-/issues"
+license="All Rights Reserved"
+[[mods]]
+	modId="blue_skies"
+	version="1.3.32"
+	displayName="Blue Skies"
+	updateJSONURL="http://changelogs.moddinglegacy.com/blue-skies.json"
+	displayURL="https://moddinglegacy.com/"
+	logoFile="banner.png"
+	authors="KingPhygieBoo, Silver_David, Lachney"
+	credits="Credits to Jonathing for contributing code, music, and helping test the mod, AndyPyr0, and JoltLiz for contributing assets, as well as Vamacher0n and Jesterguy for some ideas."
+	description="Blue Skies adds two dimensions called the Everbright and the Everdawn. It includes lots of new unique features, blocks, weapons, mobs and even massive dungeons! Each dimension has its own theme, with the Everbright being very bright, snowy and cold while the Everdawn is typically darker and warm. Each of these dimensions currently has two dungeons to explore, totaling up to 4 dungeons, with more planned on the way!"
+	license="All Rights Reserved"
+[[dependencies.blue_skies]]
+	modId="neoforge"
+	type="required"
+	versionRange="[20.4.111-beta,)"
+	ordering="NONE"
+	side="BOTH"
+[[dependencies.blue_skies]]
+	modId="minecraft"
+	type="required"
+	versionRange="[1.20.4,1.21)"
+	ordering="NONE"
+	side="BOTH"
+[[dependencies.blue_skies]]
+	modId="structure_gel"
+	type="required"
+	versionRange="[2.17,)"
+	ordering="NONE"
+	side="BOTH"
+
+[[mixins]]
+	config="blue_skies.mixins.json"
+
+[modproperties.blue_skies]
+    catalogueImageIcon="logo.png"
