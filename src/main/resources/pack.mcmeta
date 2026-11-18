@@ -1,9 +1,10 @@
 {
-    "pack": {
-        "description": "Blue Skies resources",
-        "pack_format": 10,
-        "forge:resource_pack_format": 10,
-        "forge:data_pack_format": 10
-    }
-
+  "pack": {
+    "description": "Blue Skies resources",
+    "pack_format": 48,
+    "supported_formats": [
+      34,
+      48
+    ]
+  }
 }
