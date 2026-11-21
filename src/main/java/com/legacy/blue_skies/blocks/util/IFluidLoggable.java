@@ -21,7 +21,7 @@ import net.minecraft.world.level.material.Fluids;
 public interface IFluidLoggable extends BucketPickup, LiquidBlockContainer {
    EnumProperty<IFluidLoggable.FluidLogging> FLUIDLOGGED = EnumProperty.create("fluidlogged", IFluidLoggable.FluidLogging.class);
 
-   default boolean canPlaceLiquid(@Nullable Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
+   default boolean canPlaceLiquid(Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
       return state.getValue(FLUIDLOGGED) == IFluidLoggable.FluidLogging.EMPTY && IFluidLoggable.FluidLogging.isValid(fluid);
    }
 
@@ -39,7 +39,7 @@ public interface IFluidLoggable extends BucketPickup, LiquidBlockContainer {
       }
    }
 
-   default ItemStack pickupBlock(@Nullable Player player, LevelAccessor level, BlockPos pos, BlockState state) {
+   default ItemStack pickupBlock(Player player, LevelAccessor level, BlockPos pos, BlockState state) {
       IFluidLoggable.FluidLogging fluid = (IFluidLoggable.FluidLogging)state.getValue(FLUIDLOGGED);
       if (fluid != IFluidLoggable.FluidLogging.EMPTY) {
          level.setBlock(pos, (BlockState)state.setValue(FLUIDLOGGED, IFluidLoggable.FluidLogging.EMPTY), 3);
@@ -57,7 +57,7 @@ public interface IFluidLoggable extends BucketPickup, LiquidBlockContainer {
       return Fluids.WATER.getPickupSound();
    }
 
-   public static enum FluidLogging implements StringRepresentable {
+   enum FluidLogging implements StringRepresentable {
       EMPTY(Fluids.EMPTY.defaultFluidState(), "empty"),
       WATER(Fluids.WATER.getSource(false), "water"),
       LAVA(Fluids.LAVA.getSource(false), "lava");
@@ -66,7 +66,7 @@ public interface IFluidLoggable extends BucketPickup, LiquidBlockContainer {
       public final FluidState fluidState;
       private final String name;
 
-      private FluidLogging(FluidState fluidState, String name) {
+      FluidLogging(FluidState fluidState, String name) {
          this.fluid = fluidState.getType();
          this.fluidState = fluidState;
          this.name = name;

@@ -1,0 +1,23 @@
+{
+	"multipart": [
+		{
+			"apply": { "model": "blue_skies:block/sea_moss" }
+		},
+		{
+			"when": { "north": "true" },
+			"apply": { "model": "blue_skies:block/sea_moss_side" }
+		},
+		{
+			"when": { "south": "true" },
+			"apply": { "model": "blue_skies:block/sea_moss_side", "y": 180 }
+		},
+		{
+			"when": { "east": "true" },
+			"apply": { "model": "blue_skies:block/sea_moss_side", "y": 90 }
+		},
+		{
+			"when": { "west": "true" },
+			"apply": { "model": "blue_skies:block/sea_moss_side", "y": 270 }
+		}
+	]
+}

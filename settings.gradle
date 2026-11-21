@@ -1,0 +1,18 @@
+pluginManagement {
+    repositories {
+        // Official NeoForge CDN mirror (fast in CN, full releases maven).
+        maven { url "https://neoforged.forgecdn.net/releases" }
+        // Plugin marker artifacts for net.neoforged.moddev / foojay resolver.
+        gradlePluginPortal()
+        // Official NeoForge repo (may be slow/unreachable in CN networks).
+        maven { url "https://maven.neoforged.net/releases/" }
+        // Fallback mirror used by the NeoForge installer in this environment.
+        maven { url "https://maven.creeperhost.net/" }
+    }
+}
+
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+
+rootProject.name = 'blue-skies-1211-port'

@@ -11,7 +11,7 @@ public class SkySignBlockEntity extends SignBlockEntity {
       super(pos, state);
    }
 
-   public BlockEntityType<SkySignBlockEntity> getType() {
+   public BlockEntityType<? extends SkySignBlockEntity> getType() {
       return SkiesBlockEntityTypes.SKY_SIGN;
    }
 }

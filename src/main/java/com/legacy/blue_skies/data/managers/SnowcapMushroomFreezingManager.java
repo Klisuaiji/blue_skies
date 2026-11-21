@@ -55,10 +55,10 @@ public class SnowcapMushroomFreezingManager extends SkiesDataManager<Block, List
    public BlockState getState(BlockState state, RandomSource rand) {
       if (state.hasProperty(LiquidBlock.LEVEL) && (Integer)state.getValue(LiquidBlock.LEVEL) > 0) {
          return null;
-      } else {
-         List<SnowcapMushroomFreezing> freezings = this.getValue(state.getBlock());
-         return freezings != null && !freezings.isEmpty() ? this.getFrozenState(freezings.get(rand.nextInt(freezings.size())), state) : null;
       }
+
+      List<SnowcapMushroomFreezing> freezings = this.getValue(state.getBlock());
+      return freezings != null && !freezings.isEmpty() ? this.getFrozenState(freezings.get(rand.nextInt(freezings.size())), state) : null;
    }
 
    @Nullable

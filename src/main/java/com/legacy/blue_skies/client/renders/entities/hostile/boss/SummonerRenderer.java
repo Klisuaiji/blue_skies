@@ -77,12 +77,7 @@ public class SummonerRenderer<T extends SummonerEntity> extends IllagerRenderer<
                matrixStackIn,
                ivertexbuilder,
                packedLightIn,
-               getOverlayCoords(entityIn, this.getWhiteOverlayProgress(entityIn, partialTicks)),
-               1.0F,
-               1.0F,
-               1.0F,
-               1.0F
-            );
+               getOverlayCoords(entityIn, this.getWhiteOverlayProgress(entityIn, partialTicks)), -1);
          matrixStackIn.popPose();
       }
    }

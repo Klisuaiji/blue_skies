@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.common.FarmlandWaterManager;
 import net.neoforged.neoforge.common.IPlantable;
-import net.neoforged.neoforge.common.PlantType;
+import com.legacy.blue_skies.compat.PlantType;
 
 public class SkyFarmlandBlock extends FarmBlock {
    private final Supplier<Block> dirt;

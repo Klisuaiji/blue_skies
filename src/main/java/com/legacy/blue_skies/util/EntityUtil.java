@@ -169,29 +169,29 @@ public class EntityUtil {
       return canSeeSkyFromBelowWater(level, level.dimension(), pPos);
    }
 
-   public static boolean canSeeSkyFromBelowWater(LevelReader level, @Nullable ResourceKey<Level> key, BlockPos pPos) {
+   public static boolean canSeeSkyFromBelowWater(LevelReader level, ResourceKey<Level> key, BlockPos pPos) {
       if (key != null && !SkiesDimensions.inSkyDimension(key)) {
          return level.canSeeSkyFromBelowWater(pPos);
-      } else {
-         int seaLevel = level.getSeaLevel() + 1;
-         if (pPos.getY() >= seaLevel) {
-            return level.canSeeSky(pPos);
-         } else {
-            BlockPos blockpos = Positions.blockPos(pPos.getX(), seaLevel + 1, pPos.getZ());
-            if (!level.canSeeSky(blockpos)) {
-               return false;
-            } else {
-               for (BlockPos blockpos1 = blockpos.below(); blockpos1.getY() > pPos.getY(); blockpos1 = blockpos1.below()) {
-                  BlockState blockstate = level.getBlockState(blockpos1);
-                  if (blockstate.getLightBlock(level, blockpos1) > 0 && !blockstate.liquid()) {
-                     return false;
-                  }
-               }
+      }
 
-               return true;
-            }
+      int seaLevel = level.getSeaLevel() + 1;
+      if (pPos.getY() >= seaLevel) {
+         return level.canSeeSky(pPos);
+      }
+
+      BlockPos blockpos = Positions.blockPos(pPos.getX(), seaLevel + 1, pPos.getZ());
+      if (!level.canSeeSky(blockpos)) {
+         return false;
+      }
+
+      for (BlockPos blockpos1 = blockpos.below(); blockpos1.getY() > pPos.getY(); blockpos1 = blockpos1.below()) {
+         BlockState blockstate = level.getBlockState(blockpos1);
+         if (blockstate.getLightBlock(level, blockpos1) > 0 && !blockstate.liquid()) {
+            return false;
          }
       }
+
+      return true;
    }
 
    public static BlockPos getPosInFront(LivingEntity entity, double distance) {

@@ -53,9 +53,9 @@ public class SpewterEntity extends SkiesMonsterEntity implements ISkyBossMob, Ra
       this.xpReward = 0;
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(GROWN, false);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(GROWN, false);
    }
 
    public static Builder registerAttributes() {
@@ -77,7 +77,7 @@ public class SpewterEntity extends SkiesMonsterEntity implements ISkyBossMob, Ra
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
    ) {
       spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
       if (!this.level().isClientSide) {

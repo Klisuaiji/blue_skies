@@ -62,17 +62,17 @@ public abstract class SkiesBossEntity extends SkiesMonsterEntity implements ISky
       }
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(DUNGEON_SPAWNED, false);
-      this.entityData.define(INVULNERABILITY_TIME, 0);
-      this.entityData.define(RESPAWNED, false);
-      this.entityData.define(DIFFICULTY_ID, (byte)1);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(DUNGEON_SPAWNED, false);
+      builder.define(INVULNERABILITY_TIME, 0);
+      builder.define(RESPAWNED, false);
+      builder.define(DIFFICULTY_ID, (byte)1);
    }
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
    ) {
       SpawnGroupData flag = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
       if (!this.level().isClientSide()) {
@@ -147,7 +147,7 @@ public abstract class SkiesBossEntity extends SkiesMonsterEntity implements ISky
                      return false;
                   }
 
-                  flag = super.hurt(source, Math.min((float)this.getDamageCap(), amount));
+                  flag = super.hurt(source, Math.min(this.getDamageCap(), amount));
                }
             } else {
                flag = super.hurt(source, amount);

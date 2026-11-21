@@ -131,7 +131,7 @@ public class BrewberryBushBlock extends BushBlock implements BonemealableBlock {
       return CODEC;
    }
 
-   public static enum Type implements StringRepresentable {
+   public enum Type implements StringRepresentable {
       RED("red", () -> SkiesItems.brewberry),
       PINK("pink", () -> SkiesItems.pink_brewberry),
       BLACK("black", () -> SkiesItems.black_brewberry);
@@ -139,7 +139,7 @@ public class BrewberryBushBlock extends BushBlock implements BonemealableBlock {
       private final String name;
       private final Supplier<Item> berry;
 
-      private Type(String name, Supplier<Item> berry) {
+      Type(String name, Supplier<Item> berry) {
          this.name = name;
          this.berry = berry;
       }

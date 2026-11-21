@@ -10,7 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SyncItemInSlotPacket(ItemStack mainItem, ItemStack offItem, int selectedSlot)
    implements PacketHandler.ModPacket<SyncItemInSlotPacket, SyncItemInSlotPacket.Handler> {
@@ -34,9 +34,9 @@ public record SyncItemInSlotPacket(ItemStack mainItem, ItemStack offItem, int se
          return new SyncItemInSlotPacket(buff.readItem(), buff.readItem(), buff.readInt());
       }
 
-      public void handler(SyncItemInSlotPacket packet, PlayPayloadContext context) {
+      public void handler(SyncItemInSlotPacket packet, IPayloadContext context) {
          if (FMLEnvironment.dist == Dist.CLIENT) {
-            context.workHandler().submitAsync(() -> {
+            context.enqueueWork(() -> {
                LocalPlayer player = Minecraft.getInstance().player;
                if (player.getInventory().selected == packet.selectedSlot) {
                   player.setItemInHand(InteractionHand.MAIN_HAND, packet.mainItem);

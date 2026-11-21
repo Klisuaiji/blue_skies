@@ -37,7 +37,7 @@ public class BagOfSpoilsBlock extends BaseEntityBlock {
    private static final VoxelShape SHAPE = Shapes.or(
       Block.box(2.0, 0.0, 2.0, 14.0, 8.0, 14.0), new VoxelShape[]{Block.box(4.0, 10.0, 4.0, 12.0, 12.0, 12.0), Block.box(5.0, 8.0, 5.0, 11.0, 10.0, 11.0)}
    );
-   public static final ResourceLocation CONTENTS = new ResourceLocation("contents");
+   public static final ResourceLocation CONTENTS = ResourceLocation.parse("contents");
 
    public BagOfSpoilsBlock(Properties builder) {
       super(builder);

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "blue_skies:block/plants/snowcap_mushroom_block_top",
+    "top": "blue_skies:block/plants/snowcap_mushroom_block_top",
+    "side": "blue_skies:block/plants/snowcap_mushroom_block"
+  }
+}

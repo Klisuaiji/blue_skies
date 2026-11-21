@@ -33,7 +33,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import javax.annotation.Nullable;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
@@ -71,7 +71,7 @@ public class SkiesStructures {
       )
       .biomes(new ResourceKey[]{SkiesBiomes.SLUSHLANDS.getKey()})
       .popStructure()
-      .placement(() -> GridStructurePlacement.builder(25, 0.7F).build(FROZEN_BUNKER.getRegistryName()))
+      .placement(() -> GridStructurePlacement.builder(25, 0.7F).build(BlueSkies.locate("frozen_bunker")))
       .build();
    public static final StructureRegistrar<EverbrightBlindingDungeonStructure> EVERBRIGHT_BLINDING_DUNGEON = StructureRegistrar.builder(
          BlueSkies.locate("everbright_blinding_dungeon"), () -> () -> EverbrightBlindingDungeonStructure.CODEC
@@ -88,7 +88,7 @@ public class SkiesStructures {
       .placement(
          c -> GridStructurePlacement.builder(45, 31, 0.75F)
             .exclusionZone(new TaggedExclusionZone(c.lookup(Registries.STRUCTURE).getOrThrow(SkiesStructureTags.ON_NATURE_MAPS), 10))
-            .build(EVERBRIGHT_BLINDING_DUNGEON.getRegistryName())
+            .build(BlueSkies.locate("everbright_blinding_dungeon"))
       )
       .build();
    public static final StructureRegistrar<EverdawnBlindingDungeonStructure> EVERDAWN_BLINDING_DUNGEON = StructureRegistrar.builder(
@@ -111,7 +111,7 @@ public class SkiesStructures {
       .placement(
          c -> GridStructurePlacement.builder(45, 31, 0.75F)
             .exclusionZone(new TaggedExclusionZone(c.lookup(Registries.STRUCTURE).getOrThrow(SkiesStructureTags.ON_POISON_MAPS), 10))
-            .build(EVERDAWN_BLINDING_DUNGEON.getRegistryName())
+            .build(BlueSkies.locate("everdawn_blinding_dungeon"))
       )
       .build();
    public static final StructureRegistrar<NatureDungeonStructure> NATURE_DUNGEON = StructureRegistrar.builder(
@@ -133,7 +133,7 @@ public class SkiesStructures {
          )
       )
       .popStructure()
-      .placement(() -> GridStructurePlacement.builder(63, 33, 0.8F).build(NATURE_DUNGEON.getRegistryName()))
+      .placement(() -> GridStructurePlacement.builder(63, 33, 0.8F).build(BlueSkies.locate("nature_dungeon")))
       .build();
    public static final StructureRegistrar<PoisonDungeonStructure> POISON_DUNGEON = StructureRegistrar.builder(
          BlueSkies.locate("poison_dungeon"), () -> () -> PoisonDungeonStructure.CODEC
@@ -151,7 +151,7 @@ public class SkiesStructures {
          )
       )
       .popStructure()
-      .placement(() -> GridStructurePlacement.builder(63, 33, 0.8F).build(POISON_DUNGEON.getRegistryName()))
+      .placement(() -> GridStructurePlacement.builder(63, 33, 0.8F).build(BlueSkies.locate("poison_dungeon")))
       .build();
    public static final StructureRegistrar<ExtendedJigsawStructure> GATEKEEPER_HOUSE = StructureRegistrar.jigsawBuilder(BlueSkies.locate("gatekeeper_house"))
       .addPiece(() -> GatekeeperHouseStructure.Piece::new)
@@ -199,7 +199,7 @@ public class SkiesStructures {
       .dimensions(new ResourceKey[]{Level.OVERWORLD})
       .spawns(MobCategory.MONSTER, BoundingBoxType.PIECE, List::of)
       .popStructure()
-      .placement(() -> GridStructurePlacement.builder().spacing(33).offset(17).probability(0.75F).build(GATEKEEPER_HOUSE.getRegistryName()))
+      .placement(() -> GridStructurePlacement.builder().spacing(33).offset(17).probability(0.75F).build(BlueSkies.locate("gatekeeper_house")))
       .build();
    public static final StructureRegistrar<ExtendedJigsawStructure> BLUE_SKIES_VILLAGE = StructureRegistrar.jigsawBuilder(BlueSkies.locate("village"))
       .addPiece(() -> SkiesVillageStructure.Piece::new)
@@ -282,7 +282,7 @@ public class SkiesStructures {
       )
       .build();
 
-   public static void bootstrap(BootstapContext<StructureTemplatePool> bootstrap) {
+   public static void bootstrap(BootstrapContext<StructureTemplatePool> bootstrap) {
       FrozenBunkerPools.bootstrap(bootstrap);
       GatekeeperHousePools.bootstrap(bootstrap);
       SkiesVillagePools.bootstrap(bootstrap);
@@ -409,18 +409,18 @@ public class SkiesStructures {
          return HANDLER.createPointer(key, processorList);
       }
 
-      private static Pointer<StructureProcessorList> register(String key, Function<BootstapContext<?>, StructureProcessorList> processorList) {
+      private static Pointer<StructureProcessorList> register(String key, Function<BootstrapContext<?>, StructureProcessorList> processorList) {
          return HANDLER.createPointer(key, processorList);
       }
 
       private static RuleProcessor makeVillagePath(
-         Block path, Block dirt, Block grassBlock, Block bridgeMaterial, @Nullable Block sand, @Nullable Block sandstone
+         Block path, Block dirt, Block grassBlock, Block bridgeMaterial, Block sand, Block sandstone
       ) {
          return new RuleProcessor(standardPath(path, dirt, grassBlock, bridgeMaterial, sand, sandstone));
       }
 
       private static List<ProcessorRule> standardPath(
-         Block path, Block dirt, Block grassBlock, Block bridgeMaterial, @Nullable Block sand, @Nullable Block sandstone
+         Block path, Block dirt, Block grassBlock, Block bridgeMaterial, Block sand, Block sandstone
       ) {
          List<ProcessorRule> rules = new ArrayList<>();
          rules.add(new ProcessorRule(new BlockMatchTest(path), new BlockMatchTest(Blocks.WATER), bridgeMaterial.defaultBlockState()));

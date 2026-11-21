@@ -32,7 +32,7 @@ public enum SkiesItemTier implements Tier {
    private final boolean compatWithHandle;
    private final Lazy<Ingredient> repairMaterial;
 
-   private SkiesItemTier(
+   SkiesItemTier(
       int harvestLevelIn,
       int maxUsesIn,
       float efficiencyIn,

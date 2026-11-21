@@ -1,0 +1,6 @@
+{
+    "parent": "block/button",
+    "textures": {
+        "texture": "blue_skies:block/wood/starlit_planks"
+    }
+}

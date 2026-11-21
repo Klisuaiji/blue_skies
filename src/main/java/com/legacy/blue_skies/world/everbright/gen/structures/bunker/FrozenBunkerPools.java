@@ -5,14 +5,14 @@ import com.legacy.blue_skies.registries.SkiesStructures;
 import com.legacy.structure_gel.api.structure.jigsaw.JigsawPoolBuilder;
 import com.legacy.structure_gel.api.structure.jigsaw.JigsawRegistryHelper;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 
 public class FrozenBunkerPools {
    public static final ResourceKey<StructureTemplatePool> ROOT = ResourceKey.create(Registries.TEMPLATE_POOL, BlueSkies.locate("bunker/entrance"));
 
-   public static void bootstrap(BootstapContext<StructureTemplatePool> bootstrap) {
+   public static void bootstrap(BootstrapContext<StructureTemplatePool> bootstrap) {
       JigsawRegistryHelper registry = new JigsawRegistryHelper("blue_skies", "bunker/", bootstrap);
       JigsawPoolBuilder builder = registry.poolBuilder().maintainWater(false).processors(SkiesStructures.ProcessorLists.DECAY_TURQUOISE_STONEBRICK.getKey());
       registry.registerBuilder().pools(builder.clone().names(new String[]{"entrance"})).register("entrance");

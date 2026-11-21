@@ -158,7 +158,7 @@ public class NightwatcherRobGoal extends Goal {
       return true;
    }
 
-   private static enum Task {
+   private enum Task {
       ROBBING,
       RUNNING;
    }

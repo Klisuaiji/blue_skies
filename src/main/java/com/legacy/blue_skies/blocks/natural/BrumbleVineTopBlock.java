@@ -33,7 +33,7 @@ public class BrumbleVineTopBlock extends GrowingPlantHeadBlock implements Liquid
       return Fluids.WATER.getSource(false);
    }
 
-   public boolean canPlaceLiquid(@Nullable Player player, BlockGetter worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
+   public boolean canPlaceLiquid(Player player, BlockGetter worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
       return false;
    }
 

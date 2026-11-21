@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "axis=z": { "model": "blue_skies:block/everbright_portal", "y": 90 },
+        "axis=x": { "model": "blue_skies:block/everbright_portal" }
+    }
+}

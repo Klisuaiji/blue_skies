@@ -18,7 +18,7 @@ import java.util.Map;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
@@ -560,7 +560,7 @@ public class SkiesConfiguredFeatures {
       return key;
    }
 
-   public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> bootstrap) {
+   public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> bootstrap) {
       CONFIGURED_VALUES.forEach((key, value) -> FeatureUtils.register(bootstrap, value.key(), value.feature(), value.config()));
       HolderGetter<ConfiguredFeature<?, ?>> featureGetter = bootstrap.lookup(Registries.CONFIGURED_FEATURE);
       FeatureUtils.register(

@@ -6,7 +6,7 @@ import com.legacy.blue_skies.network.PacketHandler;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class SpawnSupporterPetPacket implements PacketHandler.ModPacket<SpawnSupporterPetPacket, SpawnSupporterPetPacket.Handler> {
    private byte petID;
@@ -45,8 +45,8 @@ public class SpawnSupporterPetPacket implements PacketHandler.ModPacket<SpawnSup
          return new SpawnSupporterPetPacket(buff.readByte(), buff.readBoolean(), buff.readBoolean(), buff.readUtf(16), buff.readByte());
       }
 
-      public void handler(SpawnSupporterPetPacket packet, PlayPayloadContext context) {
-         context.workHandler().submitAsync(() -> handlePacket(packet, this.serverPlayer(context)));
+      public void handler(SpawnSupporterPetPacket packet, IPayloadContext context) {
+         context.enqueueWork(() -> handlePacket(packet, this.serverPlayer(context)));
       }
 
       private static void handlePacket(SpawnSupporterPetPacket packet, Player player) {

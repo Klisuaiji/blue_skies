@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.items.util;
 
+import com.legacy.blue_skies.compat.*;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -13,12 +14,12 @@ import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 
 public interface IRarityItem {
    default void setRarityTag(ItemStack stack, IRarityItem.SkiesRarity rarity) {
-      CompoundTag nbt = stack.getOrCreateTag();
+      CompoundTag nbt = LegacyNbt.getOrCreate(stack);
       nbt.putInt("Rarity", rarity.id);
    }
 
    default IRarityItem.SkiesRarity getRarityTag(ItemStack stack) {
-      CompoundTag nbt = stack.getOrCreateTag();
+      CompoundTag nbt = LegacyNbt.getOrCreate(stack);
       return IRarityItem.SkiesRarity.getFromId(nbt.getInt("Rarity"));
    }
 
@@ -36,7 +37,7 @@ public interface IRarityItem {
       lore.add(Component.translatable("%s: %s", new Object[]{rarityLabel, itemRarity}));
    }
 
-   public static enum SkiesRarity {
+   enum SkiesRarity {
       COMMON(0, "common"),
       UNCOMMON(1, "uncommon"),
       RARE(2, "rare");
@@ -44,7 +45,7 @@ public interface IRarityItem {
       private final int id;
       private final String name;
 
-      private SkiesRarity(int id, String name) {
+      SkiesRarity(int id, String name) {
          this.id = id;
          this.name = name;
       }
@@ -63,7 +64,7 @@ public interface IRarityItem {
       }
    }
 
-   public static class WeightedSkiesRarity implements WeightedEntry {
+   class WeightedSkiesRarity implements WeightedEntry {
       private final IRarityItem.SkiesRarity rarity;
       private final Weight weight;
 

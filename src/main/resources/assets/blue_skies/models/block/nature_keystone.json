@@ -1,0 +1,45 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"textures": {
+		"keystone": "blue_skies:block/dungeon/nature_keystone",
+		"particle": "blue_skies:block/dungeon/nature_stonebrick",
+		"stonebrick": "blue_skies:block/dungeon/nature_stonebrick"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 5],
+			"to": [16, 16, 11],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#stonebrick"},
+				"east": {"uv": [0, 0, 6, 16], "texture": "#stonebrick"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#stonebrick"},
+				"west": {"uv": [0, 0, 6, 16], "texture": "#stonebrick"},
+				"up": {"uv": [0, 0, 16, 6], "texture": "#stonebrick"},
+				"down": {"uv": [0, 0, 16, 6], "texture": "#stonebrick"}
+			}
+		},
+		{
+			"from": [3, 2, 4],
+			"to": [13, 14, 5],
+			"faces": {
+				"north": {"uv": [3, 2, 13, 14], "texture": "#keystone"},
+				"east": {"uv": [3, 2, 4, 14], "texture": "#keystone"},
+				"west": {"uv": [12, 2, 13, 14], "texture": "#keystone"},
+				"up": {"uv": [13, 2, 3, 3], "texture": "#keystone"},
+				"down": {"uv": [13, 13, 3, 14], "texture": "#keystone"}
+			}
+		},
+		{
+			"from": [3, 2, 11],
+			"to": [13, 14, 12],
+			"faces": {
+				"east": {"uv": [12, 2, 13, 14], "texture": "#keystone"},
+				"south": {"uv": [3, 2, 13, 14], "texture": "#keystone"},
+				"west": {"uv": [3, 2, 4, 14], "texture": "#keystone"},
+				"up": {"uv": [3, 2, 13, 3], "texture": "#keystone"},
+				"down": {"uv": [3, 13, 13, 14], "texture": "#keystone"}
+			}
+		}
+	]
+}

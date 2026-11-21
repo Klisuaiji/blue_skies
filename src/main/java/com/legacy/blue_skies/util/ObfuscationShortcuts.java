@@ -6,10 +6,10 @@ public class ObfuscationShortcuts {
    public static void setObfuscatedValue(Field field, Object clazz, Object changeTo) {
       try {
          field.set(clazz, changeTo);
-      } catch (IllegalArgumentException var4) {
-         var4.printStackTrace();
-      } catch (IllegalAccessException var5) {
-         var5.printStackTrace();
+      } catch (IllegalArgumentException e) {
+         e.printStackTrace();
+      } catch (IllegalAccessException e) {
+         e.printStackTrace();
       }
    }
 }

@@ -1,0 +1,8 @@
+{
+	"variants": {
+		"": [
+			{ "model": "blue_skies:block/briskbloom_0" },
+			{ "model": "blue_skies:block/briskbloom_1" }
+		]
+	}
+}

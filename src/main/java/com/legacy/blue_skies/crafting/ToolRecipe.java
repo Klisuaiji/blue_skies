@@ -98,7 +98,7 @@ public class ToolRecipe implements CraftingRecipe, IShapedRecipe<CraftingContain
       return Optional.ofNullable(stick);
    }
 
-   public static enum Material implements StringRepresentable {
+   public enum Material implements StringRepresentable {
       BLUEBRIGHT("bluebright", SkiesBlocks.bluebright_planks),
       STARLIT("starlit", SkiesBlocks.starlit_planks),
       FROSTBRIGHT("frostbright", SkiesBlocks.frostbright_planks),
@@ -117,7 +117,7 @@ public class ToolRecipe implements CraftingRecipe, IShapedRecipe<CraftingContain
       private final String name;
       private final Ingredient ingredient;
 
-      private Material(String name, ItemLike item) {
+      Material(String name, ItemLike item) {
          this.name = name;
          this.ingredient = Ingredient.of(new ItemLike[]{item});
       }
@@ -138,7 +138,7 @@ public class ToolRecipe implements CraftingRecipe, IShapedRecipe<CraftingContain
    public static class OverwrittenCraftingContainer {
    }
 
-   public static enum RecipeShape implements StringRepresentable {
+   public enum RecipeShape implements StringRepresentable {
       AXE("axe", 2, 3, "mm", "ms", " s"),
       PICKAXE("pickaxe", 3, 3, "mmm", " s ", " s "),
       SHOVEL("shovel", 1, 3, "m", "s", "s"),
@@ -150,7 +150,7 @@ public class ToolRecipe implements CraftingRecipe, IShapedRecipe<CraftingContain
       private final int height;
       private final String[] rows;
 
-      private RecipeShape(String name, int width, int height, String... rows) {
+      RecipeShape(String name, int width, int height, String... rows) {
          this.name = name;
          this.width = width;
          this.height = height;

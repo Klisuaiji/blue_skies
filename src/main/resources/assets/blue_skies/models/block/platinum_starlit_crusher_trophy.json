@@ -1,0 +1,6 @@
+{
+	"parent": "blue_skies:block/starlit_crusher_trophy",
+	"textures": {
+		"trophy": "blue_skies:block/trophy/platinum_starlit_crusher_trophy"
+	}
+}

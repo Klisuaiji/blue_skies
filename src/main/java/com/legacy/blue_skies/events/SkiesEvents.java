@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.events;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.BlueSkiesConfig;
 import com.legacy.blue_skies.blocks.construction.TroughBlock;
 import com.legacy.blue_skies.capability.SkiesPlayer;
@@ -62,8 +63,8 @@ import net.minecraft.world.phys.HitResult.Type;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.bus.api.Event.Result;
-import net.neoforged.neoforge.event.TickEvent.Phase;
-import net.neoforged.neoforge.event.TickEvent.ServerTickEvent;
+
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.EntityMobGriefingEvent;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
@@ -185,8 +186,8 @@ public class SkiesEvents {
             ((List)event.getTrades().get(2)).add(SkiesVillagerTrades.BLINDING_DUNGEON_OFFER);
             ((List)event.getTrades().get(3)).add(SkiesVillagerTrades.POPULATION_DUNGEON_OFFER);
          }
-      } catch (Exception var2) {
-         var2.printStackTrace();
+      } catch (Exception e) {
+         e.printStackTrace();
       }
    }
 
@@ -197,9 +198,7 @@ public class SkiesEvents {
       }
    }
 
-   @SubscribeEvent(
-      priority = EventPriority.HIGHEST
-   )
+   @SubscribeEvent(priority = EventPriority.HIGHEST)
    public static void nerfReachAttacks(LivingDamageEvent event) {
       if (event.getEntity() instanceof ISkyBoss boss && boss.getMaxReach() >= 0.0F && !event.getSource().isCreativePlayer()) {
          DamageSource source = event.getSource();
@@ -232,9 +231,7 @@ public class SkiesEvents {
       }
    }
 
-   @SubscribeEvent(
-      priority = EventPriority.LOWEST
-   )
+   @SubscribeEvent(priority = EventPriority.LOWEST)
    public static void capBossDamage(LivingDamageEvent event) {
       DamageSource source = event.getSource();
       if (event.getEntity() instanceof ISkyBoss boss
@@ -332,8 +329,8 @@ public class SkiesEvents {
    }
 
    @SubscribeEvent
-   public static void onServerTick(ServerTickEvent event) {
-      if (event.phase == Phase.END && event.haveTime()) {
+   public static void onServerTick(ServerTickEvent.Post event) {
+      if (event.hasTime()) {
          AbstractBiomeProvider.updateCacheSize(event.getServer());
       }
    }

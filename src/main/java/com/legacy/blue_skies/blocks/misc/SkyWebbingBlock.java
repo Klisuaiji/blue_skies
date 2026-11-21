@@ -67,22 +67,22 @@ public class SkyWebbingBlock extends Block {
 
       if (xFlag && yFlag && zFlag) {
          return Shapes.block();
-      } else {
-         VoxelShape shape = Shapes.empty();
-         if (xFlag) {
-            shape = Shapes.or(shape, X);
-         }
-
-         if (yFlag) {
-            shape = Shapes.or(shape, Y);
-         }
-
-         if (zFlag) {
-            shape = Shapes.or(shape, Z);
-         }
-
-         return shape;
       }
+
+      VoxelShape shape = Shapes.empty();
+      if (xFlag) {
+         shape = Shapes.or(shape, X);
+      }
+
+      if (yFlag) {
+         shape = Shapes.or(shape, Y);
+      }
+
+      if (zFlag) {
+         shape = Shapes.or(shape, Z);
+      }
+
+      return shape;
    }
 
    public VoxelShape getCollisionShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {

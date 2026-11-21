@@ -1,0 +1,16 @@
+{
+	"variants": {
+		"facing=north": {
+			"model": "blue_skies:block/starlit_chest"
+		},
+		"facing=west": {
+			"model": "blue_skies:block/starlit_chest"
+		},
+		"facing=east": {
+			"model": "blue_skies:block/starlit_chest"
+		},
+		"facing=south": {
+			"model": "blue_skies:block/starlit_chest"
+		}
+	}
+}

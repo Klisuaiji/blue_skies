@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.items;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.items.util.FoodPrepUtils;
 import com.legacy.blue_skies.items.util.PreparedFood;
@@ -42,7 +43,7 @@ public class PreparedFoodItem extends Item {
 
    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
       ItemStack heldItem = player.getItemInHand(hand);
-      if (player.canEat(FoodPrepUtils.deserialize(heldItem.getTag()).getHungerPerBite() <= 2)) {
+      if (player.canEat(FoodPrepUtils.deserialize(LegacyNbt.get(heldItem)).getHungerPerBite() <= 2)) {
          player.startUsingItem(hand);
          return InteractionResultHolder.consume(heldItem);
       } else {
@@ -51,7 +52,7 @@ public class PreparedFoodItem extends Item {
    }
 
    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
-      PreparedFood preparedFood = FoodPrepUtils.deserialize(stack.getTag());
+      PreparedFood preparedFood = FoodPrepUtils.deserialize(LegacyNbt.get(stack));
       if (entity instanceof Player player) {
          player.getFoodData().eat(preparedFood.getHungerPerBite(), preparedFood.getSaturation());
          player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
@@ -81,7 +82,7 @@ public class PreparedFoodItem extends Item {
          1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.4F
       );
       preparedFood.getEffects().forEach(entity::addEffect);
-      CompoundTag tag = stack.getOrCreateTag();
+      CompoundTag tag = LegacyNbt.getOrCreate(stack);
       if (!(entity instanceof Player) || !((Player)entity).getAbilities().instabuild) {
          preparedFood.use();
          if (preparedFood.getUses() <= 0) {
@@ -115,7 +116,7 @@ public class PreparedFoodItem extends Item {
 
    @OnlyIn(Dist.CLIENT)
    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flag) {
-      PreparedFood preparedFood = FoodPrepUtils.deserialize(stack.getTag());
+      PreparedFood preparedFood = FoodPrepUtils.deserialize(LegacyNbt.get(stack));
       preparedFood.getIngredients().forEach(i -> tooltip.add(Component.literal("- ").append(i.getHoverName()).withStyle(ChatFormatting.GRAY)));
       if (BlueSkies.IDE && Screen.hasShiftDown()) {
          tooltip.add(Component.empty());

@@ -1,0 +1,37 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "blue_skies:block/orientable",
+	"textures": {
+		"particle": "blue_skies:block/villager/alchemy_table_top",
+		"top": "blue_skies:block/villager/alchemy_table_top",
+		"bottom": "blue_skies:block/villager/alchemy_table_bottom",
+		"front": "blue_skies:block/villager/alchemy_table_front",
+		"side": "blue_skies:block/villager/alchemy_table_side"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 10, 16],
+			"faces": {
+				"north": {"uv": [0, 6, 16, 16], "texture": "#front"},
+				"east": {"uv": [0, 6, 16, 16], "texture": "#side"},
+				"south": {"uv": [0, 6, 16, 16], "texture": "#side"},
+				"west": {"uv": [16, 6, 0, 16], "texture": "#side"},
+				"up": {"uv": [0, 0, 16, 16], "rotation": 180, "texture": "#top"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#bottom"}
+			}
+		},
+		{
+			"from": [0, 10, 11],
+			"to": [16, 16, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 15]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 6], "texture": "#front"},
+				"east": {"uv": [0, 0, 5, 6], "texture": "#side"},
+				"south": {"uv": [0, 0, 16, 6], "texture": "#side"},
+				"west": {"uv": [5, 0, 0, 6], "texture": "#side"},
+				"up": {"uv": [0, 0, 16, 5], "rotation": 180, "texture": "#top"}
+			}
+		}
+	]
+}

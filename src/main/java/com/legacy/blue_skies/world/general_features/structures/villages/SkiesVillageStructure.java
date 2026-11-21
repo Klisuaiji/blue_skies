@@ -117,7 +117,7 @@ public class SkiesVillageStructure {
       }
 
       private <T extends Entity> void spawnEntity(
-         EntityType<T> entityType, BlockPos pos, ServerLevelAccessor level, RandomSource rand, @Nullable Consumer<T> modifyEntity
+         EntityType<T> entityType, BlockPos pos, ServerLevelAccessor level, RandomSource rand, Consumer<T> modifyEntity
       ) {
          this.setAir(level, pos);
          T entity = (T)this.createEntity(entityType, level, pos, this.rotation);

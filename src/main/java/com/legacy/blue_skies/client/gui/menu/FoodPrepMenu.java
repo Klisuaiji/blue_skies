@@ -81,28 +81,28 @@ public class FoodPrepMenu extends AbstractContainerMenu {
          private ItemStack reduceStack(Slot slot) {
             if (!slot.hasItem()) {
                return ItemStack.EMPTY;
-            } else {
-               ItemStack stack = slot.getItem();
-               ItemStack containerItem = null;
-               if (stack.getItem() == Items.POTION) {
-                  containerItem = new ItemStack(Items.GLASS_BOTTLE);
-               } else if (stack.getItem() instanceof BowlFoodItem || stack.getItem() instanceof SuspiciousStewItem) {
-                  containerItem = new ItemStack(Items.BOWL);
-               } else if (stack.hasCraftingRemainingItem()) {
-                  containerItem = stack.getCraftingRemainingItem();
-               }
-
-               if (containerItem != null) {
-                  if (stack.getCount() == 1) {
-                     slot.set(containerItem);
-                     return containerItem;
-                  }
-
-                  FoodPrepMenu.this.moveItemStackTo(stack.getCraftingRemainingItem(), 6, 42, false);
-               }
-
-               return slot.remove(1);
             }
+
+            ItemStack stack = slot.getItem();
+            ItemStack containerItem = null;
+            if (stack.getItem() == Items.POTION) {
+               containerItem = new ItemStack(Items.GLASS_BOTTLE);
+            } else if (stack.getItem() instanceof BowlFoodItem || stack.getItem() instanceof SuspiciousStewItem) {
+               containerItem = new ItemStack(Items.BOWL);
+            } else if (stack.hasCraftingRemainingItem()) {
+               containerItem = stack.getCraftingRemainingItem();
+            }
+
+            if (containerItem != null) {
+               if (stack.getCount() == 1) {
+                  slot.set(containerItem);
+                  return containerItem;
+               }
+
+               FoodPrepMenu.this.moveItemStackTo(stack.getCraftingRemainingItem(), 6, 42, false);
+            }
+
+            return slot.remove(1);
          }
       });
 

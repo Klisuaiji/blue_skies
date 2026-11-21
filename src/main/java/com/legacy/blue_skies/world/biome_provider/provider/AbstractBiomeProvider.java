@@ -70,23 +70,23 @@ public abstract class AbstractBiomeProvider {
    public void bakeBiomeTemps(int[] biomes, EnumMap<BiomeIds.Temperature, int[]> finalMap) {
       if (biomes.length == 0) {
          throw new IllegalStateException("The biomes array was empty. At least one ocean and land biome must be defined, even if they are not normally used.");
-      } else {
-         EnumMap<BiomeIds.Temperature, List<Integer>> biomeMap = new EnumMap<>(BiomeIds.Temperature.class);
+      }
 
-         for (BiomeIds.Temperature temp : BiomeIds.Temperature.values()) {
-            biomeMap.put(temp, new ArrayList<>());
-         }
+      EnumMap<BiomeIds.Temperature, List<Integer>> biomeMap = new EnumMap<>(BiomeIds.Temperature.class);
 
-         for (int biome : biomes) {
-            for (BiomeIds.Temperature biomeTemp : BiomeIds.getData(biome).temperatures()) {
-               biomeMap.get(biomeTemp).add(biome);
-            }
-         }
+      for (BiomeIds.Temperature temp : BiomeIds.Temperature.values()) {
+         biomeMap.put(temp, new ArrayList<>());
+      }
 
-         for (BiomeIds.Temperature temp : BiomeIds.Temperature.values()) {
-            List<Integer> biomesForTemp = biomeMap.get(temp);
-            finalMap.put(temp, biomesForTemp.isEmpty() ? biomes : biomesForTemp.stream().mapToInt(i -> i).toArray());
+      for (int biome : biomes) {
+         for (BiomeIds.Temperature biomeTemp : BiomeIds.getData(biome).temperatures()) {
+            biomeMap.get(biomeTemp).add(biome);
          }
+      }
+
+      for (BiomeIds.Temperature temp : BiomeIds.Temperature.values()) {
+         List<Integer> biomesForTemp = biomeMap.get(temp);
+         finalMap.put(temp, biomesForTemp.isEmpty() ? biomes : biomesForTemp.stream().mapToInt(i -> i).toArray());
       }
    }
 
@@ -98,54 +98,54 @@ public abstract class AbstractBiomeProvider {
          BakedWorldRegion worldRegion = (BakedWorldRegion)this.cache.getAndMoveToLast(pos);
          if (worldRegion != null) {
             return worldRegion;
-         } else {
-            MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
-            File file = server != null && BlueSkiesConfig.COMMON.writeWorldRegionsToDisk()
-               ? new File(server.getWorldPath(this.worldRegionDir).toString() + "/" + pos + ".dat")
-               : null;
-            if (file != null && file.exists()) {
-               worldRegion = this.timeBench("Reading File", () -> {
-                  try {
-                     return new BakedWorldRegion(NbtIo.readCompressed(file.toPath(), NbtAccounter.unlimitedHeap()));
-                  } catch (IOException var2x) {
-                     var2x.printStackTrace();
-                     return null;
-                  }
-               });
-            }
+         }
 
-            if (worldRegion == null) {
-               worldRegion = this.timeBench("Calculating", () -> {
-                  BiomeRegion biomeRegion = this.timeBench("  Biomes", () -> {
-                     BiomeRegion bRegion = new BiomeRegion(this, regionX, regionZ, 4);
-                     this.transformBiomes(bRegion);
-                     return bRegion;
-                  });
-                  HeightRegion heightRegion = this.timeBench("  Heights", () -> {
-                     HeightRegion hRegion = new HeightRegion(this, regionX, regionZ, biomeRegion.getScale(), biomeRegion);
-                     this.transformHeights(hRegion);
-                     return hRegion;
-                  });
-                  return new BakedWorldRegion(biomeRegion, heightRegion);
+         MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+         File file = server != null && BlueSkiesConfig.COMMON.writeWorldRegionsToDisk()
+            ? new File(server.getWorldPath(this.worldRegionDir).toString() + "/" + pos + ".dat")
+            : null;
+         if (file != null && file.exists()) {
+            worldRegion = this.timeBench("Reading File", () -> {
+               try {
+                  return new BakedWorldRegion(NbtIo.readCompressed(file.toPath(), NbtAccounter.unlimitedHeap()));
+               } catch (IOException e) {
+                  e.printStackTrace();
+                  return null;
+               }
+            });
+         }
+
+         if (worldRegion == null) {
+            worldRegion = this.timeBench("Calculating", () -> {
+               BiomeRegion biomeRegion = this.timeBench("  Biomes", () -> {
+                  BiomeRegion bRegion = new BiomeRegion(this, regionX, regionZ, 4);
+                  this.transformBiomes(bRegion);
+                  return bRegion;
                });
-               if (file != null) {
-                  try {
-                     file.getParentFile().mkdirs();
-                     NbtIo.writeCompressed(worldRegion.save(), file.toPath());
-                  } catch (IOException var12) {
-                     var12.printStackTrace();
-                  }
+               HeightRegion heightRegion = this.timeBench("  Heights", () -> {
+                  HeightRegion hRegion = new HeightRegion(this, regionX, regionZ, biomeRegion.getScale(), biomeRegion);
+                  this.transformHeights(hRegion);
+                  return hRegion;
+               });
+               return new BakedWorldRegion(biomeRegion, heightRegion);
+            });
+            if (file != null) {
+               try {
+                  file.getParentFile().mkdirs();
+                  NbtIo.writeCompressed(worldRegion.save(), file.toPath());
+               } catch (IOException e) {
+                  e.printStackTrace();
                }
             }
-
-            this.cache.put(pos, worldRegion);
-
-            while (this.cache.size() > this.cacheSize) {
-               this.cache.removeFirst();
-            }
-
-            return worldRegion;
          }
+
+         this.cache.put(pos, worldRegion);
+
+         while (this.cache.size() > this.cacheSize) {
+            this.cache.removeFirst();
+         }
+
+         return worldRegion;
       }
    }
 

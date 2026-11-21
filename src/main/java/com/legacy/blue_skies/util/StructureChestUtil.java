@@ -52,7 +52,7 @@ public class StructureChestUtil {
          level,
          rand,
          rotation,
-         (Block)BuiltInRegistries.BLOCK.get(new ResourceLocation(blockKey)),
+         (Block)BuiltInRegistries.BLOCK.get(ResourceLocation.parse(blockKey)),
          Direction.byName(facingKey),
          getChestType(chestTypeKey),
          loot
@@ -63,7 +63,7 @@ public class StructureChestUtil {
       BlockPos pos, ServerLevelAccessor level, RandomSource rand, Rotation rotation, String blockKey, String facingKey, ResourceLocation loot
    ) {
       createChest(
-         pos, level, rand, rotation, (Block)BuiltInRegistries.BLOCK.get(new ResourceLocation(blockKey)), Direction.byName(facingKey), ChestType.SINGLE, loot
+         pos, level, rand, rotation, (Block)BuiltInRegistries.BLOCK.get(ResourceLocation.parse(blockKey)), Direction.byName(facingKey), ChestType.SINGLE, loot
       );
    }
 

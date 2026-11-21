@@ -30,17 +30,17 @@ public class SkiesClientUtil {
    public static float lockNum(float base, float max) {
       if (base == (float) (Math.PI * 2)) {
          return 0.0F;
-      } else {
-         if (base > max) {
-            base = max;
-         }
-
-         if (base < -max) {
-            base = -max;
-         }
-
-         return base;
       }
+
+      if (base > max) {
+         base = max;
+      }
+
+      if (base < -max) {
+         base = -max;
+      }
+
+      return base;
    }
 
    public static void addHumanoidAnimation(

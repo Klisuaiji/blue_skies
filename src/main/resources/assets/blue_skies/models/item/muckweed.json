@@ -1,0 +1,7 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "blue_skies:block/plants/muckweed",
+		"layer1": "blue_skies:block/plants/muckweed_overlay"
+	}
+}

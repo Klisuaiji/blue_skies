@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.entities;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.capability.SkiesPlayer;
 import com.legacy.blue_skies.entities.util.MovingEntitySound;
@@ -38,7 +39,7 @@ import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.control.MoveControl.Operation;
+
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -74,9 +75,9 @@ public class SupporterPetEntity extends TamableAnimal {
       });
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(TYPE_ID, (byte)0);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(TYPE_ID, (byte)0);
    }
 
    public static Builder registerAttributes() {
@@ -159,7 +160,7 @@ public class SupporterPetEntity extends TamableAnimal {
    }
 
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
    ) {
       Player owner = this.getPlayerOwner();
       if (owner != null) {
@@ -256,13 +257,13 @@ public class SupporterPetEntity extends TamableAnimal {
    protected SoundEvent getAmbientSound() {
       if (this.shouldGangster()) {
          return SkiesSounds.GANGSTER;
-      } else {
-         switch (this.getTypeID()) {
-            case 1:
-               return SkiesSounds.ENTITY_STONELET_IDLE;
-            default:
-               return null;
-         }
+      }
+
+      switch (this.getTypeID()) {
+         case 1:
+            return SkiesSounds.ENTITY_STONELET_IDLE;
+         default:
+            return null;
       }
    }
 
@@ -362,11 +363,11 @@ public class SupporterPetEntity extends TamableAnimal {
       }
 
       public void tick() {
-         if (this.operation == Operation.MOVE_TO) {
+         if (this.operation == MoveControl.Operation.MOVE_TO) {
             Vec3 difference = new Vec3(this.wantedX - this.nycto.getX(), this.wantedY - this.nycto.getY(), this.wantedZ - this.nycto.getZ());
             double d0 = difference.length();
             if (d0 < this.nycto.getBoundingBox().getSize()) {
-               this.operation = Operation.WAIT;
+               this.operation = MoveControl.Operation.WAIT;
                this.nycto.setDeltaMovement(this.nycto.getDeltaMovement().scale(0.5));
             } else {
                this.nycto.setDeltaMovement(this.nycto.getDeltaMovement().add(difference.scale(this.getSpeedModifier() * 0.05 / d0)));
@@ -377,7 +378,7 @@ public class SupporterPetEntity extends TamableAnimal {
             }
 
             if (EntityUtil.getDistanceToPos(this.nycto.blockPosition(), Positions.blockPos(this.wantedX, this.wantedY, this.wantedZ)) < 3.0F) {
-               this.operation = Operation.WAIT;
+               this.operation = MoveControl.Operation.WAIT;
                this.nycto.setDeltaMovement(this.nycto.getDeltaMovement().scale(0.5));
             }
          }

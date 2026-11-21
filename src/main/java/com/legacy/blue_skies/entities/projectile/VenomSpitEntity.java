@@ -29,7 +29,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.HitResult.Type;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.event.EventHooks;
 
 public class VenomSpitEntity extends Projectile {
@@ -142,15 +142,15 @@ public class VenomSpitEntity extends Projectile {
 
             if (target instanceof Player playerentity) {
                ItemStack playerItem = playerentity.isUsingItem() ? playerentity.getUseItem() : ItemStack.EMPTY;
-               if (!playerItem.isEmpty() && playerItem.canPerformAction(ToolActions.SHIELD_BLOCK)) {
+               if (!playerItem.isEmpty() && playerItem.canPerformAction(ItemAbilities.SHIELD_BLOCK)) {
                   playerentity.disableShield(true);
                   playerentity.getCooldowns().addCooldown(playerItem.getItem(), 60);
                   this.level().broadcastEntityEvent(playerentity, (byte)30);
                }
             }
          } else {
-            boolean attackx = target.hurt(SkiesDamageSources.get(target.level()).venomSpit(this, owner), 1.0F);
-            if (target instanceof LivingEntity living && attackx) {
+            boolean attack = target.hurt(SkiesDamageSources.get(target.level()).venomSpit(this, owner), 1.0F);
+            if (target instanceof LivingEntity living && attack) {
                int durration = 20 * (this.level().getDifficulty().getId() + 3);
                int amplifier = this.level().getDifficulty().getId() / 2;
                living.addEffect(new MobEffectInstance(MobEffects.POISON, durration, amplifier));
@@ -170,8 +170,8 @@ public class VenomSpitEntity extends Projectile {
       }
    }
 
-   protected void defineSynchedData() {
-      this.entityData.define(DEADLY, false);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      builder.define(DEADLY, false);
    }
 
    protected void readAdditionalSaveData(CompoundTag compound) {

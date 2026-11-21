@@ -9,7 +9,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class ChangeTomePacket implements PacketHandler.ModPacket<ChangeTomePacket, ChangeTomePacket.Handler> {
    private int containerId;
@@ -39,8 +39,8 @@ public class ChangeTomePacket implements PacketHandler.ModPacket<ChangeTomePacke
          return new ChangeTomePacket(buff.readInt(), buff.readBoolean());
       }
 
-      public void handler(ChangeTomePacket packet, PlayPayloadContext context) {
-         context.workHandler().submitAsync(() -> handlePacket(packet, this.serverPlayer(context)));
+      public void handler(ChangeTomePacket packet, IPayloadContext context) {
+         context.enqueueWork(() -> handlePacket(packet, this.serverPlayer(context)));
       }
 
       private static void handlePacket(ChangeTomePacket packet, Player player) {

@@ -1,0 +1,7 @@
+{
+	"parent": "block/cube_column",
+	"textures": {
+		"side": "blue_skies:block/dungeon/glowing_nature_stonebrick",
+		"end": "blue_skies:block/dungeon/glowing_nature_stonebrick_top"
+	}
+}

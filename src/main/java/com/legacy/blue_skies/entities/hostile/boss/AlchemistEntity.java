@@ -130,7 +130,7 @@ public class AlchemistEntity extends SkiesIllagerBossEntity {
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
    ) {
       return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
    }
@@ -211,7 +211,7 @@ public class AlchemistEntity extends SkiesIllagerBossEntity {
       if (this.secondPhaseHealth()) {
          for (int i = 0; i < 3; i++) {
             Arrow entityarrow = this.createArrowEntity(distanceFactor);
-            entityarrow.setSecondsOnFire(7);
+            entityarrow.setRemainingFireTicks(7);
             double d0 = target.getX() - this.getX();
             double d1 = target.getBoundingBox().minY + target.getBbHeight() / 3.0F - entityarrow.getY() - 1.0;
             double d2 = target.getZ() - this.getZ();

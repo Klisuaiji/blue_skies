@@ -33,7 +33,7 @@ public class CrynocerousEntity extends ArmoredFrostSpiritEntity {
          .add(Attributes.MAX_HEALTH, 25.0)
          .add(Attributes.MOVEMENT_SPEED, 0.2F)
          .add(Attributes.ATTACK_DAMAGE, 6.0)
-         .add((Attribute)NeoForgeMod.STEP_HEIGHT.value(), 1.0);
+         .add(Attributes.STEP_HEIGHT, 1.0);
    }
 
    @Override

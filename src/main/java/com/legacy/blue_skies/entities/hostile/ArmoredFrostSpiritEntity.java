@@ -1,5 +1,8 @@
 package com.legacy.blue_skies.entities.hostile;
 
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.storage.loot.LootTable;
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.entities.util.base.SkiesMonsterEntity;
 import com.legacy.blue_skies.items.tools.SkyPickaxeItem;
@@ -77,32 +80,32 @@ public class ArmoredFrostSpiritEntity extends SkiesMonsterEntity {
       return Monster.createMonsterAttributes().add(Attributes.FOLLOW_RANGE, 20.0).add(Attributes.MOVEMENT_SPEED, 0.17F).add(Attributes.ATTACK_DAMAGE, 3.0);
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(TYPE, 0);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(TYPE, 0);
    }
 
    @Nullable
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
    ) {
       spawnDataIn = super.finalizeSpawn(worldIn, difficulty, reason, spawnDataIn, dataTag);
       this.determineTypeByDifficulty();
       float f = difficulty.getSpecialMultiplier();
       this.setCanPickUpLoot(this.random.nextFloat() < 0.55F * f);
       this.getAttribute(Attributes.KNOCKBACK_RESISTANCE)
-         .addPermanentModifier(new AttributeModifier("Random spawn bonus", this.random.nextDouble() * 0.05F, Operation.ADDITION));
+         .addPermanentModifier(LegacyAttrs.modifier("Random spawn bonus", this.random.nextDouble() * 0.05F, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE));
       if (this.getIceType() == 1) {
-         this.getAttribute(Attributes.ARMOR).addPermanentModifier(new AttributeModifier("armor boost", 8.0, Operation.ADDITION));
+         this.getAttribute(Attributes.ARMOR).addPermanentModifier(LegacyAttrs.modifier("armor boost", 8.0, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE));
       }
 
       if (this.level().isRaining()) {
          double armorAmount = this.getIceType() == 1 ? 3.0 : 7.0;
-         this.getAttribute(Attributes.ARMOR).addPermanentModifier(new AttributeModifier("weather armor boost", armorAmount, Operation.ADDITION));
+         this.getAttribute(Attributes.ARMOR).addPermanentModifier(LegacyAttrs.modifier("weather armor boost", armorAmount, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE));
          if (this.level().getDifficulty() == Difficulty.HARD) {
-            this.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(new AttributeModifier("speed boost", 0.04, Operation.ADDITION));
-            this.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(new AttributeModifier("attack nerf", -1.0, Operation.ADDITION));
+            this.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(LegacyAttrs.modifier("speed boost", 0.04, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE));
+            this.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(LegacyAttrs.modifier("attack nerf", -1.0, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE));
          }
       }
 
@@ -325,8 +328,8 @@ public class ArmoredFrostSpiritEntity extends SkiesMonsterEntity {
       }
 
       if (random.nextFloat() < (this.level().getDifficulty() == Difficulty.HARD ? 0.05F : 0.01F)) {
-         int ix = random.nextInt(3);
-         if (ix == 0) {
+         int i = random.nextInt(3);
+         if (i == 0) {
             this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(SkiesItems.aquite_sword));
          } else {
             this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(SkiesItems.pyrope_sword));
@@ -395,7 +398,7 @@ public class ArmoredFrostSpiritEntity extends SkiesMonsterEntity {
       return 1;
    }
 
-   public ResourceLocation getDefaultLootTable() {
+   public ResourceKey<LootTable> getDefaultLootTable() {
       return this.getIceType() == 1
          ? BlueSkies.locate("entities/" + BuiltInRegistries.ENTITY_TYPE.getKey(this.getType()).getPath() + "_packed")
          : this.getType().getDefaultLootTable();

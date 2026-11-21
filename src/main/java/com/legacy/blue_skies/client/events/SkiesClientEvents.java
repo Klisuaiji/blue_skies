@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.client.events;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.BlueSkiesConfig;
 import com.legacy.blue_skies.capability.SkiesPlayer;
@@ -91,8 +92,8 @@ import net.neoforged.neoforge.client.event.RenderPlayerEvent.Pre;
 import net.neoforged.neoforge.client.event.ScreenEvent.Opening;
 import net.neoforged.neoforge.client.event.ScreenEvent.Init.Post;
 import net.neoforged.neoforge.client.event.ViewportEvent.RenderFog;
-import net.neoforged.neoforge.client.gui.overlay.VanillaGuiOverlay;
-import net.neoforged.neoforge.event.TickEvent.ClientTickEvent;
+import com.legacy.blue_skies.compat.LegacyGuiOverlay;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
 import org.joml.Matrix4f;
@@ -112,7 +113,7 @@ public class SkiesClientEvents {
 
    public static void registerOverlays(RegisterGuiOverlaysEvent event) {
       event.registerAbove(
-         VanillaGuiOverlay.PLAYER_HEALTH.id(), BlueSkies.locate("nature_arc_health_bonus"), (gui, graphics, partialTicks, screenWidth, screenHeight) -> {
+         LegacyGuiOverlay.PLAYER_HEALTH.id(), BlueSkies.locate("nature_arc_health_bonus"), (gui, graphics, partialTicks, screenWidth, screenHeight) -> {
             if (!mc.options.hideGui && gui.shouldDrawSurvivalElements()) {
                gui.setupOverlayRenderState(true, false);
                RenderSystem.enableBlend();
@@ -336,9 +337,7 @@ public class SkiesClientEvents {
       }
    }
 
-   @SubscribeEvent(
-      priority = EventPriority.LOW
-   )
+   @SubscribeEvent(priority = EventPriority.LOW)
    public static void onFogRender(RenderFog event) {
       if ((event.getMode() == FogMode.FOG_TERRAIN || event.getMode() == FogMode.FOG_SKY) && event.getType() == FogType.NONE) {
          if (snowstormStrength > 2.0F && mc.level.dimension() == SkiesDimensions.everbrightKey()) {
@@ -356,7 +355,7 @@ public class SkiesClientEvents {
    }
 
    @SubscribeEvent
-   public static void onClientTick(ClientTickEvent event) {
+   public static void onClientTick(ClientTickEvent.Post event) {
       clientTicks++;
       Level world = mc.level;
       LocalPlayer player = mc.player;
@@ -533,7 +532,7 @@ public class SkiesClientEvents {
       private static final ResourceLocation BRIGHT_BACKGROUND = BlueSkies.locate("textures/block/dirt_grass/turquoise_dirt.png");
       private static final ResourceLocation DAWN_BACKGROUND = BlueSkies.locate("textures/block/dirt_grass/lunar_dirt.png");
       private static final ResourceLocation PANORAMA_GRADIENT = BlueSkies.locate("textures/gui/panorama/panorama_overlay.png");
-      private static final ResourceLocation PANORAMA_EMPTY = new ResourceLocation("textures/gui/title/background/panorama_overlay.png");
+      private static final ResourceLocation PANORAMA_EMPTY = ResourceLocation.parse("textures/gui/title/background/panorama_overlay.png");
       private static Random rand = new Random();
       private static int panoramaCount = 0;
       protected static final Map<Integer, SkiesClientEvents.Panoramas.PanoramaData> PANORAMAS = new HashMap<>();
@@ -545,8 +544,8 @@ public class SkiesClientEvents {
 
          try {
             Screen.BACKGROUND_LOCATION = panorama.menuBackground();
-         } catch (Exception var2) {
-            var2.printStackTrace();
+         } catch (Exception e) {
+            e.printStackTrace();
          }
       }
 

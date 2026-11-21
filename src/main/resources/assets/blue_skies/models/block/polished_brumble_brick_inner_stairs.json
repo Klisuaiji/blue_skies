@@ -1,0 +1,8 @@
+{
+    "parent": "block/inner_stairs",
+    "textures": {
+        "bottom": "blue_skies:block/plants/polished_brumble_bricks",
+        "top": "blue_skies:block/plants/polished_brumble_bricks",
+        "side": "blue_skies:block/plants/polished_brumble_bricks"
+    }
+}

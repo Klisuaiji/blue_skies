@@ -28,7 +28,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -79,7 +78,7 @@ public class ArtificialGolemEntity extends SkiesMonsterEntity implements ISkyBos
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
    ) {
       spawnDataIn = super.finalizeSpawn(worldIn, difficulty, reason, spawnDataIn, dataTag);
       this.populateDefaultEquipmentEnchantments(worldIn.getRandom(), difficulty);
@@ -112,11 +111,11 @@ public class ArtificialGolemEntity extends SkiesMonsterEntity implements ISkyBos
          );
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(ENRAGED, this.phaseTwoQualified());
-      this.entityData.define(RANGED, false);
-      this.entityData.define(ATTACKING, false);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(ENRAGED, this.phaseTwoQualified());
+      builder.define(RANGED, false);
+      builder.define(ATTACKING, false);
    }
 
    public static Builder registerAttributes() {
@@ -246,7 +245,7 @@ public class ArtificialGolemEntity extends SkiesMonsterEntity implements ISkyBos
       } else if (entityIn instanceof Vex) {
          return this.isAlliedTo(((Vex)entityIn).getOwner());
       } else {
-         return entityIn instanceof LivingEntity && ((LivingEntity)entityIn).getMobType() == MobType.ILLAGER
+         return entityIn instanceof LivingEntity && ((LivingEntity)entityIn).getType().is(net.minecraft.tags.EntityTypeTags.ILLAGER)
             ? this.getTeam() == null && entityIn.getTeam() == null
             : super.isAlliedTo(entityIn) && entityIn != this;
       }
@@ -258,7 +257,7 @@ public class ArtificialGolemEntity extends SkiesMonsterEntity implements ISkyBos
          : !source.is(SkiesDamageTypes.STRANGE_LIGHTNING.getKey()) && super.hurt(source, amount);
    }
 
-   public void setTarget(@Nullable LivingEntity entitylivingbaseIn) {
+   public void setTarget(LivingEntity entitylivingbaseIn) {
       super.setTarget(entitylivingbaseIn);
       if (entitylivingbaseIn != null) {
          this.setAttacking(true);
@@ -267,9 +266,6 @@ public class ArtificialGolemEntity extends SkiesMonsterEntity implements ISkyBos
       }
    }
 
-   public MobType getMobType() {
-      return MobType.ILLAGER;
-   }
 
    protected SoundEvent getHurtSound(DamageSource source) {
       return SkiesSounds.ENTITY_ARTIFICIAL_GOLEM_HURT;

@@ -19,6 +19,7 @@ public class LivingEntityHooks {
    public static int getArmorValue(int original, LivingEntity entity) {
       return entity instanceof Player player && player != null && SkiesDimensions.inSkyDimension(entity) ? SkiesPlayer.getIfPresent(player, skyPlayer -> {
          if (!EntityUtil.hasPlayerCompletedProgression(skyPlayer)) {
+            int value = original;
             int i = 0;
 
             for (ItemStack stack : player.getArmorSlots()) {
@@ -30,8 +31,8 @@ public class LivingEntityHooks {
                }
             }
 
-            if (original > 1 && i < original) {
-               return original - i;
+            if (value > 1 && i < value) {
+               return value - i;
             }
          }
 

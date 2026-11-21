@@ -1,0 +1,49 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"textures": {
+		"bottom": "blue_skies:block/villager/bag_of_spoils_bottom",
+		"particle": "blue_skies:block/villager/bag_of_spoils_side",
+		"side": "blue_skies:block/villager/bag_of_spoils_side",
+		"top": "blue_skies:block/villager/bag_of_spoils_top"
+	},
+	"elements": [
+		{
+			"from": [2, 0, 2],
+			"to": [14, 8, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [10, 8, 9]},
+			"faces": {
+				"north": {"uv": [2, 8, 14, 16], "texture": "#side"},
+				"east": {"uv": [2, 8, 14, 16], "texture": "#side"},
+				"south": {"uv": [2, 8, 14, 16], "texture": "#side"},
+				"west": {"uv": [2, 8, 14, 16], "texture": "#side"},
+				"up": {"uv": [2, 2, 14, 14], "texture": "#bottom"},
+				"down": {"uv": [2, 2, 14, 14], "texture": "#bottom"}
+			}
+		},
+		{
+			"from": [4, 10, 4],
+			"to": [12, 12, 12],
+			"rotation": {"angle": 0, "axis": "x", "origin": [10, 17, 9]},
+			"faces": {
+				"north": {"uv": [4, 4, 12, 6], "texture": "#side"},
+				"east": {"uv": [4, 4, 12, 6], "texture": "#side"},
+				"south": {"uv": [4, 4, 12, 6], "texture": "#side"},
+				"west": {"uv": [4, 4, 12, 6], "texture": "#side"},
+				"up": {"uv": [4, 4, 12, 12], "texture": "#top"},
+				"down": {"uv": [4, 4, 12, 12], "texture": "#top"}
+			}
+		},
+		{
+			"from": [5, 8, 5],
+			"to": [11, 10, 11],
+			"rotation": {"angle": 0, "axis": "x", "origin": [10, 16, 9]},
+			"faces": {
+				"north": {"uv": [5, 6, 11, 8], "texture": "#side"},
+				"east": {"uv": [5, 6, 11, 8], "texture": "#side"},
+				"south": {"uv": [5, 6, 11, 8], "texture": "#side"},
+				"west": {"uv": [5, 6, 11, 8], "texture": "#side"}
+			}
+		}
+	]
+}

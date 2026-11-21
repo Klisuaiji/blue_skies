@@ -15,7 +15,7 @@ public class SkyFlowerPotBlock extends FlowerPotBlock {
       instance -> instance.group(flowerCodec(), propertiesCodec()).apply(instance, (flower, prop) -> new SkyFlowerPotBlock(() -> flower, prop))
    );
 
-   public SkyFlowerPotBlock(@Nullable Supplier<FlowerPotBlock> emptyPot, Supplier<? extends Block> flower, Properties properties) {
+   public SkyFlowerPotBlock(Supplier<FlowerPotBlock> emptyPot, Supplier<? extends Block> flower, Properties properties) {
       super(emptyPot, flower, properties);
       ((FlowerPotBlock)Blocks.FLOWER_POT).addPlant(BuiltInRegistries.BLOCK.getKey(flower.get()), () -> this);
    }

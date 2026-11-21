@@ -1,0 +1,11 @@
+{
+  "type": "blue_skies:everdawn_lake",
+  "config": {
+    "state": {
+      "Name": "minecraft:water",
+      "Properties": {
+        "level": "0"
+      }
+    }
+  }
+}

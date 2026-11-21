@@ -93,12 +93,12 @@ public class TransmuteRecipe extends AlchemyRecipe {
    }
 
    public TransmuteRecipe fromJson(JsonObject json) {
-      return (TransmuteRecipe)((Pair)CODEC.decode(JsonOps.INSTANCE, json).getOrThrow(false, JsonParseException::new)).getFirst();
+      return (TransmuteRecipe)((Pair)CODEC.decode(JsonOps.INSTANCE, json).getOrThrow(JsonParseException::new)).getFirst();
    }
 
    @Override
    public JsonObject toJson() {
-      return ((JsonElement)CODEC.encodeStart(JsonOps.INSTANCE, this).getOrThrow(false, IllegalStateException::new)).getAsJsonObject();
+      return ((JsonElement)CODEC.encodeStart(JsonOps.INSTANCE, this).getOrThrow(IllegalStateException::new)).getAsJsonObject();
    }
 
    public static class Builder {
@@ -144,7 +144,7 @@ public class TransmuteRecipe extends AlchemyRecipe {
 
       public TransmuteRecipe.Builder resultBlacklist(String modID, String... itemNames) {
          for (String itemName : itemNames) {
-            this.resultBlacklist.add(new ResourceLocation(modID, itemName));
+            this.resultBlacklist.add(ResourceLocation.fromNamespaceAndPath(modID, itemName));
          }
 
          return this;

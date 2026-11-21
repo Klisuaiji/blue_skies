@@ -24,7 +24,7 @@ import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.level.SaplingGrowTreeEvent;
 
 public class CrystalFlowerBlock extends FlowerBlock implements BonemealableBlock {
-   public CrystalFlowerBlock(Supplier<MobEffect> effect, int effectDuration, Properties properties) {
+   public CrystalFlowerBlock(Holder<MobEffect> effect, float effectDuration, Properties properties) {
       super(effect, effectDuration, properties);
    }
 

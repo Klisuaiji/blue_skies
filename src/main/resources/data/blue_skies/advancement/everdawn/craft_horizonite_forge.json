@@ -1,0 +1,34 @@
+{
+  "parent": "blue_skies:everdawn/get_horizonite",
+  "criteria": {
+    "obtain_forge": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "blue_skies:horizonite_forge"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.everdawn.craft_horizonite_forge.desc"
+    },
+    "icon": {
+      "item": "blue_skies:horizonite_forge"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.everdawn.craft_horizonite_forge"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_forge"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

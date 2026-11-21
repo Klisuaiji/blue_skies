@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.items.arcs;
 
+import com.legacy.blue_skies.compat.*;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -27,14 +28,14 @@ public interface IArcItem {
    int getMaxLevel();
 
    default int getLevel(ItemStack stack) {
-      CompoundTag nbt = stack.getOrCreateTag();
+      CompoundTag nbt = LegacyNbt.getOrCreate(stack);
       return nbt.getInt("ArcLevel");
    }
 
    int getFunctionalLevel(ItemStack var1, Player var2);
 
    default void setLevel(ItemStack stack, int level) {
-      CompoundTag nbt = stack.getOrCreateTag();
+      CompoundTag nbt = LegacyNbt.getOrCreate(stack);
       nbt.putInt("ArcLevel", Mth.clamp(level, 0, this.getMaxLevel() > 0 ? this.getMaxLevel() - 1 : 0));
    }
 }

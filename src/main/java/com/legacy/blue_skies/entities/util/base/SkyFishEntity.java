@@ -35,7 +35,9 @@ public abstract class SkyFishEntity extends AbstractFish implements IVentiumCatc
       ItemStack itemstack = player.getItemInHand(hand);
       if (itemstack.getItem() == Items.WATER_BUCKET) {
          return InteractionResult.FAIL;
-      } else if (itemstack.getItem() == SkiesItems.ventium_water_bucket && this.isAlive()) {
+      }
+
+      if (itemstack.getItem() == SkiesItems.ventium_water_bucket && this.isAlive()) {
          this.playSound(SoundEvents.BUCKET_FILL_FISH, 1.0F, 1.0F);
          itemstack.shrink(1);
          ItemStack bucketItem = this.getVentiumBucket();

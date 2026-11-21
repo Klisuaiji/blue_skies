@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "blue_skies:block/moonstone_crystal",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "blue_skies:block/moonstone_crystal",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "blue_skies:block/moonstone_crystal",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "blue_skies:block/moonstone_crystal",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "blue_skies:block/moonstone_crystal"
+    },
+    "facing=west": {
+      "model": "blue_skies:block/moonstone_crystal",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

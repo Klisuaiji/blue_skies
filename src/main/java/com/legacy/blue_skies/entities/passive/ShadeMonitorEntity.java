@@ -78,10 +78,10 @@ public class ShadeMonitorEntity extends SkiesAnimalEntity {
          .add(Attributes.ATTACK_KNOCKBACK);
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(BIOME, (byte)0);
-      this.entityData.define(FESTIVE_STATUS, 0);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(BIOME, (byte)0);
+      builder.define(FESTIVE_STATUS, 0);
    }
 
    public SpawnGroupData finalizeSpawn(
@@ -170,7 +170,7 @@ public class ShadeMonitorEntity extends SkiesAnimalEntity {
       return super.doHurtTarget(entity);
    }
 
-   public static enum Biomes {
+   public enum Biomes {
       OVERWORLD(null, "shade_monitor/overworld"),
       SNOWY_BLUE(SkiesBiomeTags.SHADE_MONITOR_SNOWY_BLUE),
       PURPLE(SkiesBiomeTags.SHADE_MONITOR_PURPLE),
@@ -184,12 +184,12 @@ public class ShadeMonitorEntity extends SkiesAnimalEntity {
       private final TagKey<Biome> tagKey;
       private final ResourceLocation texture;
 
-      private Biomes(@Nullable TagKey<Biome> tagKey, String name) {
+      Biomes(TagKey<Biome> tagKey, String name) {
          this.tagKey = tagKey;
          this.texture = BlueSkies.locate("textures/entity/" + name + ".png");
       }
 
-      private Biomes(TagKey<Biome> tagKey) {
+      Biomes(TagKey<Biome> tagKey) {
          this(tagKey, tagKey.location().getPath());
       }
 

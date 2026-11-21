@@ -1,0 +1,9 @@
+{
+  "asset_name": "blue_skies-moonstone",
+  "description": {
+    "color": "#D9EEF7",
+    "translate": "trim_material.blue_skies.moonstone"
+  },
+  "ingredient": "blue_skies:moonstone_crystal",
+  "item_model_index": 0.108412
+}

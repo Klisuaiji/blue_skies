@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.asm_hooks;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.blocks.misc.SkyWebbingBlock;
 import com.legacy.blue_skies.capability.SkiesPlayer;
 import com.legacy.blue_skies.data.objects.tags.SkiesEntityTags;
@@ -23,7 +24,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.WebBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.TierSortingRegistry;
 
 public class PlayerHooks {
    private static final Set<Item> NERFED_ITEMS_CACHE = new HashSet<>();
@@ -55,7 +55,7 @@ public class PlayerHooks {
       return player.isPassenger() && player.getRootVehicle().getType().is(SkiesEntityTags.BOSSES);
    }
 
-   public static float modifyBreakSpeed(float speed, BlockState state, @Nullable BlockPos pos, Player player) {
+   public static float modifyBreakSpeed(float speed, BlockState state, BlockPos pos, Player player) {
       Block block = state.getBlock();
       Item item = player.getMainHandItem().getItem();
       if (item != null && pos != null) {
@@ -78,28 +78,30 @@ public class PlayerHooks {
       return speed;
    }
 
-   public static synchronized boolean isNerfableTool(@Nullable ItemStack stack, @Nullable BlockState state) {
+   public static synchronized boolean isNerfableTool(ItemStack stack, BlockState state) {
       if (stack == null) {
          return false;
-      } else {
-         if (NERFED_ITEMS_CACHE.size() > 100) {
-            NERFED_ITEMS_CACHE.clear();
-         }
-
-         Item item = stack.getItem();
-         ResourceLocation registryName = BuiltInRegistries.ITEM.getKey(item);
-         if (registryName != null && "blue_skies".equals(registryName.getNamespace())) {
-            return false;
-         } else if (registryName == null) {
-            return true;
-         } else {
-            if (!NERFED_ITEMS_CACHE.contains(item)) {
-               tryAddToNerfedCache(item, registryName);
-            }
-
-            return !NERFED_ITEMS_CACHE.contains(item) ? false : state == null || stack.isCorrectToolForDrops(state);
-         }
       }
+
+      if (NERFED_ITEMS_CACHE.size() > 100) {
+         NERFED_ITEMS_CACHE.clear();
+      }
+
+      Item item = stack.getItem();
+      ResourceLocation registryName = BuiltInRegistries.ITEM.getKey(item);
+      if (registryName != null && "blue_skies".equals(registryName.getNamespace())) {
+         return false;
+      }
+
+      if (registryName == null) {
+         return true;
+      }
+
+      if (!NERFED_ITEMS_CACHE.contains(item)) {
+         tryAddToNerfedCache(item, registryName);
+      }
+
+      return !NERFED_ITEMS_CACHE.contains(item) ? false : state == null || stack.isCorrectToolForDrops(state);
    }
 
    private static void tryAddToNerfedCache(Item item, ResourceLocation registryName) {
@@ -124,11 +126,11 @@ public class PlayerHooks {
       return item != null
          && SkiesDimensions.inSkyDimension(player)
          && isNerfableTool(player.getMainHandItem(), state)
-         && !TierSortingRegistry.isCorrectTierForDrops(Tiers.WOOD, state);
+         && !state.is(Tiers.WOOD.getIncorrectBlocksForDrops());
    }
 
    public static boolean webHarvestCheck(Block block, Item item) {
       return block instanceof WebBlock && item == SkiesItems.ventium_shears
-         || block instanceof SkyWebbingBlock && item.isCorrectToolForDrops(Blocks.COBWEB.defaultBlockState());
+         || block instanceof SkyWebbingBlock && new net.minecraft.world.item.ItemStack(item).isCorrectToolForDrops(Blocks.COBWEB.defaultBlockState());
    }
 }

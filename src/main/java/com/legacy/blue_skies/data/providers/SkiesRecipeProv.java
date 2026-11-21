@@ -1305,7 +1305,7 @@ public class SkiesRecipeProv extends RecipeProvider {
       this.smithingTrim(SkiesItems.toxic_trim, null);
    }
 
-   private void smithingTrim(ItemLike templateItem, @Nullable ItemLike copyItem) {
+   private void smithingTrim(ItemLike templateItem, ItemLike copyItem) {
       SmithingTrimRecipeBuilder.smithingTrim(
             Ingredient.of(new ItemLike[]{templateItem}), Ingredient.of(ItemTags.TRIMMABLE_ARMOR), Ingredient.of(ItemTags.TRIM_MATERIALS), RecipeCategory.MISC
          )
@@ -1316,7 +1316,7 @@ public class SkiesRecipeProv extends RecipeProvider {
       }
    }
 
-   private void smithingUpgrade(ItemLike templateItem, Ingredient base, Ingredient upgradeItem, ItemLike result, @Nullable ItemLike copyItem) {
+   private void smithingUpgrade(ItemLike templateItem, Ingredient base, Ingredient upgradeItem, ItemLike result, ItemLike copyItem) {
       SmithingTransformRecipeBuilder.smithing(Ingredient.of(new ItemLike[]{templateItem}), base, upgradeItem, RecipeCategory.MISC, result.asItem())
          .unlocks("has_item", has(templateItem))
          .save(this.con, BlueSkies.locate(getItemName(templateItem) + "_to_" + getItemName(result) + "_smithing"));
@@ -1387,9 +1387,9 @@ public class SkiesRecipeProv extends RecipeProvider {
       this.walls(ingredient, wall, null);
    }
 
-   private void walls(ItemLike ingredient, ItemLike wall, @Nullable String suffix) {
+   private void walls(ItemLike ingredient, ItemLike wall, String suffix) {
       ResourceLocation itemName = BuiltInRegistries.ITEM.getKey(wall.asItem());
-      ResourceLocation name = new ResourceLocation(itemName.getNamespace(), itemName.getPath() + (suffix != null ? "_" + suffix : ""));
+      ResourceLocation name = ResourceLocation.fromNamespaceAndPath(itemName.getNamespace(), itemName.getPath() + (suffix != null ? "_" + suffix : ""));
       ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, wall, 6)
          .define('#', ingredient)
          .pattern("###")

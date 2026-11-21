@@ -1,0 +1,34 @@
+{
+  "parent": "blue_skies:get_aquite",
+  "criteria": {
+    "obtain_material": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "blue_skies:charoite"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.get_charoite.desc"
+    },
+    "icon": {
+      "item": "blue_skies:charoite"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.get_charoite"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_material"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

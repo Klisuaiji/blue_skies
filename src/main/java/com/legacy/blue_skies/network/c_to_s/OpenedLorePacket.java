@@ -6,7 +6,7 @@ import com.legacy.blue_skies.network.PacketHandler;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class OpenedLorePacket implements PacketHandler.ModPacket<OpenedLorePacket, OpenedLorePacket.Handler> {
    public OpenedLorePacket.Handler handler() {
@@ -26,8 +26,8 @@ public class OpenedLorePacket implements PacketHandler.ModPacket<OpenedLorePacke
          return new OpenedLorePacket();
       }
 
-      public void handler(OpenedLorePacket packet, PlayPayloadContext context) {
-         context.workHandler().submitAsync(() -> handlePacket(packet, this.serverPlayer(context)));
+      public void handler(OpenedLorePacket packet, IPayloadContext context) {
+         context.enqueueWork(() -> handlePacket(packet, this.serverPlayer(context)));
       }
 
       private static void handlePacket(OpenedLorePacket packet, ServerPlayer player) {

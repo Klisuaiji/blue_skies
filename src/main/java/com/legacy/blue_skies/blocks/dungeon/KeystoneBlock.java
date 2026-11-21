@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.blocks.dungeon;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.block_entity.KeystoneBlockEntity;
 import com.legacy.blue_skies.events.SkiesPlayerEvents;
@@ -73,12 +74,16 @@ public abstract class KeystoneBlock extends BaseEntityBlock {
          return playLockedWithMessage(
             player, pos, SkiesPlayerEvents.inBossFight(player) ? "tile.keystone.leaving_in_fight" : "tile.keystone.peaceful_difficulty"
          );
-      } else if (!player.mayBuild()) {
+      }
+
+      if (!player.mayBuild()) {
          return InteractionResult.PASS;
-      } else if (worldIn.getBlockEntity(pos) instanceof KeystoneBlockEntity tile) {
+      }
+
+      if (worldIn.getBlockEntity(pos) instanceof KeystoneBlockEntity tile) {
          ItemStack heldItem = player.getItemInHand(handIn);
          if (player.isCreative() && heldItem.getItem() instanceof SpawnEggItem) {
-            EntityType<?> entityType = ((SpawnEggItem)heldItem.getItem()).getType(heldItem.getTag());
+            EntityType<?> entityType = ((SpawnEggItem)heldItem.getItem()).getType(LegacyNbt.get(heldItem));
             tile.setContainedMob(entityType);
             return InteractionResult.SUCCESS;
          } else if ((tile.isCorrectKey(heldItem) || tile.isCorrectArc(heldItem.getItem())) && SkiesPlayerEvents.inBossFight(player)) {
@@ -104,57 +109,57 @@ public abstract class KeystoneBlock extends BaseEntityBlock {
          )
        {
          return false;
-      } else {
-         tile.spawnMob(tile.isCorrectArc(heldItem.getItem()));
-         tile.teleportClosePlayers(worldIn);
-         tile.setKeysRequired(false);
-         if (tile.isCorrectKey(heldItem)) {
-            if (!player.isCreative() && !worldIn.isClientSide) {
-               heldItem.shrink(4);
-            }
+      }
 
-            if (worldIn.isClientSide) {
-               player.displayClientMessage(Component.translatable("tile.keystone.remove_key_requirement"), true);
-            }
-
-            player.awardStat(Stats.ITEM_USED.get(heldItem.getItem()));
-         } else if (tile.isCorrectArc(heldItem.getItem())) {
-            if (!player.isCreative()) {
-               player.getCooldowns().addCooldown(heldItem.getItem(), 3600);
-            }
-
-            if (worldIn.isClientSide) {
-               player.displayClientMessage(Component.translatable("tile.keystone.arc_drained", new Object[]{heldItem.getItem().getDescription()}), true);
-            }
-
-            player.awardStat(Stats.ITEM_USED.get(heldItem.getItem()));
+      tile.spawnMob(tile.isCorrectArc(heldItem.getItem()));
+      tile.teleportClosePlayers(worldIn);
+      tile.setKeysRequired(false);
+      if (tile.isCorrectKey(heldItem)) {
+         if (!player.isCreative() && !worldIn.isClientSide) {
+            heldItem.shrink(4);
          }
 
          if (worldIn.isClientSide) {
-            worldIn.playLocalSound(
-               pos.getX(),
-               pos.getY(),
-               pos.getZ(),
-               SkiesSounds.BLOCK_KEYSTONE_UNLOCK,
-               SoundSource.BLOCKS,
-               1.0F,
-               EntityUtil.getSoundPitchWithStart(worldIn.random, 1.0F),
-               false
-            );
-            worldIn.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SkiesSounds.BLOCK_KEYSTONE_TELEPORT, SoundSource.BLOCKS, 0.5F, 1.0F, false);
+            player.displayClientMessage(Component.translatable("tile.keystone.remove_key_requirement"), true);
          }
 
-         return true;
+         player.awardStat(Stats.ITEM_USED.get(heldItem.getItem()));
+      } else if (tile.isCorrectArc(heldItem.getItem())) {
+         if (!player.isCreative()) {
+            player.getCooldowns().addCooldown(heldItem.getItem(), 3600);
+         }
+
+         if (worldIn.isClientSide) {
+            player.displayClientMessage(Component.translatable("tile.keystone.arc_drained", new Object[]{heldItem.getItem().getDescription()}), true);
+         }
+
+         player.awardStat(Stats.ITEM_USED.get(heldItem.getItem()));
       }
+
+      if (worldIn.isClientSide) {
+         worldIn.playLocalSound(
+            pos.getX(),
+            pos.getY(),
+            pos.getZ(),
+            SkiesSounds.BLOCK_KEYSTONE_UNLOCK,
+            SoundSource.BLOCKS,
+            1.0F,
+            EntityUtil.getSoundPitchWithStart(worldIn.random, 1.0F),
+            false
+         );
+         worldIn.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SkiesSounds.BLOCK_KEYSTONE_TELEPORT, SoundSource.BLOCKS, 0.5F, 1.0F, false);
+      }
+
+      return true;
    }
 
    public boolean teleportPlayer(KeystoneBlockEntity tile, BlockState state, Level worldIn, BlockPos pos, Player player, Direction clickDirection) {
       if (!player.isCreative() && !EntityUtil.hasPlayerProgressedTo(player, tile.isEverbrightBased(), tile.getRequiredProgressionId())) {
          return false;
-      } else {
-         tile.teleportPlayer(player);
-         return true;
       }
+
+      tile.teleportPlayer(player);
+      return true;
    }
 
    public static InteractionResult playLockedWithMessage(Player player, BlockPos pos, String message) {

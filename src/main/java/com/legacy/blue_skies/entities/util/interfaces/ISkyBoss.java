@@ -130,35 +130,39 @@ public interface ISkyBoss extends ISkyBossMob {
       this.getLootBag().setRarityTag(stack, rarity);
       if (stack.isEmpty()) {
          return null;
-      } else if (entity.level().isClientSide) {
-         return null;
-      } else {
-         BossItemEntity itementity = new BossItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), stack);
-         itementity.setVisiblePlayerId(player.getUUID());
-         itementity.setDefaultPickUpDelay();
-         entity.level().addFreshEntity(itementity);
-         return itementity;
       }
+
+      if (entity.level().isClientSide) {
+         return null;
+      }
+
+      BossItemEntity itementity = new BossItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), stack);
+      itementity.setVisiblePlayerId(player.getUUID());
+      itementity.setDefaultPickUpDelay();
+      entity.level().addFreshEntity(itementity);
+      return itementity;
    }
 
    default BossItemEntity dropTrophy(Player player) {
       if (this.getTrophy() == null) {
          return null;
-      } else {
-         Monster entity = this.getBoss();
-         ItemStack stack = ISkyBoss.BossLevel.getTier(this.getBossDifficulty()).getItem(this.getTrophy());
-         if (stack.isEmpty()) {
-            return null;
-         } else if (entity.level().isClientSide) {
-            return null;
-         } else {
-            BossItemEntity itementity = new BossItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), stack);
-            itementity.setVisiblePlayerId(player.getUUID());
-            itementity.setDefaultPickUpDelay();
-            entity.level().addFreshEntity(itementity);
-            return itementity;
-         }
       }
+
+      Monster entity = this.getBoss();
+      ItemStack stack = ISkyBoss.BossLevel.getTier(this.getBossDifficulty()).getItem(this.getTrophy());
+      if (stack.isEmpty()) {
+         return null;
+      }
+
+      if (entity.level().isClientSide) {
+         return null;
+      }
+
+      BossItemEntity itementity = new BossItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), stack);
+      itementity.setVisiblePlayerId(player.getUUID());
+      itementity.setDefaultPickUpDelay();
+      entity.level().addFreshEntity(itementity);
+      return itementity;
    }
 
    default List<Player> getAllPlayersInDungeonArea() {
@@ -195,7 +199,7 @@ public interface ISkyBoss extends ISkyBossMob {
    }
 
    default List<Cow> getCowsInDungeonArea(double distance) {
-      return (List<Cow>)(this.getBoss().level().isClientSide()
+      return this.getBoss().level().isClientSide()
          ? Lists.newArrayList()
          : this.getBoss()
             .level()
@@ -209,7 +213,7 @@ public interface ISkyBoss extends ISkyBossMob {
                   this.getHome().getY() + 10.0,
                   this.getHome().getZ() + distance
                )
-            ));
+            );
    }
 
    default void randomizeAttackTarget(boolean extraChance) {
@@ -297,7 +301,7 @@ public interface ISkyBoss extends ISkyBossMob {
       }
 
       if (compound.contains("BossHomePos")) {
-         this.setHome(NbtUtils.readBlockPos(compound.getCompound("BossHomePos")));
+         this.setHome(NbtUtils.readBlockPos(compound, "BossHomePos").orElse(this.getHome()));
       }
    }
 
@@ -397,7 +401,7 @@ public interface ISkyBoss extends ISkyBossMob {
       return cooldown;
    }
 
-   public static enum BossLevel {
+   enum BossLevel {
       BRONZE(0, 70, 25, 5),
       SILVER(1, 60, 30, 10),
       GOLD(2, 50, 30, 20),
@@ -406,7 +410,7 @@ public interface ISkyBoss extends ISkyBossMob {
       private final int id;
       private final List<IRarityItem.WeightedSkiesRarity> weights = new ArrayList<>();
 
-      private BossLevel(int id, int commonBagChance, int uncommonBagChance, int rareBagChance) {
+      BossLevel(int id, int commonBagChance, int uncommonBagChance, int rareBagChance) {
          this.id = id;
          if (commonBagChance > 0) {
             this.weights.add(new IRarityItem.WeightedSkiesRarity(commonBagChance, IRarityItem.SkiesRarity.COMMON));

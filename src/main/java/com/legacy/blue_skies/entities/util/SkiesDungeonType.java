@@ -11,7 +11,7 @@ public enum SkiesDungeonType {
 
    private final int id;
 
-   private SkiesDungeonType(int idIn) {
+   SkiesDungeonType(int idIn) {
       this.id = idIn;
    }
 

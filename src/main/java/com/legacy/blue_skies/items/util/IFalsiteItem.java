@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.items.util;
 
+import com.legacy.blue_skies.compat.*;
 import java.util.function.Consumer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
@@ -31,7 +32,7 @@ public interface IFalsiteItem extends IItemExtension {
    }
 
    static ItemStack applyFalsite(ItemStack stack) {
-      stack.getOrCreateTag().putInt("Falsite", getMaxFalsiteUses(stack));
+      LegacyNbt.getOrCreate(stack).putInt("Falsite", getMaxFalsiteUses(stack));
       return stack;
    }
 
@@ -40,11 +41,11 @@ public interface IFalsiteItem extends IItemExtension {
    }
 
    static void setFalsiteUses(ItemStack stack, int value) {
-      stack.getOrCreateTag().putInt("Falsite", Math.max(value, 0));
+      LegacyNbt.getOrCreate(stack).putInt("Falsite", Math.max(value, 0));
    }
 
    static int getFalsiteUses(ItemStack stack) {
-      CompoundTag tag = stack.getTag();
+      CompoundTag tag = LegacyNbt.get(stack);
       return tag != null ? tag.getInt("Falsite") : 0;
    }
 
@@ -56,17 +57,13 @@ public interface IFalsiteItem extends IItemExtension {
       if (stack.getItem() instanceof TieredItem) {
          Tier tier = ((TieredItem)stack.getItem()).getTier();
          return tier instanceof SkiesItemTier ? ((SkiesItemTier)tier).isCompatWithFalsite() : false;
-      } else if (stack.getItem() instanceof ArmorItem) {
-         ArmorMaterial material = ((ArmorItem)stack.getItem()).getMaterial();
-         return material instanceof SkiesArmorMaterial ? ((SkiesArmorMaterial)material).isCompatWithFalsite() : false;
+      } else if (stack.getItem() instanceof com.legacy.blue_skies.items.SkyArmorItem) {
+         return ((com.legacy.blue_skies.items.SkyArmorItem)stack.getItem()).isSkiesFalsiteCompatible();
       } else {
          return false;
       }
    }
 
-   default <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-      return this.isFalsiteCompatible(stack) ? this.damageItemFalsite(stack, amount, entity, onBroken) : amount;
-   }
 
    default int falsiteBarColor(ItemStack stack, int vanillaColor) {
       return hasUses(stack) ? Mth.hsvToRgb(0.5F, 1.0F, 1.0F) : vanillaColor;

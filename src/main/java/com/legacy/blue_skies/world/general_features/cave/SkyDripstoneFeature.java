@@ -54,15 +54,15 @@ public class SkyDripstoneFeature extends AbstractCaveFeature<SkyDripstoneFeature
             return;
          }
 
-         for (int yx = 0; yx <= height; yx++) {
+         for (int y = 0; y <= height; y++) {
             SkyDripstoneBlock.Section section = SkyDripstoneBlock.Section.MIDDLE;
-            if (yx == 0 && height > 1) {
+            if (y == 0 && height > 1) {
                section = SkyDripstoneBlock.Section.BASE;
-            } else if (yx == height) {
+            } else if (y == height) {
                section = SkyDripstoneBlock.Section.TIP;
             }
 
-            BlockPos placePos = pos.relative(growthDir, yx);
+            BlockPos placePos = pos.relative(growthDir, y);
             BlockState mergeToState = level.getBlockState(placePos.relative(growthDir));
             if (mergeToState.is(config.dripstone.getBlock())) {
                section = SkyDripstoneBlock.Section.TIP_MERGE;

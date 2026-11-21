@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "blue_skies:item/armor/aquite_chestplate",
+    "layer1": "minecraft:trims/items/chestplate_trim_amethyst"
+  }
+}

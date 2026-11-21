@@ -89,7 +89,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
 
 public class StarlitCrusherEntity extends SkiesBossEntity implements IStunnableMob {
    public static final Predicate<SnowOwlEntity> OWL_HOSTILE = owl -> owl.isOwlHostile();
@@ -148,12 +148,12 @@ public class StarlitCrusherEntity extends SkiesBossEntity implements IStunnableM
    }
 
    @Override
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(ROOTED, false);
-      this.entityData.define(TIME_STUNNED, 0);
-      this.entityData.define(SPIN_COOLDOWN, 400);
-      this.entityData.define(SPINNING, false);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(ROOTED, false);
+      builder.define(TIME_STUNNED, 0);
+      builder.define(SPIN_COOLDOWN, 400);
+      builder.define(SPINNING, false);
    }
 
    public static Builder registerAttributes() {
@@ -201,7 +201,7 @@ public class StarlitCrusherEntity extends SkiesBossEntity implements IStunnableM
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
    ) {
       if (reason == MobSpawnType.TRIGGERED && this.getHome() != null) {
          this.level().destroyBlock(this.getHome(), false);
@@ -545,7 +545,7 @@ public class StarlitCrusherEntity extends SkiesBossEntity implements IStunnableM
    public boolean doHurtTarget(Entity entityIn) {
       if (entityIn instanceof Player playerentity) {
          ItemStack playerItem = playerentity.isUsingItem() ? playerentity.getUseItem() : ItemStack.EMPTY;
-         if (!playerItem.isEmpty() && playerItem.canPerformAction(ToolActions.SHIELD_BLOCK) && !this.isStunned()) {
+         if (!playerItem.isEmpty() && playerItem.canPerformAction(ItemAbilities.SHIELD_BLOCK) && !this.isStunned()) {
             if (playerentity instanceof ServerPlayer) {
                playerItem.hurt(this.random.nextInt(5) + 5, this.random, (ServerPlayer)playerentity);
             }
@@ -572,7 +572,9 @@ public class StarlitCrusherEntity extends SkiesBossEntity implements IStunnableM
    public boolean hurt(DamageSource source, float amount) {
       if (source == this.damageSources().fellOutOfWorld()) {
          return super.hurt(source, amount);
-      } else if (this.getInvulTime() <= 0
+      }
+
+      if (this.getInvulTime() <= 0
          && !this.isSpinning()
          && (source.isCreativePlayer() || this.getWallsInDungeonArea(5.0).size() < 4)
          && source != this.damageSources().inWall()) {
@@ -1107,7 +1109,7 @@ public class StarlitCrusherEntity extends SkiesBossEntity implements IStunnableM
       }
    }
 
-   public static enum EntLegPosition {
+   public enum EntLegPosition {
       NONE,
       SPINNING,
       ROOTED,

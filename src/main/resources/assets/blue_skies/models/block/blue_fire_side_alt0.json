@@ -1,0 +1,7 @@
+{
+    "parent": "block/template_fire_side_alt",
+    "textures": {
+        "particle": "blue_skies:block/misc/blue_fire_0",
+        "fire": "blue_skies:block/misc/blue_fire_0"
+    }
+}

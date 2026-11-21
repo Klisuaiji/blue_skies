@@ -5,7 +5,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.item.Item.Properties;
 import net.neoforged.neoforge.common.ToolAction;
-import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
 
 public class SkyShieldItem extends ShieldItem implements IFalsiteItem {
    public SkyShieldItem(Properties builder) {
@@ -13,7 +13,7 @@ public class SkyShieldItem extends ShieldItem implements IFalsiteItem {
    }
 
    public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
-      return ToolActions.DEFAULT_SHIELD_ACTIONS.contains(toolAction);
+      return ItemAbilities.DEFAULT_SHIELD_ACTIONS.contains(toolAction);
    }
 
    @Override

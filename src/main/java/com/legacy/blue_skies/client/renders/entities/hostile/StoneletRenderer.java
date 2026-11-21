@@ -40,8 +40,7 @@ public class StoneletRenderer<T extends StoneletEntity> extends MobRenderer<T, S
                matrixStackIn.pushPose();
                matrixStackIn.translate(0.0F, 0.35F, 0.0F);
                super.render(
-                  matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch
-               );
+                  matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, -1);
                matrixStackIn.popPose();
             }
          }

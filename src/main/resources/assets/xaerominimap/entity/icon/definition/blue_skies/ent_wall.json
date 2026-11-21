@@ -1,0 +1,43 @@
+{
+	"variantIdMethod" : "com.legacy.blue_skies.client.renders.entities.misc.EntWallRenderer.getVariant",
+
+	"variants" : {
+		"blue_skies:textures/entity/starlit_crusher/wall.png%true" : "model:1",
+		"default" : "model:0"
+	},
+	
+	"modelConfigs" : [
+		{
+			"baseScale" : 0.3,
+			"rotationY" : 90,
+			"rotationX" : 0,
+			"rotationZ" : 90,
+			"offsetX" : 0,
+			"offsetY" : 0,
+			"modelPartsFields" : [
+			],
+			"modelMainPartFieldAliases" : [
+				"com.legacy.blue_skies.client.models.entities.misc.EntWallModel;wall"
+			],
+			"renderingFullModel" : false,
+			"modelPartsRotationReset" : false,
+			"extraLayerAllowed" : true
+		},
+		{
+			"baseScale" : 0.3,
+			"rotationY" : 0,
+			"rotationX" : 90,
+			"rotationZ" : 0,
+			"offsetX" : 0,
+			"offsetY" : 0,
+			"modelPartsFields" : [
+			],
+			"modelMainPartFieldAliases" : [
+				"com.legacy.blue_skies.client.models.entities.misc.EntWallModel;wall"
+			],
+			"renderingFullModel" : false,
+			"modelPartsRotationReset" : false,
+			"extraLayerAllowed" : true
+		}
+	]
+}

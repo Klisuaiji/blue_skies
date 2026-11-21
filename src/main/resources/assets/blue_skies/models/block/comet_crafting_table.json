@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "particle": "blue_skies:block/crafting/comet_crafting_table_front",
+        "down": "blue_skies:block/wood/comet_planks",
+        "up": "blue_skies:block/crafting/comet_crafting_table_top",
+        "north": "blue_skies:block/crafting/comet_crafting_table_front",
+        "east": "blue_skies:block/crafting/comet_crafting_table_side",
+        "south": "blue_skies:block/crafting/comet_crafting_table_side",
+        "west": "blue_skies:block/crafting/comet_crafting_table_front"
+    }
+}

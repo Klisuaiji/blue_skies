@@ -1,0 +1,35 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "blue_skies:block/trophy",
+	"texture_size": [32, 32],
+	"textures": {
+		"particle": "#trophy"
+	},
+	"elements": [
+		{
+			"from": [1, 0, 1],
+			"to": [15, 4, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 3, 8]},
+			"faces": {
+				"north": {"uv": [0, 14, 7, 16], "texture": "#trophy"},
+				"east": {"uv": [0, 14, 7, 16], "texture": "#trophy"},
+				"south": {"uv": [0, 14, 7, 16], "texture": "#trophy"},
+				"west": {"uv": [0, 14, 7, 16], "texture": "#trophy"},
+				"up": {"uv": [0, 7, 7, 14], "rotation": 180, "texture": "#trophy"},
+				"down": {"uv": [0, 7, 7, 14], "rotation": 180, "texture": "#trophy"}
+			}
+		},
+		{
+			"from": [4, 4, 6],
+			"to": [12, 16, 10],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 11, 6.5]},
+			"faces": {
+				"north": {"uv": [10, 10, 14, 16], "texture": "#trophy"},
+				"east": {"uv": [8, 10, 10, 16], "texture": "#trophy"},
+				"south": {"uv": [14, 10, 10, 16], "texture": "#trophy"},
+				"west": {"uv": [14, 10, 16, 16], "texture": "#trophy"},
+				"up": {"uv": [14, 8, 10, 10], "texture": "#trophy"}
+			}
+		}
+	]
+}

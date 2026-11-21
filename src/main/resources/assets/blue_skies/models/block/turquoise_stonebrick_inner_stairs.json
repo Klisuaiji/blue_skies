@@ -1,0 +1,8 @@
+{
+    "parent": "block/inner_stairs",
+    "textures": {
+        "bottom": "blue_skies:block/stone/turquoise_stonebrick",
+        "top": "blue_skies:block/stone/turquoise_stonebrick",
+        "side": "blue_skies:block/stone/turquoise_stonebrick"
+    }
+}

@@ -31,11 +31,11 @@ public class ArachnarchPathNavigator extends GroundPathNavigation {
       Path path = this.getPathToEntityLiving(entityIn, 0);
       if (path != null) {
          return this.moveTo(path, speedIn);
-      } else {
-         this.targetPosition = entityIn.blockPosition();
-         this.speedModifier = speedIn;
-         return true;
       }
+
+      this.targetPosition = entityIn.blockPosition();
+      this.speedModifier = speedIn;
+      return true;
    }
 
    public void tick() {

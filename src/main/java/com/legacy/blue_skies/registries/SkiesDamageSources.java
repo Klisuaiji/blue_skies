@@ -41,19 +41,19 @@ public class SkiesDamageSources {
       return new DamageSource(this.damageTypes.getHolderOrThrow(type));
    }
 
-   private DamageSource source(ResourceKey<DamageType> type, @Nullable Entity directEntity) {
+   private DamageSource source(ResourceKey<DamageType> type, Entity directEntity) {
       return new DamageSource(this.damageTypes.getHolderOrThrow(type), directEntity);
    }
 
-   private DamageSource source(ResourceKey<DamageType> type, @Nullable Entity directEntity, @Nullable Entity causer) {
+   private DamageSource source(ResourceKey<DamageType> type, Entity directEntity, Entity causer) {
       return new DamageSource(this.damageTypes.getHolderOrThrow(type), directEntity, causer);
    }
 
-   public DamageSource crusherRoot(@Nullable Entity root, @Nullable Entity caster) {
+   public DamageSource crusherRoot(Entity root, Entity caster) {
       return this.source(SkiesDamageTypes.CRUSHER_ROOT.getKey(), root, caster);
    }
 
-   public DamageSource fallingSpike(@Nullable Entity spike, @Nullable Entity dropper) {
+   public DamageSource fallingSpike(Entity spike, Entity dropper) {
       return this.source(dropper != null ? SkiesDamageTypes.FALLING_SPIKE_INDIRECT.getKey() : SkiesDamageTypes.FALLING_SPIKE.getKey(), spike, dropper);
    }
 
@@ -61,19 +61,19 @@ public class SkiesDamageSources {
       return new SummonedDamageSource(this.summon.typeHolder(), directEntity, summoner);
    }
 
-   public DamageSource ember(@Nullable Entity directEntity) {
+   public DamageSource ember(Entity directEntity) {
       return this.source(SkiesDamageTypes.EMBER.getKey(), directEntity);
    }
 
-   public DamageSource bite(@Nullable Entity directEntity) {
+   public DamageSource bite(Entity directEntity) {
       return this.source(SkiesDamageTypes.BITE.getKey(), directEntity);
    }
 
-   public DamageSource strangeLightning(@Nullable Entity bolt, @Nullable Entity caster) {
+   public DamageSource strangeLightning(Entity bolt, Entity caster) {
       return this.source(SkiesDamageTypes.STRANGE_LIGHTNING.getKey(), bolt, caster);
    }
 
-   public DamageSource fluctuantSphere(@Nullable Entity sphere, @Nullable Entity caster) {
+   public DamageSource fluctuantSphere(Entity sphere, Entity caster) {
       return this.source(SkiesDamageTypes.FLUCTUANT_SPHERE.getKey(), sphere, caster);
    }
 
@@ -81,11 +81,11 @@ public class SkiesDamageSources {
       return this.venomSpit(null, null);
    }
 
-   public DamageSource venomSpit(@Nullable Entity spit, @Nullable Entity shooter) {
+   public DamageSource venomSpit(Entity spit, Entity shooter) {
       return this.source(shooter != null ? SkiesDamageTypes.VENOM_SPIT_INDIRECT.getKey() : SkiesDamageTypes.VENOM_SPIT.getKey(), spit, shooter);
    }
 
-   public DamageSource slam(@Nullable Entity directEntity) {
+   public DamageSource slam(Entity directEntity) {
       return this.source(SkiesDamageTypes.SLAM.getKey(), null, directEntity);
    }
 }

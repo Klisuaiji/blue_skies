@@ -43,51 +43,55 @@ public class VentiumBucketItem extends BucketItem {
       InteractionResultHolder<ItemStack> ret = EventHooks.onBucketUse(player, level, handStack, hitResult);
       if (ret != null) {
          return ret;
-      } else if (hitResult.getType() == Type.MISS) {
+      }
+
+      if (hitResult.getType() == Type.MISS) {
          return InteractionResultHolder.pass(handStack);
-      } else if (hitResult.getType() != Type.BLOCK) {
+      }
+
+      if (hitResult.getType() != Type.BLOCK) {
          return InteractionResultHolder.pass(handStack);
-      } else {
-         BlockPos hitPos = hitResult.getBlockPos();
-         Direction offset = hitResult.getDirection();
-         BlockPos offsetPos = hitPos.relative(offset);
-         if (level.mayInteract(player, hitPos) && player.mayUseItemAt(offsetPos, offset, handStack)) {
-            BlockState hitState = level.getBlockState(hitPos);
-            if (this.getFluid() == Fluids.EMPTY) {
-               if (hitState.getBlock() instanceof BucketPickup bucketPickup && isValidFluid(hitState.getFluidState().getType())) {
-                  ItemStack fullBucket = convertBucket(bucketPickup.pickupBlock(player, level, hitPos, hitState));
-                  if (!fullBucket.isEmpty()) {
-                     player.awardStat(Stats.ITEM_USED.get(this));
-                     Fluid fluid = hitState.getFluidState().getType();
-                     (fluid == Fluids.WATER ? bucketPickup.getPickupSound() : fluid.getPickupSound()).ifPresent(sound -> player.playSound(sound, 1.0F, 1.0F));
-                     level.gameEvent(player, GameEvent.FLUID_PICKUP, hitPos);
-                     ItemStack filledResult = ItemUtils.createFilledResult(handStack, player, fullBucket);
-                     if (!level.isClientSide) {
-                        CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer)player, fullBucket);
-                     }
+      }
 
-                     return InteractionResultHolder.sidedSuccess(filledResult, level.isClientSide());
-                  }
-               }
-
-               return InteractionResultHolder.fail(handStack);
-            } else {
-               BlockPos placePos = this.canBlockContainFluid(player, level, hitPos, hitState) ? hitPos : offsetPos;
-               if (this.emptyContents(player, level, placePos, hitResult)) {
-                  this.checkExtraContent(player, level, handStack, placePos);
-                  if (player instanceof ServerPlayer) {
-                     CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayer)player, placePos, handStack);
-                  }
-
+      BlockPos hitPos = hitResult.getBlockPos();
+      Direction offset = hitResult.getDirection();
+      BlockPos offsetPos = hitPos.relative(offset);
+      if (level.mayInteract(player, hitPos) && player.mayUseItemAt(offsetPos, offset, handStack)) {
+         BlockState hitState = level.getBlockState(hitPos);
+         if (this.getFluid() == Fluids.EMPTY) {
+            if (hitState.getBlock() instanceof BucketPickup bucketPickup && isValidFluid(hitState.getFluidState().getType())) {
+               ItemStack fullBucket = convertBucket(bucketPickup.pickupBlock(player, level, hitPos, hitState));
+               if (!fullBucket.isEmpty()) {
                   player.awardStat(Stats.ITEM_USED.get(this));
-                  return InteractionResultHolder.sidedSuccess(getEmptySuccessItem(handStack, player), level.isClientSide());
-               } else {
-                  return InteractionResultHolder.fail(handStack);
+                  Fluid fluid = hitState.getFluidState().getType();
+                  (fluid == Fluids.WATER ? bucketPickup.getPickupSound() : fluid.getPickupSound()).ifPresent(sound -> player.playSound(sound, 1.0F, 1.0F));
+                  level.gameEvent(player, GameEvent.FLUID_PICKUP, hitPos);
+                  ItemStack filledResult = ItemUtils.createFilledResult(handStack, player, fullBucket);
+                  if (!level.isClientSide) {
+                     CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer)player, fullBucket);
+                  }
+
+                  return InteractionResultHolder.sidedSuccess(filledResult, level.isClientSide());
                }
             }
-         } else {
+
             return InteractionResultHolder.fail(handStack);
+         } else {
+            BlockPos placePos = this.canBlockContainFluid(player, level, hitPos, hitState) ? hitPos : offsetPos;
+            if (this.emptyContents(player, level, placePos, hitResult)) {
+               this.checkExtraContent(player, level, handStack, placePos);
+               if (player instanceof ServerPlayer) {
+                  CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayer)player, placePos, handStack);
+               }
+
+               player.awardStat(Stats.ITEM_USED.get(this));
+               return InteractionResultHolder.sidedSuccess(getEmptySuccessItem(handStack, player), level.isClientSide());
+            } else {
+               return InteractionResultHolder.fail(handStack);
+            }
          }
+      } else {
+         return InteractionResultHolder.fail(handStack);
       }
    }
 

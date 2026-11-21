@@ -84,7 +84,7 @@ public abstract class AlchemyRecipe implements IToJson<AlchemyRecipe> {
    public AlchemyRecipe fromNbt(CompoundTag nbt) {
       try {
          return this.fromJson(((JsonElement)NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, nbt)).getAsJsonObject());
-      } catch (Exception var3) {
+      } catch (Exception e) {
          SkiesDataManager.LOGGER.error("Failed to read an alchemy recipe from nbt {}");
          return null;
       }
@@ -111,23 +111,23 @@ public abstract class AlchemyRecipe implements IToJson<AlchemyRecipe> {
       }
 
       public static AlchemyRecipe parse(JsonObject json) {
-         ResourceLocation name = new ResourceLocation(GsonHelper.getAsString(json, "type"));
+         ResourceLocation name = ResourceLocation.parse(GsonHelper.getAsString(json, "type"));
          return get(name);
       }
 
       public static AlchemyRecipe parse(CompoundTag nbt) {
-         ResourceLocation name = new ResourceLocation(nbt.getString("type"));
+         ResourceLocation name = ResourceLocation.parse(nbt.getString("type"));
          return get(name);
       }
 
       public static AlchemyRecipe get(ResourceLocation name) {
          if (REGISTRY.containsKey(name)) {
             return REGISTRY.get(name);
-         } else {
-            IllegalArgumentException e = new IllegalArgumentException(name.toString() + " is not a registered recipe type!");
-            BlueSkies.LOGGER.fatal(e);
-            throw e;
          }
+
+         IllegalArgumentException e = new IllegalArgumentException(name.toString() + " is not a registered recipe type!");
+         BlueSkies.LOGGER.fatal(e);
+         throw e;
       }
 
       static {

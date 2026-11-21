@@ -1,0 +1,8 @@
+{
+  "asset_id": "blue_skies:banished",
+  "decal": false,
+  "description": {
+    "translate": "trim_pattern.blue_skies.banished"
+  },
+  "template_item": "blue_skies:banished_armor_trim_smithing_template"
+}

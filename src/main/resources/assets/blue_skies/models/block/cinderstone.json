@@ -1,0 +1,22 @@
+{
+  "parent": "block/block",
+  "loader": "neoforge:composite",
+  "children": {
+    "base": {
+      "parent": "block/cube_all",
+      "textures": { 
+	    "all": "blue_skies:block/stone/cinderstone" 
+	  }
+    },
+    "emissive": {
+      "parent": "block/cube_all",
+      "textures": {
+	    "all": "blue_skies:block/stone/cinderstone_glow"
+	  },
+	  "render_type": "cutout"
+    }
+  },
+  "textures": {
+    "particle": "blue_skies:block/stone/cinderstone"
+  }
+}

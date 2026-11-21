@@ -26,7 +26,7 @@ public enum SkiesVillageProfessions {
 
    private final String name;
 
-   private SkiesVillageProfessions(String name) {
+   SkiesVillageProfessions(String name) {
       this.name = name;
    }
 

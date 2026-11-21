@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:item/pointed_dripstone",
+	"textures": {
+		"layer0": "blue_skies:block/misc/turquoise_stalactite_tip"
+	}
+}

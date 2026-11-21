@@ -28,7 +28,9 @@ public class BakedWorldRegion {
          throw new IllegalStateException(
             String.format("The BiomeRegion has a different scale than the HeightRegion at [%d, %d]", biomeRegion.regionX * 1024, biomeRegion.regionZ * 1024)
          );
-      } else if (biomeRegion.regionX == heightRegion.regionX && biomeRegion.regionZ == heightRegion.regionZ) {
+      }
+
+      if (biomeRegion.regionX == heightRegion.regionX && biomeRegion.regionZ == heightRegion.regionZ) {
          biomeRegion.bake();
          heightRegion.bake();
          this.regionX = biomeRegion.regionX;
@@ -77,26 +79,26 @@ public class BakedWorldRegion {
                tag.get("pos").getAsString()
             )
          );
-      } else {
-         this.regionX = pos[0];
-         this.regionZ = pos[1];
-         this.coordScale = tag.getDouble("coord_scale");
-         this.shouldRescale = this.coordScale != 1.0;
-         this.biomeSize = tag.getInt("biome_size");
-         this.biomes = tag.getByteArray("biomes");
-         this.heightSize = tag.getInt("height_size");
-         int[] compressedHeights = tag.getIntArray("heights");
-         short[] heights = new short[compressedHeights.length * 2];
-
-         for (int i = 0; i < compressedHeights.length; i++) {
-            int h = compressedHeights[i];
-            int heightIndex = i * 2;
-            heights[heightIndex] = (short)(h >> 16);
-            heights[heightIndex + 1] = (short)(h & 32767);
-         }
-
-         this.heights = heights;
       }
+
+      this.regionX = pos[0];
+      this.regionZ = pos[1];
+      this.coordScale = tag.getDouble("coord_scale");
+      this.shouldRescale = this.coordScale != 1.0;
+      this.biomeSize = tag.getInt("biome_size");
+      this.biomes = tag.getByteArray("biomes");
+      this.heightSize = tag.getInt("height_size");
+      int[] compressedHeights = tag.getIntArray("heights");
+      short[] heights = new short[compressedHeights.length * 2];
+
+      for (int i = 0; i < compressedHeights.length; i++) {
+         int h = compressedHeights[i];
+         int heightIndex = i * 2;
+         heights[heightIndex] = (short)(h >> 16);
+         heights[heightIndex + 1] = (short)(h & 32767);
+      }
+
+      this.heights = heights;
    }
 
    public CompoundTag save() {

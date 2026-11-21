@@ -50,7 +50,7 @@ public class StrangeLightningEntity extends Entity {
       return SoundSource.WEATHER;
    }
 
-   public void setCaster(@Nullable ServerPlayer p_204809_1_) {
+   public void setCaster(ServerPlayer p_204809_1_) {
       this.caster = p_204809_1_;
    }
 
@@ -129,7 +129,7 @@ public class StrangeLightningEntity extends Entity {
       return distance < d0 * d0;
    }
 
-   protected void defineSynchedData() {
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
    }
 
    protected void readAdditionalSaveData(CompoundTag compound) {

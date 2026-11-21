@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.entities.passive;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.entities.util.base.SkiesMountEntity;
 import com.legacy.blue_skies.registries.SkiesEntityTypes;
 import com.legacy.blue_skies.registries.SkiesItems;
@@ -24,7 +25,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.control.MoveControl.Operation;
+
 import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
@@ -431,14 +432,14 @@ public class CrogreEntity extends SkiesMountEntity {
 
       public void tick() {
          if (!this.frog.getPassengers().isEmpty()) {
-            this.operation = Operation.WAIT;
+            this.operation = MoveControl.Operation.WAIT;
          } else {
             double d0 = this.wantedX - this.mob.getX();
             double d1 = this.wantedZ - this.mob.getZ();
             double d3 = d0 * d0 + d1 * d1;
             this.frog.onMove(this, Mth.sqrt((float)d3));
             if (!this.frog.isPathFinding()) {
-               this.operation = Operation.WAIT;
+               this.operation = MoveControl.Operation.WAIT;
             }
          }
       }

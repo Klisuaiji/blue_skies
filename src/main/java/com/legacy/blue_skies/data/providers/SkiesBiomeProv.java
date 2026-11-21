@@ -7,7 +7,7 @@ import com.legacy.blue_skies.registries.SkiesParticles;
 import com.legacy.blue_skies.registries.SkiesSounds;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -24,7 +24,7 @@ public class SkiesBiomeProv {
       protected static final int BRIGHT_FOLIAGE_COLOR = 7059637;
       protected static final int DAWN_FOLIAGE_COLOR = 12485859;
 
-      public static Biome calmingSkies(BootstapContext<?> bootstrap) {
+      public static Biome calmingSkies(BootstrapContext<?> bootstrap) {
          int grassColor = 16777215;
          int foliageColor = 7059637;
          int waterColor = 2903689;
@@ -59,7 +59,7 @@ public class SkiesBiomeProv {
             .build();
       }
 
-      public static Biome brightlands(BootstapContext<?> bootstrap) {
+      public static Biome brightlands(BootstrapContext<?> bootstrap) {
          int grassColor = 14016767;
          int foliageColor = 7059637;
          int waterColor = 2903689;
@@ -99,7 +99,7 @@ public class SkiesBiomeProv {
             .build();
       }
 
-      public static Biome slushlands(BootstapContext<?> bootstrap) {
+      public static Biome slushlands(BootstrapContext<?> bootstrap) {
          int grassColor = 12119807;
          int foliageColor = 7059637;
          int waterColor = 2903689;
@@ -138,7 +138,7 @@ public class SkiesBiomeProv {
             .build();
       }
 
-      public static Biome frostbittenForest(BootstapContext<?> bootstrap, boolean isClearing) {
+      public static Biome frostbittenForest(BootstrapContext<?> bootstrap, boolean isClearing) {
          int grassColor = 13288447;
          int foliageColor = 7059637;
          int waterColor = 6583020;
@@ -181,7 +181,7 @@ public class SkiesBiomeProv {
             .build();
       }
 
-      public static Biome peekingOcean(BootstapContext<?> bootstrap, boolean isDeep, boolean isBrumbleForest) {
+      public static Biome peekingOcean(BootstrapContext<?> bootstrap, boolean isDeep, boolean isBrumbleForest) {
          int grassColor = 16777215;
          int foliageColor = 7059637;
          int waterColor = isDeep ? 4672964 : 6583020;
@@ -231,7 +231,7 @@ public class SkiesBiomeProv {
             .build();
       }
 
-      public static Biome middayShore(BootstapContext<?> bootstrap) {
+      public static Biome middayShore(BootstrapContext<?> bootstrap) {
          int grassColor = 16777215;
          int foliageColor = 7059637;
          int waterColor = 6583020;
@@ -257,7 +257,7 @@ public class SkiesBiomeProv {
             .build();
       }
 
-      public static Biome snowCoveredPines(BootstapContext<?> bootstrap) {
+      public static Biome snowCoveredPines(BootstrapContext<?> bootstrap) {
          int grassColor = 14016767;
          int foliageColor = 7059637;
          int waterColor = 2903689;
@@ -296,7 +296,7 @@ public class SkiesBiomeProv {
             .build();
       }
 
-      public static Biome briskMeadow(BootstapContext<?> bootstrap) {
+      public static Biome briskMeadow(BootstrapContext<?> bootstrap) {
          int grassColor = 16777215;
          int foliageColor = 7059637;
          int waterColor = 2903689;
@@ -337,7 +337,7 @@ public class SkiesBiomeProv {
             .build();
       }
 
-      public static Biome polarHighland(BootstapContext<?> bootstrap) {
+      public static Biome polarHighland(BootstrapContext<?> bootstrap) {
          int grassColor = 11657944;
          int foliageColor = 7059637;
          int waterColor = 2903689;
@@ -374,7 +374,7 @@ public class SkiesBiomeProv {
             .build();
       }
 
-      public static Biome unorthodoxValley(BootstapContext<?> bootstrap) {
+      public static Biome unorthodoxValley(BootstrapContext<?> bootstrap) {
          int grassColor = 14843647;
          int foliageColor = 12485859;
          int waterColor = 4351611;
@@ -411,7 +411,7 @@ public class SkiesBiomeProv {
             .build();
       }
 
-      public static Biome shadedWoodlands(BootstapContext<?> bootstrap) {
+      public static Biome shadedWoodlands(BootstrapContext<?> bootstrap) {
          int grassColor = 13151691;
          int foliageColor = 12485859;
          int waterColor = 4351611;
@@ -453,7 +453,7 @@ public class SkiesBiomeProv {
             .build();
       }
 
-      public static Biome crystalDunes(BootstapContext<?> bootstrap, boolean hasSpikes) {
+      public static Biome crystalDunes(BootstrapContext<?> bootstrap, boolean hasSpikes) {
          int grassColor = 16753663;
          int foliageColor = 12485859;
          int waterColor = 4351611;
@@ -493,7 +493,7 @@ public class SkiesBiomeProv {
             .build();
       }
 
-      public static Biome risingCreek(BootstapContext<?> bootstrap) {
+      public static Biome risingCreek(BootstrapContext<?> bootstrap) {
          int grassColor = 15844607;
          int foliageColor = 12485859;
          int waterColor = 4351611;
@@ -528,7 +528,7 @@ public class SkiesBiomeProv {
             .build();
       }
 
-      public static Biome moonlitReservoir(BootstapContext<?> bootstrap) {
+      public static Biome moonlitReservoir(BootstrapContext<?> bootstrap) {
          int grassColor = 9269656;
          int foliageColor = 12485859;
          int waterColor = 4354427;
@@ -576,7 +576,7 @@ public class SkiesBiomeProv {
             .build();
       }
 
-      public static Biome crystalRoughs(BootstapContext<?> bootstrap) {
+      public static Biome crystalRoughs(BootstrapContext<?> bootstrap) {
          int grassColor = 13155070;
          int foliageColor = 12485859;
          int waterColor = 4351611;
@@ -612,7 +612,7 @@ public class SkiesBiomeProv {
             .build();
       }
 
-      public static Biome sunsetMapleForest(BootstapContext<?> bootstrap) {
+      public static Biome sunsetMapleForest(BootstrapContext<?> bootstrap) {
          int grassColor = 15829434;
          int foliageColor = 12485859;
          int waterColor = 4351611;
@@ -648,7 +648,7 @@ public class SkiesBiomeProv {
             .build();
       }
 
-      public static Biome searingGrassland(BootstapContext<?> bootstrap) {
+      public static Biome searingGrassland(BootstrapContext<?> bootstrap) {
          int grassColor = 15829396;
          int foliageColor = 12485859;
          int waterColor = 4351611;
@@ -689,7 +689,7 @@ public class SkiesBiomeProv {
             .build();
       }
 
-      public static Biome crescentOrchard(BootstapContext<?> bootstrap, boolean isLake) {
+      public static Biome crescentOrchard(BootstrapContext<?> bootstrap, boolean isLake) {
          int grassColor = 12025574;
          int foliageColor = 12485859;
          int waterColor = 4351611;

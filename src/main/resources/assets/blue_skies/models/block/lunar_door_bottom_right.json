@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_right",
+  "textures": {
+    "bottom": "blue_skies:block/doors/lunar_lower",
+    "top": "blue_skies:block/doors/lunar_upper"
+  }
+}

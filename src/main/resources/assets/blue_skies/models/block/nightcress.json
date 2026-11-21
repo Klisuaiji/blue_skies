@@ -1,0 +1,23 @@
+{
+  "parent": "block/cross",
+  "loader": "neoforge:composite",
+  "children": {
+    "base": {
+      "parent": "block/cross",
+      "textures": {
+        "cross": "blue_skies:block/plants/nightcress"
+      },
+	  "render_type": "cutout_mipped"
+    },
+    "emissive": {
+      "parent": "block/cross",
+      "textures": {
+        "cross": "blue_skies:block/plants/nightcress_glow"
+      },
+	  "render_type": "cutout"
+    }
+  },
+  "textures": {
+    "particle": "blue_skies:block/plants/nightcress"
+  }
+}

@@ -1,0 +1,2011 @@
+{
+  "block.moonstone.break": {
+    "category": "block",
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      "blue_skies:blocks/moonstone/moonstone1",
+      "blue_skies:blocks/moonstone/moonstone2",
+      "blue_skies:blocks/moonstone/moonstone3",
+      "blue_skies:blocks/moonstone/moonstone4"
+    ]
+  },
+  "block.moonstone_lantern.break": {
+    "category": "block",
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      "blue_skies:blocks/moonstone_lantern/break1",
+      "blue_skies:blocks/moonstone_lantern/break2",
+      "blue_skies:blocks/moonstone_lantern/break3"
+    ]
+  },
+  "block.moonstone_lantern.place": {
+    "category": "block",
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      "blue_skies:blocks/moonstone_lantern/place1",
+      "blue_skies:blocks/moonstone_lantern/place2",
+      "blue_skies:blocks/moonstone_lantern/place3"
+    ]
+  },
+  "block.moonstone_lantern.hit": {
+    "category": "block",
+    "subtitle": "subtitles.block.generic.hit",
+    "sounds": [
+      "blue_skies:blocks/moonstone_lantern/hit1",
+      "blue_skies:blocks/moonstone_lantern/hit2",
+      "blue_skies:blocks/moonstone_lantern/hit3"
+    ]
+  },
+  "block.mud.break": {
+    "category": "block",
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      "blue_skies:blocks/mud/mud1",
+      "blue_skies:blocks/mud/mud2",
+      "blue_skies:blocks/mud/mud3",
+      "blue_skies:blocks/mud/mud4",
+      "blue_skies:blocks/mud/mud5"
+    ]
+  },
+  "block.mud.place": {
+    "category": "block",
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      "blue_skies:blocks/mud/mud1",
+      "blue_skies:blocks/mud/mud2",
+      "blue_skies:blocks/mud/mud3",
+      "blue_skies:blocks/mud/mud4",
+      "blue_skies:blocks/mud/mud5"
+    ]
+  },
+  "block.mud.hit": {
+    "category": "block",
+    "subtitle": "subtitles.block.generic.hit",
+    "sounds": [
+      "blue_skies:blocks/mud/step1",
+      "blue_skies:blocks/mud/step2",
+      "blue_skies:blocks/mud/step3",
+      "blue_skies:blocks/mud/step4"
+    ]
+  },
+  "block.mud.step": {
+    "category": "block",
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      "blue_skies:blocks/mud/step1",
+      "blue_skies:blocks/mud/step2",
+      "blue_skies:blocks/mud/step3",
+      "blue_skies:blocks/mud/step4"
+    ]
+  },
+  "block.crystallized_plant.break": {
+    "category": "block",
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      "blue_skies:blocks/crystallized_plant/break1",
+      "blue_skies:blocks/crystallized_plant/break2",
+      "blue_skies:blocks/crystallized_plant/break3",
+      "blue_skies:blocks/crystallized_plant/break4"
+    ]
+  },
+  "block.rimestone.break": {
+    "category": "block",
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      "blue_skies:blocks/rimestone/hit1",
+      "blue_skies:blocks/rimestone/hit2",
+      "blue_skies:blocks/rimestone/hit3",
+      "blue_skies:blocks/rimestone/hit4",
+      "blue_skies:blocks/rimestone/hit5"
+    ]
+  },
+  "block.rimestone.place": {
+    "category": "block",
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      "blue_skies:blocks/rimestone/hit1",
+      "blue_skies:blocks/rimestone/hit2",
+      "blue_skies:blocks/rimestone/hit3",
+      "blue_skies:blocks/rimestone/hit4",
+      "blue_skies:blocks/rimestone/hit5"
+    ]
+  },
+  "block.rimestone.hit": {
+    "category": "block",
+    "subtitle": "subtitles.block.generic.hit",
+    "sounds": [
+      "blue_skies:blocks/rimestone/hit1",
+      "blue_skies:blocks/rimestone/hit2",
+      "blue_skies:blocks/rimestone/hit3",
+      "blue_skies:blocks/rimestone/hit4",
+      "blue_skies:blocks/rimestone/hit5"
+    ]
+  },
+  "block.everbright.portal": {
+    "category": "block",
+    "subtitle": "subtitles.block.everbright.portal",
+    "sounds": [
+      "blue_skies:portal/everbright_portal"
+    ]
+  },
+  "block.everbright.portal.trigger": {
+    "category": "block",
+    "subtitle": "subtitles.block.everbright.portal.trigger",
+    "sounds": [
+      "blue_skies:portal/everbright_portal_trigger"
+    ]
+  },
+  "block.everbright.portal.travel": {
+    "category": "block",
+    "subtitle": "subtitles.block.everbright.portal.trigger",
+    "sounds": [
+      "blue_skies:portal/everbright_portal_travel"
+    ]
+  },
+  "block.everdawn.portal": {
+    "category": "block",
+    "subtitle": "subtitles.block.everdawn.portal",
+    "sounds": [
+      "blue_skies:portal/everdawn_portal"
+    ]
+  },
+  "block.everdawn.portal.trigger": {
+    "category": "block",
+    "subtitle": "subtitles.block.everdawn.portal.trigger",
+    "sounds": [
+      "blue_skies:portal/everdawn_portal_trigger"
+    ]
+  },
+  "block.everdawn.portal.travel": {
+    "category": "block",
+    "subtitle": "subtitles.block.everdawn.portal.trigger",
+    "sounds": [
+      "blue_skies:portal/everdawn_portal_travel"
+    ]
+  },
+  "block.keystone.unlock": {
+    "category": "block",
+    "subtitle": "subtitles.block.keystone.unlock",
+    "sounds": [
+      "blue_skies:blocks/keystone/unlock"
+    ]
+  },
+  "block.keystone.locked": {
+    "category": "block",
+    "subtitle": "subtitles.block.keystone.locked",
+    "sounds": [
+      "blue_skies:blocks/keystone/locked"
+    ]
+  },
+  "block.keystone.teleport": {
+    "category": "block",
+    "subtitle": "subtitles.block.keystone.teleport",
+    "sounds": [
+      {
+        "name": "block.enchantment_table.use",
+        "type": "event"
+      }
+    ]
+  },
+  "block.summoning_table.tome_change": {
+    "category": "block",
+    "subtitle": "subtitles.block.summoning_table.use",
+    "sounds": [
+      "blue_skies:blocks/summoning_table/tome_change1",
+      "blue_skies:blocks/summoning_table/tome_change2",
+      "blue_skies:blocks/summoning_table/tome_change3"
+    ]
+  },
+  "block.alchemy_table.use": {
+    "category": "block",
+    "subtitle": "subtitles.block.alchemy_table.use",
+    "sounds": [
+      "blue_skies:blocks/alchemy_table/use1",
+      "blue_skies:blocks/alchemy_table/use2"
+    ]
+  },
+  "block.tool_box.use": {
+    "category": "block",
+    "subtitle": "subtitles.block.tool_box.use",
+    "sounds": [
+      {
+        "name": "block.smithing_table.use",
+        "type": "event"
+      }
+    ]
+  },
+  "block.tool_box.use_falsite": {
+    "category": "block",
+    "subtitle": "subtitles.block.tool_box.use",
+    "sounds": [
+      "blue_skies:blocks/tool_box/use1",
+      "blue_skies:blocks/tool_box/use2",
+      "blue_skies:blocks/tool_box/use3",
+      "blue_skies:blocks/tool_box/use4",
+      "blue_skies:blocks/tool_box/use5",
+      "blue_skies:blocks/tool_box/use6"
+    ]
+  },
+  "block.star_emitter.use": {
+    "category": "block",
+    "subtitle": "subtitles.block.star_emitter.use",
+    "sounds": [
+      "blue_skies:blocks/star_emitter/use1",
+      "blue_skies:blocks/star_emitter/use2"
+    ]
+  },
+  "block.food_prep_table.use": {
+    "category": "block",
+    "subtitle": "subtitles.block.food_prep_table.use",
+    "sounds": [
+      "blue_skies:blocks/food_prep_table/use1",
+      "blue_skies:blocks/food_prep_table/use2",
+      "blue_skies:blocks/food_prep_table/use3",
+      "blue_skies:blocks/food_prep_table/use4",
+      "blue_skies:blocks/food_prep_table/use5"
+    ]
+  },
+  "entity.villager.work_stargazer": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.villager.work_stargazer",
+    "sounds": [
+      {
+        "name": "blue_skies:block.star_emitter.use",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.villager.work_wrangler": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.villager.work_wrangler",
+    "sounds": [
+      {
+        "name": "block.composter.fill_success",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.villager.work_shoveler": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.villager.work_shoveler",
+    "sounds": [
+      {
+        "name": "blue_skies:block.tool_box.use_falsite",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.villager.work_nightwatcher": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.villager.work_nightwatcher",
+    "sounds": [
+      {
+        "name": "blue_skies:item.bag.open",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.villager.work_summoner": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.villager.work_summoner",
+    "sounds": [
+      {
+        "name": "blue_skies:block.summoning_table.tome_change",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.villager.work_alchemist": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.villager.work_alchemist",
+    "sounds": [
+      {
+        "name": "blue_skies:block.alchemy_table.use",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.azulfo.idle": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.azulfo.idle",
+    "sounds": [
+      "blue_skies:entity/azulfo/idle1",
+      "blue_skies:entity/azulfo/idle2",
+      "blue_skies:entity/azulfo/idle3"
+    ]
+  },
+  "entity.azulfo.hurt": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.azulfo.hurt",
+    "sounds": [
+      "blue_skies:entity/azulfo/hurt1",
+      "blue_skies:entity/azulfo/hurt2",
+      "blue_skies:entity/azulfo/hurt3",
+      "blue_skies:entity/azulfo/hurt4"
+    ]
+  },
+  "entity.azulfo.death": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.azulfo.death",
+    "sounds": [
+      "blue_skies:entity/azulfo/death1",
+      "blue_skies:entity/azulfo/death2"
+    ]
+  },
+  "entity.stardust_ram.idle": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.stardust_ram.idle",
+    "sounds": [
+      {
+        "name": "entity.sheep.ambient",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.stardust_ram.hurt": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.stardust_ram.hurt",
+    "sounds": [
+      {
+        "name": "entity.sheep.hurt",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.stardust_ram.death": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.stardust_ram.death",
+    "sounds": [
+      {
+        "name": "entity.sheep.death",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.snow_owl.idle": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.snow_owl.idle",
+    "sounds": [
+      "blue_skies:entity/snow_owl/idle1",
+      "blue_skies:entity/snow_owl/idle2",
+      "blue_skies:entity/snow_owl/idle3"
+    ]
+  },
+  "entity.snow_owl.hurt": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.snow_owl.hurt",
+    "sounds": [
+      "blue_skies:entity/snow_owl/hurt1",
+      "blue_skies:entity/snow_owl/hurt2",
+      "blue_skies:entity/snow_owl/hurt3"
+    ]
+  },
+  "entity.snow_owl.death": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.snow_owl.death",
+    "sounds": [
+      "blue_skies:entity/snow_owl/death"
+    ]
+  },
+  "entity.snow_owl.sing": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.snow_owl.sing",
+    "sounds": [
+      "blue_skies:entity/snow_owl/sing1",
+      "blue_skies:entity/snow_owl/sing2",
+      "blue_skies:entity/snow_owl/sing3"
+    ]
+  },
+  "entity.snow_owl.flap": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.snow_owl.flap",
+    "sounds": [
+      {
+        "name": "entity.parrot.fly",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.jelly_drifter.idle": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.jelly_drifter.idle",
+    "sounds": [
+      "blue_skies:entity/jelly_drifter/idle1",
+      "blue_skies:entity/jelly_drifter/idle2",
+      "blue_skies:entity/jelly_drifter/idle3"
+    ]
+  },
+  "entity.jelly_drifter.hurt": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.jelly_drifter.hurt",
+    "sounds": [
+      "blue_skies:entity/jelly_drifter/hurt1",
+      "blue_skies:entity/jelly_drifter/hurt2",
+      "blue_skies:entity/jelly_drifter/hurt3"
+    ]
+  },
+  "entity.jelly_drifter.death": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.jelly_drifter.death",
+    "sounds": [
+      "blue_skies:entity/jelly_drifter/death"
+    ]
+  },
+  "entity.jelly_drifter.poison": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.jelly_drifter.poison",
+    "sounds": [
+      "blue_skies:entity/jelly_drifter/poison"
+    ]
+  },
+  "entity.reindeer.idle": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.reindeer.idle",
+    "sounds": [
+      "blue_skies:entity/reindeer/idle1",
+      "blue_skies:entity/reindeer/idle2",
+      "blue_skies:entity/reindeer/idle3",
+      "blue_skies:entity/reindeer/idle4",
+      "blue_skies:entity/reindeer/idle5"
+    ]
+  },
+  "entity.reindeer.hurt": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.reindeer.hurt",
+    "sounds": [
+      "blue_skies:entity/reindeer/hurt1",
+      "blue_skies:entity/reindeer/hurt2",
+      "blue_skies:entity/reindeer/hurt3"
+    ]
+  },
+  "entity.reindeer.death": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.reindeer.death",
+    "sounds": [
+      "blue_skies:entity/reindeer/death"
+    ]
+  },
+  "entity.crystal_camel.idle": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.crystal_camel.idle",
+    "sounds": [
+      "blue_skies:entity/crystal_camel/idle1",
+      "blue_skies:entity/crystal_camel/idle2",
+      "blue_skies:entity/crystal_camel/idle3"
+    ]
+  },
+  "entity.crystal_camel.hurt": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.crystal_camel.hurt",
+    "sounds": [
+      "blue_skies:entity/crystal_camel/hurt1",
+      "blue_skies:entity/crystal_camel/hurt2",
+      "blue_skies:entity/crystal_camel/hurt3"
+    ]
+  },
+  "entity.crystal_camel.death": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.crystal_camel.death",
+    "sounds": [
+      "blue_skies:entity/crystal_camel/death"
+    ]
+  },
+  "entity.crystal_camel.step": {
+    "category": "neutral",
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      {
+        "name": "entity.llama.step",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.shade_monitor.idle": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.shade_monitor.idle",
+    "sounds": [
+      "blue_skies:entity/shade_monitor/idle1",
+      "blue_skies:entity/shade_monitor/idle2",
+      "blue_skies:entity/shade_monitor/idle3"
+    ]
+  },
+  "entity.shade_monitor.hurt": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.shade_monitor.hurt",
+    "sounds": [
+      "blue_skies:entity/shade_monitor/hurt1",
+      "blue_skies:entity/shade_monitor/hurt2",
+      "blue_skies:entity/shade_monitor/hurt3"
+    ]
+  },
+  "entity.shade_monitor.death": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.shade_monitor.death",
+    "sounds": [
+      "blue_skies:entity/shade_monitor/death"
+    ]
+  },
+  "entity.crogre.idle": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.crogre.idle",
+    "sounds": [
+      "blue_skies:entity/crogre/idle1",
+      "blue_skies:entity/crogre/idle2",
+      "blue_skies:entity/crogre/idle3"
+    ]
+  },
+  "entity.crogre.idle_happy": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.crogre.idle_happy",
+    "sounds": [
+      "blue_skies:entity/crogre/idle_happy1",
+      "blue_skies:entity/crogre/idle_happy2",
+      "blue_skies:entity/crogre/idle_happy3"
+    ]
+  },
+  "entity.crogre.hurt": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.crogre.hurt",
+    "sounds": [
+      "blue_skies:entity/crogre/hurt1",
+      "blue_skies:entity/crogre/hurt2",
+      "blue_skies:entity/crogre/hurt3"
+    ]
+  },
+  "entity.crogre.death": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.crogre.death",
+    "sounds": [
+      "blue_skies:entity/crogre/death"
+    ]
+  },
+  "entity.crogre.jump": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.crogre.jump",
+    "sounds": [
+      "blue_skies:entity/crogre/jump"
+    ]
+  },
+  "entity.sliv.idle": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.sliv.idle",
+    "sounds": [
+      "blue_skies:entity/sliv/idle1",
+      "blue_skies:entity/sliv/idle2",
+      "blue_skies:entity/sliv/idle3"
+    ]
+  },
+  "entity.sliv.hurt": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.sliv.hurt",
+    "sounds": [
+      "blue_skies:entity/sliv/hurt1",
+      "blue_skies:entity/sliv/hurt2",
+      "blue_skies:entity/sliv/hurt3"
+    ]
+  },
+  "entity.sliv.death": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.sliv.death",
+    "sounds": [
+      "blue_skies:entity/sliv/death"
+    ]
+  },
+  "entity.polargeist.idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.polargeist.idle",
+    "sounds": [
+      "blue_skies:entity/polargeist/idle1",
+      "blue_skies:entity/polargeist/idle2",
+      "blue_skies:entity/polargeist/idle3"
+    ]
+  },
+  "entity.polargeist.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.polargeist.hurt",
+    "sounds": [
+      "blue_skies:entity/polargeist/hurt1",
+      "blue_skies:entity/polargeist/hurt2",
+      "blue_skies:entity/polargeist/hurt3"
+    ]
+  },
+  "entity.polargeist.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.polargeist.death",
+    "sounds": [
+      "blue_skies:entity/polargeist/death"
+    ]
+  },
+  "entity.polargeist.attack": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.polargeist.attack",
+    "sounds": [
+      "blue_skies:entity/polargeist/attack1",
+      "blue_skies:entity/polargeist/attack2",
+      "blue_skies:entity/polargeist/attack3"
+    ]
+  },
+  "entity.shrumpty.idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.shrumpty.idle",
+    "sounds": [
+      "blue_skies:entity/shrumpty/idle1",
+      "blue_skies:entity/shrumpty/idle2",
+      "blue_skies:entity/shrumpty/idle3"
+    ]
+  },
+  "entity.shrumpty.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.shrumpty.hurt",
+    "sounds": [
+      "blue_skies:entity/shrumpty/hurt1",
+      "blue_skies:entity/shrumpty/hurt2",
+      "blue_skies:entity/shrumpty/hurt3"
+    ]
+  },
+  "entity.shrumpty.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.shrumpty.death",
+    "sounds": [
+      "blue_skies:entity/shrumpty/death"
+    ]
+  },
+  "entity.shrumpty.attack": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.shrumpty.attack",
+    "sounds": [
+      "blue_skies:entity/shrumpty/attack1",
+      "blue_skies:entity/shrumpty/attack2",
+      "blue_skies:entity/shrumpty/attack3"
+    ]
+  },
+  "entity.venom_spider.idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.venom_spider.idle",
+    "sounds": [
+      "blue_skies:entity/venom_spider/idle1",
+      "blue_skies:entity/venom_spider/idle2",
+      "blue_skies:entity/venom_spider/idle3"
+    ]
+  },
+  "entity.venom_spider.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.venom_spider.hurt",
+    "sounds": [
+      "blue_skies:entity/venom_spider/hurt1",
+      "blue_skies:entity/venom_spider/hurt2",
+      "blue_skies:entity/venom_spider/hurt3"
+    ]
+  },
+  "entity.venom_spider.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.venom_spider.death",
+    "sounds": [
+      "blue_skies:entity/venom_spider/death"
+    ]
+  },
+  "entity.venom_spider.spit": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.venom_spider.spit",
+    "sounds": [
+      "blue_skies:entity/venom_spider/spit"
+    ]
+  },
+  "entity.nested_spider.idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.nested_spider.idle",
+    "sounds": [
+      {
+        "name": "blue_skies:entity.venom_spider.idle",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.nested_spider.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.nested_spider.hurt",
+    "sounds": [
+      {
+        "name": "blue_skies:entity.venom_spider.hurt",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.nested_spider.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.nested_spider.death",
+    "sounds": [
+      {
+        "name": "blue_skies:entity.venom_spider.death",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.stonelet.idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.stonelet.idle",
+    "sounds": [
+      "blue_skies:entity/stonelet/idle1",
+      "blue_skies:entity/stonelet/idle2",
+      "blue_skies:entity/stonelet/idle3"
+    ]
+  },
+  "entity.stonelet.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.stonelet.hurt",
+    "sounds": [
+      "blue_skies:entity/stonelet/hurt1",
+      "blue_skies:entity/stonelet/hurt2",
+      "blue_skies:entity/stonelet/hurt3"
+    ]
+  },
+  "entity.stonelet.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.stonelet.death",
+    "sounds": [
+      "blue_skies:entity/stonelet/death"
+    ]
+  },
+  "entity.firefly.death": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.firefly.death",
+    "sounds": [
+      "blue_skies:entity/firefly/death"
+    ]
+  },
+  "entity.nyctofly.flying": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.nyctofly.flying",
+    "sounds": [
+      "blue_skies:entity/nyctofly/flying"
+    ]
+  },
+  "entity.nyctofly.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.nyctofly.hurt",
+    "sounds": [
+      "blue_skies:entity/nyctofly/hurt1",
+      "blue_skies:entity/nyctofly/hurt2",
+      "blue_skies:entity/nyctofly/hurt3"
+    ]
+  },
+  "entity.nyctofly.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.nyctofly.death",
+    "sounds": [
+      "blue_skies:entity/nyctofly/death1"
+    ]
+  },
+  "entity.nyctofly.bite": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.nyctofly.bite",
+    "sounds": [
+      "blue_skies:entity/nyctofly/bite"
+    ]
+  },
+  "entity.emberback.flying": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.emberback.flying",
+    "sounds": [
+      "blue_skies:entity/emberback/flying"
+    ]
+  },
+  "entity.emberback.idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.emberback.idle",
+    "sounds": [
+      "blue_skies:entity/emberback/idle1",
+      "blue_skies:entity/emberback/idle2",
+      "blue_skies:entity/emberback/idle3"
+    ]
+  },
+  "entity.emberback.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.emberback.hurt",
+    "sounds": [
+      "blue_skies:entity/emberback/hurt1",
+      "blue_skies:entity/emberback/hurt2",
+      "blue_skies:entity/emberback/hurt3"
+    ]
+  },
+  "entity.emberback.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.emberback.death",
+    "sounds": [
+      "blue_skies:entity/emberback/death"
+    ]
+  },
+  "entity.emberback.spray": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.emberback.spray",
+    "sounds": [
+      "blue_skies:entity/emberback/spray"
+    ]
+  },
+  "entity.infested_swarmer.bite": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.infested_swarmer.bite",
+    "sounds": [
+      "blue_skies:entity/infested_swarmer/bite1",
+      "blue_skies:entity/infested_swarmer/bite2"
+    ]
+  },
+  "entity.infested_swarmer.idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.infested_swarmer.idle",
+    "sounds": [
+      "blue_skies:entity/infested_swarmer/idle1",
+      "blue_skies:entity/infested_swarmer/idle2",
+      "blue_skies:entity/infested_swarmer/idle3"
+    ]
+  },
+  "entity.infested_swarmer.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.infested_swarmer.hurt",
+    "sounds": [
+      "blue_skies:entity/infested_swarmer/hurt1",
+      "blue_skies:entity/infested_swarmer/hurt2",
+      "blue_skies:entity/infested_swarmer/hurt3"
+    ]
+  },
+  "entity.infested_swarmer.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.infested_swarmer.death",
+    "sounds": [
+      "blue_skies:entity/infested_swarmer/death"
+    ]
+  },
+  "entity.diophyde_prowler.idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.diophyde_prowler.idle",
+    "sounds": [
+      "blue_skies:entity/diophyde_prowler/idle1",
+      "blue_skies:entity/diophyde_prowler/idle2",
+      "blue_skies:entity/diophyde_prowler/idle3"
+    ]
+  },
+  "entity.diophyde_prowler.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.diophyde_prowler.hurt",
+    "sounds": [
+      "blue_skies:entity/diophyde_prowler/hurt1",
+      "blue_skies:entity/diophyde_prowler/hurt2",
+      "blue_skies:entity/diophyde_prowler/hurt3"
+    ]
+  },
+  "entity.diophyde_prowler.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.diophyde_prowler.death",
+    "sounds": [
+      "blue_skies:entity/diophyde_prowler/death"
+    ]
+  },
+  "entity.diophyde_prowler.lunge": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.diophyde_prowler.lunge",
+    "sounds": [
+      "blue_skies:entity/diophyde_prowler/lunge1",
+      "blue_skies:entity/diophyde_prowler/lunge2"
+    ]
+  },
+  "entity.armored_frost_spirit.idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.armored_frost_spirit.idle",
+    "sounds": [
+      "blue_skies:entity/frost_spirit/armored/idle1",
+      "blue_skies:entity/frost_spirit/armored/idle2",
+      "blue_skies:entity/frost_spirit/armored/idle3"
+    ]
+  },
+  "entity.armored_frost_spirit.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.armored_frost_spirit.hurt",
+    "sounds": [
+      "blue_skies:entity/frost_spirit/armored/hurt1",
+      "blue_skies:entity/frost_spirit/armored/hurt2"
+    ]
+  },
+  "entity.armored_frost_spirit.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.armored_frost_spirit.death",
+    "sounds": [
+      "blue_skies:entity/frost_spirit/armored/death"
+    ]
+  },
+  "entity.crynocerous.idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.crynocerous.idle",
+    "sounds": [
+      "blue_skies:entity/crynocerous/idle1",
+      "blue_skies:entity/crynocerous/idle2",
+      "blue_skies:entity/crynocerous/idle3"
+    ]
+  },
+  "entity.crynocerous.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.crynocerous.hurt",
+    "sounds": [
+      "blue_skies:entity/crynocerous/hurt1",
+      "blue_skies:entity/crynocerous/hurt2",
+      "blue_skies:entity/crynocerous/hurt3"
+    ]
+  },
+  "entity.crynocerous.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.crynocerous.death",
+    "sounds": [
+      "blue_skies:entity/crynocerous/death"
+    ]
+  },
+  "entity.frost_spirit.free": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.frost_spirit.free",
+    "sounds": [
+      "blue_skies:entity/frost_spirit/free"
+    ]
+  },
+  "entity.frost_spirit.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.frost_spirit.hurt",
+    "sounds": [
+      "blue_skies:entity/frost_spirit/hurt"
+    ]
+  },
+  "entity.frost_spirit.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.frost_spirit.death",
+    "sounds": [
+      "blue_skies:entity/frost_spirit/death"
+    ]
+  },
+  "entity.boss.spawn": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.boss.spawn",
+    "sounds": [
+      {
+        "name": "entity.wither.spawn",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.fluctuant_sphere.disappear": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.fluctuant_sphere.disappear",
+    "sounds": [
+      {
+        "name": "entity.illusioner.mirror_move",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.gatekeeper.idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.gatekeeper.idle",
+    "sounds": [
+      {
+        "name": "entity.villager.ambient",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.gatekeeper.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.gatekeeper.hurt",
+    "sounds": [
+      {
+        "name": "entity.villager.hurt",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.gatekeeper.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.gatekeeper.death",
+    "sounds": [
+      {
+        "name": "entity.villager.death",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.gatekeeper.celebrate": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.gatekeeper.celebrate",
+    "sounds": [
+      {
+        "name": "entity.villager.celebrate",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.gatekeeper.no": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.gatekeeper.no",
+    "sounds": [
+      {
+        "name": "entity.villager.no",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.gatekeeper.yes": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.gatekeeper.yes",
+    "sounds": [
+      {
+        "name": "entity.villager.yes",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.gatekeeper.trade": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.gatekeeper.trade",
+    "sounds": [
+      {
+        "name": "entity.villager.trade",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.gatekeeper.cast_spell": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.gatekeeper.cast_spell",
+    "sounds": [
+      {
+        "name": "entity.evoker.cast_spell",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.gatekeeper.prepare_regen": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.gatekeeper.prepare_regen",
+    "sounds": [
+      "blue_skies:entity/gatekeeper/prepare_regen"
+    ]
+  },
+  "entity.summoner.idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.summoner.idle",
+    "sounds": [
+      "blue_skies:entity/summoner/idle1",
+      "blue_skies:entity/summoner/idle2",
+      "blue_skies:entity/summoner/idle3"
+    ]
+  },
+  "entity.summoner.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.summoner.hurt",
+    "sounds": [
+      "blue_skies:entity/summoner/hurt1",
+      "blue_skies:entity/summoner/hurt2",
+      "blue_skies:entity/summoner/hurt3"
+    ]
+  },
+  "entity.summoner.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.summoner.death",
+    "sounds": [
+      "blue_skies:entity/summoner/death2"
+    ]
+  },
+  "entity.summoner.celebrate": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.summoner.celebrate",
+    "sounds": [
+      "blue_skies:entity/summoner/celebrate"
+    ]
+  },
+  "entity.summoner.cast_spell": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.summoner.cast_spell",
+    "sounds": [
+      "mob/evocation_illager/cast1",
+      "mob/evocation_illager/cast2"
+    ]
+  },
+  "entity.summoner.prepare_summon": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.summoner.prepare_summon",
+    "sounds": [
+      "blue_skies:entity/summoner/prepare_summoning"
+    ]
+  },
+  "entity.summoner.prepare_attack": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.summoner.prepare_attack",
+    "sounds": [
+      "blue_skies:entity/summoner/prepare_fluctuant_sphere_1",
+      "blue_skies:entity/summoner/prepare_fluctuant_sphere_2",
+      "blue_skies:entity/summoner/prepare_fluctuant_sphere_3"
+    ]
+  },
+  "entity.summoner.prepare_regen": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.summoner.prepare_regen",
+    "sounds": [
+      "blue_skies:entity/summoner/prepare_regen"
+    ]
+  },
+  "entity.artificial_golem.attack": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.artificial_golem.attack",
+    "sounds": [
+      {
+        "name": "entity.iron_golem.attack",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.artificial_golem.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.artificial_golem.hurt",
+    "sounds": [
+      "blue_skies:entity/artificial_golem/hurt1",
+      "blue_skies:entity/artificial_golem/hurt2",
+      "blue_skies:entity/artificial_golem/hurt3"
+    ]
+  },
+  "entity.artificial_golem.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.artificial_golem.death",
+    "sounds": [
+      "blue_skies:entity/artificial_golem/death"
+    ]
+  },
+  "entity.artificial_golem.activate": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.artificial_golem.activate",
+    "sounds": [
+      "blue_skies:entity/artificial_golem/activate"
+    ]
+  },
+  "entity.artificial_golem.deactivate": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.artificial_golem.deactivate",
+    "sounds": [
+      "blue_skies:entity/artificial_golem/deactivate"
+    ]
+  },
+  "entity.spewter.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.spewter.hurt",
+    "sounds": [
+      "blue_skies:entity/spewter/hurt1",
+      "blue_skies:entity/spewter/hurt2",
+      "blue_skies:entity/spewter/hurt3"
+    ]
+  },
+  "entity.spewter.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.spewter.death",
+    "sounds": [
+      "blue_skies:entity/spewter/death"
+    ]
+  },
+  "entity.spewter.spit": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.spewter.spit",
+    "sounds": [
+      "blue_skies:entity/spewter/spit1",
+      "blue_skies:entity/spewter/spit2",
+      "blue_skies:entity/spewter/spit3"
+    ]
+  },
+  "entity.spewter.grow": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.spewter.grow",
+    "sounds": [
+      "blue_skies:entity/spewter/grow"
+    ]
+  },
+  "entity.alchemist.idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.alchemist.idle",
+    "sounds": [
+      "blue_skies:entity/alchemist/idle1",
+      "blue_skies:entity/alchemist/idle2"
+    ]
+  },
+  "entity.alchemist.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.alchemist.hurt",
+    "sounds": [
+      "blue_skies:entity/alchemist/hurt1",
+      "blue_skies:entity/alchemist/hurt2",
+      "blue_skies:entity/alchemist/hurt3"
+    ]
+  },
+  "entity.alchemist.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.alchemist.death",
+    "sounds": [
+      "blue_skies:entity/alchemist/death1"
+    ]
+  },
+  "entity.alchemist.celebrate": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.alchemist.celebrate",
+    "sounds": [
+      "blue_skies:entity/alchemist/celebrate"
+    ]
+  },
+  "entity.alchemist.cast_spell": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.alchemist.cast_spell",
+    "sounds": [
+      "mob/evocation_illager/cast1",
+      "mob/evocation_illager/cast2"
+    ]
+  },
+  "entity.alchemist.prepare_rocks": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.alchemist.prepare_rocks",
+    "sounds": [
+      "blue_skies:entity/alchemist/prepare_rocks1",
+      "blue_skies:entity/alchemist/prepare_rocks2"
+    ]
+  },
+  "entity.alchemist.prepare_regen": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.alchemist.prepare_regen",
+    "sounds": [
+      "blue_skies:entity/alchemist/prepare_regen"
+    ]
+  },
+  "entity.alchemist.prepare_blindness": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.alchemist.prepare_blindness",
+    "sounds": [
+      "mob/illusion_illager/prepare_blind"
+    ]
+  },
+  "entity.alchemist.prepare_conversion": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.alchemist.prepare_conversion",
+    "sounds": [
+      "blue_skies:entity/alchemist/prepare_conversion"
+    ]
+  },
+  "entity.alchemist.prepare_potions": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.alchemist.prepare_potions",
+    "sounds": [
+      "blue_skies:entity/alchemist/prepare_potion_cloud_1",
+      "blue_skies:entity/alchemist/prepare_potion_cloud_2"
+    ]
+  },
+  "entity.alchemist.prepare_attack": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.alchemist.prepare_attack",
+    "sounds": [
+      "blue_skies:entity/alchemist/prepare_arrow_bundle"
+    ]
+  },
+  "entity.arachnarch.idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.arachnarch.idle",
+    "sounds": [
+      "blue_skies:entity/arachnarch/idle1",
+      "blue_skies:entity/arachnarch/idle2",
+      "blue_skies:entity/arachnarch/idle3"
+    ]
+  },
+  "entity.arachnarch.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.arachnarch.hurt",
+    "sounds": [
+      "blue_skies:entity/arachnarch/hurt1",
+      "blue_skies:entity/arachnarch/hurt2",
+      "blue_skies:entity/arachnarch/hurt3"
+    ]
+  },
+  "entity.arachnarch.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.arachnarch.death",
+    "sounds": [
+      "blue_skies:entity/arachnarch/death"
+    ]
+  },
+  "entity.starlit_crusher.idle": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.starlit_crusher.idle",
+    "sounds": [
+      "blue_skies:entity/starlit_crusher/idle1",
+      "blue_skies:entity/starlit_crusher/idle2",
+      "blue_skies:entity/starlit_crusher/idle3"
+    ]
+  },
+  "entity.starlit_crusher.hurt": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.starlit_crusher.hurt",
+    "sounds": [
+      "blue_skies:entity/starlit_crusher/hurt1",
+      "blue_skies:entity/starlit_crusher/hurt2",
+      "blue_skies:entity/starlit_crusher/hurt3"
+    ]
+  },
+  "entity.starlit_crusher.death": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.starlit_crusher.death",
+    "sounds": [
+      "blue_skies:entity/starlit_crusher/death"
+    ]
+  },
+  "entity.starlit_crusher.step": {
+    "category": "hostile",
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      "blue_skies:entity/starlit_crusher/step1",
+      "blue_skies:entity/starlit_crusher/step2",
+      "blue_skies:entity/starlit_crusher/step3",
+      "blue_skies:entity/starlit_crusher/step4",
+      "blue_skies:entity/starlit_crusher/step5"
+    ]
+  },
+  "entity.starlit_crusher.stunned": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.starlit_crusher.stunned",
+    "sounds": [
+      "blue_skies:entity/starlit_crusher/stunned"
+    ]
+  },
+  "entity.starlit_crusher.root": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.starlit_crusher.root",
+    "sounds": [
+      "blue_skies:entity/starlit_crusher/root"
+    ]
+  },
+  "entity.starlit_crusher.heal": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.starlit_crusher.heal",
+    "sounds": [
+      "blue_skies:entity/starlit_crusher/heal"
+    ]
+  },
+  "entity.starlit_crusher.prepare_small_growth": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.starlit_crusher.prepare_small_growth",
+    "sounds": [
+      "blue_skies:entity/starlit_crusher/prepare_small_growth"
+    ]
+  },
+  "entity.starlit_crusher.prepare_large_growth": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.starlit_crusher.prepare_large_growth",
+    "sounds": [
+      "blue_skies:entity/starlit_crusher/prepare_large_growth"
+    ]
+  },
+  "entity.starlit_crusher.prepare_spin": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.starlit_crusher.prepare_spin",
+    "sounds": [
+      "blue_skies:entity/starlit_crusher/prepare_spin"
+    ]
+  },
+  "entity.starlit_crusher.spin": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.starlit_crusher.spin",
+    "sounds": [
+      "blue_skies:entity/starlit_crusher/spin"
+    ]
+  },
+  "entity.starlit_crusher.prepare_owls": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.starlit_crusher.prepare_owls",
+    "sounds": [
+      "blue_skies:entity/starlit_crusher/prepare_owls"
+    ]
+  },
+  "entity.starlit_crusher.prepare_hammer": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.starlit_crusher.prepare_hammer",
+    "sounds": [
+      "blue_skies:entity/starlit_crusher/prepare_hammer"
+    ]
+  },
+  "entity.starlit_crusher.hammer_smash": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.starlit_crusher.hammer_smash",
+    "sounds": [
+      "blue_skies:entity/starlit_crusher/hammer_smash"
+    ]
+  },
+  "entity.starlit_crusher.fling_leaf": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.starlit_crusher.fling_leaf",
+    "sounds": [
+      "blue_skies:entity/starlit_crusher/fling_leaf1",
+      "blue_skies:entity/starlit_crusher/fling_leaf2"
+    ]
+  },
+  "entity.starlit_crusher.attack": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.starlit_crusher.attack",
+    "sounds": [
+      "blue_skies:entity/starlit_crusher/attack"
+    ]
+  },
+  "entity.starlit_wall.grow": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.starlit_wall.grow",
+    "sounds": [
+      "blue_skies:entity/starlit_crusher/wall_grow"
+    ]
+  },
+  "entity.arachnarch.spit": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.arachnarch.spit",
+    "sounds": [
+      "blue_skies:entity/arachnarch/spit1",
+      "blue_skies:entity/arachnarch/spit2",
+      "blue_skies:entity/arachnarch/spit3",
+      "blue_skies:entity/arachnarch/spit4"
+    ]
+  },
+  "entity.arachnarch.charge": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.arachnarch.charge",
+    "sounds": [
+      "blue_skies:entity/arachnarch/charge"
+    ]
+  },
+  "entity.arachnarch.lunge": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.arachnarch.lunge",
+    "sounds": [
+      "blue_skies:entity/arachnarch/lunge"
+    ]
+  },
+  "entity.arachnarch.flip": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.arachnarch.flip",
+    "sounds": [
+      "blue_skies:entity/arachnarch/flip"
+    ]
+  },
+  "entity.arachnarch.sling": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.arachnarch.sling",
+    "sounds": [
+      "blue_skies:entity/arachnarch/sling"
+    ]
+  },
+  "entity.arachnarch.stunned": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.arachnarch.stunned",
+    "sounds": [
+      "blue_skies:entity/arachnarch/stunned"
+    ]
+  },
+  "entity.arachnarch.venom_drop": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.arachnarch.venom_drop",
+    "sounds": [
+      "blue_skies:entity/arachnarch/drop1",
+      "blue_skies:entity/arachnarch/drop2",
+      "blue_skies:entity/arachnarch/drop3",
+      "blue_skies:entity/arachnarch/drop4"
+    ]
+  },
+  "entity.arachnarch.screech": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.arachnarch.idle",
+    "sounds": [
+      "blue_skies:entity/arachnarch/screech"
+    ]
+  },
+  "entity.arachnarch.attack": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.arachnarch.attack",
+    "sounds": [
+      "blue_skies:entity/arachnarch/attack1",
+      "blue_skies:entity/arachnarch/attack2"
+    ]
+  },
+  "entity.arachnarch.throw": {
+    "category": "hostile",
+    "subtitle": "subtitles.entity.arachnarch.throw",
+    "sounds": [
+      {
+        "name": "entity.phantom.flap",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.player.spit": {
+    "category": "player",
+    "subtitle": "subtitles.entity.sky_player.spit",
+    "sounds": [
+      {
+        "name": "blue_skies:entity.arachnarch.spit",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.player.cast_spell": {
+    "category": "player",
+    "subtitle": "subtitles.entity.sky_player.cast_spell",
+    "sounds": [
+      {
+        "name": "entity.evoker.cast_spell",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.player.prepare_rocks": {
+    "category": "player",
+    "subtitle": "subtitles.entity.sky_player.prepare_rocks",
+    "sounds": [
+      {
+        "name": "blue_skies:entity.alchemist.prepare_rocks",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.player.prepare_fluctuant_sphere": {
+    "category": "player",
+    "subtitle": "subtitles.entity.sky_player.prepare_fluctuant_sphere",
+    "sounds": [
+      {
+        "name": "blue_skies:entity.summoner.prepare_attack",
+        "type": "event"
+      }
+    ]
+  },
+  "entity.player.prepare_summoning": {
+    "category": "player",
+    "subtitle": "subtitles.entity.sky_player.prepare_summoning",
+    "sounds": [
+      {
+        "name": "blue_skies:entity.summoner.prepare_summon",
+        "type": "event"
+      }
+    ]
+  },
+  "item.bag.open": {
+    "category": "player",
+    "subtitle": "subtitles.item.sky_bag.open",
+    "sounds": [
+      "blue_skies:item/bag/open1",
+      "blue_skies:item/bag/open2",
+      "blue_skies:item/bag/open3"
+    ]
+  },
+  "item.astrolabe.ready": {
+    "category": "player",
+    "subtitle": "subtitles.item.sky_astrolabe.ready",
+    "sounds": [
+      "blue_skies:item/astrolabe/ready"
+    ]
+  },
+  "item.falsite.break": {
+    "category": "player",
+    "subtitle": "subtitles.item.falsite.break",
+    "sounds": [
+      "blue_skies:item/falsite/falsite_break"
+    ]
+  },
+  "item.spear.throw": {
+    "category": "player",
+    "subtitle": "subtitles.item.sky_spear.throw",
+    "sounds": [
+      "blue_skies:item/spear/throw"
+    ]
+  },
+  "item.spear.throw_underwater": {
+    "category": "player",
+    "subtitle": "subtitles.item.sky_spear.throw",
+    "sounds": [
+      "blue_skies:item/spear/throw_underwater"
+    ]
+  },
+  "item.spear.hit": {
+    "category": "player",
+    "subtitle": "subtitles.item.sky_spear.hit",
+    "sounds": [
+      "blue_skies:item/spear/hit"
+    ]
+  },
+  "item.spear.hit_ground": {
+    "category": "player",
+    "subtitle": "subtitles.item.sky_spear.hit_ground",
+    "sounds": [
+      "blue_skies:item/spear/hit_ground"
+    ]
+  },
+  "item.spear.return": {
+    "category": "player",
+    "subtitle": "subtitles.item.sky_spear.return",
+    "sounds": [
+      "blue_skies:item/spear/return"
+    ]
+  },
+  "item.arc.ethereal_equip": {
+    "category": "player",
+    "subtitle": "subtitles.item.arc.generic_equip",
+    "sounds": [
+      "blue_skies:item/arc/generic_equip1",
+      "blue_skies:item/arc/generic_equip2",
+      "blue_skies:item/arc/generic_equip3",
+      "blue_skies:item/arc/generic_equip4",
+      "blue_skies:item/arc/generic_equip5",
+      "blue_skies:item/arc/generic_equip6"
+    ]
+  },
+  "item.arc.dusk_equip": {
+    "category": "player",
+    "subtitle": "subtitles.item.arc.generic_equip",
+    "sounds": [
+      "blue_skies:item/arc/generic_equip1",
+      "blue_skies:item/arc/generic_equip2",
+      "blue_skies:item/arc/generic_equip3",
+      "blue_skies:item/arc/generic_equip4",
+      "blue_skies:item/arc/generic_equip5",
+      "blue_skies:item/arc/generic_equip6"
+    ]
+  },
+  "item.arc.nature_equip": {
+    "category": "player",
+    "subtitle": "subtitles.item.arc.generic_equip",
+    "sounds": [
+      "blue_skies:item/arc/generic_equip1",
+      "blue_skies:item/arc/generic_equip2",
+      "blue_skies:item/arc/generic_equip3",
+      "blue_skies:item/arc/generic_equip4",
+      "blue_skies:item/arc/generic_equip5",
+      "blue_skies:item/arc/generic_equip6"
+    ]
+  },
+  "item.arc.poison_equip": {
+    "category": "player",
+    "subtitle": "subtitles.item.arc.generic_equip",
+    "sounds": [
+      "blue_skies:item/arc/generic_equip1",
+      "blue_skies:item/arc/generic_equip2",
+      "blue_skies:item/arc/generic_equip3",
+      "blue_skies:item/arc/generic_equip4",
+      "blue_skies:item/arc/generic_equip5",
+      "blue_skies:item/arc/generic_equip6"
+    ]
+  },
+  "item.arc.aquatic_equip": {
+    "category": "player",
+    "subtitle": "subtitles.item.arc.generic_equip",
+    "sounds": [
+      "blue_skies:item/arc/generic_equip1",
+      "blue_skies:item/arc/generic_equip2",
+      "blue_skies:item/arc/generic_equip3",
+      "blue_skies:item/arc/generic_equip4",
+      "blue_skies:item/arc/generic_equip5",
+      "blue_skies:item/arc/generic_equip6"
+    ]
+  },
+  "item.arc.life_equip": {
+    "category": "player",
+    "subtitle": "subtitles.item.arc.generic_equip",
+    "sounds": [
+      "blue_skies:item/arc/generic_equip1",
+      "blue_skies:item/arc/generic_equip2",
+      "blue_skies:item/arc/generic_equip3",
+      "blue_skies:item/arc/generic_equip4",
+      "blue_skies:item/arc/generic_equip5",
+      "blue_skies:item/arc/generic_equip6"
+    ]
+  },
+  "item.arc.runic_equip": {
+    "category": "player",
+    "subtitle": "subtitles.item.arc.generic_equip",
+    "sounds": [
+      "blue_skies:item/arc/generic_equip1",
+      "blue_skies:item/arc/generic_equip2",
+      "blue_skies:item/arc/generic_equip3",
+      "blue_skies:item/arc/generic_equip4",
+      "blue_skies:item/arc/generic_equip5",
+      "blue_skies:item/arc/generic_equip6"
+    ]
+  },
+  "music.mars": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/mars",
+        "stream": true
+      }
+    ]
+  },
+  "music.moonlit_bloom": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/moonlit_bloom",
+        "stream": true
+      }
+    ]
+  },
+  "music.brisegel": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/brisegel",
+        "stream": true
+      }
+    ]
+  },
+  "music.turquoise": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/turquoise",
+        "stream": true
+      }
+    ]
+  },
+  "music.snowcap": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/snowcap",
+        "stream": true
+      }
+    ]
+  },
+  "music.baneful": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/baneful",
+        "stream": true
+      }
+    ]
+  },
+  "music.brightlands": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/brightlands",
+        "stream": true
+      }
+    ]
+  },
+  "music.whistleshell": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/whistleshell",
+        "stream": true
+      }
+    ]
+  },
+  "music.brittlebush": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/brittlebush",
+        "stream": true
+      }
+    ]
+  },
+  "music.crystal_dunes": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/crystal_dunes",
+        "stream": true
+      }
+    ]
+  },
+  "music.gatekeepers_tale": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/gatekeepers_tale",
+        "stream": true
+      }
+    ]
+  },
+  "music.blinding_boss": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/dungeon/boss/blinding_boss",
+        "stream": true
+      }
+    ]
+  },
+  "music.blinding_defeat": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/dungeon/boss/blinding_fanfare",
+        "stream": true
+      }
+    ]
+  },
+  "music.blinding_dungeon_ambience": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/dungeon/blinding_dungeon_ambience",
+        "stream": true
+      }
+    ]
+  },
+  "music.nature_boss": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/dungeon/boss/nature_boss",
+        "stream": true
+      }
+    ]
+  },
+  "music.nature_defeat": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/dungeon/boss/nature_fanfare",
+        "stream": true
+      }
+    ]
+  },
+  "music.nature_dungeon_ambience": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/dungeon/nature_dungeon_ambience",
+        "stream": true
+      }
+    ]
+  },
+  "music.poison_boss": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/dungeon/boss/poison_boss",
+        "stream": true
+      }
+    ]
+  },
+  "music.poison_defeat": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/dungeon/boss/poison_fanfare",
+        "stream": true
+      }
+    ]
+  },
+  "music.poison_dungeon_ambience": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/dungeon/poison_dungeon_ambience",
+        "stream": true
+      }
+    ]
+  },
+  "music.generic_boss": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/dungeon/boss/generic_boss",
+        "stream": true
+      }
+    ]
+  },
+  "music.generic_defeat": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "blue_skies:music/dungeon/boss/generic_fanfare",
+        "stream": true
+      }
+    ]
+  },
+  "records.blinding_rage": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "blue_skies:music/records/blinding_rage",
+        "stream": true
+      }
+    ]
+  },
+  "records.defying_starlight": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "blue_skies:music/records/defying_starlight",
+        "stream": true
+      }
+    ]
+  },
+  "records.venomous_encounter": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "blue_skies:music/records/venomous_encounter",
+        "stream": true
+      }
+    ]
+  },
+  "records.population": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "blue_skies:music/records/population",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.snow_wind": {
+    "category": "ambient",
+    "subtitle": "subtitles.ambient.snow_wind",
+    "sounds": [
+      {
+        "name": "blue_skies:ambient/snow_wind",
+        "stream": false
+      }
+    ]
+  },
+  "ambient.snow_wind.additions": {
+    "category": "ambient",
+    "sounds": [
+      "blue_skies:ambient/snow_chime_ambient_1",
+      "blue_skies:ambient/snow_chime_ambient_2",
+      "blue_skies:ambient/snow_chime_ambient_3"
+    ]
+  },
+  "ambient.sandstorm_wind": {
+    "category": "weather",
+    "subtitle": "subtitles.ambient.sandstorm_wind",
+    "sounds": [
+      "blue_skies:ambient/sandstorm_wind_1"
+    ]
+  },
+  "ambient.rain.drizzle": {
+    "category": "weather",
+    "sounds": [
+      "blue_skies:ambient/drizzle1",
+      "blue_skies:ambient/drizzle2",
+      "blue_skies:ambient/drizzle3",
+      "blue_skies:ambient/drizzle4"
+    ]
+  },
+  "ambient.poison_dungeon.additions": {
+    "category": "ambient",
+    "sounds": [
+      "blue_skies:ambient/dungeon/poison_crawling",
+      "blue_skies:ambient/dungeon/poison_hissing"
+    ]
+  },
+  "ambient.nature_dungeon.additions": {
+    "category": "ambient",
+    "sounds": [
+      "blue_skies:ambient/dungeon/nature_water_droplets",
+      "blue_skies:ambient/dungeon/nature_falling_rocks"
+    ]
+  },
+  "ambient.moonlit_reservoir.loop": {
+    "category": "ambient",
+    "sounds": [
+      "blue_skies:ambient/crickets"
+    ]
+  },
+  "ambient.shaded_woodlands.loop": {
+    "category": "ambient",
+    "sounds": [
+      "blue_skies:ambient/light_crickets"
+    ]
+  },
+  "gangster": {
+    "category": "neutral",
+    "sounds": [
+      "blue_skies:gangster"
+    ]
+  }
+}

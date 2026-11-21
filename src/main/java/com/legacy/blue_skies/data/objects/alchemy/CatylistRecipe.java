@@ -149,12 +149,12 @@ public class CatylistRecipe extends AlchemyRecipe {
    }
 
    public CatylistRecipe fromJson(JsonObject json) throws SkiesDataManager.RegistryObjectNotFoundException {
-      return (CatylistRecipe)((Pair)CODEC.decode(JsonOps.INSTANCE, json).getOrThrow(false, JsonParseException::new)).getFirst();
+      return (CatylistRecipe)((Pair)CODEC.decode(JsonOps.INSTANCE, json).getOrThrow(JsonParseException::new)).getFirst();
    }
 
    @Override
    public JsonObject toJson() {
-      return ((JsonElement)CODEC.encodeStart(JsonOps.INSTANCE, this).getOrThrow(false, IllegalStateException::new)).getAsJsonObject();
+      return ((JsonElement)CODEC.encodeStart(JsonOps.INSTANCE, this).getOrThrow(IllegalStateException::new)).getAsJsonObject();
    }
 
    public static final class Builder {

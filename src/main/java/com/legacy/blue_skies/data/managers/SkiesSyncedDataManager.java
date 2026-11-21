@@ -85,7 +85,7 @@ public abstract class SkiesSyncedDataManager<K, V, T extends SkiesSyncedDataMana
    }
 
    public Item getItem(CompoundTag nbt, String key) {
-      return (Item)BuiltInRegistries.ITEM.get(new ResourceLocation(nbt.getString(key)));
+      return (Item)BuiltInRegistries.ITEM.get(ResourceLocation.parse(nbt.getString(key)));
    }
 
    public void putBlock(CompoundTag nbt, String key, Block block) {
@@ -93,6 +93,6 @@ public abstract class SkiesSyncedDataManager<K, V, T extends SkiesSyncedDataMana
    }
 
    public Block getBlock(CompoundTag nbt, String key) {
-      return (Block)BuiltInRegistries.BLOCK.get(new ResourceLocation(nbt.getString(key)));
+      return (Block)BuiltInRegistries.BLOCK.get(ResourceLocation.parse(nbt.getString(key)));
    }
 }

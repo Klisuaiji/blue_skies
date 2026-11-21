@@ -21,8 +21,8 @@ import net.minecraft.world.level.biome.Biome.Precipitation;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
 
 public class BrightWeatherRenderer {
-   private static final ResourceLocation RAIN_TEXTURES = new ResourceLocation("textures/environment/rain.png");
-   private static final ResourceLocation SNOW_TEXTURES = new ResourceLocation("textures/environment/snow.png");
+   private static final ResourceLocation RAIN_TEXTURES = ResourceLocation.parse("textures/environment/rain.png");
+   private static final ResourceLocation SNOW_TEXTURES = ResourceLocation.parse("textures/environment/snow.png");
    private static final ResourceLocation SNOW_DUSTING_TEXTURES = BlueSkies.locate("textures/environment/snow_dusting.png");
    private final float[] rainXCoords = new float[1024];
    private final float[] rainYCoords = new float[1024];

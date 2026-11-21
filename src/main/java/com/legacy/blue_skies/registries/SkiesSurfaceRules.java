@@ -20,7 +20,7 @@ public class SkiesSurfaceRules extends SurfaceRules {
       return new SkiesSurfaceRules.RandomConditionSource(BlueSkies.locate(name));
    }
 
-   public static enum CrystalRoughness implements RuleSource {
+   public enum CrystalRoughness implements RuleSource {
       INSTANCE;
 
       public static final KeyDispatchDataCodec<SkiesSurfaceRules.CrystalRoughness> CODEC = KeyDispatchDataCodec.of(MapCodec.unit(INSTANCE));
@@ -73,7 +73,7 @@ public class SkiesSurfaceRules extends SurfaceRules {
       }
    }
 
-   public static enum ReservoirMuddiness implements RuleSource {
+   public enum ReservoirMuddiness implements RuleSource {
       INSTANCE;
 
       public static final KeyDispatchDataCodec<SkiesSurfaceRules.ReservoirMuddiness> CODEC = KeyDispatchDataCodec.of(MapCodec.unit(INSTANCE));

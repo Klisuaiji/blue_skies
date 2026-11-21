@@ -1,5 +1,6 @@
 package com.legacy.blue_skies;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.assets.BlueSkiesAssets;
 import com.legacy.blue_skies.blocks.util.Composting;
 import com.legacy.blue_skies.blocks.util.DispenserBehaviors;
@@ -13,6 +14,7 @@ import com.legacy.blue_skies.client.gui.screen.AlchemyTableScreen;
 import com.legacy.blue_skies.client.gui.screen.ArcsScreen;
 import com.legacy.blue_skies.client.gui.screen.BagOfSpoilsScreen;
 import com.legacy.blue_skies.client.gui.screen.FoodPrepScreen;
+import com.legacy.blue_skies.client.gui.menu.HorizoniteForgeMenu;
 import com.legacy.blue_skies.client.gui.screen.HorizoniteForgeScreen;
 import com.legacy.blue_skies.client.gui.screen.MountInventoryScreen;
 import com.legacy.blue_skies.client.gui.screen.SnowcapOvenScreen;
@@ -47,6 +49,7 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig.Type;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
@@ -79,6 +82,7 @@ public class BlueSkies {
          ModLoadingContext.get().registerConfig(Type.CLIENT, BlueSkiesConfig.CLIENT_SPEC);
          BlueSkiesAssets.init();
          modBus.addListener(BlueSkies::clientInit);
+         modBus.addListener(BlueSkies::registerMenus);
          modBus.addListener(SkiesBlockModels::modelRegistry);
          modBus.addListener(SkiesBlockModels::onModelBake);
          modBus.addListener(SkiesResourcePackHandler::packRegistry);
@@ -106,7 +110,7 @@ public class BlueSkies {
    }
 
    public static ResourceLocation locate(String key) {
-      return new ResourceLocation("blue_skies", key);
+      return ResourceLocation.fromNamespaceAndPath("blue_skies", key);
    }
 
    public static String find(String key) {
@@ -131,17 +135,20 @@ public class BlueSkies {
       BlueSkiesData.addSyncedListeners();
    }
 
+   public static void registerMenus(RegisterMenuScreensEvent event) {
+      event.register(SkiesContainers.ARC_INVENTORY, ArcsScreen::new);
+      event.register(SkiesContainers.MOUNT_INVENTORY, MountInventoryScreen::new);
+      event.<HorizoniteForgeMenu, HorizoniteForgeScreen>register(SkiesContainers.HORIZONITE_FORGE, HorizoniteForgeScreen::new);
+      event.register(SkiesContainers.SNOWCAP_OVEN, SnowcapOvenScreen::new);
+      event.register(SkiesContainers.SUMMONING_TABLE, SummoningTableScreen::new);
+      event.register(SkiesContainers.ALCHEMY_TABLE, AlchemyTableScreen::new);
+      event.register(SkiesContainers.TOOLBOX, ToolboxScreen::new);
+      event.register(SkiesContainers.FOOD_PREP_TABLE, FoodPrepScreen::new);
+      event.register(SkiesContainers.BAG_OF_SPOILS, BagOfSpoilsScreen::new);
+   }
+
    public static void clientInit(FMLClientSetupEvent event) {
       event.enqueueWork(() -> {
-         MenuScreens.register(SkiesContainers.ARC_INVENTORY, ArcsScreen::new);
-         MenuScreens.register(SkiesContainers.MOUNT_INVENTORY, MountInventoryScreen::new);
-         MenuScreens.register(SkiesContainers.HORIZONITE_FORGE, HorizoniteForgeScreen::new);
-         MenuScreens.register(SkiesContainers.SNOWCAP_OVEN, SnowcapOvenScreen::new);
-         MenuScreens.register(SkiesContainers.SUMMONING_TABLE, SummoningTableScreen::new);
-         MenuScreens.register(SkiesContainers.ALCHEMY_TABLE, AlchemyTableScreen::new);
-         MenuScreens.register(SkiesContainers.TOOLBOX, ToolboxScreen::new);
-         MenuScreens.register(SkiesContainers.FOOD_PREP_TABLE, FoodPrepScreen::new);
-         MenuScreens.register(SkiesContainers.BAG_OF_SPOILS, BagOfSpoilsScreen::new);
          SkiesWoodTypes.init();
          SkiesAtlases.initWoodTypes();
          SkiesBlockLayers.init();

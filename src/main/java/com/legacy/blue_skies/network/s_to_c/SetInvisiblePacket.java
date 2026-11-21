@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class SetInvisiblePacket implements PacketHandler.ModPacket<SetInvisiblePacket, SetInvisiblePacket.Handler> {
    private boolean value;
@@ -44,9 +44,9 @@ public class SetInvisiblePacket implements PacketHandler.ModPacket<SetInvisibleP
          return new SetInvisiblePacket(buff.readBoolean(), buff.readByte(), buff.readUUID());
       }
 
-      public void handler(SetInvisiblePacket packet, PlayPayloadContext context) {
+      public void handler(SetInvisiblePacket packet, IPayloadContext context) {
          if (FMLEnvironment.dist == Dist.CLIENT) {
-            context.workHandler().submitAsync(() -> handlePacket(packet));
+            context.enqueueWork(() -> handlePacket(packet));
          }
       }
 

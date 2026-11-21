@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.block_entity;
 
+import net.minecraft.core.HolderLookup;
 import com.legacy.blue_skies.entities.util.interfaces.ISkyBoss;
 import com.legacy.blue_skies.events.SkiesPlayerEvents;
 import com.legacy.blue_skies.registries.SkiesBlockEntityTypes;
@@ -105,19 +106,19 @@ public abstract class KeystoneBlockEntity extends SkiesBlockEntity {
       }
    }
 
-   public void load(CompoundTag compound) {
-      super.load(compound);
-      this.containedMob = (EntityType<?>)BuiltInRegistries.ENTITY_TYPE.get(new ResourceLocation(compound.getString("ContainedMob")));
-      this.key = (Item)BuiltInRegistries.ITEM.get(new ResourceLocation(compound.getString("Key")));
-      this.arc = (Item)BuiltInRegistries.ITEM.get(new ResourceLocation(compound.getString("Arc")));
-      this.teleportOffset = compound.contains("TeleportOffset") ? NbtUtils.readBlockPos(compound.getCompound("TeleportOffset")) : BlockPos.ZERO;
-      this.spawnOffset = compound.contains("SpawnOffset") ? NbtUtils.readBlockPos(compound.getCompound("SpawnOffset")) : BlockPos.ZERO;
+   public void loadAdditional(CompoundTag compound, HolderLookup.Provider p) {
+      super.loadAdditional(compound, p);
+      this.containedMob = (EntityType<?>)BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(compound.getString("ContainedMob")));
+      this.key = (Item)BuiltInRegistries.ITEM.get(ResourceLocation.parse(compound.getString("Key")));
+      this.arc = (Item)BuiltInRegistries.ITEM.get(ResourceLocation.parse(compound.getString("Arc")));
+      this.teleportOffset = NbtUtils.readBlockPos(compound, "TeleportOffset").orElse(BlockPos.ZERO);
+      this.spawnOffset = NbtUtils.readBlockPos(compound, "SpawnOffset").orElse(BlockPos.ZERO);
       this.keysRequired = compound.getBoolean("KeysRequired");
       this.spawnsBoss = compound.getBoolean("SpawnsBoss");
    }
 
-   public void saveAdditional(CompoundTag compound) {
-      super.saveAdditional(compound);
+   public void saveAdditional(CompoundTag compound, HolderLookup.Provider p) {
+      super.saveAdditional(compound, p);
       ResourceLocation mobKey;
       if ((mobKey = BuiltInRegistries.ENTITY_TYPE.getKey(this.containedMob)) != null) {
          compound.putString("ContainedMob", mobKey.toString());

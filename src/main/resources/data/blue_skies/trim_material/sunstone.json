@@ -1,0 +1,9 @@
+{
+  "asset_name": "blue_skies-sunstone",
+  "description": {
+    "color": "#F6CBB7",
+    "translate": "trim_material.blue_skies.sunstone"
+  },
+  "ingredient": "blue_skies:sunstone_crystal",
+  "item_model_index": 0.508412
+}

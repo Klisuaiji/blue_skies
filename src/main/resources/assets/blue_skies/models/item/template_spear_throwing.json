@@ -1,0 +1,15 @@
+{
+	"parent": "blue_skies:item/template_spear",
+	"display": {
+        "thirdperson_righthand": {
+            "rotation": [ 180, -90, 55 ],
+            "translation": [ 0, -1.5, 1.5 ],
+            "scale": [ 1.1, 1.1, 1.1 ]
+        },
+        "thirdperson_lefthand": {
+            "rotation": [ 180, 90, -55 ],
+            "translation": [ 0, -1.5, 1.5 ],
+            "scale": [ 1.1, 1.1, 1.1 ]
+        }
+    }
+}

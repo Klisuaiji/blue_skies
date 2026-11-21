@@ -1,0 +1,33 @@
+{
+  "type": "structure_gel:extended_jigsaw",
+  "biomes": {
+    "type": "structure_gel:filter",
+    "blacklist": [],
+    "whitelist": {
+      "type": "neoforge:or",
+      "values": [
+        "#minecraft:has_structure/village_plains",
+        "#minecraft:is_savanna"
+      ]
+    }
+  },
+  "capability": {
+    "type": "blue_skies:gatekeeper_house"
+  },
+  "max_distance_from_center": 80,
+  "project_start_to_heightmap": "WORLD_SURFACE_WG",
+  "size": 7,
+  "spawn_overrides": {
+    "monster": {
+      "bounding_box": "piece",
+      "spawns": []
+    }
+  },
+  "start_height": {
+    "absolute": 0
+  },
+  "start_pool": "blue_skies:gatekeeper/plains/main",
+  "step": "surface_structures",
+  "terrain_adaptation": "beard_thin",
+  "use_expansion_hack": false
+}

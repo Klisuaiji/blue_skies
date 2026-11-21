@@ -43,7 +43,7 @@ public abstract class SkiesBiomeSource extends BiomeSource {
       this.provider = biomeProvider;
    }
 
-   public Holder<Biome> getNoiseBiome(int x, int y, int z, @Nullable Sampler climateSampler) {
+   public Holder<Biome> getNoiseBiome(int x, int y, int z, Sampler climateSampler) {
       return this.provider.getBiome(this.biomeRegistry, this.allBiomes, x * 4, y * 4, z * 4);
    }
 

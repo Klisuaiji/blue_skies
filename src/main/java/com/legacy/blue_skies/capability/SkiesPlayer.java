@@ -303,8 +303,8 @@ public class SkiesPlayer {
             }
 
             this.player.level().addFreshEntity(pet);
-         } catch (NullPointerException var2) {
-            BlueSkies.LOGGER.error(MARKER, "Something went wrong trying to spawn a supporter pet for {}!", this.player.getName().getString(), var2);
+         } catch (NullPointerException e) {
+            BlueSkies.LOGGER.error(MARKER, "Something went wrong trying to spawn a supporter pet for {}!", this.player.getName().getString(), e);
          }
       }
    }
@@ -483,7 +483,7 @@ public class SkiesPlayer {
          attachment.setOpenedBlueLore(compound.getBoolean("OpenedBlueLore"));
          attachment.setFullDuskInvis(compound.getBoolean("FullDuskInvis"));
          attachment.natureHealth = compound.getFloat("NatureHealth");
-         attachment.prevKeystonePos = NbtUtils.readBlockPos(compound.getCompound("KeystoneTeleportPos"));
+         attachment.prevKeystonePos = NbtUtils.readBlockPos(compound, "KeystoneTeleportPos").orElse(BlockPos.ZERO);
          if (compound.getString("SupporterPetName").length() > 1) {
             attachment.setSupporterPetName(compound.getString("SupporterPetName"));
          }

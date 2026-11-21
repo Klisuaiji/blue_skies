@@ -1,0 +1,41 @@
+{
+	"ambientocclusion": true,
+	"textures": {
+		"particle": "blue_skies:block/plants/snowcap_mushroom"
+	},
+	"elements": [
+		{
+			"from": [0, 12, 0],
+			"to": [16, 13, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 8, 8]},
+			"faces": {
+				"north": {"uv": [0, 8, 8, 8.5], "rotation": 180, "texture": "#particle"},
+				"east": {"uv": [7.5, 8, 8, 16], "rotation": 90, "texture": "#particle"},
+				"south": {"uv": [0, 15.5, 8, 16], "texture": "#particle"},
+				"west": {"uv": [0, 8, 0.5, 16], "rotation": 270, "texture": "#particle"},
+				"up": {"uv": [0, 8, 8, 16], "texture": "#particle"},
+				"down": {"uv": [0, 8, 8, 16], "texture": "#particle"}
+			}
+		},
+		{
+			"shade": false,
+			"from": [0, 0, 8],
+			"to": [16, 12, 8],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [8, 2, 16, 8], "texture": "#particle"},
+				"south": {"uv": [8, 2, 16, 8], "texture": "#particle"}
+			}
+		},
+		{
+			"shade": false,
+			"from": [8, 0, 0],
+			"to": [8, 12, 16],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"east": {"uv": [8, 2, 16, 8], "texture": "#particle"},
+				"west": {"uv": [8, 2, 16, 8], "texture": "#particle"}
+			}
+		}
+	]
+}

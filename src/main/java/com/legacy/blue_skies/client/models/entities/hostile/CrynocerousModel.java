@@ -154,7 +154,7 @@ public class CrynocerousModel<T extends CrynocerousEntity> extends ListModel<T> 
       if (entityIn.attackTimer < 11) {
          float i = entityIn.attackTimer + partialTicks;
          this.neck.xRot = (float)(
-            entityIn.attackTimer > 8 ? Math.min((double)(entityIn.getXRot() / (float) (180.0 / Math.PI)), Math.sin(i * 0.58F)) : Math.sin(i * 0.58F)
+            entityIn.attackTimer > 8 ? Math.min(entityIn.getXRot() / (float) (180.0 / Math.PI), Math.sin(i * 0.58F)) : Math.sin(i * 0.58F)
          );
       }
    }

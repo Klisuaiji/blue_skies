@@ -95,15 +95,17 @@ public class SkyDoubleCropBlock extends SkyCropBlock {
    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
       if (this.isLowerHalf(state)) {
          return super.canSurvive(state, level, pos);
-      } else if (this.isLowerHalf(state)) {
-         return false;
-      } else {
-         BlockState downState = level.getBlockState(pos.below());
-         return downState.getBlock() == this
-            && this.isLowerHalf(downState)
-            && this.isMaxAge(downState)
-            && (level.getRawBrightness(pos, 0) >= 8 || level.canSeeSky(pos));
       }
+
+      if (this.isLowerHalf(state)) {
+         return false;
+      }
+
+      BlockState downState = level.getBlockState(pos.below());
+      return downState.getBlock() == this
+         && this.isLowerHalf(downState)
+         && this.isMaxAge(downState)
+         && (level.getRawBrightness(pos, 0) >= 8 || level.canSeeSky(pos));
    }
 
    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {

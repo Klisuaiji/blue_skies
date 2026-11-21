@@ -17,7 +17,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class VenomSpitRenderer<T extends VenomSpitEntity> extends EntityRenderer<T> {
-   private static final ResourceLocation LLAMA_SPIT_TEXTURE = new ResourceLocation("textures/entity/llama/spit.png");
+   private static final ResourceLocation LLAMA_SPIT_TEXTURE = ResourceLocation.parse("textures/entity/llama/spit.png");
    private final LlamaSpitModel<VenomSpitEntity> model;
 
    public VenomSpitRenderer(Context context) {
@@ -32,7 +32,7 @@ public class VenomSpitRenderer<T extends VenomSpitEntity> extends EntityRenderer
       matrixStackIn.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, entityIn.xRotO, entityIn.getXRot())));
       this.model.setupAnim(entityIn, partialTicks, 0.0F, -0.1F, 0.0F, 0.0F);
       VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.model.renderType(LLAMA_SPIT_TEXTURE));
-      this.model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 0.5F, 1.0F, 0.0F, 1.0F);
+      this.model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, -1);
       matrixStackIn.popPose();
       super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
    }

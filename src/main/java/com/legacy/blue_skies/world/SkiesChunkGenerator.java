@@ -100,7 +100,7 @@ public class SkiesChunkGenerator extends NoiseBasedChunkGenerator {
       return new NoiseColumn(level.getMinBuildHeight(), states.toArray(BlockState[]::new));
    }
 
-   private int iterateColumn(int worldX, int worldZ, List<BlockState> states, @Nullable Predicate<BlockState> stateTest, LevelHeightAccessor level) {
+   private int iterateColumn(int worldX, int worldZ, List<BlockState> states, Predicate<BlockState> stateTest, LevelHeightAccessor level) {
       int terrainHeight = this.getTerrainHeight(worldX, worldZ);
       int maxY = level.getMaxBuildHeight();
 
@@ -127,26 +127,26 @@ public class SkiesChunkGenerator extends NoiseBasedChunkGenerator {
       int upperCellCount = Math.floorDiv(height - minY, noiseSettings.getCellHeight());
       if (upperCellCount <= 0) {
          return CompletableFuture.completedFuture(chunkAccess);
-      } else {
-         int maxSectionIndex = chunkAccess.getSectionIndex(upperCellCount * noiseSettings.getCellHeight() - 1 + minY);
-         int minSectionIndex = chunkAccess.getSectionIndex(minY);
-         Set<LevelChunkSection> set = Sets.newHashSet();
-
-         for (int i = maxSectionIndex; i >= minSectionIndex; i--) {
-            LevelChunkSection section = chunkAccess.getSection(i);
-            section.acquire();
-            set.add(section);
-         }
-
-         return CompletableFuture.<ChunkAccess>supplyAsync(
-               Util.wrapThreadWithTaskName("wgen_fill_noise", () -> this.doFill(blender, structureManager, chunkAccess)), Util.backgroundExecutor()
-            )
-            .whenCompleteAsync((ca, t) -> {
-               for (LevelChunkSection secion : set) {
-                  secion.release();
-               }
-            }, exc);
       }
+
+      int maxSectionIndex = chunkAccess.getSectionIndex(upperCellCount * noiseSettings.getCellHeight() - 1 + minY);
+      int minSectionIndex = chunkAccess.getSectionIndex(minY);
+      Set<LevelChunkSection> set = Sets.newHashSet();
+
+      for (int i = maxSectionIndex; i >= minSectionIndex; i--) {
+         LevelChunkSection section = chunkAccess.getSection(i);
+         section.acquire();
+         set.add(section);
+      }
+
+      return CompletableFuture.<ChunkAccess>supplyAsync(
+            Util.wrapThreadWithTaskName("wgen_fill_noise", () -> this.doFill(blender, structureManager, chunkAccess)), Util.backgroundExecutor()
+         )
+         .whenCompleteAsync((ca, t) -> {
+            for (LevelChunkSection secion : set) {
+               secion.release();
+            }
+         }, exc);
    }
 
    private ChunkAccess doFill(Blender blender, StructureManager structureManager, ChunkAccess chunkAccess) {

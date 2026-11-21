@@ -12,7 +12,7 @@ public class JournalRequirement implements IToJson<JournalRequirement> {
    @Nullable
    public final ResourceLocation advancement;
 
-   public JournalRequirement(ResourceLocation name, int everbrightProgression, int everdawnProgression, @Nullable ResourceLocation advancement) {
+   public JournalRequirement(ResourceLocation name, int everbrightProgression, int everdawnProgression, ResourceLocation advancement) {
       this.name = name;
       this.everbrightProgression = everbrightProgression;
       this.everdawnProgression = everdawnProgression;

@@ -39,23 +39,23 @@ public abstract class BaseLargeMushroomFeature extends AbstractSkyTreeFeature {
          shrooms.add(blockPosx);
       })) {
          return false;
-      } else {
-         for (BlockPos blockPos : shrooms) {
-            for (Direction dir : Direction.values()) {
-               TreeFeature.setBlockKnownShape(
-                  world,
-                  blockPos,
-                  world.getBlockState(blockPos).updateShape(dir, world.getBlockState(blockPos.relative(dir)), world, blockPos, blockPos.relative(dir))
-               );
-            }
-         }
-
-         return true;
       }
+
+      for (BlockPos blockPos : shrooms) {
+         for (Direction dir : Direction.values()) {
+            TreeFeature.setBlockKnownShape(
+               world,
+               blockPos,
+               world.getBlockState(blockPos).updateShape(dir, world.getBlockState(blockPos.relative(dir)), world, blockPos, blockPos.relative(dir))
+            );
+         }
+      }
+
+      return true;
    }
 
    @Override
-   protected boolean setBlockIfOk(@Nullable BiConsumer<BlockPos, BlockState> changedBlocks, WorldGenLevel world, BlockPos pos, BlockState state) {
+   protected boolean setBlockIfOk(BiConsumer<BlockPos, BlockState> changedBlocks, WorldGenLevel world, BlockPos pos, BlockState state) {
       Block block = state.getBlock();
       if (block instanceof HugeMushroomBlock) {
          if (this.isReplaceableByMushroom(world, pos)) {

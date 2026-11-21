@@ -1,0 +1,10 @@
+{
+  "type": "blue_skies:cave_plant",
+  "config": {
+    "plant": {
+      "Name": "blue_skies:lucentroot"
+    },
+    "radius": 10,
+    "tries": 25
+  }
+}

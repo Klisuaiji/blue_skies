@@ -26,7 +26,7 @@ public class BossSpawnEggItem extends DeferredSpawnEggItem {
    }
 
    @OnlyIn(Dist.CLIENT)
-   public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> lore, TooltipFlag flagIn) {
+   public void appendHoverText(ItemStack stack, Level worldIn, List<Component> lore, TooltipFlag flagIn) {
       lore.add(StringUtil.BOSS_EGG);
    }
 

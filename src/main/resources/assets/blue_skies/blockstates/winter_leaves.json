@@ -1,0 +1,19 @@
+{
+    "multipart": [
+		{
+			"apply": { "model": "blue_skies:block/winter_leaves" }
+		},
+        {   "when": { "age": 0 },
+            "apply": { "model": "blue_skies:block/winter_leaves_0" }
+        },
+        {   "when": { "age": 1 },
+            "apply": { "model": "blue_skies:block/winter_leaves_1" }
+        },
+        {   "when": { "age": 2 },
+            "apply": { "model": "blue_skies:block/winter_leaves_2" }
+        },
+        {   "when": { "age": 3 },
+            "apply": { "model": "blue_skies:block/winter_leaves_3" }
+        }
+    ]
+}

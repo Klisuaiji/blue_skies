@@ -1,0 +1,16 @@
+{
+    "ambientocclusion": false,
+    "textures": {
+        "particle": "blue_skies:block/plants/moonlit_water_lily",
+        "texture": "blue_skies:block/plants/moonlit_water_lily"
+    },
+    "elements": [
+        {   "from": [ 0, 0.25, 0 ],
+            "to": [ 16, 0.25, 16 ],
+            "faces": {
+                "down":  { "uv": [ 0, 8, 8, 0 ], "texture": "#texture", "tintindex": 0 },
+                "up":    { "uv": [ 0, 0, 8, 8 ], "texture": "#texture", "tintindex": 0 }
+            }
+        }
+    ]
+}

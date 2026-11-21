@@ -216,9 +216,7 @@ public class SkiesLootProv extends LootTableProvider {
             List.of(
                this.basicEntry(SkiesItems.summoning_tome).setQuality(2).setQuality(3),
                this.basicEntry(SkiesItems.falsite_ingot, 1, 4).setQuality(-1),
-               this.basicEntry(Items.BOOK)
-                  .apply(this.enchant(new Enchantment[]{Enchantments.PIERCING, Enchantments.LOYALTY, Enchantments.UNBREAKING}))
-                  .setQuality(1)
+               this.basicEntry(Items.BOOK).apply(this.enchant(Enchantments.PIERCING, Enchantments.LOYALTY, Enchantments.UNBREAKING)).setQuality(1)
             )
          );
          consumer.accept(
@@ -278,9 +276,7 @@ public class SkiesLootProv extends LootTableProvider {
             List.of(
                this.basicEntry(SkiesItems.alchemy_scroll).setQuality(3),
                this.basicEntry(SkiesItems.horizonite_ingot, 1, 4).setQuality(-1),
-               this.basicEntry(Items.BOOK)
-                  .apply(this.enchant(new Enchantment[]{Enchantments.SHARPNESS, Enchantments.SMITE, Enchantments.BANE_OF_ARTHROPODS}))
-                  .setQuality(1)
+               this.basicEntry(Items.BOOK).apply(this.enchant(Enchantments.SHARPNESS, Enchantments.SMITE, Enchantments.BANE_OF_ARTHROPODS)).setQuality(1)
             )
          );
          consumer.accept(
@@ -1742,7 +1738,7 @@ public class SkiesLootProv extends LootTableProvider {
                         ImmutableList.of(
                            this.basicEntry(SkiesItems.aquite_sword)
                               .apply(this.setStick(SkiesItems.maple_stick))
-                              .apply(this.enchant(new Enchantment[]{Enchantments.BANE_OF_ARTHROPODS}))
+                              .apply(this.enchant(Enchantments.BANE_OF_ARTHROPODS))
                               .apply(this.setDamage(25, 55)),
                            this.basicEntry(SkiesItems.camel_saddle),
                            this.basicEntry(SkiesItems.charoite)
@@ -1795,7 +1791,7 @@ public class SkiesLootProv extends LootTableProvider {
                c -> this.add(
                   SkiesEntityTypes.STARDUST_RAM,
                   BlueSkies.locate("entities/" + this.entityName(SkiesEntityTypes.STARDUST_RAM) + "/" + c),
-                  this.ramLootTable((ItemLike)BuiltInRegistries.BLOCK.get(new ResourceLocation(c + "_wool")))
+                  this.ramLootTable((ItemLike)BuiltInRegistries.BLOCK.get(ResourceLocation.parse(c + "_wool")))
                )
             );
          net.minecraft.world.level.storage.loot.LootPool.Builder starFlare = this.lootingPool(SkiesBlocks.star_flare, 0, 2, 0, 1)

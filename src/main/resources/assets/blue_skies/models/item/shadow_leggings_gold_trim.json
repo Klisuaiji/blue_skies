@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "blue_skies:item/armor/shadow_leggings",
+    "layer1": "minecraft:trims/items/leggings_trim_gold"
+  }
+}

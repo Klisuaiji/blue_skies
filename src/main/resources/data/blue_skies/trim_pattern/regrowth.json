@@ -1,0 +1,8 @@
+{
+  "asset_id": "blue_skies:regrowth",
+  "decal": false,
+  "description": {
+    "translate": "trim_pattern.blue_skies.regrowth"
+  },
+  "template_item": "blue_skies:regrowth_armor_trim_smithing_template"
+}

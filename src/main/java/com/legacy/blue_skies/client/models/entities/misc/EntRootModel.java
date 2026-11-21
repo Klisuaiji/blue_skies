@@ -71,7 +71,8 @@ public class EntRootModel<T extends EntRootEntity> extends ListModel<T> {
          this.largeRootBottom.xRot = anim;
          this.largeRootMiddle.xRot = anim;
          this.largeRootTop.xRot = anim;
-         if (entityIn.lifeTicks <= 3) {
+         EntRootEntity root = entityIn;
+         if (root.lifeTicks <= 3) {
             this.largeRootBottom.xRot *= 0.2F;
             this.largeRootMiddle.xRot *= 0.2F;
             this.largeRootTop.xRot *= 0.2F;
@@ -83,7 +84,8 @@ public class EntRootModel<T extends EntRootEntity> extends ListModel<T> {
          float anim = Mth.cos((ageInTicks + entityIn.tickCount) * 0.5F) * 0.2F;
          this.rootBottom.xRot = anim;
          this.rootTop.xRot = anim;
-         if (entityIn.lifeTicks <= 3) {
+         EntRootEntity root = entityIn;
+         if (root.lifeTicks <= 3) {
             this.rootBottom.xRot *= 0.2F;
             this.rootTop.xRot *= 0.2F;
          }

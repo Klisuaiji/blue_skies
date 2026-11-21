@@ -155,7 +155,7 @@ public class TroughBlock extends HorizontalDirectionalBlock implements WorldlyCo
          return dir == Direction.UP ? new int[]{0} : new int[0];
       }
 
-      public boolean canPlaceItemThroughFace(int index, ItemStack stack, @Nullable Direction dir) {
+      public boolean canPlaceItemThroughFace(int index, ItemStack stack, Direction dir) {
          return !this.hasInserted && this.level < 4 && dir == Direction.UP && TroughBlock.canUseItem(stack);
       }
 

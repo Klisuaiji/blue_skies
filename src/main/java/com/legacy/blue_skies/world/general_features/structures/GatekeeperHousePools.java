@@ -5,7 +5,7 @@ import com.legacy.blue_skies.registries.SkiesStructures;
 import com.legacy.structure_gel.api.structure.jigsaw.JigsawPoolBuilder;
 import com.legacy.structure_gel.api.structure.jigsaw.JigsawRegistryHelper;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool.Projection;
@@ -16,7 +16,7 @@ public class GatekeeperHousePools {
    public static final ResourceKey<StructureTemplatePool> SNOWY = ResourceKey.create(Registries.TEMPLATE_POOL, BlueSkies.locate("gatekeeper/snowy/main"));
    public static final ResourceKey<StructureTemplatePool> MOUNTAIN = ResourceKey.create(Registries.TEMPLATE_POOL, BlueSkies.locate("gatekeeper/mountain/main"));
 
-   public static void bootstrap(BootstapContext<StructureTemplatePool> bootstrap) {
+   public static void bootstrap(BootstrapContext<StructureTemplatePool> bootstrap) {
       ResourceKey<StructureProcessorList> removeSnow = SkiesStructures.ProcessorLists.REMOVE_SNOW.getKey();
       ResourceKey<StructureProcessorList> modifyGrass = SkiesStructures.ProcessorLists.MODIFY_GRASS.getKey();
       JigsawRegistryHelper plainsReg = new JigsawRegistryHelper("blue_skies", "gatekeeper/plains/", bootstrap);

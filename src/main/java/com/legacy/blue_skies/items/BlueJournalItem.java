@@ -54,7 +54,7 @@ public class BlueJournalItem extends Item {
    }
 
    @OnlyIn(Dist.CLIENT)
-   public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+   public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
       tooltip.add(Component.translatable("item.blue_skies.blue_journal.info").withStyle(ChatFormatting.YELLOW));
       tooltip.add(Component.translatable("item.blue_skies.blue_journal.notice").withStyle(ChatFormatting.GRAY));
    }

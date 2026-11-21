@@ -1,0 +1,25 @@
+{
+  "type": "blue_skies:tool_recipe",
+  "pattern": {
+    "key": {
+      "m": {
+        "item": "blue_skies:pyrope_gem"
+      },
+      "s": {
+        "type": "blue_skies:tool_handles"
+      }
+    },
+    "pattern": [
+      "mm",
+      " s",
+      " s"
+    ]
+  },
+  "result": {
+    "Count": 1,
+    "id": "blue_skies:pyrope_hoe",
+    "tag": {
+      "Damage": 0
+    }
+  }
+}

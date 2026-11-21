@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "comet_berry_pie",
+  "key": {
+    "C": {
+      "item": "blue_skies:comet_berries"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "W": {
+      "item": "minecraft:wheat"
+    }
+  },
+  "pattern": [
+    "WWW",
+    "CCC",
+    "III"
+  ],
+  "result": {
+    "item": "blue_skies:comet_berry_pie"
+  }
+}

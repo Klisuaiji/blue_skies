@@ -1,0 +1,42 @@
+{
+    "multipart": [
+        {   
+            "apply": [
+                { "model": "blue_skies:block/black_fire_floor0", "x": 180 },
+                { "model": "blue_skies:block/black_fire_floor1", "x": 180 }
+            ]
+        },
+        {   
+            "apply": [
+                { "model": "blue_skies:block/black_fire_side0", "x": 180 },
+                { "model": "blue_skies:block/black_fire_side1", "x": 180 },
+                { "model": "blue_skies:block/black_fire_side_alt0", "x": 180 },
+                { "model": "blue_skies:block/black_fire_side_alt1", "x": 180 }
+            ]
+        },
+        {   
+            "apply": [
+                { "model": "blue_skies:block/black_fire_side0", "y": 90, "x": 180 },
+                { "model": "blue_skies:block/black_fire_side1", "y": 90, "x": 180 },
+                { "model": "blue_skies:block/black_fire_side_alt0", "y": 90, "x": 180 },
+                { "model": "blue_skies:block/black_fire_side_alt1", "y": 90, "x": 180 }
+            ]
+        },
+        {   
+            "apply": [
+                { "model": "blue_skies:block/black_fire_side0", "y": 180, "x": 180 },
+                { "model": "blue_skies:block/black_fire_side1", "y": 180, "x": 180 },
+                { "model": "blue_skies:block/black_fire_side_alt0", "y": 180, "x": 180 },
+                { "model": "blue_skies:block/black_fire_side_alt1", "y": 180, "x": 180 }
+            ]
+        },
+        {   
+            "apply": [
+                { "model": "blue_skies:block/black_fire_side0", "y": 270, "x": 180 },
+                { "model": "blue_skies:block/black_fire_side1", "y": 270, "x": 180 },
+                { "model": "blue_skies:block/black_fire_side_alt0", "y": 270, "x": 180 },
+                { "model": "blue_skies:block/black_fire_side_alt1", "y": 270, "x": 180 }
+            ]
+        }
+    ]
+}

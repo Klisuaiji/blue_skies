@@ -53,11 +53,11 @@ public class FoodPrepTableBlock extends HorizontalDirectionalBlock {
    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
       if (world.isClientSide) {
          return InteractionResult.SUCCESS;
-      } else {
-         player.openMenu(state.getMenuProvider(world, pos));
-         player.awardStat(SkiesStats.INTERACT_WITH_FOOD_PREP_TABLE);
-         return InteractionResult.CONSUME;
       }
+
+      player.openMenu(state.getMenuProvider(world, pos));
+      player.awardStat(SkiesStats.INTERACT_WITH_FOOD_PREP_TABLE);
+      return InteractionResult.CONSUME;
    }
 
    public MenuProvider getMenuProvider(BlockState state, Level world, BlockPos pos) {

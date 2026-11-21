@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.items;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.items.util.IRarityItem;
 import com.legacy.blue_skies.items.util.ISpecialTabItem;
@@ -41,7 +42,7 @@ public class LootBagItem extends Item implements IRarityItem, ISpecialTabItem {
 
    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
       ItemStack stack = player.getItemInHand(hand);
-      CompoundTag stackNbt = stack.getTag();
+      CompoundTag stackNbt = LegacyNbt.get(stack);
       if (!player.getAbilities().instabuild) {
          player.setItemInHand(hand, ItemStack.EMPTY);
       }
@@ -61,7 +62,7 @@ public class LootBagItem extends Item implements IRarityItem, ISpecialTabItem {
                1.0F,
                level.random.nextFloat() * 0.1F + 1.0F
             );
-            player.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 1.0F);
+            player.playSound(SoundEvents.ARMOR_EQUIP_GENERIC.value(), 1.0F, 1.0F);
             player.awardStat(Stats.ITEM_USED.get(this));
          }
 
@@ -72,23 +73,23 @@ public class LootBagItem extends Item implements IRarityItem, ISpecialTabItem {
       }
    }
 
-   public static List<ItemStack> getRandomItems(Level level, Player player, @Nullable ResourceLocation lootTableLocation) {
+   public static List<ItemStack> getRandomItems(Level level, Player player, ResourceLocation lootTableLocation) {
       if (lootTableLocation == null) {
          return List.of();
-      } else {
-         LootTable lootTable = level.getServer().getLootData().getLootTable(lootTableLocation);
-         LootParams ctx = new Builder((ServerLevel)level).withLuck(player.getLuck()).create(LootContextParamSets.EMPTY);
-         return lootTable.getRandomItems(ctx);
       }
+
+      LootTable lootTable = level.getServer().getLootData().getLootTable(lootTableLocation);
+      LootParams ctx = new Builder((ServerLevel)level).withLuck(player.getLuck()).create(LootContextParamSets.EMPTY);
+      return lootTable.getRandomItems(ctx);
    }
 
    @Nullable
    public static ResourceLocation getLootTable(ItemStack stack) {
-      CompoundTag nbt = stack.getTag();
+      CompoundTag nbt = LegacyNbt.get(stack);
       if (nbt != null && nbt.contains("LootTable", 8)) {
          String table = nbt.getString("LootTable");
-         if (ResourceLocation.isValidResourceLocation(table)) {
-            return new ResourceLocation(table);
+         if (LegacyRL.isValid(table)) {
+            return ResourceLocation.parse(table);
          }
       }
 
@@ -96,7 +97,7 @@ public class LootBagItem extends Item implements IRarityItem, ISpecialTabItem {
    }
 
    public static void setLootTable(ItemStack stack, ResourceLocation table) {
-      CompoundTag nbt = stack.getOrCreateTag();
+      CompoundTag nbt = LegacyNbt.getOrCreate(stack);
       nbt.putString("LootTable", table.toString());
    }
 
@@ -109,7 +110,7 @@ public class LootBagItem extends Item implements IRarityItem, ISpecialTabItem {
    }
 
    @OnlyIn(Dist.CLIENT)
-   public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> lore, TooltipFlag flag) {
+   public void appendHoverText(ItemStack stack, Level world, List<Component> lore, TooltipFlag flag) {
       this.addRarityText(stack, lore);
       if (getLootTable(stack) != null && flag.isAdvanced()) {
          lore.add(Component.literal(getLootTable(stack).toString()).withStyle(new ChatFormatting[]{ChatFormatting.GRAY, ChatFormatting.ITALIC}));

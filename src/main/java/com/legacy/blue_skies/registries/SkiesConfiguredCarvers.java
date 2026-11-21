@@ -8,7 +8,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.ConstantFloat;
 import net.minecraft.util.valueproviders.TrapezoidFloat;
@@ -41,7 +41,7 @@ public class SkiesConfiguredCarvers {
       return ResourceKey.create(Registries.CONFIGURED_CARVER, BlueSkies.locate(key));
    }
 
-   public static void bootstrap(BootstapContext<ConfiguredWorldCarver<?>> bootstrap) {
+   public static void bootstrap(BootstrapContext<ConfiguredWorldCarver<?>> bootstrap) {
       HolderGetter<Block> blockGetter = bootstrap.lookup(Registries.BLOCK);
       CarverConfiguration dummyConfig = new CarverConfiguration(
          0.0F,

@@ -20,7 +20,7 @@ public class BlueJournalSectionScreen extends BlueJournalScreen {
    public final JournalSection section;
    public final JournalSectionButton sectionButton;
 
-   public BlueJournalSectionScreen(@Nullable BlueJournalScreen previousScreen, JournalSection section, JournalSectionButton sectionButton) {
+   public BlueJournalSectionScreen(BlueJournalScreen previousScreen, JournalSection section, JournalSectionButton sectionButton) {
       super(previousScreen);
       this.section = section;
       this.sectionButton = sectionButton;

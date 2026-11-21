@@ -1,0 +1,25 @@
+{
+  "type": "blue_skies:tool_recipe",
+  "pattern": {
+    "key": {
+      "m": {
+        "item": "blue_skies:starlit_planks"
+      },
+      "s": {
+        "type": "blue_skies:tool_handles"
+      }
+    },
+    "pattern": [
+      "m",
+      "m",
+      "s"
+    ]
+  },
+  "result": {
+    "Count": 1,
+    "id": "blue_skies:starlit_sword",
+    "tag": {
+      "Damage": 0
+    }
+  }
+}

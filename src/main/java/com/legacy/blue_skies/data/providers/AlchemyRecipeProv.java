@@ -252,7 +252,7 @@ public class AlchemyRecipeProv extends SkiesDataProvider<AlchemyRecipe> {
       List<ItemLike> items = new ArrayList<>();
 
       for (DyeColor color : DyeColor.values()) {
-         ResourceLocation itemName = new ResourceLocation(color.getSerializedName() + "_" + name);
+         ResourceLocation itemName = ResourceLocation.parse(color.getSerializedName() + "_" + name);
          if (BuiltInRegistries.ITEM.containsKey(itemName)) {
             items.add((ItemLike)BuiltInRegistries.ITEM.get(itemName));
          } else {
@@ -267,7 +267,7 @@ public class AlchemyRecipeProv extends SkiesDataProvider<AlchemyRecipe> {
       List<ItemLike> items = new ArrayList<>();
 
       for (String coral : Arrays.asList("tube", "brain", "bubble", "fire", "horn")) {
-         ResourceLocation itemName = new ResourceLocation(String.format(format, coral));
+         ResourceLocation itemName = ResourceLocation.parse(String.format(format, coral));
          if (BuiltInRegistries.ITEM.containsKey(itemName)) {
             items.add((ItemLike)BuiltInRegistries.ITEM.get(itemName));
          } else {
@@ -282,7 +282,7 @@ public class AlchemyRecipeProv extends SkiesDataProvider<AlchemyRecipe> {
       List<ItemLike> items = new ArrayList<>();
 
       for (String coral : Arrays.asList("crimson", "warped")) {
-         ResourceLocation itemName = new ResourceLocation(String.format(format, coral));
+         ResourceLocation itemName = ResourceLocation.parse(String.format(format, coral));
          if (BuiltInRegistries.ITEM.containsKey(itemName)) {
             items.add((ItemLike)BuiltInRegistries.ITEM.get(itemName));
          } else {

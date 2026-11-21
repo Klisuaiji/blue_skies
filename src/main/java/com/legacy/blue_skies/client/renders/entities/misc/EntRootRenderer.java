@@ -39,7 +39,7 @@ public class EntRootRenderer<T extends EntRootEntity> extends EntityRenderer<T> 
 
       VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.rootModel.renderType(this.getTextureLocation(entity)));
       this.rootModel.setupAnim(entity, 0.0F, 0.0F, partialTicks, 0.0F, 0.0F);
-      this.rootModel.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+      this.rootModel.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, -1);
       matrixStackIn.popPose();
       super.render(entity, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
    }

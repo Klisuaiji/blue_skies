@@ -147,14 +147,14 @@ public class SkyOreFeature extends OreFeature {
                }
             }
          }
-      } catch (Throwable var62) {
+      } catch (Throwable throwable1) {
          try {
             bulksectionaccess.close();
-         } catch (Throwable var61) {
-            var62.addSuppressed(var61);
+         } catch (Throwable throwable) {
+            throwable1.addSuppressed(throwable);
          }
 
-         throw var62;
+         throw throwable1;
       }
 
       bulksectionaccess.close();

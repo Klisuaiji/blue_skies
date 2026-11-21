@@ -42,7 +42,7 @@ public class DiophydeProwlerEntity extends SkiesMonsterEntity {
       return Monster.createMonsterAttributes()
          .add(Attributes.MAX_HEALTH, 26.0)
          .add(Attributes.MOVEMENT_SPEED, 0.3)
-         .add((Attribute)NeoForgeMod.STEP_HEIGHT.value(), 1.0);
+         .add(Attributes.STEP_HEIGHT, 1.0);
    }
 
    protected void registerGoals() {

@@ -1,0 +1,8 @@
+{
+    "parent": "block/farmland",
+    "textures": {
+        "particle": "blue_skies:block/dirt_grass/turquoise_dirt",
+        "dirt": "blue_skies:block/dirt_grass/turquoise_dirt",
+        "top": "blue_skies:block/dirt_grass/turquoise_farmland_dry"
+    }
+}

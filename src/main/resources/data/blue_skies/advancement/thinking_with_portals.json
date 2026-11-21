@@ -1,0 +1,38 @@
+{
+  "parent": "blue_skies:root",
+  "criteria": {
+    "enter_everbright": {
+      "conditions": {
+        "to": "blue_skies:everbright"
+      },
+      "trigger": "minecraft:changed_dimension"
+    },
+    "enter_everdawn": {
+      "conditions": {
+        "to": "blue_skies:everdawn"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.thinking_with_portals.desc"
+    },
+    "icon": {
+      "item": "blue_skies:zeal_lighter",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.thinking_with_portals"
+    }
+  },
+  "requirements": [
+    [
+      "enter_everbright"
+    ],
+    [
+      "enter_everdawn"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

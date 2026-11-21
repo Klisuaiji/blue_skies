@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.items.util;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.registries.SkiesItems;
 import com.mojang.datafixers.util.Pair;
@@ -51,7 +52,7 @@ public class FoodPrepUtils {
       itemNbt.put("Effects", effects);
    }
 
-   public static PreparedFood deserialize(@Nullable CompoundTag itemNbt) {
+   public static PreparedFood deserialize(CompoundTag itemNbt) {
       List<ItemStack> ingredients = new ArrayList<>();
       List<MobEffectInstance> effects = new ArrayList<>();
       int totalHunger = 1;
@@ -65,8 +66,8 @@ public class FoodPrepUtils {
 
                try {
                   ingredient = ItemStack.of((CompoundTag)nbt);
-               } catch (Exception var4x) {
-                  BlueSkies.LOGGER.warn(var4x);
+               } catch (Exception e) {
+                  BlueSkies.LOGGER.warn(e);
                }
 
                if (ingredient != null) {
@@ -81,8 +82,8 @@ public class FoodPrepUtils {
 
                try {
                   effect = MobEffectInstance.load((CompoundTag)nbt);
-               } catch (Exception var4x) {
-                  BlueSkies.LOGGER.warn(var4x);
+               } catch (Exception e) {
+                  BlueSkies.LOGGER.warn(e);
                }
 
                if (effect != null) {
@@ -112,12 +113,12 @@ public class FoodPrepUtils {
    }
 
    public static int getUses(ItemStack stack) {
-      CompoundTag tag = stack.getOrCreateTag();
+      CompoundTag tag = LegacyNbt.getOrCreate(stack);
       return tag.contains("Uses") ? tag.getInt("Uses") : getMaxUses(stack);
    }
 
    public static int getMaxUses(ItemStack stack) {
-      CompoundTag tag = stack.getOrCreateTag();
+      CompoundTag tag = LegacyNbt.getOrCreate(stack);
       return tag.contains("MaxUses") ? tag.getInt("MaxUses") : 1;
    }
 
@@ -145,25 +146,28 @@ public class FoodPrepUtils {
    public static ItemStack createFood(List<ItemStack> ingredients) {
       if (ingredients.size() < 3) {
          return ItemStack.EMPTY;
-      } else {
-         int i = 0;
+      }
 
-         for (int p = 0; i < ingredients.size(); i++) {
-            if (ingredients.get(i).getItem() == Items.POTION) {
-               p++;
-            }
+      int i = 0;
+      int p = 0;
 
-            if (p > 2) {
-               return ItemStack.EMPTY;
-            }
+      while (i < ingredients.size()) {
+         if (ingredients.get(i).getItem() == Items.POTION) {
+            p++;
          }
 
-         i = getTotalHunger(ingredients);
-         int maxUses = getMaxUses(i);
-         ItemStack stack = new ItemStack(SkiesItems.prepared_food);
-         serialize(stack.getOrCreateTag(), new PreparedFood(ingredients, getEffects(ingredients, maxUses), i, maxUses, maxUses, getSaturation(ingredients)));
-         return stack;
+         if (p > 2) {
+            return ItemStack.EMPTY;
+         }
+
+         i++;
       }
+
+      i = getTotalHunger(ingredients);
+      p = getMaxUses(i);
+      ItemStack stack = new ItemStack(SkiesItems.prepared_food);
+      serialize(LegacyNbt.getOrCreate(stack), new PreparedFood(ingredients, getEffects(ingredients, p), i, p, p, getSaturation(ingredients)));
+      return stack;
    }
 
    public static boolean isValidIngredient(ItemStack stack) {
@@ -253,7 +257,7 @@ public class FoodPrepUtils {
          }
 
          if (ingredient.getItem() == Items.POTION) {
-            PotionUtils.getAllEffects(ingredient.getOrCreateTag()).forEach(e -> addEffect(effectMap, e));
+            PotionUtils.getAllEffects(LegacyNbt.getOrCreate(ingredient)).forEach(e -> addEffect(effectMap, e));
          }
 
          if (ingredient.getItem() == SkiesItems.brewberry) {
@@ -293,7 +297,7 @@ public class FoodPrepUtils {
       }
    }
 
-   public static enum FoodColor {
+   public enum FoodColor {
       BEEF(8079412, Items.BEEF, Items.COOKED_BEEF, Items.MUTTON, Items.COOKED_MUTTON, Items.ROTTEN_FLESH),
       LETTUCE(6991719),
       CHEESE(15390090, Items.PUFFERFISH),
@@ -333,7 +337,7 @@ public class FoodPrepUtils {
       public final int color;
       public final Set<ItemLike> foods;
 
-      private FoodColor(int color, ItemLike... foods) {
+      FoodColor(int color, ItemLike... foods) {
          this.color = color;
          this.foods = Set.of(foods);
       }

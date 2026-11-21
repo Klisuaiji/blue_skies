@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"mature=false,type=red": { "model": "blue_skies:block/brewberry_bush" },
+		"mature=false,type=pink": { "model": "blue_skies:block/brewberry_bush" },
+		"mature=false,type=black": { "model": "blue_skies:block/brewberry_bush" },
+		"mature=true,type=red": { "model": "blue_skies:block/brewberry_bush_mature_red" },
+		"mature=true,type=pink": { "model": "blue_skies:block/brewberry_bush_mature_pink" },
+		"mature=true,type=black": { "model": "blue_skies:block/brewberry_bush_mature_black" }
+	}
+}

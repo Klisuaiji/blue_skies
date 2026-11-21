@@ -1,0 +1,14 @@
+{
+  "type": "blue_skies:cave_grass",
+  "config": {
+    "dirt": {
+      "Name": "blue_skies:turquoise_stone"
+    },
+    "grass": {
+      "Name": "minecraft:air"
+    },
+    "grass_block": {
+      "Name": "minecraft:packed_ice"
+    }
+  }
+}

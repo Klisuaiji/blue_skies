@@ -1,0 +1,23 @@
+{
+    "variants": {
+        "facing=north,corner=bottom_left": { "model": "blue_skies:block/moonlit_water_lily_bl" },
+        "facing=north,corner=bottom_right": { "model": "blue_skies:block/moonlit_water_lily_br" },
+        "facing=north,corner=top_left": { "model": "blue_skies:block/moonlit_water_lily_tl" },
+        "facing=north,corner=top_right": { "model": "blue_skies:block/moonlit_water_lily_tr" },
+
+		"facing=east,corner=bottom_left": { "model": "blue_skies:block/moonlit_water_lily_bl", "y": 90 },
+        "facing=east,corner=bottom_right": { "model": "blue_skies:block/moonlit_water_lily_br", "y": 90 },
+        "facing=east,corner=top_left": { "model": "blue_skies:block/moonlit_water_lily_tl", "y": 90 },
+        "facing=east,corner=top_right": { "model": "blue_skies:block/moonlit_water_lily_tr", "y": 90 },
+
+        "facing=south,corner=bottom_left": { "model": "blue_skies:block/moonlit_water_lily_bl", "y": 180 },
+        "facing=south,corner=bottom_right": { "model": "blue_skies:block/moonlit_water_lily_br", "y": 180 },
+        "facing=south,corner=top_left": { "model": "blue_skies:block/moonlit_water_lily_tl", "y": 180 },
+        "facing=south,corner=top_right": { "model": "blue_skies:block/moonlit_water_lily_tr", "y": 180 },
+
+        "facing=west,corner=bottom_left": { "model": "blue_skies:block/moonlit_water_lily_bl", "y": -90 },
+        "facing=west,corner=bottom_right": { "model": "blue_skies:block/moonlit_water_lily_br", "y": -90 },
+        "facing=west,corner=top_left": { "model": "blue_skies:block/moonlit_water_lily_tl", "y": -90 },
+        "facing=west,corner=top_right": { "model": "blue_skies:block/moonlit_water_lily_tr", "y": -90 }
+    }
+}

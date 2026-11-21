@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.blocks.natural;
 
+import net.minecraft.core.Holder;
 import com.legacy.blue_skies.registries.SkiesBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
@@ -16,7 +17,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class MiddayBayhopBlock extends FlowerBlock {
    private static final VoxelShape SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 8.0, 15.0);
 
-   public MiddayBayhopBlock(MobEffect effect, int effectDuration, Properties properties) {
+   public MiddayBayhopBlock(Holder<MobEffect> effect, float effectDuration, Properties properties) {
       super(effect, effectDuration, properties);
    }
 

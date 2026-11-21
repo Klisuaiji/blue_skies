@@ -31,7 +31,7 @@ public class EntLeafRenderer<T extends EntLeafEntity> extends EntityRenderer<T> 
       matrixStackIn.translate(0.0, -1.45, 0.0);
       VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.model.renderType(this.getTextureLocation(entity)));
       this.model.setupAnim(entity, 0.0F, 0.0F, partialTicks, 0.0F, 0.0F);
-      this.model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+      this.model.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, -1);
       matrixStackIn.popPose();
       super.render(entity, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
    }

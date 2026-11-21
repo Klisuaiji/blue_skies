@@ -1,0 +1,6 @@
+{
+	"parent": "blue_skies:item/crushing_hammer",
+	"textures": {
+		"layer0": "blue_skies:item/misc/crushing_hammer_charged"
+	}
+}

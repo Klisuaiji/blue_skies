@@ -173,15 +173,15 @@ public class SkyFireBlock extends FireBlock {
    private int getNeighborEncouragement(LevelReader world, BlockPos pos) {
       if (!world.isEmptyBlock(pos)) {
          return 0;
-      } else {
-         int i = 0;
-
-         for (Direction direction : Direction.values()) {
-            i = Math.max(world.getBlockState(pos.relative(direction)).getFireSpreadSpeed(world, pos.relative(direction), direction.getOpposite()), i);
-         }
-
-         return i;
       }
+
+      int i = 0;
+
+      for (Direction direction : Direction.values()) {
+         i = Math.max(world.getBlockState(pos.relative(direction)).getFireSpreadSpeed(world, pos.relative(direction), direction.getOpposite()), i);
+      }
+
+      return i;
    }
 
    private static int getTickCooldown(RandomSource rand) {

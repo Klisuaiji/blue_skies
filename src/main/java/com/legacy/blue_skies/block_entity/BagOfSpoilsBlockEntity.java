@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.block_entity;
 
+import net.minecraft.core.HolderLookup;
 import com.legacy.blue_skies.client.gui.menu.BagOfSpoilsMenu;
 import com.legacy.blue_skies.registries.SkiesBlockEntityTypes;
 import com.legacy.blue_skies.registries.SkiesBlocks;
@@ -26,25 +27,25 @@ public class BagOfSpoilsBlockEntity extends RandomizableContainerBlockEntity {
       super(SkiesBlockEntityTypes.BAG_OF_SPOILS, pos, state);
    }
 
-   public void load(CompoundTag nbt) {
-      super.load(nbt);
+   public void loadAdditional(CompoundTag nbt, HolderLookup.Provider p) {
+      super.loadAdditional(nbt, p);
       this.loadFromNbt(nbt);
    }
 
-   public void saveAdditional(CompoundTag compound) {
+   public void saveAdditional(CompoundTag compound, HolderLookup.Provider p) {
       this.saveToNbt(compound);
    }
 
    public void loadFromNbt(CompoundTag compound) {
       this.bagContents = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
       if (!this.tryLoadLootTable(compound) && compound.contains("Items", 9)) {
-         ContainerHelper.loadAllItems(compound, this.bagContents);
+         ContainerHelper.loadAllItems(compound, this.bagContents, p);
       }
    }
 
    public CompoundTag saveToNbt(CompoundTag compound) {
       if (!this.trySaveLootTable(compound)) {
-         ContainerHelper.saveAllItems(compound, this.bagContents, false);
+         ContainerHelper.saveAllItems(compound, this.bagContents, false, p);
       }
 
       return compound;

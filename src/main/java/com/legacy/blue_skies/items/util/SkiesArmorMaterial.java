@@ -4,9 +4,13 @@ import com.google.common.collect.Streams;
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.data.objects.tags.SkiesItemTags;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import net.minecraft.Util;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorMaterial;
@@ -16,18 +20,21 @@ import net.minecraft.world.item.crafting.Ingredient.TagValue;
 import net.neoforged.neoforge.common.Tags.Items;
 import net.neoforged.neoforge.common.util.Lazy;
 
-public enum SkiesArmorMaterial implements ArmorMaterial {
-   PYROPE("pyrope", 15, armorValues(1, 4, 5, 2), 12, SoundEvents.ARMOR_EQUIP_IRON, 0.0F, () -> Ingredient.of(SkiesItemTags.PYROPE), true),
-   AQUITE("aquite", 15, armorValues(2, 5, 6, 2), 9, SoundEvents.ARMOR_EQUIP_IRON, 0.0F, () -> Ingredient.of(SkiesItemTags.AQUITE), true),
-   HORIZONITE("horizonite", 15, armorValues(1, 4, 5, 2), 12, SoundEvents.ARMOR_EQUIP_GOLD, 0.0F, () -> Ingredient.of(SkiesItemTags.HORIZONITE), true),
-   DIOPSIDE("diopside", 36, armorValues(2, 5, 7, 2), 9, SoundEvents.ARMOR_EQUIP_DIAMOND, 4.5F, () -> Ingredient.of(SkiesItemTags.DIOPSIDE), true),
-   CHAROITE("charoite", 33, armorValues(3, 6, 8, 3), 10, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.0F, () -> Ingredient.of(SkiesItemTags.CHAROITE), true),
+/** 1.21.1 migrated: ArmorMaterial is now a final record, so this enum can no longer
+ *  implement it. Each constant builds an ArmorMaterial record and exposes it via holder().
+ *  Custom falsite flag and legacy durability factor stay on the enum. */
+public enum SkiesArmorMaterial {
+   PYROPE("pyrope", 15, armorValues(1, 4, 5, 2), 12, SoundEvents.ARMOR_EQUIP_IRON.value(), 0.0F, () -> Ingredient.of(SkiesItemTags.PYROPE), true),
+   AQUITE("aquite", 15, armorValues(2, 5, 6, 2), 9, SoundEvents.ARMOR_EQUIP_IRON.value(), 0.0F, () -> Ingredient.of(SkiesItemTags.AQUITE), true),
+   HORIZONITE("horizonite", 15, armorValues(1, 4, 5, 2), 12, SoundEvents.ARMOR_EQUIP_GOLD.value(), 0.0F, () -> Ingredient.of(SkiesItemTags.HORIZONITE), true),
+   DIOPSIDE("diopside", 36, armorValues(2, 5, 7, 2), 9, SoundEvents.ARMOR_EQUIP_DIAMOND.value(), 4.5F, () -> Ingredient.of(SkiesItemTags.DIOPSIDE), true),
+   CHAROITE("charoite", 33, armorValues(3, 6, 8, 3), 10, SoundEvents.ARMOR_EQUIP_DIAMOND.value(), 2.0F, () -> Ingredient.of(SkiesItemTags.CHAROITE), true),
    SHADOW(
       "shadow",
       35,
       armorValues(3, 6, 8, 3),
       10,
-      SoundEvents.ARMOR_EQUIP_DIAMOND,
+      SoundEvents.ARMOR_EQUIP_DIAMOND.value(),
       3.0F,
       () -> Ingredient.fromValues(Streams.concat(new Stream[]{Stream.of(new TagValue(SkiesItemTags.CHAROITE)), Stream.of(new TagValue(Items.GEMS_DIAMOND))})),
       true
@@ -42,8 +49,9 @@ public enum SkiesArmorMaterial implements ArmorMaterial {
    private final float toughness;
    private final boolean compatWithFalsite;
    private final Lazy<Ingredient> repairMaterial;
+   private final Holder<ArmorMaterial> materialHolder;
 
-   private SkiesArmorMaterial(
+   SkiesArmorMaterial(
       String nameIn,
       int maxDamage,
       EnumMap<Type, Integer> damageReductionArray,
@@ -53,7 +61,7 @@ public enum SkiesArmorMaterial implements ArmorMaterial {
       Supplier<Ingredient> repairMaterial,
       boolean compatWithFalsite
    ) {
-      this.name = BlueSkies.find(nameIn);
+      this.name = nameIn;
       this.maxDamageFactor = maxDamage;
       this.damageReductionAmountArray = damageReductionArray;
       this.enchantability = enchantability;
@@ -61,6 +69,29 @@ public enum SkiesArmorMaterial implements ArmorMaterial {
       this.toughness = toughness;
       this.repairMaterial = Lazy.of(repairMaterial);
       this.compatWithFalsite = compatWithFalsite;
+
+      ResourceLocation texture = BlueSkies.locate("armor/" + nameIn);
+      List<ArmorMaterial.Layer> layers = List.of(new ArmorMaterial.Layer(texture));
+      ArmorMaterial record = new ArmorMaterial(
+         damageReductionArray,
+         enchantability,
+         BuiltInRegistries.SOUND_EVENT.wrapAsHolder(equipSound),
+         this.repairMaterial::get,
+         layers,
+         toughness,
+         0.0F
+      );
+      this.materialHolder = Holder.direct(record);
+   }
+
+   /** Raw record for trim palette overrides. */
+   public ArmorMaterial material() {
+      return this.materialHolder.value();
+   }
+
+   /** Holder used by ArmorItem (1.21.1 expects Holder<ArmorMaterial>). */
+   public Holder<ArmorMaterial> holder() {
+      return this.materialHolder;
    }
 
    public int getDurabilityForType(Type type) {

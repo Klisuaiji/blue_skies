@@ -1,0 +1,8 @@
+{
+  "asset_id": "blue_skies:toxic",
+  "decal": false,
+  "description": {
+    "translate": "trim_pattern.blue_skies.toxic"
+  },
+  "template_item": "blue_skies:toxic_armor_trim_smithing_template"
+}

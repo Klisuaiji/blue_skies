@@ -83,12 +83,11 @@ public class SkyDripstoneBlock extends Block implements IFluidLoggable, Fallable
       SkyDripstoneBlock.Type type = (SkyDripstoneBlock.Type)state.getValue(TYPE);
       if (state.getValue(SECTION) == SkyDripstoneBlock.Section.TIP && !level.getBlockState(pos.relative(type.growthDir.getOpposite())).is(this)) {
          return Shapes.empty();
-      } else {
-         Vec3 offset = state.getOffset(level, pos);
-         return (type == SkyDripstoneBlock.Type.STALAGMITE ? STALAGMITE_SHAPES : STALACTITE_SHAPES)[((SkyDripstoneBlock.Section)state.getValue(SECTION))
-               .ordinal()]
-            .move(offset.x, offset.y, offset.z);
       }
+
+      Vec3 offset = state.getOffset(level, pos);
+      return (type == SkyDripstoneBlock.Type.STALAGMITE ? STALAGMITE_SHAPES : STALACTITE_SHAPES)[((SkyDripstoneBlock.Section)state.getValue(SECTION)).ordinal()]
+         .move(offset.x, offset.y, offset.z);
    }
 
    public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos) {
@@ -127,30 +126,30 @@ public class SkyDripstoneBlock extends Block implements IFluidLoggable, Fallable
       if (!state.canSurvive(level, currentPos)) {
          level.scheduleTick(currentPos, state.getBlock(), 0);
          return state;
-      } else {
-         IFluidLoggable.FluidLogging fluid = (IFluidLoggable.FluidLogging)state.getValue(FLUIDLOGGED);
-         if (fluid != IFluidLoggable.FluidLogging.EMPTY) {
-            level.scheduleTick(currentPos, fluid.fluid, fluid.fluid.getTickDelay(level));
-         }
-
-         SkyDripstoneBlock.Type type = (SkyDripstoneBlock.Type)state.getValue(TYPE);
-         Direction growthDir = type.growthDir;
-         BlockState attached = level.getBlockState(currentPos.relative(growthDir));
-         SkyDripstoneBlock.Section section;
-         if (attached.is(this)) {
-            if (attached.getValue(TYPE) == type) {
-               section = level.getBlockState(currentPos.relative(growthDir.getOpposite())).is(this)
-                  ? SkyDripstoneBlock.Section.MIDDLE
-                  : SkyDripstoneBlock.Section.getWider((SkyDripstoneBlock.Section)attached.getValue(SECTION));
-            } else {
-               section = SkyDripstoneBlock.Section.TIP_MERGE;
-            }
-         } else {
-            section = SkyDripstoneBlock.Section.TIP;
-         }
-
-         return (BlockState)state.setValue(SECTION, section);
       }
+
+      IFluidLoggable.FluidLogging fluid = (IFluidLoggable.FluidLogging)state.getValue(FLUIDLOGGED);
+      if (fluid != IFluidLoggable.FluidLogging.EMPTY) {
+         level.scheduleTick(currentPos, fluid.fluid, fluid.fluid.getTickDelay(level));
+      }
+
+      SkyDripstoneBlock.Type type = (SkyDripstoneBlock.Type)state.getValue(TYPE);
+      Direction growthDir = type.growthDir;
+      BlockState attached = level.getBlockState(currentPos.relative(growthDir));
+      SkyDripstoneBlock.Section section;
+      if (attached.is(this)) {
+         if (attached.getValue(TYPE) == type) {
+            section = level.getBlockState(currentPos.relative(growthDir.getOpposite())).is(this)
+               ? SkyDripstoneBlock.Section.MIDDLE
+               : SkyDripstoneBlock.Section.getWider((SkyDripstoneBlock.Section)attached.getValue(SECTION));
+         } else {
+            section = SkyDripstoneBlock.Section.TIP_MERGE;
+         }
+      } else {
+         section = SkyDripstoneBlock.Section.TIP;
+      }
+
+      return (BlockState)state.setValue(SECTION, section);
    }
 
    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource rand) {
@@ -299,7 +298,7 @@ public class SkyDripstoneBlock extends Block implements IFluidLoggable, Fallable
       }
    }
 
-   public static enum Section implements StringRepresentable {
+   public enum Section implements StringRepresentable {
       TIP_MERGE("tip_merge", true),
       TIP("tip", true),
       MIDDLE("middle", false),
@@ -308,7 +307,7 @@ public class SkyDripstoneBlock extends Block implements IFluidLoggable, Fallable
       final String name;
       final boolean damaging;
 
-      private Section(String name, boolean damaging) {
+      Section(String name, boolean damaging) {
          this.name = name;
          this.damaging = damaging;
       }
@@ -334,14 +333,14 @@ public class SkyDripstoneBlock extends Block implements IFluidLoggable, Fallable
       }
    }
 
-   public static enum Type implements StringRepresentable {
+   public enum Type implements StringRepresentable {
       STALAGMITE("stalagmite", Direction.UP),
       STALACTITE("stalactite", Direction.DOWN);
 
       final String name;
       public final Direction growthDir;
 
-      private Type(String name, Direction growthDir) {
+      Type(String name, Direction growthDir) {
          this.name = name;
          this.growthDir = growthDir;
       }

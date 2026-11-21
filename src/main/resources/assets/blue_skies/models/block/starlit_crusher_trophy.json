@@ -1,0 +1,73 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "blue_skies:block/trophy",
+	"texture_size": [32, 32],
+	"textures": {
+		"particle": "#trophy"
+	},
+	"elements": [
+		{
+			"from": [1, 0, 1],
+			"to": [15, 4, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 3, 8]},
+			"faces": {
+				"north": {"uv": [0, 14, 7, 16], "texture": "#trophy"},
+				"east": {"uv": [0, 14, 7, 16], "texture": "#trophy"},
+				"south": {"uv": [0, 14, 7, 16], "texture": "#trophy"},
+				"west": {"uv": [0, 14, 7, 16], "texture": "#trophy"},
+				"up": {"uv": [0, 7, 7, 14], "rotation": 180, "texture": "#trophy"},
+				"down": {"uv": [0, 7, 7, 14], "rotation": 180, "texture": "#trophy"}
+			}
+		},
+		{
+			"from": [3, 10, 5],
+			"to": [13, 16, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 13, 8]},
+			"faces": {
+				"north": {"uv": [10, 8, 15, 11], "texture": "#trophy"},
+				"east": {"uv": [7, 8, 10, 11], "texture": "#trophy"},
+				"south": {"uv": [10, 8, 15, 11], "texture": "#trophy"},
+				"west": {"uv": [7, 8, 10, 11], "texture": "#trophy"},
+				"up": {"uv": [10, 5, 15, 8], "rotation": 180, "texture": "#trophy"},
+				"down": {"uv": [10, 5, 15, 8], "rotation": 180, "texture": "#trophy"}
+			}
+		},
+		{
+			"from": [7, 4, 7],
+			"to": [9, 10, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 8]},
+			"faces": {
+				"north": {"uv": [12, 11, 13, 14], "texture": "#trophy"},
+				"east": {"uv": [11, 11, 12, 14], "texture": "#trophy"},
+				"south": {"uv": [12, 11, 13, 14], "texture": "#trophy"},
+				"west": {"uv": [11, 11, 12, 14], "texture": "#trophy"}
+			}
+		},
+		{
+			"from": [1, 4, 8],
+			"to": [15, 8, 8],
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 6, 8]},
+			"faces": {
+				"north": {"uv": [9, 14, 16, 16], "texture": "#trophy"},
+				"east": {"uv": [0, 0, 0, 0], "texture": "#trophy"},
+				"south": {"uv": [9, 14, 16, 16], "texture": "#trophy"},
+				"west": {"uv": [0, 0, 0, 0], "texture": "#trophy"},
+				"up": {"uv": [0, 0, 0, 0], "texture": "#trophy"},
+				"down": {"uv": [0, 0, 0, 0], "texture": "#trophy"}
+			}
+		},
+		{
+			"from": [1, 4, 8],
+			"to": [15, 8, 8],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 6, 8]},
+			"faces": {
+				"north": {"uv": [9, 14, 16, 16], "texture": "#trophy"},
+				"east": {"uv": [0, 0, 0, 0], "texture": "#trophy"},
+				"south": {"uv": [9, 14, 16, 16], "texture": "#trophy"},
+				"west": {"uv": [0, 0, 0, 0], "texture": "#trophy"},
+				"up": {"uv": [0, 0, 0, 0], "texture": "#trophy"},
+				"down": {"uv": [0, 0, 0, 0], "texture": "#trophy"}
+			}
+		}
+	]
+}

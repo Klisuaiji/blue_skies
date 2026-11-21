@@ -118,7 +118,7 @@ public class FrostSpiritEntity extends AmbientCreature {
       this.prevDestPos = this.destPos;
       this.destPos = (float)(this.destPos + 0.2);
       this.destPos = minMax(0.01F, 1.0F, this.destPos);
-      this.wingRotation++;
+      this.wingRotation += 1.233F;
    }
 
    public static float minMax(float min, float max, float value) {

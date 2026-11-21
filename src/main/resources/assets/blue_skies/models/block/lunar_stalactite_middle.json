@@ -1,0 +1,7 @@
+{
+    "parent": "block/cross",
+    "textures": {
+        "particle": "blue_skies:block/misc/lunar_stalactite_middle",
+        "cross": "blue_skies:block/misc/lunar_stalactite_middle"
+    }
+}

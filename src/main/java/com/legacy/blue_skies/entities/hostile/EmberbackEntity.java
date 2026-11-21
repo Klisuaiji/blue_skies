@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.entities.hostile;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.entities.passive.CrogreEntity;
 import com.legacy.blue_skies.entities.util.MovingEntitySound;
 import com.legacy.blue_skies.entities.util.base.SkiesMonsterEntity;
@@ -28,13 +29,12 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.control.MoveControl.Operation;
+
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -79,8 +79,8 @@ public class EmberbackEntity extends SkiesMonsterEntity {
       super.move(typeIn, this.isNoAi() ? Vec3.ZERO : pos);
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
       this.getEntityData().define(FLYING, false);
    }
 
@@ -139,7 +139,7 @@ public class EmberbackEntity extends SkiesMonsterEntity {
       return EntityUtil.getDistanceToPos(this.blockPosition(), posIn);
    }
 
-   public void setTarget(@Nullable LivingEntity entitylivingbaseIn) {
+   public void setTarget(LivingEntity entitylivingbaseIn) {
       super.setTarget(entitylivingbaseIn);
       if (entitylivingbaseIn == null) {
          this.setFlying(false);
@@ -218,16 +218,13 @@ public class EmberbackEntity extends SkiesMonsterEntity {
       return 0.5F;
    }
 
-   public MobType getMobType() {
-      return MobType.ARTHROPOD;
-   }
 
    public boolean doHurtTarget(Entity entityIn) {
       if (!(entityIn instanceof LivingEntity)
          || !this.wasEyeInWater && !entityIn.fireImmune() && !((LivingEntity)entityIn).hasEffect(MobEffects.FIRE_RESISTANCE)) {
          for (LivingEntity living : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2.0), EntityUtil.CAN_ATTACK)) {
             if (living != this && !living.fireImmune() && living.hurt(SkiesDamageSources.get(living.level()).ember(this), 3.0F)) {
-               living.setSecondsOnFire(1 + this.level().random.nextInt(5));
+               living.setRemainingFireTicks(1 + this.level().random.nextInt(5));
             }
          }
 
@@ -308,8 +305,8 @@ public class EmberbackEntity extends SkiesMonsterEntity {
 
       public void tick() {
          if (EmberbackEntity.this.getTarget() != null && EmberbackEntity.this.isFlying()) {
-            if (this.operation != Operation.MOVE_TO) {
-               this.operation = Operation.MOVE_TO;
+            if (this.operation != MoveControl.Operation.MOVE_TO) {
+               this.operation = MoveControl.Operation.MOVE_TO;
             }
 
             Vec3 vec3d = new Vec3(

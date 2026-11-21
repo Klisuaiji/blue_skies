@@ -291,15 +291,15 @@ public class JournalEntryProv extends SkiesDataProvider<JournalEntry> {
       return this.lore(text, null, null);
    }
 
-   private JournalEntry.Lore lore(String text, @Nullable String requirement) {
+   private JournalEntry.Lore lore(String text, String requirement) {
       return this.lore(text, requirement, null);
    }
 
-   private JournalEntry.Lore lore(String text, @Nullable JournalEntryRenderers.IRenderable display) {
+   private JournalEntry.Lore lore(String text, JournalEntryRenderers.IRenderable display) {
       return this.lore(text, null, display);
    }
 
-   private JournalEntry.Lore lore(String text, @Nullable String requirement, @Nullable JournalEntryRenderers.IRenderable display) {
+   private JournalEntry.Lore lore(String text, String requirement, JournalEntryRenderers.IRenderable display) {
       return new JournalEntry.Lore(text, requirement == null ? null : BlueSkies.locate(requirement), display);
    }
 

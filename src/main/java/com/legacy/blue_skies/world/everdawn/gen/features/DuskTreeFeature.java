@@ -32,16 +32,16 @@ public class DuskTreeFeature extends AbstractSkyTreeFeature {
       int height = rand.nextInt(3) + this.minTreeHeight;
       if (!this.isAreaOk(world, pos, height, 1, height - 3, 7)) {
          return false;
-      } else {
-         this.setLeafCanopy(changedLeaves, world, rand, pos.offset(0, height - 2, 0));
-
-         for (int y = 0; y < height; y++) {
-            this.setBlockIfOk(changedLogs, world, pos.above(y), (BlockState)LOG.get());
-         }
-
-         this.setBranches(changedLogs, world, rand, pos, height);
-         return true;
       }
+
+      this.setLeafCanopy(changedLeaves, world, rand, pos.offset(0, height - 2, 0));
+
+      for (int y = 0; y < height; y++) {
+         this.setBlockIfOk(changedLogs, world, pos.above(y), (BlockState)LOG.get());
+      }
+
+      this.setBranches(changedLogs, world, rand, pos, height);
+      return true;
    }
 
    protected void setBranches(BiConsumer<BlockPos, BlockState> changedLogs, WorldGenLevel world, RandomSource rand, BlockPos pos, int height) {
@@ -71,9 +71,9 @@ public class DuskTreeFeature extends AbstractSkyTreeFeature {
       pos = pos.above();
 
       for (int x = -3; x <= 3; x++) {
-         for (int zx = -3; zx <= 3; zx++) {
-            if (Math.abs(x) != 3 || Math.abs(zx) != 3) {
-               this.setBlockIfOk(changedLeaves, world, pos.offset(x, 0, zx), (BlockState)LEAF.get());
+         for (int z = -3; z <= 3; z++) {
+            if (Math.abs(x) != 3 || Math.abs(z) != 3) {
+               this.setBlockIfOk(changedLeaves, world, pos.offset(x, 0, z), (BlockState)LEAF.get());
             }
          }
       }
@@ -90,9 +90,9 @@ public class DuskTreeFeature extends AbstractSkyTreeFeature {
       pos = pos.above();
 
       for (int x = -2; x <= 2; x++) {
-         for (int zxx = -2; zxx <= 2; zxx++) {
-            if (Math.abs(x) != 2 || Math.abs(zxx) != 2) {
-               this.setBlockIfOk(changedLeaves, world, pos.offset(x, 0, zxx), (BlockState)LEAF.get());
+         for (int z = -2; z <= 2; z++) {
+            if (Math.abs(x) != 2 || Math.abs(z) != 2) {
+               this.setBlockIfOk(changedLeaves, world, pos.offset(x, 0, z), (BlockState)LEAF.get());
             }
          }
       }

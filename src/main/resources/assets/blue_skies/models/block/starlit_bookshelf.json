@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "end": "blue_skies:block/wood/starlit_planks",
+        "side": "blue_skies:block/wood/starlit_bookshelf"
+    }
+}

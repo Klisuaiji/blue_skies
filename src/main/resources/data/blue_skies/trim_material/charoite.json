@@ -1,0 +1,9 @@
+{
+  "asset_name": "blue_skies-charoite",
+  "description": {
+    "color": "#B289D9",
+    "translate": "trim_material.blue_skies.charoite"
+  },
+  "ingredient": "blue_skies:charoite",
+  "item_model_index": 1.008412
+}

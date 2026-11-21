@@ -1,0 +1,35 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"textures": {
+		"nest": "blue_skies:block/dungeon/spider_nest",
+		"particle": "blue_skies:block/dungeon/rough_poison_stonebrick",
+		"brick": "blue_skies:block/dungeon/rough_poison_stonebrick"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#brick"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#brick"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#brick"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#brick"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#brick"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#brick"}
+			}
+		},
+		{
+			"from": [2, 2, -2],
+			"to": [14, 14, 0],
+			"rotation": {"angle": 0, "axis": "y", "origin": [10, 10, 6]},
+			"faces": {
+				"north": {"uv": [2, 2, 14, 14], "texture": "#nest"},
+				"east": {"uv": [0, 2, 2, 14], "texture": "#nest"},
+				"west": {"uv": [14, 2, 16, 14], "texture": "#nest"},
+				"up": {"uv": [2, 0, 14, 2], "texture": "#nest"},
+				"down": {"uv": [2, 14, 14, 16], "texture": "#nest"}
+			}
+		}
+	]
+}

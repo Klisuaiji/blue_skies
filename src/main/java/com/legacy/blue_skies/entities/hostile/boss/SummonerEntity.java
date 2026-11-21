@@ -218,15 +218,15 @@ public class SummonerEntity extends SkiesIllagerBossEntity {
    }
 
    public List<ArtificialGolemEntity> getGolemsInDungeonArea() {
-      return (List<ArtificialGolemEntity>)(this.getHome() == null
+      return this.getHome() == null
          ? Lists.newArrayList()
-         : this.level().getEntitiesOfClass(ArtificialGolemEntity.class, new AABB(this.getHome()).inflate(35.0, 15.0, 35.0), NOT_RANGED));
+         : this.level().getEntitiesOfClass(ArtificialGolemEntity.class, new AABB(this.getHome()).inflate(35.0, 15.0, 35.0), NOT_RANGED);
    }
 
    public List<ArtificialGolemEntity> getRangedGolemsInDungeonArea() {
-      return (List<ArtificialGolemEntity>)(this.getHome() == null
+      return this.getHome() == null
          ? Lists.newArrayList()
-         : this.level().getEntitiesOfClass(ArtificialGolemEntity.class, new AABB(this.getHome()).inflate(35.0, 15.0, 35.0), IS_RANGED));
+         : this.level().getEntitiesOfClass(ArtificialGolemEntity.class, new AABB(this.getHome()).inflate(35.0, 15.0, 35.0), IS_RANGED);
    }
 
    public int getMaxGolemsBasedOnPlayerCount() {

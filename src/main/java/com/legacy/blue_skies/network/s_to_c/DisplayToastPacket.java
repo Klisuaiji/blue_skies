@@ -16,7 +16,7 @@ import net.minecraft.world.item.Item;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class DisplayToastPacket implements PacketHandler.ModPacket<DisplayToastPacket, DisplayToastPacket.Handler> {
    private byte toastId;
@@ -43,8 +43,8 @@ public class DisplayToastPacket implements PacketHandler.ModPacket<DisplayToastP
          return new DisplayToastPacket(buff.readByte());
       }
 
-      public void handler(DisplayToastPacket packet, PlayPayloadContext context) {
-         context.workHandler().submitAsync(() -> {
+      public void handler(DisplayToastPacket packet, IPayloadContext context) {
+         context.enqueueWork(() -> {
             if (FMLEnvironment.dist == Dist.CLIENT) {
                handlePacket(packet);
             }

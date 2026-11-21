@@ -42,7 +42,7 @@ public class ZealLighterItem extends FlintAndSteelItem {
          level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
          level.setBlock(pos, (BlockState)placePos.setValue(BlockStateProperties.LIT, true), 11);
          if (player != null) {
-            context.getItemInHand().hurtAndBreak(1, player, p -> p.broadcastBreakEvent(context.getHand()));
+            context.getItemInHand().hurtAndBreak(1, player, net.minecraft.world.entity.EquipmentSlot.MAINHAND);
          }
 
          return InteractionResult.sidedSuccess(level.isClientSide());
@@ -55,7 +55,7 @@ public class ZealLighterItem extends FlintAndSteelItem {
             ItemStack stack = context.getItemInHand();
             if (player instanceof ServerPlayer serverPlayer) {
                CriteriaTriggers.PLACED_BLOCK.trigger(serverPlayer, offsetPos, stack);
-               stack.hurtAndBreak(1, serverPlayer, p -> p.broadcastBreakEvent(context.getHand()));
+               stack.hurtAndBreak(1, serverPlayer, net.minecraft.world.entity.EquipmentSlot.MAINHAND);
             }
 
             return InteractionResult.sidedSuccess(level.isClientSide());
@@ -69,13 +69,13 @@ public class ZealLighterItem extends FlintAndSteelItem {
       BlockState state = world.getBlockState(pos);
       if (!state.isAir()) {
          return false;
-      } else {
-         BlockState fire = getFire(world, pos);
-         return fire.canSurvive(world, pos)
-            || shouldLightNetherPortal(world, pos, facing)
-            || fire.getBlock() instanceof SkyFireBlock
-               && GelPortalLogic.getPortalFrame(world, pos, ((SkyFireBlock)fire.getBlock()).portalBlock.get(), SkyPortalBlock.ALLOWED_INSIDE_BLOCKS) != null;
       }
+
+      BlockState fire = getFire(world, pos);
+      return fire.canSurvive(world, pos)
+         || shouldLightNetherPortal(world, pos, facing)
+         || fire.getBlock() instanceof SkyFireBlock
+            && GelPortalLogic.getPortalFrame(world, pos, ((SkyFireBlock)fire.getBlock()).portalBlock.get(), SkyPortalBlock.ALLOWED_INSIDE_BLOCKS) != null;
    }
 
    public static BlockState getFire(Level level, BlockPos pos) {
@@ -110,18 +110,18 @@ public class ZealLighterItem extends FlintAndSteelItem {
    private static boolean shouldLightNetherPortal(Level world, BlockPos pos, Direction facing) {
       if (world.dimension() != Level.OVERWORLD && world.dimension() != Level.NETHER) {
          return false;
-      } else {
-         MutableBlockPos mutablePos = pos.mutable();
-         boolean flag = false;
-
-         for (Direction direction : Direction.values()) {
-            if (world.getBlockState(mutablePos.set(pos).move(direction)).is(Blocks.OBSIDIAN)) {
-               flag = true;
-               break;
-            }
-         }
-
-         return flag && PortalShape.findEmptyPortalShape(world, pos, facing.getCounterClockWise().getAxis()).isPresent();
       }
+
+      MutableBlockPos mutablePos = pos.mutable();
+      boolean flag = false;
+
+      for (Direction direction : Direction.values()) {
+         if (world.getBlockState(mutablePos.set(pos).move(direction)).is(Blocks.OBSIDIAN)) {
+            flag = true;
+            break;
+         }
+      }
+
+      return flag && PortalShape.findEmptyPortalShape(world, pos, facing.getCounterClockWise().getAxis()).isPresent();
    }
 }

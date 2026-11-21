@@ -1,0 +1,8 @@
+{
+    "parent": "block/slab",
+    "textures": {
+        "bottom": "blue_skies:block/stone/crystal_sandstone_bottom",
+        "top": "blue_skies:block/stone/crystal_sandstone_top",
+        "side": "blue_skies:block/stone/crystal_sandstone_cut"
+    }
+}

@@ -14,9 +14,9 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class MountInventoryScreen extends AbstractContainerScreen<MountInventoryMenu> {
-   private static final ResourceLocation HORSE_GUI_TEXTURES = new ResourceLocation("textures/gui/container/horse.png");
-   private static final ResourceLocation CHEST_SLOTS_SPRITE = new ResourceLocation("container/horse/chest_slots");
-   private static final ResourceLocation SADDLE_SLOT_SPRITE = new ResourceLocation("container/horse/saddle_slot");
+   private static final ResourceLocation HORSE_GUI_TEXTURES = ResourceLocation.parse("textures/gui/container/horse.png");
+   private static final ResourceLocation CHEST_SLOTS_SPRITE = ResourceLocation.parse("container/horse/chest_slots");
+   private static final ResourceLocation SADDLE_SLOT_SPRITE = ResourceLocation.parse("container/horse/saddle_slot");
    private final SkiesMountEntity mountEntity;
 
    public MountInventoryScreen(MountInventoryMenu container, Inventory playerInv, Component text) {

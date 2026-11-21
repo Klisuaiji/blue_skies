@@ -144,7 +144,7 @@ public class PoisonDungeonPieces {
 
       @Override
       protected void initPieces() {
-         this.addPieces(4, new String[]{"boss_room"});
+         this.addPieces(4, "boss_room");
       }
 
       @Override
@@ -266,10 +266,10 @@ public class PoisonDungeonPieces {
          List<Pair<Integer, Integer>> intersections = new ArrayList<>();
 
          for (int x = 0; x < 16; x++) {
-            for (int zx = 0; zx < 16; zx++) {
-               PoisonDungeonPieces.Segment checking = this.get(x, zx);
+            for (int z = 0; z < 16; z++) {
+               PoisonDungeonPieces.Segment checking = this.get(x, z);
                if (checking != null && checking instanceof PoisonDungeonPieces.Intersection && !((PoisonDungeonPieces.Intersection)checking).entry) {
-                  intersections.add(Pair.of(x, zx));
+                  intersections.add(Pair.of(x, z));
                }
             }
          }
@@ -509,10 +509,10 @@ public class PoisonDungeonPieces {
       @Override
       protected void initPieces() {
          for (int i = 0; i < 4; i++) {
-            this.addPieces(i, new String[]{"hallway/thin_" + i, "hallway/thick_" + i});
+            this.addPieces(i, "hallway/thin_" + i, "hallway/thick_" + i);
          }
 
-         this.addPieces(4, new String[]{"hallway/thick_4"});
+         this.addPieces(4, "hallway/thick_4");
       }
 
       @Override
@@ -533,7 +533,7 @@ public class PoisonDungeonPieces {
          String prefix = "intersection/" + (this.entry ? "entry/" : (this.chestRoom ? "room/" : "")) + this.type;
 
          for (int floor = 0; floor < 5; floor++) {
-            this.addPieces(floor, new String[]{prefix + (this.chestRoom && floor < 4 ? "_chest_" : "_") + floor});
+            this.addPieces(floor, prefix + (this.chestRoom && floor < 4 ? "_chest_" : "_") + floor);
          }
       }
 
@@ -750,7 +750,7 @@ public class PoisonDungeonPieces {
             return entry.getValue().get(rand.nextInt(entry.getValue().size()));
          } else {
             BlueSkies.LOGGER.warn(String.format("Missing structure pieces for %s on floor %d", SkiesStructures.POISON_DUNGEON.getRegistryName(), level));
-            return new ResourceLocation("empty");
+            return ResourceLocation.parse("empty");
          }
       }
 
@@ -803,7 +803,7 @@ public class PoisonDungeonPieces {
          @Override
          protected void initPieces() {
             for (int i = 0; i < 4; i++) {
-               this.addPieces(i, new String[]{"stairway/cross_" + i});
+               this.addPieces(i, "stairway/cross_" + i);
             }
          }
       }
@@ -816,7 +816,7 @@ public class PoisonDungeonPieces {
          @Override
          protected void initPieces() {
             for (int i = 0; i < 4; i++) {
-               this.addPieces(i, new String[]{"stairway/end_" + i});
+               this.addPieces(i, "stairway/end_" + i);
             }
          }
       }

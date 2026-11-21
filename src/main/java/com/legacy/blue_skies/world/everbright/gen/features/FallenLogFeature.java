@@ -33,8 +33,8 @@ public class FallenLogFeature extends Feature<FallenLogFeature.Config> {
          }
       }
 
-      for (int ix = 0; ix < length; ix++) {
-         BlockPos blockPos = pos.offset(axis == Axis.X ? ix : 0, 0, axis == Axis.Z ? ix : 0);
+      for (int i = 0; i < length; i++) {
+         BlockPos blockPos = pos.offset(axis == Axis.X ? i : 0, 0, axis == Axis.Z ? i : 0);
          level.setBlock(blockPos, (BlockState)((FallenLogFeature.Config)context.config()).state.setValue(RotatedPillarBlock.AXIS, axis), 3);
       }
 

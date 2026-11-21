@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.items.tools.weapons;
 
+import com.legacy.blue_skies.compat.*;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.legacy.blue_skies.items.tools.SkyShieldItem;
@@ -21,15 +22,15 @@ public class SpikeShieldItem extends SkyShieldItem {
    }
 
    public boolean hurtEnemy(ItemStack stack, LivingEntity p_77644_2_, LivingEntity user) {
-      stack.hurtAndBreak(1, user, player -> player.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+      stack.hurtAndBreak(1, user, net.minecraft.world.entity.EquipmentSlot.MAINHAND);
       return true;
    }
 
    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack stack) {
       Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
       if (equipmentSlot == EquipmentSlot.MAINHAND) {
-         multimap.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", 5.0, Operation.ADDITION));
-         multimap.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Speed modifier", -2.8F, Operation.ADDITION));
+         multimap.put(Attributes.ATTACK_DAMAGE.value(), LegacyAttrs.modifier(LegacyAttrs.BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", 5.0, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE));
+         multimap.put(Attributes.ATTACK_SPEED.value(), LegacyAttrs.modifier(LegacyAttrs.BASE_ATTACK_SPEED_UUID, "Speed modifier", -2.8F, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE));
       }
 
       return multimap;

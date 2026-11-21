@@ -77,13 +77,13 @@ public class StarEmitterBlock extends Block {
       if (stack.getItem() instanceof AstrolabeItem) {
          if (level.isClientSide) {
             return InteractionResult.SUCCESS;
-         } else {
-            level.playSound((Player)null, pos, SkiesSounds.BLOCK_STAR_EMITTER_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
-            player.displayClientMessage(Component.translatable("gui.blue_skies.tooltip.astrolabe_pos_set"), true);
-            AstrolabeItem.setTeleportPos(stack, pos);
-            AstrolabeItem.setTeleportDimension(stack, level.dimension());
-            return InteractionResult.SUCCESS;
          }
+
+         level.playSound((Player)null, pos, SkiesSounds.BLOCK_STAR_EMITTER_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
+         player.displayClientMessage(Component.translatable("gui.blue_skies.tooltip.astrolabe_pos_set"), true);
+         AstrolabeItem.setTeleportPos(stack, pos);
+         AstrolabeItem.setTeleportDimension(stack, level.dimension());
+         return InteractionResult.SUCCESS;
       } else {
          return InteractionResult.PASS;
       }

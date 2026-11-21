@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.crafting.toolbox;
 
+import com.legacy.blue_skies.compat.*;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.legacy.blue_skies.items.util.IFalsiteItem;
@@ -28,7 +29,7 @@ public class ModifySpearHandleRecipe extends ToolboxRecipe {
    @Override
    public ItemStack getResult(ItemStack inputItem, ItemStack modifierItem) {
       ItemStack output = new ItemStack((ItemLike)spearStickRegistry.inverse().get(modifierItem.getItem()));
-      output.setTag(inputItem.getTag());
+      output.setTag(LegacyNbt.get(inputItem));
       if (output.getDamageValue() >= output.getMaxDamage() - 1) {
          output.setDamageValue(output.getMaxDamage() - 1);
       }

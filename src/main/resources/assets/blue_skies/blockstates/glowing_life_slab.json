@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "blue_skies:block/glowing_life_slab" },
+        "type=top": { "model": "blue_skies:block/glowing_life_slab_top" },
+		"type=double": { "model": "blue_skies:block/glowing_life_stone" }
+    }
+}

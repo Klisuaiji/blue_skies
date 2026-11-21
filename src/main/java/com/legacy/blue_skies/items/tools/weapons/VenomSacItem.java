@@ -60,7 +60,7 @@ public class VenomSacItem extends Item {
             (world.random.nextFloat() - world.random.nextFloat()) * 0.1F + 1.5F
          );
          if (!world.isClientSide) {
-            heldStack.hurtAndBreak(1, player, e -> e.broadcastBreakEvent(player.getUsedItemHand()));
+            heldStack.hurtAndBreak(1, player, net.minecraft.world.entity.EquipmentSlot.MAINHAND);
             VenomSpitEntity spitEntity = new VenomSpitEntity(world, player, false);
             spitEntity.setPos(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
             this.fireSpit(spitEntity, player, player.getXRot(), player.getYRot(), 2.0F, 1.5F, 1.0F);
@@ -81,7 +81,7 @@ public class VenomSacItem extends Item {
    }
 
    @OnlyIn(Dist.CLIENT)
-   public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> lore, TooltipFlag flagIn) {
+   public void appendHoverText(ItemStack stack, Level world, List<Component> lore, TooltipFlag flagIn) {
       lore.add(Component.literal(StringUtil.getAbilityText("gui.blue_skies.item.ability.venom_sac")));
    }
 }

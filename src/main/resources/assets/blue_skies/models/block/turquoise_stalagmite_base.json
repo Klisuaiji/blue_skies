@@ -1,0 +1,7 @@
+{
+    "parent": "block/cross",
+    "textures": {
+        "particle": "blue_skies:block/misc/turquoise_stalagmite_base",
+        "cross": "blue_skies:block/misc/turquoise_stalagmite_base"
+    }
+}

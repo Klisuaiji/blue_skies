@@ -1,0 +1,25 @@
+{
+  "parent": "blue_skies:everdawn/kill_alchemist",
+  "criteria": {
+    "use_alchemy_table": {
+      "trigger": "blue_skies:used_alchemy_table"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.everdawn.use_alchemy_table.desc"
+    },
+    "icon": {
+      "item": "blue_skies:alchemy_table"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.everdawn.use_alchemy_table"
+    }
+  },
+  "requirements": [
+    [
+      "use_alchemy_table"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

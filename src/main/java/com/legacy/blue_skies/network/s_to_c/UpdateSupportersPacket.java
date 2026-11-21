@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class UpdateSupportersPacket implements PacketHandler.ModPacket<UpdateSupportersPacket, UpdateSupportersPacket.Handler> {
    public UpdateSupportersPacket.Handler handler() {
@@ -27,9 +27,9 @@ public class UpdateSupportersPacket implements PacketHandler.ModPacket<UpdateSup
          return new UpdateSupportersPacket();
       }
 
-      public void handler(UpdateSupportersPacket packet, PlayPayloadContext context) {
+      public void handler(UpdateSupportersPacket packet, IPayloadContext context) {
          if (FMLEnvironment.dist == Dist.CLIENT) {
-            context.workHandler().submitAsync(() -> handlePacket(packet));
+            context.enqueueWork(() -> handlePacket(packet));
          }
       }
 

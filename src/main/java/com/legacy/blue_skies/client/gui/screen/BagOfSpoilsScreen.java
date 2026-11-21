@@ -11,7 +11,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class BagOfSpoilsScreen extends AbstractContainerScreen<BagOfSpoilsMenu> {
-   private static final ResourceLocation HOPPER_LOCATION = new ResourceLocation("textures/gui/container/hopper.png");
+   private static final ResourceLocation HOPPER_LOCATION = ResourceLocation.parse("textures/gui/container/hopper.png");
 
    public BagOfSpoilsScreen(BagOfSpoilsMenu container, Inventory playerInv, Component containerName) {
       super(container, playerInv, containerName);

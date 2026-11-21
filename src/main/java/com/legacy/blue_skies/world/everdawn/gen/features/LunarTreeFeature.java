@@ -32,37 +32,37 @@ public class LunarTreeFeature extends AbstractSkyTreeFeature {
       int height = rand.nextInt(3) + this.minTreeHeight;
       if (!this.isAreaOk(world, pos, height, 1, 3, 7)) {
          return false;
-      } else {
-         for (int y = 0; y < height; y++) {
-            this.setBlockIfOk(changedLogs, world, pos.above(y), (BlockState)LOG.get());
-         }
-
-         this.setLeafBall(changedLeaves, world, rand, pos.offset(0, height - 2, 0));
-         int iPosX = height - 4 - rand.nextInt(3);
-         int iNegX = height - 4 - rand.nextInt(3);
-         int iPosZ = height - 4 - rand.nextInt(3);
-         int iNegZ = height - 4 - rand.nextInt(3);
-
-         for (int i = 1; i <= 3; i++) {
-            this.setBlockIfOk(changedLogs, world, pos.offset(i, iPosX + i, 0), (BlockState)LOG_X.get());
-            this.setBlockIfOk(changedLogs, world, pos.offset(0, iPosZ + i, i), (BlockState)LOG_Z.get());
-            if (i == 3) {
-               this.setLeafBall(changedLeaves, world, rand, pos.offset(i, iPosX + 2, 0));
-               this.setLeafBall(changedLeaves, world, rand, pos.offset(0, iPosZ + 2, i));
-            }
-         }
-
-         for (int ix = -1; ix >= -3; ix--) {
-            this.setBlockIfOk(changedLogs, world, pos.offset(ix, iNegX - ix, 0), (BlockState)LOG_X.get());
-            this.setBlockIfOk(changedLogs, world, pos.offset(0, iNegZ - ix, ix), (BlockState)LOG_Z.get());
-            if (ix == -3) {
-               this.setLeafBall(changedLeaves, world, rand, pos.offset(ix, iNegX + 2, 0));
-               this.setLeafBall(changedLeaves, world, rand, pos.offset(0, iNegZ + 2, ix));
-            }
-         }
-
-         return true;
       }
+
+      for (int y = 0; y < height; y++) {
+         this.setBlockIfOk(changedLogs, world, pos.above(y), (BlockState)LOG.get());
+      }
+
+      this.setLeafBall(changedLeaves, world, rand, pos.offset(0, height - 2, 0));
+      int iPosX = height - 4 - rand.nextInt(3);
+      int iNegX = height - 4 - rand.nextInt(3);
+      int iPosZ = height - 4 - rand.nextInt(3);
+      int iNegZ = height - 4 - rand.nextInt(3);
+
+      for (int i = 1; i <= 3; i++) {
+         this.setBlockIfOk(changedLogs, world, pos.offset(i, iPosX + i, 0), (BlockState)LOG_X.get());
+         this.setBlockIfOk(changedLogs, world, pos.offset(0, iPosZ + i, i), (BlockState)LOG_Z.get());
+         if (i == 3) {
+            this.setLeafBall(changedLeaves, world, rand, pos.offset(i, iPosX + 2, 0));
+            this.setLeafBall(changedLeaves, world, rand, pos.offset(0, iPosZ + 2, i));
+         }
+      }
+
+      for (int i = -1; i >= -3; i--) {
+         this.setBlockIfOk(changedLogs, world, pos.offset(i, iNegX - i, 0), (BlockState)LOG_X.get());
+         this.setBlockIfOk(changedLogs, world, pos.offset(0, iNegZ - i, i), (BlockState)LOG_Z.get());
+         if (i == -3) {
+            this.setLeafBall(changedLeaves, world, rand, pos.offset(i, iNegX + 2, 0));
+            this.setLeafBall(changedLeaves, world, rand, pos.offset(0, iNegZ + 2, i));
+         }
+      }
+
+      return true;
    }
 
    protected void setLeafBall(BiConsumer<BlockPos, BlockState> changedLeaves, WorldGenLevel world, RandomSource rand, BlockPos pos) {

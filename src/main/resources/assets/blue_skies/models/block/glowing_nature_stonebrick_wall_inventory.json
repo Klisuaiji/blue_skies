@@ -1,0 +1,6 @@
+{
+    "parent": "block/wall_inventory",
+    "textures": {
+        "wall": "blue_skies:block/dungeon/glowing_nature_stonebrick"
+    }
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "blue_skies:thinking_with_portals",
+  "criteria": {
+    "obtain_prep_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "blue_skies:food_prep_table"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.craft_food_prep_table.desc"
+    },
+    "icon": {
+      "item": "blue_skies:food_prep_table"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.craft_food_prep_table"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_prep_table"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

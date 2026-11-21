@@ -1,0 +1,37 @@
+{
+  "parent": "blue_skies:everbright/enter_nature_dungeon",
+  "criteria": {
+    "kill_starlit_crusher": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "blue_skies:starlit_crusher"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.everbright.kill_starlit_crusher.desc"
+    },
+    "frame": "challenge",
+    "icon": {
+      "item": "blue_skies:nature_arc"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.everbright.kill_starlit_crusher"
+    }
+  },
+  "requirements": [
+    [
+      "kill_starlit_crusher"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

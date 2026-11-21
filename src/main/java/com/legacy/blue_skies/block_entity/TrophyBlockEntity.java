@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.block_entity;
 
+import net.minecraft.core.HolderLookup;
 import com.legacy.blue_skies.registries.SkiesBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -14,15 +15,15 @@ public class TrophyBlockEntity extends SkiesBlockEntity {
       super(SkiesBlockEntityTypes.TROPHY, pos, state);
    }
 
-   public void load(CompoundTag compound) {
-      super.load(compound);
+   public void loadAdditional(CompoundTag compound, HolderLookup.Provider p) {
+      super.loadAdditional(compound, p);
       if (compound.contains("Label", 8)) {
          this.label = Serializer.fromJson(compound.getString("Label"));
       }
    }
 
-   public void saveAdditional(CompoundTag compound) {
-      super.saveAdditional(compound);
+   public void saveAdditional(CompoundTag compound, HolderLookup.Provider p) {
+      super.saveAdditional(compound, p);
       if (this.label != null) {
          compound.putString("Label", Serializer.toJson(this.label));
       }

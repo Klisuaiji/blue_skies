@@ -1,0 +1,9 @@
+{
+  "asset_name": "blue_skies-aquite",
+  "description": {
+    "color": "#A3EDF7",
+    "translate": "trim_material.blue_skies.aquite"
+  },
+  "ingredient": "blue_skies:aquite",
+  "item_model_index": 0.808412
+}

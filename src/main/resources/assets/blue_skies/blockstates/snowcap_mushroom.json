@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "half=upper": [ 
+			{ "model": "blue_skies:block/snowcap_mushroom_top" },
+			{ "model": "blue_skies:block/snowcap_mushroom_top", "y": 90 },
+			{ "model": "blue_skies:block/snowcap_mushroom_top", "y": 180 },
+			{ "model": "blue_skies:block/snowcap_mushroom_top", "y": 270 }
+		],
+		"half=lower": { "model": "blue_skies:block/snowcap_mushroom_bottom" }
+    }
+}

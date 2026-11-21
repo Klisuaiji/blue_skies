@@ -1,0 +1,8 @@
+{
+    "parent": "block/slab",
+    "textures": {
+        "bottom": "blue_skies:block/dungeon/glowing_aquatic_stone",
+        "top": "blue_skies:block/dungeon/glowing_aquatic_stone",
+        "side": "blue_skies:block/dungeon/glowing_aquatic_stone"
+    }
+}

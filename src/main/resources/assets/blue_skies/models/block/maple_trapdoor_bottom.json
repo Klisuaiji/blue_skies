@@ -1,0 +1,6 @@
+{
+    "parent": "blue_skies:block/trapdoor_rotated",
+    "textures": {
+        "texture": "blue_skies:block/doors/maple_trapdoor"
+    }
+}

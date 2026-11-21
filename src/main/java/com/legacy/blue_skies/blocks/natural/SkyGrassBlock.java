@@ -46,10 +46,10 @@ public class SkyGrassBlock extends GrassBlock {
       BlockState blockstate = level.getBlockState(blockpos);
       if (blockstate.getBlock() == Blocks.SNOW && (Integer)blockstate.getValue(SnowLayerBlock.LAYERS) == 1) {
          return true;
-      } else {
-         int i = LightEngine.getLightBlockInto(level, state, pos, blockstate, blockpos, Direction.UP, blockstate.getLightBlock(level, blockpos));
-         return i < level.getMaxLightLevel();
       }
+
+      int i = LightEngine.getLightBlockInto(level, state, pos, blockstate, blockpos, Direction.UP, blockstate.getLightBlock(level, blockpos));
+      return i < level.getMaxLightLevel();
    }
 
    private static boolean isCovered(BlockState state, LevelReader level, BlockPos pos) {
@@ -128,7 +128,7 @@ public class SkyGrassBlock extends GrassBlock {
          Supplier<Block> grass,
          Supplier<Block> dirtBlock,
          Map<Supplier<Block>, Supplier<Block>> spreadMap,
-         @Nullable Function<RandomSource, Supplier<Block>> flowerProvider
+         Function<RandomSource, Supplier<Block>> flowerProvider
       ) {
          this.tallGrass = Lazy.of(() -> grass.get().defaultBlockState());
          this.dirtBlock = Lazy.of(() -> dirtBlock.get().defaultBlockState());

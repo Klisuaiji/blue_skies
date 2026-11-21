@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "blue_skies:block/starlit_ladder" },
+        "facing=east":  { "model": "blue_skies:block/starlit_ladder", "y": 90 },
+        "facing=south": { "model": "blue_skies:block/starlit_ladder", "y": 180 },
+        "facing=west":  { "model": "blue_skies:block/starlit_ladder", "y": 270 }
+    }
+}

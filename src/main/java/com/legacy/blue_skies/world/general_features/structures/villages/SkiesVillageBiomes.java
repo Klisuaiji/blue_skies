@@ -12,7 +12,7 @@ public enum SkiesVillageBiomes {
 
    private final String name;
 
-   private SkiesVillageBiomes(String name) {
+   SkiesVillageBiomes(String name) {
       this.name = name;
    }
 

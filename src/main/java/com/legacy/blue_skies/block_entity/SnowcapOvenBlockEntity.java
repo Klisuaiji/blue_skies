@@ -151,7 +151,7 @@ public class SnowcapOvenBlockEntity extends AbstractFurnaceBlockEntity {
       return this.getBurnTime() > 0;
    }
 
-   private void smelt(@Nullable RecipeHolder<?> recipe) {
+   private void smelt(RecipeHolder<?> recipe) {
       if (recipe != null && this.canBurn(recipe, this.items, this.getMaxStackSize())) {
          ItemStack rawStack = (ItemStack)this.items.get(0);
          ItemStack recipeOutput = recipe.value().getResultItem(this.level.registryAccess());
@@ -208,7 +208,7 @@ public class SnowcapOvenBlockEntity extends AbstractFurnaceBlockEntity {
       this.dataAccess.set(3, value);
    }
 
-   private boolean canBurn(@Nullable RecipeHolder<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
+   private boolean canBurn(RecipeHolder<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
       if (!((ItemStack)items.get(0)).isEmpty() && recipe != null) {
          ItemStack itemstack = recipe.value().assemble(this, this.level.registryAccess());
          if (itemstack.isEmpty()) {
@@ -246,12 +246,14 @@ public class SnowcapOvenBlockEntity extends AbstractFurnaceBlockEntity {
    public boolean canPlaceItem(int index, ItemStack stack) {
       if (index == 2 || index == 3) {
          return false;
-      } else if (index != 1) {
-         return true;
-      } else {
-         ItemStack itemstack = (ItemStack)this.items.get(1);
-         return isFuel(stack) || stack.getItem() == Items.BUCKET && itemstack.getItem() != Items.BUCKET;
       }
+
+      if (index != 1) {
+         return true;
+      }
+
+      ItemStack itemstack = (ItemStack)this.items.get(1);
+      return isFuel(stack) || stack.getItem() == Items.BUCKET && itemstack.getItem() != Items.BUCKET;
    }
 
    public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {

@@ -1,0 +1,25 @@
+{
+  "parent": "blue_skies:everbright/get_ventium",
+  "criteria": {
+    "use_tool_box": {
+      "trigger": "blue_skies:used_tool_box"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.everbright.use_tool_box.desc"
+    },
+    "icon": {
+      "item": "blue_skies:tool_box"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.everbright.use_tool_box"
+    }
+  },
+  "requirements": [
+    [
+      "use_tool_box"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

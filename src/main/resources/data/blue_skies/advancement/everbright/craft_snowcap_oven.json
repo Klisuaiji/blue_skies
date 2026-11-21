@@ -1,0 +1,34 @@
+{
+  "parent": "blue_skies:everbright/get_wood",
+  "criteria": {
+    "obtain_oven": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "blue_skies:snowcap_oven"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.everbright.craft_snowcap_oven.desc"
+    },
+    "icon": {
+      "item": "blue_skies:snowcap_oven"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.everbright.craft_snowcap_oven"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_oven"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

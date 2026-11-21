@@ -27,10 +27,10 @@ import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 public class SkiesParticles {
-   public static final SimpleParticleType BLUE_FLAME = new SimpleParticleType(false);
-   public static final SimpleParticleType BLACK_FLAME = new SimpleParticleType(false);
-   public static final SimpleParticleType EVERBRIGHT_PORTAL = new SimpleParticleType(false);
-   public static final SimpleParticleType EVERDAWN_PORTAL = new SimpleParticleType(false);
+   public static final SimpleParticleType BLUE_FLAME = new SimpleParticleType(false) {};
+   public static final SimpleParticleType BLACK_FLAME = new SimpleParticleType(false) {};
+   public static final SimpleParticleType EVERBRIGHT_PORTAL = new SimpleParticleType(false) {};
+   public static final SimpleParticleType EVERDAWN_PORTAL = new SimpleParticleType(false) {};
    public static final ParticleType<PoisonData> POISON = new ParticleType<PoisonData>(false, PoisonData.DESERIALIZER) {
       public Codec<PoisonData> codec() {
          return PoisonData.CODEC;
@@ -41,16 +41,16 @@ public class SkiesParticles {
          return StarFlareData.CODEC;
       }
    };
-   public static final SimpleParticleType DUSK_SMOKE = new SimpleParticleType(false);
-   public static final SimpleParticleType FLUCTUANT_SPHERE = new SimpleParticleType(false);
-   public static final SimpleParticleType FLUCTUANT_SPHERE_BEAM = new SimpleParticleType(false);
-   public static final SimpleParticleType FALLING_LEAF = new SimpleParticleType(false);
-   public static final SimpleParticleType DUST = new SimpleParticleType(false);
-   public static final SimpleParticleType CRUSHER_DUST = new SimpleParticleType(false);
-   public static final SimpleParticleType BRISK_PETAL = new SimpleParticleType(false);
-   public static final SimpleParticleType FROSE_SNOW = new SimpleParticleType(false);
-   public static final SimpleParticleType SEARING_SMOKE = new SimpleParticleType(false);
-   public static final SimpleParticleType STAR_GLIMMER = new SimpleParticleType(false);
+   public static final SimpleParticleType DUSK_SMOKE = new SimpleParticleType(false) {};
+   public static final SimpleParticleType FLUCTUANT_SPHERE = new SimpleParticleType(false) {};
+   public static final SimpleParticleType FLUCTUANT_SPHERE_BEAM = new SimpleParticleType(false) {};
+   public static final SimpleParticleType FALLING_LEAF = new SimpleParticleType(false) {};
+   public static final SimpleParticleType DUST = new SimpleParticleType(false) {};
+   public static final SimpleParticleType CRUSHER_DUST = new SimpleParticleType(false) {};
+   public static final SimpleParticleType BRISK_PETAL = new SimpleParticleType(false) {};
+   public static final SimpleParticleType FROSE_SNOW = new SimpleParticleType(false) {};
+   public static final SimpleParticleType SEARING_SMOKE = new SimpleParticleType(false) {};
+   public static final SimpleParticleType STAR_GLIMMER = new SimpleParticleType(false) {};
 
    public static void init(RegisterEvent event) {
       register(event, "blue_flame", BLUE_FLAME);

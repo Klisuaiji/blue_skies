@@ -1,0 +1,23 @@
+{
+  "parent": "block/block",
+  "loader": "neoforge:composite",
+  "children": {
+    "base": {
+      "parent": "blue_skies:block/warding_pearl_model",
+      "textures": {
+        "pearl": "blue_skies:block/misc/warding_pearl"
+      },
+	  "render_type": "cutout_mipped"
+    },
+    "emissive": {
+      "parent": "blue_skies:block/warding_pearl_model",
+      "textures": {
+        "pearl": "blue_skies:block/misc/warding_pearl_glow"
+      },
+	  "render_type": "cutout"
+    }
+  },
+  "textures": {
+    "particle": "blue_skies:block/misc/warding_pearl"
+  }
+}

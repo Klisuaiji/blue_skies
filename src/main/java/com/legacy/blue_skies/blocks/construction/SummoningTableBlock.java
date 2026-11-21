@@ -44,11 +44,11 @@ public class SummoningTableBlock extends HorizontalDirectionalBlock {
    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
       if (worldIn.isClientSide) {
          return InteractionResult.SUCCESS;
-      } else {
-         player.openMenu(state.getMenuProvider(worldIn, pos));
-         player.awardStat(SkiesStats.INTERACT_WITH_SUMMONING_TABLE);
-         return InteractionResult.CONSUME;
       }
+
+      player.openMenu(state.getMenuProvider(worldIn, pos));
+      player.awardStat(SkiesStats.INTERACT_WITH_SUMMONING_TABLE);
+      return InteractionResult.CONSUME;
    }
 
    public MenuProvider getMenuProvider(BlockState state, Level worldIn, BlockPos pos) {

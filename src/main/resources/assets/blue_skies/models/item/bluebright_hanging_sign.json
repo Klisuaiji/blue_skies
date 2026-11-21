@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "blue_skies:item/misc/bluebright_hanging_sign"
+  }
+}

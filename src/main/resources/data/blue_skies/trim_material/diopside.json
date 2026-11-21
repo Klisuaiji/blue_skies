@@ -1,0 +1,9 @@
+{
+  "asset_name": "blue_skies-diopside",
+  "description": {
+    "color": "#94F252",
+    "translate": "trim_material.blue_skies.diopside"
+  },
+  "ingredient": "blue_skies:diopside_gem",
+  "item_model_index": 0.708412
+}

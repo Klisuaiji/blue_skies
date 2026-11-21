@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "top": "blue_skies:block/crafting/horizonite_forge_top",
+	"bottom": "blue_skies:block/crafting/horizonite_forge_bottom",
+    "front": "blue_skies:block/crafting/horizonite_forge_front",
+    "side": "blue_skies:block/crafting/horizonite_forge_side"
+  }
+}

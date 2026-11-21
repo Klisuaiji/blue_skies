@@ -1,0 +1,36 @@
+{
+  "parent": "blue_skies:everdawn/kill_arachnarch",
+  "criteria": {
+    "have_sword": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "blue_skies:different_sword"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.everdawn.think_different.desc"
+    },
+    "frame": "goal",
+    "icon": {
+      "item": "blue_skies:different_sword",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.everdawn.think_different"
+    }
+  },
+  "requirements": [
+    [
+      "have_sword"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

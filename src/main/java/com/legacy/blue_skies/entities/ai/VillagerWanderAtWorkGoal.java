@@ -19,24 +19,24 @@ public class VillagerWanderAtWorkGoal extends WaterAvoidingRandomStrollGoal {
       if (this.villager.getVillagerData().getProfession() != SkiesVillagers.NIGHTWATCHER.get()
          && this.villager.getVillagerData().getProfession() != SkiesVillagers.SHOVELER.get()) {
          return false;
-      } else {
-         double jobPosDistance = this.villager.getBrain().getMemory(MemoryModuleType.JOB_SITE).isPresent()
-            ? EntityUtil.getDistanceToPos(this.villager.blockPosition(), ((GlobalPos)this.villager.getBrain().getMemory(MemoryModuleType.JOB_SITE).get()).pos())
-            : 0.0;
-         return jobPosDistance > 30.0 ? false : this.isWorkTime() && !this.villager.getMoveControl().hasWanted() && super.canUse();
       }
+
+      double jobPosDistance = this.villager.getBrain().getMemory(MemoryModuleType.JOB_SITE).isPresent()
+         ? EntityUtil.getDistanceToPos(this.villager.blockPosition(), ((GlobalPos)this.villager.getBrain().getMemory(MemoryModuleType.JOB_SITE).get()).pos())
+         : 0.0;
+      return jobPosDistance > 30.0 ? false : this.isWorkTime() && !this.villager.getMoveControl().hasWanted() && super.canUse();
    }
 
    public boolean canContinueToUse() {
       if (this.villager.getVillagerData().getProfession() != SkiesVillagers.NIGHTWATCHER.get()
          && this.villager.getVillagerData().getProfession() != SkiesVillagers.SHOVELER.get()) {
          return false;
-      } else {
-         double jobPosDistance = this.villager.getBrain().getMemory(MemoryModuleType.JOB_SITE).isPresent()
-            ? EntityUtil.getDistanceToPos(this.villager.blockPosition(), ((GlobalPos)this.villager.getBrain().getMemory(MemoryModuleType.JOB_SITE).get()).pos())
-            : 0.0;
-         return jobPosDistance > 30.0 ? false : this.isWorkTime() && super.canContinueToUse();
       }
+
+      double jobPosDistance = this.villager.getBrain().getMemory(MemoryModuleType.JOB_SITE).isPresent()
+         ? EntityUtil.getDistanceToPos(this.villager.blockPosition(), ((GlobalPos)this.villager.getBrain().getMemory(MemoryModuleType.JOB_SITE).get()).pos())
+         : 0.0;
+      return jobPosDistance > 30.0 ? false : this.isWorkTime() && super.canContinueToUse();
    }
 
    private boolean isWorkTime() {

@@ -30,7 +30,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -97,14 +96,14 @@ public class VenomSpiderEntity extends SkiesMonsterEntity implements RangedAttac
       return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 22.0).add(Attributes.MOVEMENT_SPEED, 0.3F).add(Attributes.FOLLOW_RANGE, 20.0);
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(CLIMBING, (byte)0);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(CLIMBING, (byte)0);
    }
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
    ) {
       if (spawnDataIn == null) {
          spawnDataIn = new SpiderEffectsGroupData();
@@ -186,9 +185,6 @@ public class VenomSpiderEntity extends SkiesMonsterEntity implements RangedAttac
       return this.isBesideClimbableBlock();
    }
 
-   public MobType getMobType() {
-      return MobType.ARTHROPOD;
-   }
 
    public boolean canBeAffected(MobEffectInstance potioneffectIn) {
       return potioneffectIn.getEffect() == MobEffects.POISON

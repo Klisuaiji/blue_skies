@@ -1,0 +1,29 @@
+{
+	"parent": "blue_skies:block/bronze_summoner_trophy",
+    "overrides": [
+        {
+            "predicate": {
+                "tier": 0
+            },
+            "model": "blue_skies:block/bronze_summoner_trophy"
+        },
+        {
+            "predicate": {
+                "tier": 1
+            },
+            "model": "blue_skies:block/silver_summoner_trophy"
+        },
+        {
+            "predicate": {
+                "tier": 2
+            },
+            "model": "blue_skies:block/gold_summoner_trophy"
+        },
+        {
+            "predicate": {
+                "tier": 3
+            },
+            "model": "blue_skies:block/platinum_summoner_trophy"
+        }
+    ]
+}

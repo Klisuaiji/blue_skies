@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.registries;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.entities.BossItemEntity;
 import com.legacy.blue_skies.entities.SupporterPetEntity;
@@ -62,7 +63,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.EntityType.Builder;
 import net.minecraft.world.entity.SpawnPlacements.SpawnPredicate;
-import net.minecraft.world.entity.SpawnPlacements.Type;
+import net.minecraft.world.entity.SpawnPlacementType;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
@@ -76,127 +77,127 @@ import net.minecraft.world.level.levelgen.Heightmap.Types;
 import net.minecraft.world.level.material.FluidState;
 import net.neoforged.neoforge.common.util.TriPredicate;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
-import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
-import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent.Operation;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 public class SkiesEntityTypes {
-   public static final EntityType<AzulfoEntity> AZULFO = buildEntity("azulfo", Builder.of(AzulfoEntity::new, MobCategory.CREATURE).sized(2.0F, 2.3F));
+   public static final EntityType<AzulfoEntity> AZULFO = buildEntity("azulfo", Builder.<AzulfoEntity>of(AzulfoEntity::new, MobCategory.CREATURE).sized(2.0F, 2.3F));
    public static final EntityType<StardustRamEntity> STARDUST_RAM = buildEntity(
-      "stardust_ram", Builder.of(StardustRamEntity::new, MobCategory.CREATURE).sized(1.4F, 1.7F)
+      "stardust_ram", Builder.<StardustRamEntity>of(StardustRamEntity::new, MobCategory.CREATURE).sized(1.4F, 1.7F)
    );
-   public static final EntityType<ReindeerEntity> REINDEER = buildEntity("reindeer", Builder.of(ReindeerEntity::new, MobCategory.CREATURE).sized(1.3F, 1.5F));
+   public static final EntityType<ReindeerEntity> REINDEER = buildEntity("reindeer", Builder.<ReindeerEntity>of(ReindeerEntity::new, MobCategory.CREATURE).sized(1.3F, 1.5F));
    public static final EntityType<JellyDrifterEntity> JELLY_DRIFTER = buildEntity(
-      "jelly_drifter", Builder.of(JellyDrifterEntity::new, MobCategory.WATER_AMBIENT).sized(0.6F, 1.2F)
+      "jelly_drifter", Builder.<JellyDrifterEntity>of(JellyDrifterEntity::new, MobCategory.WATER_AMBIENT).sized(0.6F, 1.2F)
    );
-   public static final EntityType<SnowOwlEntity> SNOW_OWL = buildEntity("snow_owl", Builder.of(SnowOwlEntity::new, MobCategory.CREATURE).sized(0.5F, 0.9F));
+   public static final EntityType<SnowOwlEntity> SNOW_OWL = buildEntity("snow_owl", Builder.<SnowOwlEntity>of(SnowOwlEntity::new, MobCategory.CREATURE).sized(0.5F, 0.9F));
    public static final EntityType<FrostSpiritEntity> FROST_SPIRIT = buildEntity(
-      "frost_spirit", Builder.of(FrostSpiritEntity::new, MobCategory.AMBIENT).sized(0.6F, 0.6F)
+      "frost_spirit", Builder.<FrostSpiritEntity>of(FrostSpiritEntity::new, MobCategory.AMBIENT).sized(0.6F, 0.6F)
    );
    public static final EntityType<GrittleFlatfishEntity> GRITTLE_FLATFISH = buildEntity(
-      "grittle_flatfish", Builder.of(GrittleFlatfishEntity::new, MobCategory.WATER_AMBIENT).sized(1.0F, 0.7F)
+      "grittle_flatfish", Builder.<GrittleFlatfishEntity>of(GrittleFlatfishEntity::new, MobCategory.WATER_AMBIENT).sized(1.0F, 0.7F)
    );
    public static final EntityType<MunicipalMonkfishEntity> MUNICIPAL_MONKFISH = buildEntity(
-      "municipal_monkfish", Builder.of(MunicipalMonkfishEntity::new, MobCategory.WATER_AMBIENT).sized(0.5F, 0.3F)
+      "municipal_monkfish", Builder.<MunicipalMonkfishEntity>of(MunicipalMonkfishEntity::new, MobCategory.WATER_AMBIENT).sized(0.5F, 0.3F)
    );
    public static final EntityType<ArmoredFrostSpiritEntity> ARMORED_FROST_SPIRIT = buildEntity(
-      "armored_frost_spirit", Builder.of(ArmoredFrostSpiritEntity::new, MobCategory.MONSTER).sized(0.6F, 1.95F)
+      "armored_frost_spirit", Builder.<ArmoredFrostSpiritEntity>of(ArmoredFrostSpiritEntity::new, MobCategory.MONSTER).sized(0.6F, 1.95F)
    );
    public static final EntityType<CrynocerousEntity> CRYNOCEROUS = buildEntity(
-      "crynocerous", Builder.of(CrynocerousEntity::new, MobCategory.MONSTER).sized(2.0F, 2.3F)
+      "crynocerous", Builder.<CrynocerousEntity>of(CrynocerousEntity::new, MobCategory.MONSTER).sized(2.0F, 2.3F)
    );
    public static final EntityType<PolargeistEntity> POLARGEIST = buildEntity(
-      "polargeist", Builder.of(PolargeistEntity::new, MobCategory.MONSTER).sized(1.6F, 1.6F)
+      "polargeist", Builder.<PolargeistEntity>of(PolargeistEntity::new, MobCategory.MONSTER).sized(1.6F, 1.6F)
    );
-   public static final EntityType<StoneletEntity> STONELET = buildEntity("stonelet", Builder.of(StoneletEntity::new, MobCategory.MONSTER).sized(1.3F, 2.0F));
+   public static final EntityType<StoneletEntity> STONELET = buildEntity("stonelet", Builder.<StoneletEntity>of(StoneletEntity::new, MobCategory.MONSTER).sized(1.3F, 2.0F));
    public static final EntityType<WhistleshellCrabEntity> WHISTLESHELL_CRAB = buildEntity(
-      "whistleshell_crab", Builder.of(WhistleshellCrabEntity::new, MobCategory.MONSTER).sized(1.8F, 0.8F)
+      "whistleshell_crab", Builder.<WhistleshellCrabEntity>of(WhistleshellCrabEntity::new, MobCategory.MONSTER).sized(1.8F, 0.8F)
    );
-   public static final EntityType<ShrumptyEntity> SHRUMPTY = buildEntity("shrumpty", Builder.of(ShrumptyEntity::new, MobCategory.MONSTER).sized(0.6F, 1.3F));
+   public static final EntityType<ShrumptyEntity> SHRUMPTY = buildEntity("shrumpty", Builder.<ShrumptyEntity>of(ShrumptyEntity::new, MobCategory.MONSTER).sized(0.6F, 1.3F));
    public static final EntityType<DiophydeProwlerEntity> DIOPHYDE_PROWLER = buildEntity(
-      "diophyde_prowler", Builder.of(DiophydeProwlerEntity::new, MobCategory.MONSTER).sized(1.6F, 1.6F)
+      "diophyde_prowler", Builder.<DiophydeProwlerEntity>of(DiophydeProwlerEntity::new, MobCategory.MONSTER).sized(1.6F, 1.6F)
    );
-   public static final EntityType<SeclamEntity> SECLAM = buildEntity("seclam", Builder.of(SeclamEntity::new, MobCategory.MONSTER).sized(1.6F, 0.8F));
-   public static final EntityType<FireflyEntity> FIREFLY = buildEntity("firefly", Builder.of(FireflyEntity::new, MobCategory.AMBIENT).sized(0.7F, 0.6F));
+   public static final EntityType<SeclamEntity> SECLAM = buildEntity("seclam", Builder.<SeclamEntity>of(SeclamEntity::new, MobCategory.MONSTER).sized(1.6F, 0.8F));
+   public static final EntityType<FireflyEntity> FIREFLY = buildEntity("firefly", Builder.<FireflyEntity>of(FireflyEntity::new, MobCategory.AMBIENT).sized(0.7F, 0.6F));
    public static final EntityType<CosmicFoxEntity> COSMIC_FOX = buildEntity(
-      "cosmic_fox", Builder.of(CosmicFoxEntity::new, MobCategory.CREATURE).sized(0.7F, 0.75F)
+      "cosmic_fox", Builder.<CosmicFoxEntity>of(CosmicFoxEntity::new, MobCategory.CREATURE).sized(0.7F, 0.75F)
    );
    public static final EntityType<CrystalCamelEntity> CRYSTAL_CAMEL = buildEntity(
-      "crystal_camel", Builder.of(CrystalCamelEntity::new, MobCategory.CREATURE).sized(1.5F, 2.2F)
+      "crystal_camel", Builder.<CrystalCamelEntity>of(CrystalCamelEntity::new, MobCategory.CREATURE).sized(1.5F, 2.2F)
    );
    public static final EntityType<ShadeMonitorEntity> SHADE_MONITOR = buildEntity(
-      "shade_monitor", Builder.of(ShadeMonitorEntity::new, MobCategory.CREATURE).sized(1.8F, 1.0F)
+      "shade_monitor", Builder.<ShadeMonitorEntity>of(ShadeMonitorEntity::new, MobCategory.CREATURE).sized(1.8F, 1.0F)
    );
-   public static final EntityType<SlivEntity> SLIV = buildEntity("sliv", Builder.of(SlivEntity::new, MobCategory.CREATURE).sized(1.0F, 0.2F));
-   public static final EntityType<CrogreEntity> CROGRE = buildEntity("crogre", Builder.of(CrogreEntity::new, MobCategory.CREATURE).sized(1.3F, 0.8F));
+   public static final EntityType<SlivEntity> SLIV = buildEntity("sliv", Builder.<SlivEntity>of(SlivEntity::new, MobCategory.CREATURE).sized(1.0F, 0.2F));
+   public static final EntityType<CrogreEntity> CROGRE = buildEntity("crogre", Builder.<CrogreEntity>of(CrogreEntity::new, MobCategory.CREATURE).sized(1.3F, 0.8F));
    public static final EntityType<CharscaleMokiEntity> CHARSCALE_MOKI = buildEntity(
-      "charscale_moki", Builder.of(CharscaleMokiEntity::new, MobCategory.WATER_AMBIENT).sized(0.5F, 0.3F)
+      "charscale_moki", Builder.<CharscaleMokiEntity>of(CharscaleMokiEntity::new, MobCategory.WATER_AMBIENT).sized(0.5F, 0.3F)
    );
    public static final EntityType<HorizofinTunidEntity> HORIZOFIN_TUNID = buildEntity(
-      "horizofin_tunid", Builder.of(HorizofinTunidEntity::new, MobCategory.WATER_AMBIENT).sized(0.5F, 0.3F)
+      "horizofin_tunid", Builder.<HorizofinTunidEntity>of(HorizofinTunidEntity::new, MobCategory.WATER_AMBIENT).sized(0.5F, 0.3F)
    );
-   public static final EntityType<NyctoflyEntity> NYCTOFLY = buildEntity("nyctofly", Builder.of(NyctoflyEntity::new, MobCategory.MONSTER).sized(1.2F, 0.8F));
+   public static final EntityType<NyctoflyEntity> NYCTOFLY = buildEntity("nyctofly", Builder.<NyctoflyEntity>of(NyctoflyEntity::new, MobCategory.MONSTER).sized(1.2F, 0.8F));
    public static final EntityType<VenomSpiderEntity> VENOM_SPIDER = buildEntity(
-      "venom_spider", Builder.of(VenomSpiderEntity::new, MobCategory.MONSTER).sized(1.4F, 0.9F)
+      "venom_spider", Builder.<VenomSpiderEntity>of(VenomSpiderEntity::new, MobCategory.MONSTER).sized(1.4F, 0.9F)
    );
    public static final EntityType<VenomSpitEntity> VENOM_SPIT = buildEntity(
-      "venom_spit", Builder.of(VenomSpitEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).sized(0.25F, 0.25F)
+      "venom_spit", Builder.<VenomSpitEntity>of(VenomSpitEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).sized(0.25F, 0.25F)
    );
    public static final EntityType<EmberbackEntity> EMBERBACK = buildEntity(
-      "emberback", Builder.of(EmberbackEntity::new, MobCategory.MONSTER).sized(1.4F, 0.9F).fireImmune()
+      "emberback", Builder.<EmberbackEntity>of(EmberbackEntity::new, MobCategory.MONSTER).sized(1.4F, 0.9F).fireImmune()
    );
    public static final EntityType<InfestedSwarmerEntity> INFESTED_SWARMER = buildEntity(
-      "infested_swarmer", Builder.of(InfestedSwarmerEntity::new, MobCategory.MONSTER).sized(1.7F, 0.9F)
+      "infested_swarmer", Builder.<InfestedSwarmerEntity>of(InfestedSwarmerEntity::new, MobCategory.MONSTER).sized(1.7F, 0.9F)
    );
    public static final EntityType<SummonerEntity> SUMMONER = buildEntity(
-      "summoner", Builder.of(SummonerEntity::new, MobCategory.MONSTER).sized(0.6F, 2.0F).fireImmune()
+      "summoner", Builder.<SummonerEntity>of(SummonerEntity::new, MobCategory.MONSTER).sized(0.6F, 2.0F).fireImmune()
    );
    public static final EntityType<ArtificialGolemEntity> ARTIFICIAL_GOLEM = buildEntity(
-      "artificial_golem", Builder.of(ArtificialGolemEntity::new, MobCategory.MONSTER).sized(1.0F, 2.1F).fireImmune()
+      "artificial_golem", Builder.<ArtificialGolemEntity>of(ArtificialGolemEntity::new, MobCategory.MONSTER).sized(1.0F, 2.1F).fireImmune()
    );
    public static final EntityType<StrangeLightningEntity> STRANGE_LIGHTNING = buildEntity(
-      "strange_lightning", Builder.of(StrangeLightningEntity::new, MobCategory.MISC).sized(0.0F, 0.0F)
+      "strange_lightning", Builder.<StrangeLightningEntity>of(StrangeLightningEntity::new, MobCategory.MISC).sized(0.0F, 0.0F)
    );
    public static final EntityType<FluctuantSphereEntity> FLUCTUANT_SPHERE = buildEntity(
-      "fluctuant_sphere", Builder.of(FluctuantSphereEntity::new, MobCategory.MISC).fireImmune().setShouldReceiveVelocityUpdates(true).sized(0.7F, 0.7F)
+      "fluctuant_sphere", Builder.<FluctuantSphereEntity>of(FluctuantSphereEntity::new, MobCategory.MISC).fireImmune().setShouldReceiveVelocityUpdates(true).sized(0.7F, 0.7F)
    );
    public static final EntityType<AlchemistEntity> ALCHEMIST = buildEntity(
-      "alchemist", Builder.of(AlchemistEntity::new, MobCategory.MONSTER).sized(0.6F, 2.0F).fireImmune()
+      "alchemist", Builder.<AlchemistEntity>of(AlchemistEntity::new, MobCategory.MONSTER).sized(0.6F, 2.0F).fireImmune()
    );
    public static final EntityType<DecayingSpikeEntity> DECAYING_SPIKE = buildEntity(
-      "decaying_spike", Builder.of(DecayingSpikeEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).fireImmune().sized(1.0F, 1.0F)
+      "decaying_spike", Builder.<DecayingSpikeEntity>of(DecayingSpikeEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).fireImmune().sized(1.0F, 1.0F)
    );
    public static final EntityType<StarlitCrusherEntity> STARLIT_CRUSHER = buildEntity(
-      "starlit_crusher", Builder.of(StarlitCrusherEntity::new, MobCategory.MONSTER).sized(1.6F, 3.2F)
+      "starlit_crusher", Builder.<StarlitCrusherEntity>of(StarlitCrusherEntity::new, MobCategory.MONSTER).sized(1.6F, 3.2F)
    );
-   public static final EntityType<EntRootEntity> ENT_ROOT = buildEntity("ent_root", Builder.of(EntRootEntity::new, MobCategory.MISC).sized(0.5F, 0.8F));
-   public static final EntityType<EntWallEntity> ENT_WALL = buildEntity("ent_wall", Builder.of(EntWallEntity::new, MobCategory.MISC).sized(1.0F, 3.0F));
-   public static final EntityType<EntLeafEntity> ENT_LEAF = buildEntity("ent_leaf", Builder.of(EntLeafEntity::new, MobCategory.MISC).sized(0.3F, 0.1F));
-   public static final EntityType<SpewterEntity> SPEWTER = buildEntity("spewter", Builder.of(SpewterEntity::new, MobCategory.MONSTER).sized(1.0F, 1.2F));
+   public static final EntityType<EntRootEntity> ENT_ROOT = buildEntity("ent_root", Builder.<EntRootEntity>of(EntRootEntity::new, MobCategory.MISC).sized(0.5F, 0.8F));
+   public static final EntityType<EntWallEntity> ENT_WALL = buildEntity("ent_wall", Builder.<EntWallEntity>of(EntWallEntity::new, MobCategory.MISC).sized(1.0F, 3.0F));
+   public static final EntityType<EntLeafEntity> ENT_LEAF = buildEntity("ent_leaf", Builder.<EntLeafEntity>of(EntLeafEntity::new, MobCategory.MISC).sized(0.3F, 0.1F));
+   public static final EntityType<SpewterEntity> SPEWTER = buildEntity("spewter", Builder.<SpewterEntity>of(SpewterEntity::new, MobCategory.MONSTER).sized(1.0F, 1.2F));
    public static final EntityType<SeedBombEntity> SEED_BOMB = buildEntity(
-      "seed_bomb", Builder.of(SeedBombEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).sized(0.25F, 0.25F)
+      "seed_bomb", Builder.<SeedBombEntity>of(SeedBombEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).sized(0.25F, 0.25F)
    );
    public static final EntityType<ArachnarchEntity> ARACHNARCH = buildEntity(
-      "arachnarch", Builder.of(ArachnarchEntity::new, MobCategory.MONSTER).sized(3.0F, 1.7F).fireImmune()
+      "arachnarch", Builder.<ArachnarchEntity>of(ArachnarchEntity::new, MobCategory.MONSTER).sized(3.0F, 1.7F).fireImmune()
    );
    public static final EntityType<VenomBombEntity> VENOM_BOMB = buildEntity(
-      "venom_bomb", Builder.of(VenomBombEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).sized(0.25F, 0.25F)
+      "venom_bomb", Builder.<VenomBombEntity>of(VenomBombEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).sized(0.25F, 0.25F)
    );
    public static final EntityType<NestedSpiderEntity> NESTED_SPIDER = buildEntity(
-      "nested_spider", Builder.of(NestedSpiderEntity::new, MobCategory.MONSTER).sized(0.7F, 0.5F)
+      "nested_spider", Builder.<NestedSpiderEntity>of(NestedSpiderEntity::new, MobCategory.MONSTER).sized(0.7F, 0.5F)
    );
    public static final EntityType<GatekeeperEntity> GATEKEEPER = buildEntity(
-      "gatekeeper", Builder.of(GatekeeperEntity::new, MobCategory.CREATURE).sized(0.6F, 1.95F)
+      "gatekeeper", Builder.<GatekeeperEntity>of(GatekeeperEntity::new, MobCategory.CREATURE).sized(0.6F, 1.95F)
    );
    public static final EntityType<SpearEntity> SPEAR = buildEntity(
-      "spear", Builder.of(SpearEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).sized(0.5F, 0.5F)
+      "spear", Builder.<SpearEntity>of(SpearEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).sized(0.5F, 0.5F)
    );
    public static final EntityType<SupporterPetEntity> SUPPORTER_PET = buildEntity(
-      "supporter_pet", Builder.of(SupporterPetEntity::new, MobCategory.MONSTER).fireImmune().sized(0.8F, 0.8F)
+      "supporter_pet", Builder.<SupporterPetEntity>of(SupporterPetEntity::new, MobCategory.MONSTER).fireImmune().sized(0.8F, 0.8F)
    );
    public static final EntityType<BossItemEntity> BOSS_ITEM = buildEntity(
       "boss_item",
-      Builder.of(BossItemEntity::new, MobCategory.MISC).clientTrackingRange(6).updateInterval(20).setShouldReceiveVelocityUpdates(true).sized(0.25F, 0.25F)
+      Builder.<BossItemEntity>of(BossItemEntity::new, MobCategory.MISC).clientTrackingRange(6).updateInterval(20).setShouldReceiveVelocityUpdates(true).sized(0.25F, 0.25F)
    );
    private static RegisterEvent registerEvent;
 
@@ -304,22 +305,22 @@ public class SkiesEntityTypes {
    }
 
    public static class SpawnConditions {
-      public static void registerPlacements(SpawnPlacementRegisterEvent event) {
+      public static void registerPlacements(RegisterSpawnPlacementsEvent event) {
          basicPlacement(event, SkiesEntityTypes.AZULFO, SkiesEntityTypes.SpawnConditions::animalSpawnConditions);
          basicPlacement(event, SkiesEntityTypes.STARDUST_RAM, SkiesEntityTypes.SpawnConditions::animalSpawnConditions);
          basicPlacement(event, SkiesEntityTypes.REINDEER, SkiesEntityTypes.SpawnConditions::animalSpawnConditions);
-         event.register(SkiesEntityTypes.JELLY_DRIFTER, Type.IN_WATER, Types.MOTION_BLOCKING_NO_LEAVES, JellyDrifterEntity::spawnConditions, Operation.REPLACE);
-         event.register(SkiesEntityTypes.SNOW_OWL, Type.ON_GROUND, Types.MOTION_BLOCKING, SnowOwlEntity::spawnConditions, Operation.REPLACE);
+         event.register(SkiesEntityTypes.JELLY_DRIFTER, SpawnPlacementTypes.IN_WATER, Types.MOTION_BLOCKING_NO_LEAVES, JellyDrifterEntity::spawnConditions, Operation.REPLACE);
+         event.register(SkiesEntityTypes.SNOW_OWL, SpawnPlacementTypes.ON_GROUND, Types.MOTION_BLOCKING, SnowOwlEntity::spawnConditions, Operation.REPLACE);
          event.register(
             SkiesEntityTypes.GRITTLE_FLATFISH,
-            Type.IN_WATER,
+            SpawnPlacementTypes.IN_WATER,
             Types.MOTION_BLOCKING_NO_LEAVES,
             WaterAnimal::checkSurfaceWaterAnimalSpawnRules,
             Operation.REPLACE
          );
          event.register(
             SkiesEntityTypes.MUNICIPAL_MONKFISH,
-            Type.IN_WATER,
+            SpawnPlacementTypes.IN_WATER,
             Types.MOTION_BLOCKING_NO_LEAVES,
             WaterAnimal::checkSurfaceWaterAnimalSpawnRules,
             Operation.REPLACE
@@ -331,10 +332,10 @@ public class SkiesEntityTypes {
          basicPlacement(event, SkiesEntityTypes.SLIV, SkiesEntityTypes.SpawnConditions::animalSpawnConditions);
          basicPlacement(event, SkiesEntityTypes.CROGRE, SkiesEntityTypes.SpawnConditions::animalSpawnConditions);
          event.register(
-            SkiesEntityTypes.CHARSCALE_MOKI, Type.IN_WATER, Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, Operation.REPLACE
+            SkiesEntityTypes.CHARSCALE_MOKI, SpawnPlacementTypes.IN_WATER, Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, Operation.REPLACE
          );
          event.register(
-            SkiesEntityTypes.HORIZOFIN_TUNID, Type.IN_WATER, Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, Operation.REPLACE
+            SkiesEntityTypes.HORIZOFIN_TUNID, SpawnPlacementTypes.IN_WATER, Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, Operation.REPLACE
          );
          basicPlacement(event, SkiesEntityTypes.ARMORED_FROST_SPIRIT, SkiesEntityTypes.SpawnConditions::brightMonsterSpawnConditions);
          basicPlacement(event, SkiesEntityTypes.CRYNOCEROUS, SkiesEntityTypes.SpawnConditions::brightMonsterSpawnConditions);
@@ -370,7 +371,7 @@ public class SkiesEntityTypes {
          basicPlacement(event, SkiesEntityTypes.NESTED_SPIDER, SkiesEntityTypes.SpawnConditions::dawnMonsterSpawnConditions);
       }
 
-      public static void registerPlacementOverrides(SpawnPlacementRegisterEvent event) {
+      public static void registerPlacementOverrides(RegisterSpawnPlacementsEvent event) {
          event.register(
             EntityType.CAVE_SPIDER,
             null,
@@ -383,8 +384,8 @@ public class SkiesEntityTypes {
          );
       }
 
-      public static <T extends Mob> void basicPlacement(SpawnPlacementRegisterEvent event, EntityType<T> type, SpawnPredicate<T> predicate) {
-         event.register(type, Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, predicate, Operation.REPLACE);
+      public static <T extends Mob> void basicPlacement(RegisterSpawnPlacementsEvent event, EntityType<T> type, SpawnPredicate<T> predicate) {
+         event.register(type, SpawnPlacementTypes.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, predicate, Operation.REPLACE);
       }
 
       public static boolean animalSpawnConditions(EntityType<? extends Animal> type, LevelAccessor world, MobSpawnType reason, BlockPos pos, RandomSource rand) {
@@ -446,7 +447,7 @@ public class SkiesEntityTypes {
    }
 
    public static class SpawnPlacementTypes {
-      private static TriPredicate<LevelReader, BlockPos, EntityType<? extends Mob>> onGroundInWaterPredicate = (worldIn, pos, entityTypeIn) -> {
+      private static TriPredicate<LevelReader, BlockPos, EntityType<?>> onGroundInWaterPredicate = (worldIn, pos, entityTypeIn) -> {
          BlockState blockstate = worldIn.getBlockState(pos);
          FluidState fluidstate = worldIn.getFluidState(pos);
          BlockPos blockpos = pos.above();
@@ -458,6 +459,12 @@ public class SkiesEntityTypes {
             && NaturalSpawner.isValidEmptySpawnBlock(worldIn, blockpos, worldIn.getBlockState(blockpos), worldIn.getFluidState(blockpos), entityTypeIn);
          return inWater || onLand;
       };
-      private static final Type ON_GROUND_OR_WATER = Type.create(BlueSkies.find("on_ground_or_water"), onGroundInWaterPredicate);
+      /** 1.21.1: SpawnPlacementType is a functional interface (no enum/create). */
+      public static final SpawnPlacementType ON_GROUND_OR_WATER = onGroundInWaterPredicate::test;
+      public static final SpawnPlacementType ON_GROUND = (worldIn, pos, entityTypeIn) ->
+         worldIn.getBlockState(pos.below()).isValidSpawn(worldIn, pos.below(), entityTypeIn);
+      public static final SpawnPlacementType IN_WATER = (worldIn, pos, entityTypeIn) ->
+         worldIn.getFluidState(pos).is(FluidTags.WATER)
+            && worldIn.getBlockState(pos.below()).getFluidState().is(FluidTags.WATER);
    }
 }

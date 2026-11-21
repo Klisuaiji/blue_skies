@@ -1,0 +1,60 @@
+Copyright (c) 2026 Kulisaiji.
+Porting work (Minecraft 1.20.4 -> 1.21.1 NeoForge adaptation, API migration) (c) 2026 Kulisaiji.
+
+All original Blue Skies code, including any decompiled output derived from
+blue_skies-1.20.4-1.3.32.jar, remains the copyright of Modding Legacy and the
+original authors (KingPhygieBoo, Silver_David, Lachney) and respective rights holders.
+
+The embedded Structure Gel API code remains the copyright of Modding Legacy and
+the original authors (Silver_David, KingPhygieBoo, Jonathing). Its upstream
+mods.toml declares GPL-3.0; that declaration is recorded here for reference only.
+
+This repository is published **without any open-source license**.
+No permission is granted to use, reproduce, modify, compile into distributable
+artifacts (.jar), redistribute, or create derivative works based on this code
+for any purpose other than **private study and research**.
+
+You may:
+- View and read the source for learning purposes.
+
+You may NOT:
+1. Compile this repository into a runnable .jar and redistribute it.
+2. Use this code for any commercial purpose.
+3. Use this repository as a base for secondary development and publish it.
+4. Remove or alter this notice.
+
+The decompiled portions are included only to aid understanding of the original
+work and do not transfer any rights to the reader.
+
+If you are a copyright holder and object to this repository, please contact the
+porter for removal.
+
+==============================================================================
+
+版权所有 (c) 2026 Kulisaiji。
+移植工作（Minecraft 1.20.4 -> 1.21.1 NeoForge 适配、API 迁移）© 2026 Kulisaiji。
+
+所有 Blue Skies 原始代码，包括任何由 blue_skies-1.20.4-1.3.32.jar 反编译得出的
+产物，其版权仍归 Modding Legacy 及原作者（KingPhygieBoo、Silver_David、Lachney）
+及相关权利持有人所有。
+
+内嵌的 Structure Gel API 代码版权归 Modding Legacy 及原作者
+（Silver_David、KingPhygieBoo、Jonathing）所有。其上游 mods.toml 声明为 GPL-3.0，
+此处仅作记录参考。
+
+本仓库以**无开源许可证**方式发布（保留所有权益）。
+除**个人学习与研究**之外，不授予任何使用、复制、修改、编译为可分发包（.jar）、
+再分发或基于此代码创作衍生作品的权利。
+
+您可以：
+- 出于学习目的查看并阅读源代码。
+
+您不可以：
+1. 将本仓库编译为可运行的 .jar 并再分发。
+2. 将此代码用于任何商业用途。
+3. 以本仓库为基础进行二次开发并发布。
+4. 移除或更改本声明。
+
+反编译部分仅用于辅助理解原始作品，并不向读者转让任何权利。
+
+若您是版权持有人且反对本仓库存在，请联系移植者要求移除。

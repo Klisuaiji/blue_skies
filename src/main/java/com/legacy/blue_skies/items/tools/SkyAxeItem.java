@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.items.tools;
 
+import com.legacy.blue_skies.compat.*;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.legacy.blue_skies.data.objects.tags.SkiesItemTags;
@@ -35,7 +36,7 @@ public class SkyAxeItem extends AxeItem implements IFalsiteItem, ICustomHandleIt
    }
 
    @OnlyIn(Dist.CLIENT)
-   public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> lore, TooltipFlag flagIn) {
+   public void appendHoverText(ItemStack stack, Level worldIn, List<Component> lore, TooltipFlag flagIn) {
       if (this == SkiesItems.horizonite_axe) {
          lore.add(Component.literal(StringUtil.getAbilityText("gui.blue_skies.item.ability.smelt")));
       }
@@ -47,7 +48,7 @@ public class SkyAxeItem extends AxeItem implements IFalsiteItem, ICustomHandleIt
 
    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
       if (stack.is(SkiesItemTags.HORIZONITE_TOOLS)) {
-         target.setSecondsOnFire(3);
+         target.setRemainingFireTicks(3);
       }
 
       return super.hurtEnemy(stack, target, attacker);
@@ -56,10 +57,10 @@ public class SkyAxeItem extends AxeItem implements IFalsiteItem, ICustomHandleIt
    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack stack) {
       Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
       if (equipmentSlot == EquipmentSlot.MAINHAND) {
-         multimap.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.getAttackDamage(), Operation.ADDITION));
+         multimap.put(Attributes.ATTACK_DAMAGE.value(), LegacyAttrs.modifier(LegacyAttrs.BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.getAttackDamage(), net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE));
          multimap.put(
-            Attributes.ATTACK_SPEED,
-            new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon speed modifier", ToolUtils.getAttackSpeed(this.attackSpeed, stack), Operation.ADDITION)
+            Attributes.ATTACK_SPEED.value(),
+            LegacyAttrs.modifier(LegacyAttrs.BASE_ATTACK_SPEED_UUID, "Weapon speed modifier", ToolUtils.getAttackSpeed(this.attackSpeed, stack), net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE)
          );
       }
 

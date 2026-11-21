@@ -10,11 +10,10 @@ import java.util.Map;
 import net.minecraft.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.minecraft.world.item.armortrim.TrimPattern;
@@ -32,19 +31,19 @@ public class SkiesArmorTrims {
       SkiesArmorTrims.Materials.materials()
          .forEach(material -> event.registerMaterialSprite(SkiesArmorTrims.Materials.assetID((ResourceKey<TrimMaterial>)material), material.location(), true));
       event.registerPaletteOverride(
-         SkiesArmorTrims.Materials.PYROPE, Map.of(SkiesArmorMaterial.PYROPE, SkiesArmorTrims.Materials.darkerID(SkiesArmorTrims.Materials.PYROPE))
+         SkiesArmorTrims.Materials.PYROPE, Map.of(SkiesArmorMaterial.PYROPE.material(), SkiesArmorTrims.Materials.darkerID(SkiesArmorTrims.Materials.PYROPE))
       );
       event.registerPaletteOverride(
-         SkiesArmorTrims.Materials.AQUITE, Map.of(SkiesArmorMaterial.AQUITE, SkiesArmorTrims.Materials.darkerID(SkiesArmorTrims.Materials.AQUITE))
+         SkiesArmorTrims.Materials.AQUITE, Map.of(SkiesArmorMaterial.AQUITE.material(), SkiesArmorTrims.Materials.darkerID(SkiesArmorTrims.Materials.AQUITE))
       );
       event.registerPaletteOverride(
-         SkiesArmorTrims.Materials.DIOPSIDE, Map.of(SkiesArmorMaterial.DIOPSIDE, SkiesArmorTrims.Materials.darkerID(SkiesArmorTrims.Materials.DIOPSIDE))
+         SkiesArmorTrims.Materials.DIOPSIDE, Map.of(SkiesArmorMaterial.DIOPSIDE.material(), SkiesArmorTrims.Materials.darkerID(SkiesArmorTrims.Materials.DIOPSIDE))
       );
       event.registerPaletteOverride(
-         SkiesArmorTrims.Materials.CHAROITE, Map.of(SkiesArmorMaterial.CHAROITE, SkiesArmorTrims.Materials.darkerID(SkiesArmorTrims.Materials.CHAROITE))
+         SkiesArmorTrims.Materials.CHAROITE, Map.of(SkiesArmorMaterial.CHAROITE.material(), SkiesArmorTrims.Materials.darkerID(SkiesArmorTrims.Materials.CHAROITE))
       );
       event.registerPaletteOverride(
-         SkiesArmorTrims.Materials.HORIZONITE, Map.of(SkiesArmorMaterial.HORIZONITE, SkiesArmorTrims.Materials.darkerID(SkiesArmorTrims.Materials.HORIZONITE))
+         SkiesArmorTrims.Materials.HORIZONITE, Map.of(SkiesArmorMaterial.HORIZONITE.material(), SkiesArmorTrims.Materials.darkerID(SkiesArmorTrims.Materials.HORIZONITE))
       );
       event.registerMaterialBrightness(SkiesArmorTrims.Materials.MOONSTONE, 15);
       event.registerMaterialBrightness(SkiesArmorTrims.Materials.SUNSTONE, 15);
@@ -61,7 +60,7 @@ public class SkiesArmorTrims {
       ResourceKey<TrimMaterial> DIOPSIDE = SkiesArmorTrims.MATERIAL_HANDLER.key("diopside");
       ResourceKey<TrimMaterial> CHAROITE = SkiesArmorTrims.MATERIAL_HANDLER.key("charoite");
 
-      private static void materialBootstrap(BootstapContext<TrimMaterial> context) {
+      private static void materialBootstrap(BootstrapContext<TrimMaterial> context) {
          register(context, MOONSTONE, SkiesBlocks.moonstone_crystal, "#D9EEF7", 0.108412F);
          register(context, SUNSTONE, SkiesBlocks.sunstone_crystal, "#F6CBB7", 0.508412F);
          register(context, HORIZONITE, SkiesItems.horizonite_ingot, "#FFA43A", 0.518412F);
@@ -78,18 +77,18 @@ public class SkiesArmorTrims {
       }
 
       private static void register(
-         BootstapContext<TrimMaterial> context, ResourceKey<TrimMaterial> key, ItemLike ingredient, String hexColor, float itemModelIndex
+         BootstrapContext<TrimMaterial> context, ResourceKey<TrimMaterial> key, ItemLike ingredient, String hexColor, float itemModelIndex
       ) {
          register(context, key, ingredient, hexColor, itemModelIndex, Map.of());
       }
 
       private static void register(
-         BootstapContext<TrimMaterial> context,
+         BootstrapContext<TrimMaterial> context,
          ResourceKey<TrimMaterial> key,
          ItemLike ingredient,
          String hexColor,
          float itemModelIndex,
-         Map<ArmorMaterials, String> overrideArmorMaterials
+         Map<net.minecraft.core.Holder<net.minecraft.world.item.ArmorMaterial>, String> overrideArmorMaterials
       ) {
          TrimMaterial trimmaterial = TrimMaterial.create(
             assetID(key),
@@ -116,7 +115,7 @@ public class SkiesArmorTrims {
       ResourceKey<TrimPattern> REGROWTH = SkiesArmorTrims.PATTERN_HANDLER.key("regrowth");
       ResourceKey<TrimPattern> TOXIC = SkiesArmorTrims.PATTERN_HANDLER.key("toxic");
 
-      private static void trimBootstrap(BootstapContext<TrimPattern> context) {
+      private static void trimBootstrap(BootstrapContext<TrimPattern> context) {
          register(context, BANISHED, SkiesItems.banished_trim);
          register(context, THWARTED, SkiesItems.thwarted_trim);
          register(context, REGROWTH, SkiesItems.regrowth_trim);
@@ -127,7 +126,7 @@ public class SkiesArmorTrims {
          return List.of(BANISHED, THWARTED, REGROWTH, TOXIC);
       }
 
-      private static void register(BootstapContext<TrimPattern> context, ResourceKey<TrimPattern> key, Item templateItem) {
+      private static void register(BootstrapContext<TrimPattern> context, ResourceKey<TrimPattern> key, Item templateItem) {
          TrimPattern trimpattern = new TrimPattern(
             key.location(),
             BuiltInRegistries.ITEM.wrapAsHolder(templateItem),

@@ -8,7 +8,7 @@ import com.legacy.structure_gel.api.structure.jigsaw.JigsawRegistryHelper;
 import java.util.List;
 import java.util.stream.Collectors;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
@@ -35,10 +35,10 @@ public class SkiesVillagePools {
       Registries.TEMPLATE_POOL, BlueSkies.locate("village/" + SkiesVillageBiomes.CRYSTAL_DUNES.toString() + "/town_centers")
    );
 
-   public static void bootstrap(BootstapContext<StructureTemplatePool> bootstrap) {
+   public static void bootstrap(BootstrapContext<StructureTemplatePool> bootstrap) {
       JigsawPoolBuilder empty = new JigsawRegistryHelper("minecraft", "", bootstrap)
          .poolBuilder()
-         .namesR(new ResourceLocation[]{new ResourceLocation("empty")});
+         .namesR(new ResourceLocation[]{ResourceLocation.parse("empty")});
       String calmingSkies = SkiesVillageBiomes.CALMING_SKIES.toString();
       createVillagePools(
          bootstrap,
@@ -198,7 +198,7 @@ public class SkiesVillagePools {
    }
 
    private static void createVillagePools(
-      BootstapContext<StructureTemplatePool> bootstrap,
+      BootstrapContext<StructureTemplatePool> bootstrap,
       String biome,
       int townCenters,
       int terminators,

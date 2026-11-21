@@ -1,0 +1,62 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
+logoFile="banner.png"
+logoBlur=false
+
+[[mods]]
+modId="blue_skies"
+version="${mod_version}"
+displayName="${mod_name}"
+authors="KingPhygieBoo, Silver_David, Lachney (original); 1.21.1 port"
+description="Blue Skies 1.20.4 -> 1.21.1 NeoForge port. Adds the Everbright and Everdawn dimensions. Non-official, local test build."
+
+[[dependencies.blue_skies]]
+modId="neoforge"
+type="required"
+versionRange="${neo_version_range}"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.blue_skies]]
+modId="minecraft"
+type="required"
+versionRange="${minecraft_version_range}"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.blue_skies]]
+modId="structure_gel"
+type="required"
+versionRange="[2.19.1,)"
+ordering="AFTER"
+side="BOTH"
+
+# Structure Gel API is EMBEDDED in this jar (official GPL-3.0 sources embedded
+# under embedded/structure_gel_api; the compiled baseline is the 1.20.4 source).
+[[mods]]
+modId="structure_gel"
+version="${sg_version}"
+displayName="Structure Gel API (embedded)"
+authors="Silver_David, KingPhygieBoo, Jonathing"
+description="Embedded API required by Blue Skies."
+
+[[dependencies.structure_gel]]
+modId="neoforge"
+type="required"
+versionRange="${neo_version_range}"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.structure_gel]]
+modId="minecraft"
+type="required"
+versionRange="${minecraft_version_range}"
+ordering="NONE"
+side="BOTH"
+
+[[mixins]]
+config="blue_skies.mixins.json"
+
+[[mixins]]
+config="structure_gel.mixins.json"

@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.blocks.misc;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.block_entity.TrophyBlockEntity;
 import com.legacy.blue_skies.registries.SkiesEntityTypes;
 import com.legacy.blue_skies.util.DirectionUtil;
@@ -142,7 +143,7 @@ public class TrophyBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
       return state.rotate(mirror.getRotation((Direction)state.getValue(FACING)));
    }
 
-   public static enum Tier implements StringRepresentable {
+   public enum Tier implements StringRepresentable {
       BRONZE("bronze"),
       SILVER("silver"),
       GOLD("gold"),
@@ -150,7 +151,7 @@ public class TrophyBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 
       public final String name;
 
-      private Tier(String name) {
+      Tier(String name) {
          this.name = name;
       }
 
@@ -160,7 +161,7 @@ public class TrophyBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
 
       public ItemStack getItem(TrophyBlock trophy) {
          ItemStack stack = new ItemStack(trophy);
-         CompoundTag nbt = stack.getOrCreateTag();
+         CompoundTag nbt = LegacyNbt.getOrCreate(stack);
          CompoundTag states = new CompoundTag();
          states.putString("tier", this.getSerializedName());
          nbt.put("BlockStateTag", states);
@@ -178,7 +179,7 @@ public class TrophyBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
       }
    }
 
-   public static enum Type implements StringRepresentable {
+   public enum Type implements StringRepresentable {
       SUMMONER("summoner", () -> SkiesEntityTypes.SUMMONER, Shapes.or(Block.box(1.0, 0.0, 1.0, 15.0, 4.0, 15.0), Block.box(4.0, 4.0, 6.0, 12.0, 16.0, 10.0))),
       ALCHEMIST(
          "alchemist",
@@ -214,7 +215,7 @@ public class TrophyBlock extends BaseEntityBlock implements SimpleWaterloggedBlo
       public final Supplier<EntityType<?>> boss;
       public final VoxelShape shape;
 
-      private Type(String name, Supplier<EntityType<?>> boss, VoxelShape shape) {
+      Type(String name, Supplier<EntityType<?>> boss, VoxelShape shape) {
          this.name = name;
          this.boss = boss;
          this.shape = shape;

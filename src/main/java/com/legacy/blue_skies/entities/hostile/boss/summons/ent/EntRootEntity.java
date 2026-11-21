@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
 
 public class EntRootEntity extends Entity {
    protected static final EntityDataAccessor<Boolean> LARGE = SynchedEntityData.defineId(EntRootEntity.class, EntityDataSerializers.BOOLEAN);
@@ -47,8 +47,8 @@ public class EntRootEntity extends Entity {
       this.setRootIsLarge(isRootLarge);
    }
 
-   protected void defineSynchedData() {
-      this.entityData.define(LARGE, false);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      builder.define(LARGE, false);
    }
 
    public void move(MoverType type, Vec3 vec) {
@@ -140,7 +140,7 @@ public class EntRootEntity extends Entity {
             return;
          }
 
-         if (target.isUsingItem() && target.getUseItem().canPerformAction(ToolActions.SHIELD_BLOCK)) {
+         if (target.isUsingItem() && target.getUseItem().canPerformAction(ItemAbilities.SHIELD_BLOCK)) {
             target.stopUsingItem();
          }
 

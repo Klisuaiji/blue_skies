@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "half=lower": { "model": "blue_skies:block/tall_lunar_grass_bottom" },
+        "half=upper":    { "model": "blue_skies:block/tall_lunar_grass_top" }
+    }
+}

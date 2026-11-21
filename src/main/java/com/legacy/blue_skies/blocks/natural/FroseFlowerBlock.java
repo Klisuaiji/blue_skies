@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.blocks.natural;
 
+import net.minecraft.core.Holder;
 import com.legacy.blue_skies.registries.SkiesParticles;
 import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
@@ -18,7 +19,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.common.Tags.Blocks;
 
 public class FroseFlowerBlock extends FlowerBlock {
-   public FroseFlowerBlock(Supplier<MobEffect> effect, int effectDuration, Properties properties) {
+   public FroseFlowerBlock(Holder<MobEffect> effect, float effectDuration, Properties properties) {
       super(effect, effectDuration, properties);
    }
 

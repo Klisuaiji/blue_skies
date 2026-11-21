@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.client.init;
 
+import com.legacy.blue_skies.compat.*;
 import com.google.common.collect.ImmutableSet;
 import com.legacy.blue_skies.blocks.misc.TrophyBlock;
 import com.legacy.blue_skies.items.tools.AstrolabeItem;
@@ -49,7 +50,7 @@ public class SkiesItemModelPredicates {
    private static void createChargedPredicate(Item item, String predicateName, int maxUseTime) {
       ItemProperties.register(
          item,
-         new ResourceLocation(predicateName),
+         ResourceLocation.parse(predicateName),
          (stack, world, entity, num) -> entity != null
                && entity.getUseItem() == stack
                && entity.getUseItemRemainingTicks() <= stack.getUseDuration() - maxUseTime
@@ -61,7 +62,7 @@ public class SkiesItemModelPredicates {
    private static void createUseDurationPredicate(Item item, String predicateName, int maxUseTime) {
       ItemProperties.register(
          item,
-         new ResourceLocation(predicateName),
+         ResourceLocation.parse(predicateName),
          (stack, world, entity, num) -> entity != null && entity.getUseItem() == stack
             ? (float)(stack.getUseDuration() - entity.getUseItemRemainingTicks()) / maxUseTime
             : 0.0F
@@ -71,7 +72,7 @@ public class SkiesItemModelPredicates {
    private static void createActivePredicate(Item item, String predicateName) {
       ItemProperties.register(
          item,
-         new ResourceLocation(predicateName),
+         ResourceLocation.parse(predicateName),
          (stack, world, entity, num) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F
       );
    }
@@ -79,7 +80,7 @@ public class SkiesItemModelPredicates {
    private static void createCooldownPredicate(Item item, String predicateName) {
       ItemProperties.register(
          item,
-         new ResourceLocation(predicateName),
+         ResourceLocation.parse(predicateName),
          (stack, world, entity, num) -> entity != null && entity instanceof Player && ((Player)entity).getCooldowns().isOnCooldown(stack.getItem())
             ? 1.0F
             : 0.0F
@@ -89,15 +90,15 @@ public class SkiesItemModelPredicates {
    private static void createInfusedArcSwordPredicate(Item item, String predicateName) {
       ItemProperties.register(
          item,
-         new ResourceLocation(predicateName),
+         ResourceLocation.parse(predicateName),
          (stack, world, entity, num) -> stack.getItem() instanceof InfusedArcSwordItem && InfusedArcSwordItem.getInfusedCooldown(stack) > 0 ? 1.0F : 0.0F
       );
    }
 
    private static void createTrophyPredicate(Block... blocks) {
       for (Block b : blocks) {
-         ItemProperties.register(b.asItem(), new ResourceLocation("tier"), (stack, world, entity, num) -> {
-            CompoundTag tag = stack.getTag();
+         ItemProperties.register(b.asItem(), ResourceLocation.parse("tier"), (stack, world, entity, num) -> {
+            CompoundTag tag = LegacyNbt.get(stack);
             if (tag != null) {
                CompoundTag states = tag.getCompound("BlockStateTag");
                String tier = states.getString("tier");
@@ -112,7 +113,7 @@ public class SkiesItemModelPredicates {
    private static void createAstrolabePredicate(Item item, String predicateName) {
       ItemProperties.register(
          item,
-         new ResourceLocation(predicateName),
+         ResourceLocation.parse(predicateName),
          (stack, world, entity, num) -> AstrolabeItem.getTeleportCooldown(stack) == 0 && AstrolabeItem.isWithinDistance(stack, entity, world) ? 1.0F : 0.0F
       );
    }

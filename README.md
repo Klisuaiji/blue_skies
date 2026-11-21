@@ -1,79 +1,68 @@
-# Blue Skies — 1.20.4 (1.3.32) 反编译源码
+> **重要法律声明**：本仓库为教育性质的反编译 + 移植研究产物，**绝非** Blue Skies™ 的官方仓库或分支。所有原始代码与资源的知识产权归 Modding Legacy 及原作者所有。本仓库以**保留所有权益（All Rights Reserved）**方式公开，仅供个人学习与研究。详见 [LICENSE](LICENSE)。
 
-<p align="center">Decompiled Java sources of <b>Blue Skies</b> for Minecraft 1.20.4 / NeoForge</p>
+# Blue Skies — 1.21.1 NeoForge 移植版
 
-> **这不是官方源码仓库。** 本仓库是对已发布构建产物 `blue_skies-1.20.4-1.3.32.jar` 的反编译存档，用于学习、逆向研究与移植参考。
+[English README](README_EN.md)
 
-## 版权与用途（重要）
+> 这不是官方仓库。官方 Blue Skies 由 Modding Legacy 开发并发布于 [GitLab](https://gitlab.com/modding-legacy/blue-skies)。本仓库将 1.20.4 版（`blue_skies-1.20.4-1.3.32.jar`）反编译源码真实迁移到 Minecraft 1.21.1 / NeoForge，供技术研究与个人学习。
+
+Blue Skies 是一个内容型模组，新增 **Everbright** 与 **Everdawn** 两个维度，包含完整的方块、物品、生物、结构、世界生成与进度体系。
+
+## 移植状态
 
 | 项目 | 内容 |
 | --- | --- |
-| 模组名称 | Blue Skies |
-| 作者 | KingPhygieBoo, Silver_David, Lachney |
-| 官方仓库 | https://gitlab.com/modding-legacy/blue-skies （Modding Legacy） |
-| 官方站点 | https://moddinglegacy.com/ |
-| 许可证 | **All Rights Reserved**（原始 `mods.toml` 中的声明） |
+| 上游版本 | 1.20.4 / 1.3.32（反编译自发布 jar） |
+| 目标环境 | Minecraft 1.21.1 / NeoForge 21.1.234+ |
+| Java | 21 |
+| 移植方式 | 逐模块真实 API 重写（非占位 shim） |
+| 构建状态 | 迁移进行中，见仓库提交记录与 Issue |
 
-本仓库全部代码的版权归原作者（Modding Legacy 及其作者）所有。此处存档仅供**个人学习、逆向分析与技术研究**，不用于再分发、不用于商业用途，也不代表原作者的任何立场。如果你是权利人并希望移除本仓库，请提交 issue 说明，我会立即处理。
+## 环境要求
 
-## 存档对象
-
-| 字段 | 值 |
+| 依赖 | 版本 |
 | --- | --- |
-| 文件名 | `blue_skies-1.20.4-1.3.32.jar` |
-| 大小 | 83,428,216 字节 |
-| SHA-256 | `2b26ab481791e9276322c7e9f3bb401150049840a61cb0ce7f8e84dc97dfe412` |
-| 目标环境 | Minecraft 1.20.4 / NeoForge `[20.4.111-beta,)` |
-| 必需依赖 | `structure_gel >= 2.17` |
+| Minecraft | 1.21.1 |
+| NeoForge | 21.1.234+ |
+| Java | 21 |
 
-## 反编译方法
+## 构建
 
-- 运行时：Temurin JDK 17.0.21
-- 反编译器：Vineflower 1.11.1（Fernflower 的维护分支）
+本项目使用 Gradle（NeoForge ModDev 插件）。仓库已配置 NeoForge 官方 CDN 镜像以加速依赖解析。
 
 ```bash
-# 1. 只解出字节码
-unzip -q blue_skies-1.20.4-1.3.32.jar '*.class' -d classes
-# 2. 反编译（-dgs=1 输出泛型签名）
-java -jar vineflower.jar -dgs=1 classes out
+# 使用包装器构建（会自动下载 Gradle 8.11.1 与依赖）
+./gradlew build
+
+# Windows
+gradlew.bat build
+
+# 产物：build/libs/blue_skies-1.3.32-port0.1.0.jar
 ```
 
-结果：1046 个 `.class`（含内部类）→ **706 个 `.java`** 文件。
+> 该 jar 内嵌 Structure Gel API（见 [structure_gel 仓库](https://github.com/Klisuaiji/structure_gel)），对应 `neoforge.mods.toml` 中的双 `[[mods]]` 声明。
 
 ## 目录结构
 
 ```
-src/main/java/com/legacy/blue_skies/     # 反编译出的 Java 源码
-├── asm_hooks/                           # ASM 钩子（被 coremod 注入使用）
-├── BlueSkies.java 等入口类
+src/main/java/com/legacy/blue_skies/       # Blue Skies 源码（入口、方块、物品、实体、世界生成等）
+src/main/java/com/legacy/structure_gel/    # 内嵌的 Structure Gel API 源码
 src/main/resources/
-├── META-INF/mods.toml                   # 模组元数据（保留原样）
-├── META-INF/accesstransformer.cfg       # 访问转换器
-├── META-INF/coremods.json               # coremod 注册表
-├── blue_skies.mixins.json               # Mixin 配置
-├── pack.mcmeta
-└── coremods/*.js                        # jar 内原始的 JS coremod（非反编译产物）
+├── assets/blue_skies/                     # 贴图、模型、音效、语言文件
+├── data/blue_skies/                       # 配方、战利品、标签、世界生成 JSON
+├── blue_skies.mixins.json                 # Mixin 配置
+└── META-INF/neoforge.mods.toml            # 模组元数据（由模板生成）
+src/main/templates/META-INF/neoforge.mods.toml
 ```
-
-## 如何编译
-
-原 jar 不包含构建脚本，因此本仓库只提供 `src`。需要自行准备 NeoForge 1.20.4 的 MDK：
-
-1. 用 NeoForge 1.20.4 MDK（NeoGradle 7.x + Java 17）初始化工程；
-2. 把本仓库的 `src/main/java`、`src/main/resources` 覆盖进去；
-3. 依赖 `net.neoforged:neoforge:20.4.111-beta` 以上，并加入 `structure_gel`（见 [structure_gel 仓库](https://github.com/Klisuaiji/structure_gel)）；
-4. `mods.toml` 里的 `modId` / `version` 改成自己的标识。
 
 ## 已知局限
 
-反编译不能恢复全部原始信息，阅读时请注意：
+- 源码由反编译还原，局部变量名、lambda / 内部类命名带有编译器痕迹；
+- 泛型签名、注解参数、record/enum 结构与原始源码可能存在差异；
+- 移植尚未完成，可能存在编译错误或未验证的运行时行为。
 
-- 局部变量名、参数名多为 `var` 系列推断名；lambda / 内部类的命名带 `lambda$...`、`$1` 等编译器痕迹；
-- 部分泛型签名、注解参数、record/enum 结构、编译期常量折叠的结果与原码不同；
-- `switch` 表达式、字符串拼接、try-with-resources 等会被还原成等价但结构不同的形式；
-- 资源文件（`assets/`、`data/`、世界生成 JSON、贴图与音效）**未**包含在本仓库；
-- `asm_hooks/` 与 `coremods/*.js` 的配合关系需自行对照运行行为验证。
+## 版权声明 (Copyright)
 
-## 致谢
-
-所有设计与实现均属于 Blue Skies 原作者及 Modding Legacy 团队，本仓库仅为一份可读性存档。
+本仓库所有原始代码与资源的版权归 Modding Legacy 及原作者所有。移植工作 © 2026 Kulisaiji。
+本仓库**不授予任何形式的开源许可（All Rights Reserved）**，仅供个人学习与研究。详见 [LICENSE](LICENSE)。
+若您是版权持有人并希望移除本仓库，请提交 Issue，将立即处理。

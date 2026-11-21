@@ -151,10 +151,10 @@ public abstract class SkiesMountEntity extends SkiesAnimalEntity implements Cont
       return null;
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(TAMED, false);
-      this.entityData.define(SADDLED, false);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(TAMED, false);
+      builder.define(SADDLED, false);
    }
 
    public void addAdditionalSaveData(CompoundTag compound) {
@@ -228,26 +228,28 @@ public abstract class SkiesMountEntity extends SkiesAnimalEntity implements Cont
    public InteractionResult mobInteract(Player player, InteractionHand hand) {
       if (super.mobInteract(player, hand).consumesAction()) {
          return InteractionResult.FAIL;
-      } else {
-         ItemStack itemstack = player.getItemInHand(hand);
-         if (itemstack.getItem() == Items.NAME_TAG) {
-            itemstack.interactLivingEntity(player, this, hand);
-            return InteractionResult.SUCCESS;
-         } else if (!player.isCrouching() && !this.isVehicle() && this.isTamed()) {
-            if (!this.level().isClientSide()) {
-               player.startRiding(this);
-            }
+      }
 
-            return InteractionResult.SUCCESS;
-         } else if (!this.isBaby() && this.isTamed() && (itemstack.getItem() == this.getSaddleItem() || player.isCrouching())) {
-            if (player instanceof ServerPlayer) {
-               openMountContainer((ServerPlayer)player, this);
-            }
+      ItemStack itemstack = player.getItemInHand(hand);
+      if (itemstack.getItem() == Items.NAME_TAG) {
+         itemstack.interactLivingEntity(player, this, hand);
+         return InteractionResult.SUCCESS;
+      }
 
-            return InteractionResult.SUCCESS;
-         } else {
-            return InteractionResult.FAIL;
+      if (!player.isCrouching() && !this.isVehicle() && this.isTamed()) {
+         if (!this.level().isClientSide()) {
+            player.startRiding(this);
          }
+
+         return InteractionResult.SUCCESS;
+      } else if (!this.isBaby() && this.isTamed() && (itemstack.getItem() == this.getSaddleItem() || player.isCrouching())) {
+         if (player instanceof ServerPlayer) {
+            openMountContainer((ServerPlayer)player, this);
+         }
+
+         return InteractionResult.SUCCESS;
+      } else {
+         return InteractionResult.FAIL;
       }
    }
 

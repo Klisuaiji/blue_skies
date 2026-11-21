@@ -86,28 +86,26 @@ public class MLSupporter {
             this.mlSupporter.supporters = lines.stream().filter(s -> !s.isEmpty() && !s.startsWith("#")).map(l -> {
                try {
                   return MLSupporter.Supporter.fromString(l);
-               } catch (Throwable var3x) {
-                  this.mlSupporter.logger.error("Failed to load supporter entry for a player!", var3x);
+               } catch (Throwable t) {
+                  this.mlSupporter.logger.error("Failed to load supporter entry for a player!", t);
                   return null;
                }
             }).filter(s -> s != null).collect(Collectors.toMap(s -> s.uuid, s -> (MLSupporter.Supporter)s));
             this.mlSupporter.logger.info("Successfully loaded the Modding Legacy supporters list.");
-         } catch (IOException var6) {
+         } catch (IOException e) {
             this.mlSupporter
                .logger
                .info(
                   "Couldn't load the Modding Legacy supporters list. You may be offline or our website could be having issues. If you are a supporter, some cosmetic features may not work.",
-                  var6
+                  e
                );
-         } catch (Exception var7) {
-            this.mlSupporter
-               .logger
-               .info("Failed to load the Modding Legacy supporters list. If you are a supporter, some cosmetic features may not work.", var7);
+         } catch (Exception e) {
+            this.mlSupporter.logger.info("Failed to load the Modding Legacy supporters list. If you are a supporter, some cosmetic features may not work.", e);
          }
       }
    }
 
-   public static enum Rank {
+   public enum Rank {
       UNKNOWN(-1, false, false),
       DEV(0, true, true),
       SUPPORTER(1, true, true);
@@ -116,7 +114,7 @@ public class MLSupporter {
       private final boolean isSupporter;
       private final boolean hasPerks;
 
-      private Rank(int id, boolean isSupporter, boolean hasPerks) {
+      Rank(int id, boolean isSupporter, boolean hasPerks) {
          this.id = id;
          this.isSupporter = isSupporter;
          this.hasPerks = hasPerks;

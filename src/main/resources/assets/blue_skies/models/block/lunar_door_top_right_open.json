@@ -1,0 +1,7 @@
+{
+  "parent": "blue_skies:block/sky_door_top_right_open",
+  "textures": {
+    "bottom": "blue_skies:block/doors/lunar_lower",
+    "top": "blue_skies:block/doors/lunar_upper"
+  }
+}

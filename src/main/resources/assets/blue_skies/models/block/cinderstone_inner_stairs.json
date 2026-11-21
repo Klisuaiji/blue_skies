@@ -1,0 +1,26 @@
+{
+  "parent": "block/inner_stairs",
+  "loader": "neoforge:composite",
+  "children": {
+    "base": {
+      "parent": "block/inner_stairs",
+      "textures": {
+        "bottom": "blue_skies:block/stone/cinderstone",
+        "top": "blue_skies:block/stone/cinderstone",
+        "side": "blue_skies:block/stone/cinderstone"
+      }
+    },
+    "emissive": {
+      "parent": "block/inner_stairs",
+      "textures": {
+        "bottom": "blue_skies:block/stone/cinderstone_glow",
+        "top": "blue_skies:block/stone/cinderstone_glow",
+        "side": "blue_skies:block/stone/cinderstone_glow"
+      },
+	  "render_type": "cutout"
+    }
+  },
+  "textures": {
+    "particle": "blue_skies:block/stone/cinderstone"
+  }
+}

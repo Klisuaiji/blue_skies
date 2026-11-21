@@ -39,10 +39,10 @@ public class JournalRequirementManager extends SkiesSyncedDataManager<ResourceLo
 
    @Override
    public Pair<ResourceLocation, JournalRequirement> entryFromNbt(CompoundTag keyNbt, CompoundTag valueNbt) {
-      ResourceLocation name = new ResourceLocation(keyNbt.getString("0"));
+      ResourceLocation name = ResourceLocation.parse(keyNbt.getString("0"));
       int everbrightProgression = valueNbt.contains("0") ? valueNbt.getInt("0") : -1;
       int everdawnProgression = valueNbt.contains("1") ? valueNbt.getInt("1") : -1;
-      ResourceLocation advancement = valueNbt.contains("2") ? new ResourceLocation(valueNbt.getString("2")) : null;
+      ResourceLocation advancement = valueNbt.contains("2") ? ResourceLocation.parse(valueNbt.getString("2")) : null;
       return Pair.of(name, new JournalRequirement(name, everbrightProgression, everdawnProgression, advancement));
    }
 
@@ -50,7 +50,7 @@ public class JournalRequirementManager extends SkiesSyncedDataManager<ResourceLo
    protected Pair<ResourceLocation, JournalRequirement> parseJson(JsonObject json, ResourceLocation name) throws SkiesDataManager.RegistryObjectNotFoundException {
       int everbrightProgression = GsonHelper.getAsInt(json, "everbright_progression", -1);
       int everdawnProgression = GsonHelper.getAsInt(json, "everdawn_progression", -1);
-      ResourceLocation advancement = json.has("advancement") ? new ResourceLocation(GsonHelper.getAsString(json, "advancement")) : null;
+      ResourceLocation advancement = json.has("advancement") ? ResourceLocation.parse(GsonHelper.getAsString(json, "advancement")) : null;
       return Pair.of(name, new JournalRequirement(name, everbrightProgression, everdawnProgression, advancement));
    }
 }

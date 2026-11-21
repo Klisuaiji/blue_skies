@@ -1,0 +1,33 @@
+{
+  "parent": "blue_skies:regrowth",
+  "criteria": {
+    "have_pink_brewberry": {
+      "conditions": {
+        "item": {
+          "items": [
+            "blue_skies:pink_brewberry"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.everbright.regen_brewberry.desc"
+    },
+    "frame": "goal",
+    "icon": {
+      "item": "blue_skies:pink_brewberry"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.everbright.regen_brewberry"
+    }
+  },
+  "requirements": [
+    [
+      "have_pink_brewberry"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

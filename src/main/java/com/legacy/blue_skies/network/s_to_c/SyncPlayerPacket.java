@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class SyncPlayerPacket implements PacketHandler.ModPacket<SyncPlayerPacket, SyncPlayerPacket.Handler> {
    protected final SkiesPlayer attachment;
@@ -39,9 +39,9 @@ public class SyncPlayerPacket implements PacketHandler.ModPacket<SyncPlayerPacke
          return new SyncPlayerPacket(attachment);
       }
 
-      public void handler(SyncPlayerPacket packet, PlayPayloadContext context) {
+      public void handler(SyncPlayerPacket packet, IPayloadContext context) {
          if (FMLEnvironment.dist == Dist.CLIENT) {
-            context.workHandler().submitAsync(() -> handlePacket(packet));
+            context.enqueueWork(() -> handlePacket(packet));
          }
       }
 

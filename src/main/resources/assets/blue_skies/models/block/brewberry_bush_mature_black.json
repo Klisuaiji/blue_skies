@@ -1,0 +1,7 @@
+{
+	"parent": "blue_skies:block/brewberry_bush",
+    "textures": {
+        "texture": "blue_skies:block/plants/brewberry_bush_mature_black",
+		"particle": "blue_skies:block/plants/brewberry_bush_mature_black"
+    }
+}

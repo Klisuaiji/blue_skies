@@ -174,9 +174,9 @@ public class ReindeerEntity extends SkiesMountEntity {
    }
 
    @Override
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(FESTIVE_STATUS, 0);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(FESTIVE_STATUS, 0);
    }
 
    @Override

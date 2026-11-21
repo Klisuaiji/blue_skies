@@ -1,0 +1,6 @@
+{
+    "parent": "blue_skies:item/venom_sac",
+    "textures": {
+        "layer0": "blue_skies:item/misc/venom_sac_pulled"
+    }
+}

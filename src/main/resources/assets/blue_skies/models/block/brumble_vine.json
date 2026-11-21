@@ -1,0 +1,7 @@
+{
+    "parent": "block/cross",
+    "textures": {
+        "particle": "blue_skies:block/plants/brumble_vine",
+        "cross": "blue_skies:block/plants/brumble_vine"
+    }
+}

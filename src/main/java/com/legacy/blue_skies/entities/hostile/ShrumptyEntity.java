@@ -78,7 +78,7 @@ public class ShrumptyEntity extends SkiesMonsterEntity {
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
    ) {
       return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
    }

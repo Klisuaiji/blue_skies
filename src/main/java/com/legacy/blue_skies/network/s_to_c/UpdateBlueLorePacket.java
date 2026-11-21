@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class UpdateBlueLorePacket implements PacketHandler.ModPacket<UpdateBlueLorePacket, UpdateBlueLorePacket.Handler> {
    private boolean usedLore;
@@ -37,9 +37,9 @@ public class UpdateBlueLorePacket implements PacketHandler.ModPacket<UpdateBlueL
          return new UpdateBlueLorePacket(buff.readBoolean());
       }
 
-      public void handler(UpdateBlueLorePacket packet, PlayPayloadContext context) {
+      public void handler(UpdateBlueLorePacket packet, IPayloadContext context) {
          if (FMLEnvironment.dist == Dist.CLIENT) {
-            context.workHandler().submitAsync(() -> handlePacket(packet));
+            context.enqueueWork(() -> handlePacket(packet));
          }
       }
 

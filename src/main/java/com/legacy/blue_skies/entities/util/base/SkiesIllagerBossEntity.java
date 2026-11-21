@@ -38,7 +38,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -107,17 +106,17 @@ public abstract class SkiesIllagerBossEntity extends SpellcasterIllager implemen
       this.goalSelector2.addSkyGoal(1, new SkiesIllagerBossEntity.CastingSpellGoal());
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(DUNGEON_SPAWNED, false);
-      this.entityData.define(INVULNERABILITY_TIME, 0);
-      this.entityData.define(BOSS_SPELL_ID, 0);
-      this.entityData.define(RESPAWNED, false);
-      this.entityData.define(DIFFICULTY_ID, (byte)1);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(DUNGEON_SPAWNED, false);
+      builder.define(INVULNERABILITY_TIME, 0);
+      builder.define(BOSS_SPELL_ID, 0);
+      builder.define(RESPAWNED, false);
+      builder.define(DIFFICULTY_ID, (byte)1);
    }
 
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
    ) {
       SpawnGroupData flag = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
       this.setBossCanJoinRaid(reason == MobSpawnType.SPAWN_EGG || reason == MobSpawnType.COMMAND);
@@ -299,13 +298,15 @@ public abstract class SkiesIllagerBossEntity extends SpellcasterIllager implemen
                } else {
                   return (!source.is(DamageTypeTags.IS_PROJECTILE) && !source.is(DamageTypeTags.WITCH_RESISTANT_TO) || source.getEntity() != null)
                         && (source.is(DamageTypeTags.IS_PROJECTILE) || source.getEntity() == null || !(source.getEntity().distanceTo(this) > 3.55F))
-                     ? super.hurt(source, Math.min((float)this.getDamageCap(), amount))
+                     ? super.hurt(source, Math.min(this.getDamageCap(), amount))
                      : false;
                }
             }
-         } else if (this.level().isClientSide) {
-            return false;
          } else {
+            if (this.level().isClientSide) {
+               return false;
+            }
+
             this.teleportAround();
             return false;
          }
@@ -407,7 +408,7 @@ public abstract class SkiesIllagerBossEntity extends SpellcasterIllager implemen
       } else if (entityIn instanceof ArtificialGolemEntity) {
          return this.isAlliedTo(((ArtificialGolemEntity)entityIn).getCaster());
       } else {
-         return entityIn instanceof LivingEntity && ((LivingEntity)entityIn).getMobType() == MobType.ILLAGER
+         return entityIn instanceof LivingEntity && ((LivingEntity)entityIn).getType().is(net.minecraft.tags.EntityTypeTags.ILLAGER)
             ? this.getTeam() == null && entityIn.getTeam() == null
             : super.isAlliedTo(entityIn) || entityIn == this;
       }
@@ -560,7 +561,7 @@ public abstract class SkiesIllagerBossEntity extends SpellcasterIllager implemen
       this.spellCastingTickCount = 0;
    }
 
-   public static enum BossSpellColor implements IExtensibleEnum {
+   public enum BossSpellColor implements IExtensibleEnum {
       NONE(0, Vec3i.ZERO, false),
       REGENERATION(1, SkiesIllagerBossEntity.REGEN_SPELL_COLOR, false),
       SUMMON_GOLEM(2, SkiesIllagerBossEntity.GOLEM_SPELL_COLOR, false),
@@ -578,7 +579,7 @@ public abstract class SkiesIllagerBossEntity extends SpellcasterIllager implemen
       public final int id;
       public final boolean instant;
 
-      private BossSpellColor(int id, Vec3i colorVec, boolean instant) {
+      BossSpellColor(int id, Vec3i colorVec, boolean instant) {
          this.colorVec = colorVec;
          this.id = id;
          this.instant = instant;

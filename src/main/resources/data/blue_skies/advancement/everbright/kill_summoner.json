@@ -1,0 +1,37 @@
+{
+  "parent": "blue_skies:everbright/get_wood",
+  "criteria": {
+    "kill_summoner": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "blue_skies:summoner"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.everbright.kill_summoner.desc"
+    },
+    "frame": "challenge",
+    "icon": {
+      "item": "blue_skies:ethereal_arc"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.everbright.kill_summoner"
+    }
+  },
+  "requirements": [
+    [
+      "kill_summoner"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

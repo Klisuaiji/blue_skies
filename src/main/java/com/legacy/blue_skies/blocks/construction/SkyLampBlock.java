@@ -54,10 +54,10 @@ public class SkyLampBlock extends Block implements SimpleWaterloggedBlock {
       BlockState blockstate = context.getLevel().getBlockState(blockpos);
       if (blockstate.getBlock() == this) {
          return (BlockState)blockstate.setValue(WATERLOGGED, false);
-      } else {
-         FluidState ifluidstate = context.getLevel().getFluidState(blockpos);
-         return (BlockState)this.defaultBlockState().setValue(WATERLOGGED, ifluidstate.getType() == Fluids.WATER);
       }
+
+      FluidState ifluidstate = context.getLevel().getFluidState(blockpos);
+      return (BlockState)this.defaultBlockState().setValue(WATERLOGGED, ifluidstate.getType() == Fluids.WATER);
    }
 
    protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {

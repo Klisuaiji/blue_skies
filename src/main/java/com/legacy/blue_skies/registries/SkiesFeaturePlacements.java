@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import net.minecraft.core.Holder.Reference;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
@@ -562,7 +562,7 @@ public class SkiesFeaturePlacements {
       return key;
    }
 
-   public static void bootstrap(BootstapContext<PlacedFeature> bootstrap) {
+   public static void bootstrap(BootstrapContext<PlacedFeature> bootstrap) {
       PLACED_VALUES.forEach((key, value) -> {
          Reference<ConfiguredFeature<?, ?>> configured = bootstrap.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(value.configuredFeatureKey());
          PlacementUtils.register(bootstrap, value.key(), configured, value.modifiers());

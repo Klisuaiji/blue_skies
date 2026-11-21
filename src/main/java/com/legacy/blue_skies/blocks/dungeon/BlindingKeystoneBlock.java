@@ -32,9 +32,9 @@ public class BlindingKeystoneBlock extends KeystoneBlock {
    }
 
    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-      return (BlockEntity)(this == SkiesBlocks.bright_blinding_keystone
+      return this == SkiesBlocks.bright_blinding_keystone
          ? new KeystoneBlockEntity.BrightBlindingKeystoneBlockEntity(pos, state)
-         : new KeystoneBlockEntity.DawnBlindingKeystoneBlockEntity(pos, state));
+         : new KeystoneBlockEntity.DawnBlindingKeystoneBlockEntity(pos, state);
    }
 
    protected MapCodec<? extends BaseEntityBlock> codec() {

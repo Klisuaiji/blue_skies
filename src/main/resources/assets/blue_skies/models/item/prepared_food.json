@@ -1,0 +1,9 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "blue_skies:item/food/prepared_food_bowl",
+		"layer1": "blue_skies:item/food/prepared_food_0",
+		"layer2": "blue_skies:item/food/prepared_food_1",
+		"layer3": "blue_skies:item/food/prepared_food_2"
+	}
+}

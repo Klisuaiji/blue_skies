@@ -1,0 +1,6 @@
+{
+    "parent": "block/crop",
+    "textures": {
+        "crop": "blue_skies:block/plants/solnuts_stage_0"
+    }
+}

@@ -34,7 +34,7 @@ public class SimpleInventoryTabButton extends Button {
    private boolean shouldDraw = true;
 
    public SimpleInventoryTabButton(int textureIndex, Screen parentGui, boolean enabled, int posIndex, OnPress onPress) {
-      this(textureIndex, parentGui, enabled, posIndex, onPress, (SoundEvent)SoundEvents.UI_BUTTON_CLICK.value());
+      this(textureIndex, parentGui, enabled, posIndex, onPress, (SoundEvent)SoundEvents.UI_BUTTON_CLICK);
    }
 
    public SimpleInventoryTabButton(int textureIndex, Screen parentGui, boolean enabled, int posIndex, OnPress onPress, SoundEvent openSound) {

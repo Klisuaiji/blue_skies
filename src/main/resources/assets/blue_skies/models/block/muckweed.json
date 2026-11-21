@@ -1,0 +1,8 @@
+{
+    "parent": "blue_skies:block/tinted_cross_overlay",
+    "textures": {
+        "particle": "blue_skies:block/plants/muckweed",
+        "cross": "blue_skies:block/plants/muckweed",
+        "overlay": "blue_skies:block/plants/muckweed_overlay"
+    }
+}

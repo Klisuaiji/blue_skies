@@ -1,0 +1,24 @@
+{
+	"parent": "blue_skies:item/template_spear",
+    "loader": "neoforge:item_layers",
+	"textures": {
+		"layer0": "blue_skies:item/tools/spears/starlit_spear",
+        "layer1": "blue_skies:item/tools/spears/spear_glow"
+	},
+    "overrides": [
+        {
+            "predicate": {
+                "throwing": 1
+            },
+            "model": "blue_skies:item/starlit_spear_throwing"
+        }
+    ],
+    "neoforge_data": {
+    "layers": {
+      "1": {
+        "block_light": 15,
+        "sky_light": 15
+      }
+    }
+  }
+}

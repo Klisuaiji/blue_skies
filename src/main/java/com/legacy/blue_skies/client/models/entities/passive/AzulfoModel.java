@@ -154,7 +154,7 @@ public class AzulfoModel<T extends AzulfoEntity> extends QuadrupedModel<T> {
       if (entityIn.attackTimer < 11) {
          float i = entityIn.attackTimer + partialTicks;
          this.head.xRot = (float)(
-            entityIn.attackTimer > 8 ? Math.min((double)(entityIn.getXRot() * (float) (Math.PI / 180.0)), Math.sin(i * 0.58F)) : Math.sin(i * 0.58F)
+            entityIn.attackTimer > 8 ? Math.min(entityIn.getXRot() * (float) (Math.PI / 180.0), Math.sin(i * 0.58F)) : Math.sin(i * 0.58F)
          );
       }
    }

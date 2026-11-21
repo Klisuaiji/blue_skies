@@ -23,7 +23,7 @@ public class WallExtensionEntity extends PartEntity<EntWallEntity> {
       this.name = name;
    }
 
-   protected void defineSynchedData() {
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
    }
 
    protected void readAdditionalSaveData(CompoundTag tag) {

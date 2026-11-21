@@ -40,8 +40,8 @@ public abstract class SkiesDataProvider<D extends IToJson<D>> implements DataPro
          try {
             JsonObject json = dataEntry.getValue().toJson();
             list.add(DataProvider.saveStable(cache, json, outputFile));
-         } catch (Exception var8) {
-            LOGGER.error("Couldn't save {} {}", this.name, outputFile, var8);
+         } catch (Exception e) {
+            LOGGER.error("Couldn't save {} {}", this.name, outputFile, e);
          }
       }
 

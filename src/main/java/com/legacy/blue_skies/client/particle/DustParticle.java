@@ -76,9 +76,9 @@ public class DustParticle extends TextureSheetParticle {
       }
 
       public DustParticle createParticle(SimpleParticleType type, ClientLevel world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-         return (DustParticle)(BuiltInRegistries.PARTICLE_TYPE.getKey(type).equals(BuiltInRegistries.PARTICLE_TYPE.getKey(SkiesParticles.CRUSHER_DUST))
+         return BuiltInRegistries.PARTICLE_TYPE.getKey(type).equals(BuiltInRegistries.PARTICLE_TYPE.getKey(SkiesParticles.CRUSHER_DUST))
             ? new CrusherDustParticle(world, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet)
-            : new DustParticle(world, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet));
+            : new DustParticle(world, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
       }
    }
 }

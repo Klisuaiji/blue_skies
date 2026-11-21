@@ -99,77 +99,77 @@ public class BlueSkiesCommand {
       if (player == null) {
          source.sendFailure(Component.literal("That command must be ran by a player holding a loot bag."));
          return 0;
-      } else {
-         ItemStack heldItem = player.getMainHandItem();
-         if (!(heldItem.getItem() instanceof LootBagItem)) {
-            source.sendFailure(Component.literal("You need to hold a loot bag."));
-            return 0;
-         } else {
-            Component rarity = null;
-            if (heldItem.getItem() instanceof IRarityItem rarityItem) {
-               rarity = Component.translatable(String.format("gui.blue_skies.item.rarity.%s", rarityItem.getRarityTag(heldItem).getId()));
-            }
-
-            String rarityText = rarity == null ? "" : rarity.getString() + " ";
-            source.sendSuccess(() -> Component.literal("Rolling " + runs + " times with " + rarityText + heldItem.getHoverName().getString()), true);
-            Set<Item> obtainedItems = new HashSet<>();
-            List<Set<Item>> rolledItems = new ArrayList<>();
-
-            for (int i = 0; i < runs; i++) {
-               Set<Item> items = new HashSet<>();
-
-               for (ItemStack stack : LootBagItem.getRandomItems(level, player, LootBagItem.getLootTable(heldItem))) {
-                  if (!stack.isEmpty()) {
-                     Item item = stack.getItem();
-                     obtainedItems.add(item);
-                     items.add(item);
-                  }
-               }
-
-               rolledItems.add(items);
-            }
-
-            source.sendSuccess(
-               () -> Component.literal("Item obtain chances for " + rarityText + heldItem.getHoverName().getString() + " with " + runs + " rolls:"), true
-            );
-            if (obtainedItems.isEmpty()) {
-               source.sendSuccess(() -> Component.literal("  No items obtained").withStyle(ChatFormatting.GRAY), false);
-            } else {
-               Map<Item, Integer> itemRates = new HashMap<>();
-
-               for (Item item : obtainedItems) {
-                  int obtainedTotal = 0;
-
-                  for (Set<Item> rolled : rolledItems) {
-                     if (rolled.contains(item)) {
-                        obtainedTotal++;
-                     }
-                  }
-
-                  itemRates.put(item, obtainedTotal);
-               }
-
-               DecimalFormat format = new DecimalFormat("0.##");
-               itemRates.entrySet()
-                  .stream()
-                  .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
-                  .forEach(
-                     e -> source.sendSuccess(
-                        () -> Component.literal(
-                              " "
-                                 + format.format((float)((Integer)e.getValue()).intValue() / runs * 100.0F)
-                                 + "% "
-                                 + ((Item)e.getKey()).getDefaultInstance().getDisplayName().getString()
-                           )
-                           .withStyle(ChatFormatting.GRAY),
-                        true
-                     )
-                  );
-            }
-
-            return 1;
-         }
       }
+
+      ItemStack heldItem = player.getMainHandItem();
+      if (!(heldItem.getItem() instanceof LootBagItem)) {
+         source.sendFailure(Component.literal("You need to hold a loot bag."));
+         return 0;
+      }
+
+      Component rarity = null;
+      if (heldItem.getItem() instanceof IRarityItem rarityItem) {
+         rarity = Component.translatable(String.format("gui.blue_skies.item.rarity.%s", rarityItem.getRarityTag(heldItem).getId()));
+      }
+
+      String rarityText = rarity == null ? "" : rarity.getString() + " ";
+      source.sendSuccess(() -> Component.literal("Rolling " + runs + " times with " + rarityText + heldItem.getHoverName().getString()), true);
+      Set<Item> obtainedItems = new HashSet<>();
+      List<Set<Item>> rolledItems = new ArrayList<>();
+
+      for (int i = 0; i < runs; i++) {
+         Set<Item> items = new HashSet<>();
+
+         for (ItemStack stack : LootBagItem.getRandomItems(level, player, LootBagItem.getLootTable(heldItem))) {
+            if (!stack.isEmpty()) {
+               Item item = stack.getItem();
+               obtainedItems.add(item);
+               items.add(item);
+            }
+         }
+
+         rolledItems.add(items);
+      }
+
+      source.sendSuccess(
+         () -> Component.literal("Item obtain chances for " + rarityText + heldItem.getHoverName().getString() + " with " + runs + " rolls:"), true
+      );
+      if (obtainedItems.isEmpty()) {
+         source.sendSuccess(() -> Component.literal("  No items obtained").withStyle(ChatFormatting.GRAY), false);
+      } else {
+         Map<Item, Integer> itemRates = new HashMap<>();
+
+         for (Item item : obtainedItems) {
+            int obtainedTotal = 0;
+
+            for (Set<Item> rolled : rolledItems) {
+               if (rolled.contains(item)) {
+                  obtainedTotal++;
+               }
+            }
+
+            itemRates.put(item, obtainedTotal);
+         }
+
+         DecimalFormat format = new DecimalFormat("0.##");
+         itemRates.entrySet()
+            .stream()
+            .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
+            .forEach(
+               e -> source.sendSuccess(
+                  () -> Component.literal(
+                        " "
+                           + format.format((float)((Integer)e.getValue()).intValue() / runs * 100.0F)
+                           + "% "
+                           + ((Item)e.getKey()).getDefaultInstance().getDisplayName().getString()
+                     )
+                     .withStyle(ChatFormatting.GRAY),
+                  true
+               )
+            );
+      }
+
+      return 1;
    }
 
    private static int refreshSupporters(CommandContext<CommandSourceStack> context) {
@@ -182,9 +182,9 @@ public class BlueSkiesCommand {
          }
 
          return 1;
-      } catch (Throwable var3) {
+      } catch (Throwable e) {
          ((CommandSourceStack)context.getSource()).sendFailure(Component.literal("Failed to update the supporters list."));
-         BlueSkies.LOGGER.error(var3);
+         BlueSkies.LOGGER.error(e);
          return 0;
       }
    }
@@ -214,7 +214,7 @@ public class BlueSkiesCommand {
             },
             () -> 0
          );
-      } catch (CommandSyntaxException var4) {
+      } catch (CommandSyntaxException e) {
          ((CommandSourceStack)context.getSource()).sendSuccess(() -> Component.literal("That command needs to be run by a player."), true);
          return 0;
       }
@@ -239,7 +239,7 @@ public class BlueSkiesCommand {
             },
             () -> 0
          );
-      } catch (CommandSyntaxException var3) {
+      } catch (CommandSyntaxException e) {
          ((CommandSourceStack)context.getSource()).sendSuccess(() -> Component.literal("That command needs to be run by a player."), true);
          return 0;
       }
@@ -256,8 +256,8 @@ public class BlueSkiesCommand {
             ((CommandSourceStack)context.getSource())
                .sendSuccess(() -> Component.literal(String.format("%s %d / %d", classification.getName(), count, cap)), true);
          }
-      } catch (Exception var9) {
-         var9.printStackTrace();
+      } catch (Exception e) {
+         e.printStackTrace();
       }
 
       return 1;

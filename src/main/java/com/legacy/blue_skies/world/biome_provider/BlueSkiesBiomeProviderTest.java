@@ -41,11 +41,11 @@ public class BlueSkiesBiomeProviderTest {
    private static final BiFunction<BlueSkiesBiomeProviderTest.Dimension, Long, AbstractBiomeProvider> PROVIDERS = new BiFunction<BlueSkiesBiomeProviderTest.Dimension, Long, AbstractBiomeProvider>() {
       public AbstractBiomeProvider apply(BlueSkiesBiomeProviderTest.Dimension dimension, Long seed) {
          return BlueSkiesBiomeProviderTest.PROVIDER_CACHE.computeIfAbsent(Pair.of(dimension, seed), cacheKey -> {
-            AbstractBiomeProvider prov = (AbstractBiomeProvider)(switch ((BlueSkiesBiomeProviderTest.Dimension)cacheKey.getFirst()) {
+            AbstractBiomeProvider prov = switch ((BlueSkiesBiomeProviderTest.Dimension)cacheKey.getFirst()) {
                case EVERBRIGHT -> new EverbrightBiomeProvider(BlueSkiesBiomeProviderTest.minY, BlueSkiesBiomeProviderTest.maxY);
                case EVERDAWN -> new EverdawnBiomeProvider(BlueSkiesBiomeProviderTest.minY, BlueSkiesBiomeProviderTest.maxY);
                default -> throw new IllegalStateException("Invalid dimension id: " + cacheKey.getFirst());
-            });
+            };
             prov.setSeed((Long)cacheKey.getSecond());
             return prov;
          });
@@ -206,11 +206,11 @@ public class BlueSkiesBiomeProviderTest {
          g.setColor(Color.BLUE);
          g.fillRect(0, bottom - 62, this.getWidth(), 1);
 
-         for (int xx = 0 + xOffset; xx < this.getWidth() + xOffset; xx++) {
-            int px = xx * BlueSkiesBiomeProviderTest.zoomAmount;
+         for (int x = 0 + xOffset; x < this.getWidth() + xOffset; x++) {
+            int px = x * BlueSkiesBiomeProviderTest.zoomAmount;
             int height = this.biomeProv.getWorldRegion(new ChunkPos(px >> 4, this.sliceZ >> 4)).getHeight(px, this.sliceZ, this.biomeProv);
             g.setColor(Color.GREEN);
-            g.fillRect(xx - xOffset, bottom - height, 1, 1);
+            g.fillRect(x - xOffset, bottom - height, 1, 1);
          }
 
          g.setColor(Color.black);
@@ -309,12 +309,12 @@ public class BlueSkiesBiomeProviderTest {
       }
    }
 
-   private static enum Dimension {
+   private enum Dimension {
       EVERBRIGHT,
       EVERDAWN;
    }
 
-   private static enum DrawMode {
+   private enum DrawMode {
       BIOMES,
       TOPOGRAPHY,
       GRAY_TOPOGRAPHY;
@@ -342,7 +342,7 @@ public class BlueSkiesBiomeProviderTest {
       }
    }
 
-   private static enum RunMode {
+   private enum RunMode {
       EXPERIMENTAL,
       PREVIEW,
       BENCHMARK;

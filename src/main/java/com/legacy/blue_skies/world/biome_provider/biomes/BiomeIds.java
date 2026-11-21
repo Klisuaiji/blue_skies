@@ -84,7 +84,7 @@ public class BiomeIds {
    }
 
    public static int register(String name, BiomeData.Builder data) {
-      return register(new ResourceLocation(name), data);
+      return register(ResourceLocation.parse(name), data);
    }
 
    public static int register(ResourceLocation name, BiomeData.Builder data) {
@@ -119,7 +119,7 @@ public class BiomeIds {
       BIOME_NAMES_TO_ID.defaultReturnValue(PLAINS);
    }
 
-   public static enum Temperature {
+   public enum Temperature {
       FROZEN,
       COLD,
       NEUTRAL,

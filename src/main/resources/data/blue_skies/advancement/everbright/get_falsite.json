@@ -1,0 +1,34 @@
+{
+  "parent": "blue_skies:everbright/get_wood",
+  "criteria": {
+    "obtain_material": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "blue_skies:falsite_ingot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.everbright.get_falsite.desc"
+    },
+    "icon": {
+      "item": "blue_skies:falsite_ingot"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.everbright.get_falsite"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_material"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

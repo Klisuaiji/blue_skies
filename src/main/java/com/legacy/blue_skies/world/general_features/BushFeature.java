@@ -31,23 +31,23 @@ public class BushFeature extends Feature<BushFeature.Config> {
       if ((!config.fromDungeon || insideDungeon) && (config.fromDungeon || !insideDungeon)) {
          if (config.fromDungeon && worldIn.isStateAtPosition(pos.below(), state -> state.getBlock() != SkiesBlocks.turquoise_grass_block)) {
             return false;
-         } else {
-            if (worldIn.isStateAtPosition(pos.below(), state -> state.is(BlockTags.DIRT))) {
-               for (int x = -1; x < 2; x++) {
-                  for (int z = -1; z < 2; z++) {
-                     for (int y = 0; y < 2; y++) {
-                        if (y != 1 || Math.abs(x) != 1 || Math.abs(z) != 1) {
-                           worldIn.setBlock(pos.offset(x, y, z), (BlockState)config.leaf.get().setValue(LeavesBlock.DISTANCE, 1), 3);
-                        }
+         }
+
+         if (worldIn.isStateAtPosition(pos.below(), state -> state.is(BlockTags.DIRT))) {
+            for (int x = -1; x < 2; x++) {
+               for (int z = -1; z < 2; z++) {
+                  for (int y = 0; y < 2; y++) {
+                     if (y != 1 || Math.abs(x) != 1 || Math.abs(z) != 1) {
+                        worldIn.setBlock(pos.offset(x, y, z), (BlockState)config.leaf.get().setValue(LeavesBlock.DISTANCE, 1), 3);
                      }
                   }
                }
-
-               worldIn.setBlock(pos, config.log.get(), 3);
             }
 
-            return false;
+            worldIn.setBlock(pos, config.log.get(), 3);
          }
+
+         return false;
       } else {
          return false;
       }

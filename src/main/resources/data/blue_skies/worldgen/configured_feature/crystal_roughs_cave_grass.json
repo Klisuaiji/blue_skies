@@ -1,0 +1,14 @@
+{
+  "type": "blue_skies:cave_grass",
+  "config": {
+    "dirt": {
+      "Name": "blue_skies:crystal_sandstone"
+    },
+    "grass": {
+      "Name": "blue_skies:crystallized_grass"
+    },
+    "grass_block": {
+      "Name": "blue_skies:crystal_sand"
+    }
+  }
+}

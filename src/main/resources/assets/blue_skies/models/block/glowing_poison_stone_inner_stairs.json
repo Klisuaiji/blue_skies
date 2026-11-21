@@ -1,0 +1,27 @@
+{
+  "parent": "block/inner_stairs",
+  "loader": "neoforge:composite",
+  "children": {
+    "base": {
+      "parent": "block/inner_stairs",
+      "textures": {
+        "bottom": "blue_skies:block/dungeon/glowing_poison_stone",
+        "top": "blue_skies:block/dungeon/glowing_poison_stone",
+        "side": "blue_skies:block/dungeon/glowing_poison_stone"
+      },
+	  "render_type": "solid"
+    },
+    "emissive": {
+      "parent": "block/inner_stairs",
+      "textures": {
+        "bottom": "blue_skies:block/dungeon/glowing_poison_stone_glow",
+        "top": "blue_skies:block/dungeon/glowing_poison_stone_glow",
+        "side": "blue_skies:block/dungeon/glowing_poison_stone_glow"
+      },
+	  "render_type": "cutout"
+    }
+  },
+  "textures": {
+    "particle": "blue_skies:block/dungeon/glowing_poison_stone"
+  }
+}

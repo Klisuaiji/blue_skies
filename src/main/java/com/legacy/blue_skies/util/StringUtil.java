@@ -36,8 +36,6 @@ public class StringUtil {
    }
 
    public static final TextColor parseHex(String hex) {
-      return (TextColor)TextColor.parseColor(hex).getOrThrow(false, s -> {
-         throw new IllegalArgumentException(s + " is now a valid hex color");
-      });
+      return (TextColor)TextColor.parseColor(hex).getOrThrow(s -> new IllegalArgumentException(s + " is now a valid hex color"));
    }
 }

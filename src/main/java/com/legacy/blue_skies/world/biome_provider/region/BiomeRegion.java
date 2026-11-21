@@ -78,8 +78,8 @@ public class BiomeRegion extends AbstractRegion<BiomePixelFunction> {
 
    public void upscaleAndEdges(long seedModifier) {
       this.upscale();
-      this.transform((BiomePixelFunction)BiomeFuncs.FUZZ_EDGES, seedModifier);
-      this.transform((BiomePixelFunction)BiomeFuncs.SMOOTH_EDGES, seedModifier);
-      this.transform((BiomePixelFunction)BiomeFuncs.REMOVE_LONELY, seedModifier);
+      this.transform(BiomeFuncs.FUZZ_EDGES, seedModifier);
+      this.transform(BiomeFuncs.SMOOTH_EDGES, seedModifier);
+      this.transform(BiomeFuncs.REMOVE_LONELY, seedModifier);
    }
 }

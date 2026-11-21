@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "downward=true": { "model": "blue_skies:block/decaying_spike" },
+		"downward=false": { "model": "blue_skies:block/decaying_spike", "x": 180 }
+    }
+}

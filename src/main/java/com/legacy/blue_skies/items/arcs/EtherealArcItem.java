@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.items.arcs;
 
+import com.legacy.blue_skies.compat.*;
 import java.util.UUID;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -10,10 +11,10 @@ import net.minecraft.world.item.ItemStack;
 
 public class EtherealArcItem extends ArcItem {
    private static final AttributeModifier[] SPEED_BOOSTS = new AttributeModifier[]{
-      new AttributeModifier(UUID.fromString("9b997a54-73f4-4cea-9527-d24220cc98f6"), "ethereal_speed_1", 0.1, Operation.MULTIPLY_TOTAL),
-      new AttributeModifier(UUID.fromString("33b4f594-371b-11e9-b210-d663bd873d94"), "ethereal_speed_2", 0.15, Operation.MULTIPLY_TOTAL),
-      new AttributeModifier(UUID.fromString("945684da-5657-4294-9342-803c3528dbc6"), "ethereal_speed_3", 0.2, Operation.MULTIPLY_TOTAL),
-      new AttributeModifier(UUID.fromString("9f6ef2b9-a342-4a6f-adf9-13b30fb71ea7"), "ethereal_speed_4", 0.25, Operation.MULTIPLY_TOTAL)
+      LegacyAttrs.modifier(UUID.fromString("9b997a54-73f4-4cea-9527-d24220cc98f6"), "ethereal_speed_1", 0.1, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
+      LegacyAttrs.modifier(UUID.fromString("33b4f594-371b-11e9-b210-d663bd873d94"), "ethereal_speed_2", 0.15, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
+      LegacyAttrs.modifier(UUID.fromString("945684da-5657-4294-9342-803c3528dbc6"), "ethereal_speed_3", 0.2, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
+      LegacyAttrs.modifier(UUID.fromString("9f6ef2b9-a342-4a6f-adf9-13b30fb71ea7"), "ethereal_speed_4", 0.25, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
    };
 
    public EtherealArcItem(int slotId) {

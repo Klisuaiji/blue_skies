@@ -1,0 +1,14 @@
+{
+	"parent": "item/handheld",
+	"textures": {
+		"layer0": "blue_skies:item/tools/arc_sword"
+	},
+    "overrides": [
+        {
+            "predicate": {
+                "drained": 1
+            },
+            "model": "blue_skies:item/infused_arc_sword_drained"
+        }
+    ]
+}

@@ -1,0 +1,6 @@
+{
+	"variants": {
+		"top=false": { "model": "blue_skies:block/glimmer_reed_bottom" },
+		"top=true": { "model": "blue_skies:block/glimmer_reed_top" }
+	}
+}

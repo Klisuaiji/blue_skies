@@ -107,14 +107,14 @@ public abstract class SkyPortalBlock extends GelPortalBlock {
          }
       }
 
-      for (int yx = 0; yx <= 2; yx++) {
+      for (int y = 0; y <= 2; y++) {
          if (placer.getDirection() != Direction.NORTH && placer.getDirection() != Direction.SOUTH) {
             for (int z = 0; z <= 1; z++) {
-               worldIn.setBlock(pos.offset(0, yx, z), (BlockState)this.defaultBlockState().setValue(AXIS, Axis.Z), 18);
+               worldIn.setBlock(pos.offset(0, y, z), (BlockState)this.defaultBlockState().setValue(AXIS, Axis.Z), 18);
             }
          } else {
             for (int x = 0; x <= 1; x++) {
-               worldIn.setBlock(pos.offset(x, yx, 0), (BlockState)this.defaultBlockState().setValue(AXIS, Axis.X), 18);
+               worldIn.setBlock(pos.offset(x, y, 0), (BlockState)this.defaultBlockState().setValue(AXIS, Axis.X), 18);
             }
          }
       }

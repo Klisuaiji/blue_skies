@@ -1,0 +1,122 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "blue_skies:item/pyrope_chestplate_blue_skies-charoite_trim",
+      "predicate": {
+        "minecraft:trim_type": 0.008412
+      }
+    },
+    {
+      "model": "blue_skies:item/pyrope_chestplate_quartz_trim",
+      "predicate": {
+        "minecraft:trim_type": 0.1
+      }
+    },
+    {
+      "model": "blue_skies:item/pyrope_chestplate_blue_skies-moonstone_trim",
+      "predicate": {
+        "minecraft:trim_type": 0.108412
+      }
+    },
+    {
+      "model": "blue_skies:item/pyrope_chestplate_iron_trim",
+      "predicate": {
+        "minecraft:trim_type": 0.2
+      }
+    },
+    {
+      "model": "blue_skies:item/pyrope_chestplate_netherite_trim",
+      "predicate": {
+        "minecraft:trim_type": 0.3
+      }
+    },
+    {
+      "model": "blue_skies:item/pyrope_chestplate_redstone_trim",
+      "predicate": {
+        "minecraft:trim_type": 0.4
+      }
+    },
+    {
+      "model": "blue_skies:item/pyrope_chestplate_blue_skies-ventium_trim",
+      "predicate": {
+        "minecraft:trim_type": 0.408412
+      }
+    },
+    {
+      "model": "blue_skies:item/pyrope_chestplate_blue_skies-pyrope_darker_trim",
+      "predicate": {
+        "minecraft:trim_type": 0.418412
+      }
+    },
+    {
+      "model": "blue_skies:item/pyrope_chestplate_copper_trim",
+      "predicate": {
+        "minecraft:trim_type": 0.5
+      }
+    },
+    {
+      "model": "blue_skies:item/pyrope_chestplate_blue_skies-sunstone_trim",
+      "predicate": {
+        "minecraft:trim_type": 0.508412
+      }
+    },
+    {
+      "model": "blue_skies:item/pyrope_chestplate_blue_skies-horizonite_trim",
+      "predicate": {
+        "minecraft:trim_type": 0.518412
+      }
+    },
+    {
+      "model": "blue_skies:item/pyrope_chestplate_gold_trim",
+      "predicate": {
+        "minecraft:trim_type": 0.6
+      }
+    },
+    {
+      "model": "blue_skies:item/pyrope_chestplate_emerald_trim",
+      "predicate": {
+        "minecraft:trim_type": 0.7
+      }
+    },
+    {
+      "model": "blue_skies:item/pyrope_chestplate_blue_skies-diopside_trim",
+      "predicate": {
+        "minecraft:trim_type": 0.708412
+      }
+    },
+    {
+      "model": "blue_skies:item/pyrope_chestplate_diamond_trim",
+      "predicate": {
+        "minecraft:trim_type": 0.8
+      }
+    },
+    {
+      "model": "blue_skies:item/pyrope_chestplate_blue_skies-aquite_trim",
+      "predicate": {
+        "minecraft:trim_type": 0.808412
+      }
+    },
+    {
+      "model": "blue_skies:item/pyrope_chestplate_lapis_trim",
+      "predicate": {
+        "minecraft:trim_type": 0.9
+      }
+    },
+    {
+      "model": "blue_skies:item/pyrope_chestplate_blue_skies-falsite_trim",
+      "predicate": {
+        "minecraft:trim_type": 0.908412
+      }
+    },
+    {
+      "model": "blue_skies:item/pyrope_chestplate_amethyst_trim",
+      "predicate": {
+        "minecraft:trim_type": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "blue_skies:item/armor/pyrope_chestplate"
+  }
+}

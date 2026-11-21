@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.items.util;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.data.BlueSkiesData;
 import com.legacy.blue_skies.data.objects.ToolHandleType;
 import net.minecraft.nbt.CompoundTag;
@@ -36,11 +37,11 @@ public class ToolUtils {
    }
 
    public static ToolHandleType getStickType(ItemStack stack) {
-      CompoundTag tag = stack.getTag();
+      CompoundTag tag = LegacyNbt.get(stack);
       if (tag != null && tag.contains("Stick")) {
          String str = tag.getString("Stick");
-         if (ResourceLocation.isValidResourceLocation(str)) {
-            return BlueSkiesData.TOOL_HANDLE_TYPES.getHandle(new ResourceLocation(str));
+         if (LegacyRL.isValid(str)) {
+            return BlueSkiesData.TOOL_HANDLE_TYPES.getHandle(ResourceLocation.parse(str));
          }
       }
 
@@ -48,7 +49,7 @@ public class ToolUtils {
    }
 
    public static ItemStack setStickType(ItemStack stack, Item stick) {
-      stack.getOrCreateTag().putString("Stick", BlueSkiesData.TOOL_HANDLE_TYPES.getHandle(stick).getName());
+      LegacyNbt.getOrCreate(stack).putString("Stick", BlueSkiesData.TOOL_HANDLE_TYPES.getHandle(stick).getName());
       return stack;
    }
 }

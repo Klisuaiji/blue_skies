@@ -1,0 +1,9 @@
+{
+  "asset_name": "blue_skies-ventium",
+  "description": {
+    "color": "#E8685C",
+    "translate": "trim_material.blue_skies.ventium"
+  },
+  "ingredient": "blue_skies:ventium_ingot",
+  "item_model_index": 0.408412
+}

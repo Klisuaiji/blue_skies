@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/ladder",
+    "textures": {
+		"particle": "blue_skies:block/wood/starlit_ladder",
+        "texture": "blue_skies:block/wood/starlit_ladder"
+    }
+}

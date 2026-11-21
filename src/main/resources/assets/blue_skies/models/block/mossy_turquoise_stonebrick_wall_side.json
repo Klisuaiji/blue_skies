@@ -1,0 +1,6 @@
+{
+    "parent": "block/template_wall_side",
+    "textures": {
+        "wall": "blue_skies:block/stone/mossy_turquoise_stonebrick"
+    }
+}

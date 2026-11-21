@@ -1,0 +1,6 @@
+{
+	"parent": "blue_skies:block/summoner_trophy",
+	"textures": {
+		"trophy": "blue_skies:block/trophy/silver_summoner_trophy"
+	}
+}

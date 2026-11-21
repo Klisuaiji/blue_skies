@@ -117,7 +117,7 @@ public class SeaMossPlantBlock extends BushBlock implements LiquidBlockContainer
       builder.add(new Property[]{NORTH, SOUTH, EAST, WEST});
    }
 
-   public boolean canPlaceLiquid(@Nullable Player player, BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
+   public boolean canPlaceLiquid(Player player, BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
       return false;
    }
 

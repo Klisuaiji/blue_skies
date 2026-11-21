@@ -65,7 +65,7 @@ public class EmissiveRenderLayer<T extends LivingEntity, M extends EntityModel<T
          this.getGlowModel(this.parentRenderer, entityIn).setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
          this.getGlowModel(this.parentRenderer, entityIn).prepareMobModel(entityIn, limbSwing, limbSwingAmount, partialTicks);
          this.getGlowModel(this.parentRenderer, entityIn)
-            .renderToBuffer(matrixStackIn, ivertexbuilder, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            .renderToBuffer(matrixStackIn, ivertexbuilder, 15728640, OverlayTexture.NO_OVERLAY, -1);
       }
    }
 

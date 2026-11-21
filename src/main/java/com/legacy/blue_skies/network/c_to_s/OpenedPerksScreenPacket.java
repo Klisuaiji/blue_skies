@@ -5,7 +5,7 @@ import com.legacy.blue_skies.network.PacketHandler;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class OpenedPerksScreenPacket implements PacketHandler.ModPacket<OpenedPerksScreenPacket, OpenedPerksScreenPacket.Handler> {
    public OpenedPerksScreenPacket.Handler handler() {
@@ -25,8 +25,8 @@ public class OpenedPerksScreenPacket implements PacketHandler.ModPacket<OpenedPe
          return new OpenedPerksScreenPacket();
       }
 
-      public void handler(OpenedPerksScreenPacket packet, PlayPayloadContext context) {
-         context.workHandler().submitAsync(() -> handlePacket(packet, this.serverPlayer(context)));
+      public void handler(OpenedPerksScreenPacket packet, IPayloadContext context) {
+         context.enqueueWork(() -> handlePacket(packet, this.serverPlayer(context)));
       }
 
       private static void handlePacket(OpenedPerksScreenPacket packet, ServerPlayer player) {

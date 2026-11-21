@@ -1,5 +1,8 @@
 package com.legacy.blue_skies.entities.passive;
 
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.storage.loot.LootTable;
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.BlueSkiesConfig;
 import com.legacy.blue_skies.data.objects.tags.SkiesEntityTags;
 import com.legacy.blue_skies.entities.hostile.boss.StarlitCrusherEntity;
@@ -72,7 +75,7 @@ public class SnowOwlEntity extends SkiesAnimalEntity implements FlyingAnimal {
 
    @Nullable
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
    ) {
       return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
    }
@@ -101,9 +104,9 @@ public class SnowOwlEntity extends SkiesAnimalEntity implements FlyingAnimal {
       return flyingpathnavigator;
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(HOSTILE, false);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(HOSTILE, false);
    }
 
    public void load(CompoundTag compound) {
@@ -184,7 +187,7 @@ public class SnowOwlEntity extends SkiesAnimalEntity implements FlyingAnimal {
       return super.doHurtTarget(entityIn);
    }
 
-   public ResourceLocation getDefaultLootTable() {
+   public ResourceKey<LootTable> getDefaultLootTable() {
       return this.isOwlHostile() ? BuiltInLootTables.EMPTY : this.getType().getDefaultLootTable();
    }
 

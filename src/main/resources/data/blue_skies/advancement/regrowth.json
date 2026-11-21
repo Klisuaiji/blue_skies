@@ -1,0 +1,34 @@
+{
+  "parent": "blue_skies:keys",
+  "criteria": {
+    "have_sapling": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "blue_skies:comet_sapling"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.regrowth.desc"
+    },
+    "icon": {
+      "item": "blue_skies:comet_sapling"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.regrowth"
+    }
+  },
+  "requirements": [
+    [
+      "have_sapling"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

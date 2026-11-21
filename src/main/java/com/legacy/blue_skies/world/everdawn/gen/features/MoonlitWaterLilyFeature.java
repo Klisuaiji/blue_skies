@@ -35,10 +35,10 @@ public class MoonlitWaterLilyFeature extends Feature<NoneFeatureConfiguration> {
             }
          }
 
-         for (LargeLilyPadBlock.Corner cornerx : LargeLilyPadBlock.Corner.values()) {
+         for (LargeLilyPadBlock.Corner corner : LargeLilyPadBlock.Corner.values()) {
             level.setBlock(
-               cornerx.getOffset(pos, facing),
-               (BlockState)((BlockState)SkiesBlocks.moonlit_water_lily.defaultBlockState().setValue(LargeLilyPadBlock.CORNER, cornerx))
+               corner.getOffset(pos, facing),
+               (BlockState)((BlockState)SkiesBlocks.moonlit_water_lily.defaultBlockState().setValue(LargeLilyPadBlock.CORNER, corner))
                   .setValue(LargeLilyPadBlock.FACING, facing),
                27
             );

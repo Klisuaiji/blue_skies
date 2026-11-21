@@ -1,0 +1,8 @@
+{
+    "parent": "block/slab",
+    "textures": {
+        "bottom": "blue_skies:block/wood/crystallized_planks",
+        "top": "blue_skies:block/wood/crystallized_planks",
+        "side": "blue_skies:block/wood/crystallized_planks"
+    }
+}

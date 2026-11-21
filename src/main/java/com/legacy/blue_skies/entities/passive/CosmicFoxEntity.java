@@ -77,7 +77,9 @@ public class CosmicFoxEntity extends TamableAnimal {
       if (this.level().isClientSide) {
          boolean flag = this.isOwnedBy(player) || this.isTame() || item == SkiesItems.crescent_fruit && !this.isTame();
          return flag ? InteractionResult.CONSUME : InteractionResult.PASS;
-      } else if (this.isTame()) {
+      }
+
+      if (this.isTame()) {
          if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
             if (!player.isCreative()) {
                itemstack.shrink(1);

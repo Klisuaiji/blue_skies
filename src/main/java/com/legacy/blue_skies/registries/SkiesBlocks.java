@@ -705,14 +705,14 @@ public class SkiesBlocks {
       polished_taratite = register("polished_taratite", new Block(Properties.ofFullCopy(Blocks.POLISHED_GRANITE)));
       rimestone = register("rimestone", new Block(Properties.ofFullCopy(Blocks.GRANITE).sound(SkiesSounds.RIMESTONE)));
       polished_rimestone = register("polished_rimestone", new Block(Properties.ofFullCopy(Blocks.POLISHED_GRANITE).sound(SkiesSounds.RIMESTONE)));
-      camellia = register("camellia", new FlowerBlock(() -> MobEffects.MOVEMENT_SPEED, 6, flowerProp));
-      snowbloom = register("snowbloom", new FlowerBlock(() -> MobEffects.MOVEMENT_SLOWDOWN, 6, flowerProp));
-      blush_blossom = register("blush_blossom", new FlowerBlock(() -> MobEffects.REGENERATION, 6, flowerProp));
-      polar_posy = register("polar_posy", new FlowerBlock(() -> MobEffects.LUCK, 6, flowerProp));
-      chillweed = register("chillweed", new LargeFlowerBlock(() -> MobEffects.SLOW_FALLING, 6, replacableFlowerProp));
-      brittlebush = register("brittlebush", new LargeFlowerBlock(() -> MobEffects.WEAKNESS, 6, replacableFlowerProp));
-      briskbloom = register("briskbloom", new LargeFlowerBlock(() -> MobEffects.HUNGER, 6, Properties.ofFullCopy(Blocks.POPPY).offsetType(OffsetType.XZ)));
-      frose = register("frose", new FroseFlowerBlock(() -> MobEffects.BLINDNESS, 6, flowerProp));
+      camellia = register("camellia", new FlowerBlock(MobEffects.MOVEMENT_SPEED, 6.0F, flowerProp));
+      snowbloom = register("snowbloom", new FlowerBlock(MobEffects.MOVEMENT_SLOWDOWN, 6.0F, flowerProp));
+      blush_blossom = register("blush_blossom", new FlowerBlock(MobEffects.REGENERATION, 6.0F, flowerProp));
+      polar_posy = register("polar_posy", new FlowerBlock(MobEffects.LUCK, 6.0F, flowerProp));
+      chillweed = register("chillweed", new LargeFlowerBlock(MobEffects.SLOW_FALLING, 6.0F, replacableFlowerProp));
+      brittlebush = register("brittlebush", new LargeFlowerBlock(MobEffects.WEAKNESS, 6.0F, replacableFlowerProp));
+      briskbloom = register("briskbloom", new LargeFlowerBlock(MobEffects.HUNGER, 6.0F, Properties.ofFullCopy(Blocks.POPPY).offsetType(OffsetType.XZ)));
+      frose = register("frose", new FroseFlowerBlock(MobEffects.BLINDNESS, 6.0F, flowerProp));
       midday_bayhop = register("midday_bayhop", new MiddayBayhopBlock(MobEffects.CONDUIT_POWER, 6, flowerProp));
       sea_moss = register("sea_moss", new SeaMossPlantBlock(Properties.ofFullCopy(Blocks.SEAGRASS)));
       sea_moss_block = register(
@@ -828,13 +828,13 @@ public class SkiesBlocks {
       polished_umber = register("polished_umber", new Block(Properties.ofFullCopy(Blocks.POLISHED_GRANITE)));
       cinderstone = register("cinderstone", new Block(Properties.ofFullCopy(Blocks.GRANITE).lightLevel(state -> 4)));
       polished_cinderstone = register("polished_cinderstone", new Block(Properties.ofFullCopy(Blocks.POLISHED_GRANITE).lightLevel(state -> 4)));
-      moonlit_bloom = register("moonlit_bloom", new FlowerBlock(() -> MobEffects.NIGHT_VISION, 6, flowerProp));
-      crystal_flower = register("crystal_flower", new CrystalFlowerBlock(() -> MobEffects.INVISIBILITY, 6, flowerProp));
-      blaze_bud = register("blaze_bud", new FlowerBlock(() -> MobEffects.FIRE_RESISTANCE, 6, flowerProp));
-      flare_floret = register("flare_floret", new FlowerBlock(() -> MobEffects.HUNGER, 6, flowerProp));
-      nightcress = register("nightcress", new FlowerBlock(() -> MobEffects.BAD_OMEN, 6, flowerProp));
-      muckweed = register("muckweed", new LargeFlowerBlock(() -> MobEffects.DIG_SLOWDOWN, 6, replacableFlowerProp));
-      lucentroot = register("lucentroot", new FlowerBlock(() -> MobEffects.UNLUCK, 6, flowerProp));
+      moonlit_bloom = register("moonlit_bloom", new FlowerBlock(MobEffects.NIGHT_VISION, 6.0F, flowerProp));
+      crystal_flower = register("crystal_flower", new CrystalFlowerBlock(MobEffects.INVISIBILITY, 6.0F, flowerProp));
+      blaze_bud = register("blaze_bud", new FlowerBlock(MobEffects.FIRE_RESISTANCE, 6.0F, flowerProp));
+      flare_floret = register("flare_floret", new FlowerBlock(MobEffects.HUNGER, 6.0F, flowerProp));
+      nightcress = register("nightcress", new FlowerBlock(MobEffects.BAD_OMEN, 6.0F, flowerProp));
+      muckweed = register("muckweed", new LargeFlowerBlock(MobEffects.DIG_SLOWDOWN, 6.0F, replacableFlowerProp));
+      lucentroot = register("lucentroot", new FlowerBlock(MobEffects.UNLUCK, 6.0F, flowerProp));
       lunar_sapling = register("lunar_sapling", new SaplingBlock(SkiesTreeGrowers.LUNAR, Properties.ofFullCopy(Blocks.OAK_SAPLING)));
       dusk_sapling = register("dusk_sapling", new SaplingBlock(SkiesTreeGrowers.DUSK, Properties.ofFullCopy(Blocks.OAK_SAPLING)));
       maple_sapling = register("maple_sapling", new SaplingBlock(SkiesTreeGrowers.MAPLE, Properties.ofFullCopy(Blocks.OAK_SAPLING)));
@@ -1049,13 +1049,13 @@ public class SkiesBlocks {
       maple_bookshelf = register("maple_bookshelf", new Block(Properties.ofFullCopy(Blocks.BOOKSHELF)));
       comet_bookshelf = register("comet_bookshelf", new Block(Properties.ofFullCopy(Blocks.BOOKSHELF)));
       Properties ladderProp = Properties.ofFullCopy(Blocks.LADDER);
-      bluebright_ladder = register("bluebright_ladder", new LadderBlock(ladderProp));
-      starlit_ladder = register("starlit_ladder", new LadderBlock(ladderProp));
-      frostbright_ladder = register("frostbright_ladder", new LadderBlock(ladderProp));
-      lunar_ladder = register("lunar_ladder", new LadderBlock(ladderProp));
-      dusk_ladder = register("dusk_ladder", new LadderBlock(ladderProp));
-      maple_ladder = register("maple_ladder", new LadderBlock(ladderProp));
-      comet_ladder = register("comet_ladder", new LadderBlock(ladderProp));
+      bluebright_ladder = register("bluebright_ladder", new LadderBlock(ladderProp) {});
+      starlit_ladder = register("starlit_ladder", new LadderBlock(ladderProp) {});
+      frostbright_ladder = register("frostbright_ladder", new LadderBlock(ladderProp) {});
+      lunar_ladder = register("lunar_ladder", new LadderBlock(ladderProp) {});
+      dusk_ladder = register("dusk_ladder", new LadderBlock(ladderProp) {});
+      maple_ladder = register("maple_ladder", new LadderBlock(ladderProp) {});
+      comet_ladder = register("comet_ladder", new LadderBlock(ladderProp) {});
       Properties fenceProp = Properties.of()
          .ignitedByLava()
          .instrument(NoteBlockInstrument.BASS)
@@ -1100,16 +1100,16 @@ public class SkiesBlocks {
       Properties woodPlateProp = Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE);
       Properties stonePlateProp = Properties.ofFullCopy(Blocks.STONE_PRESSURE_PLATE);
       moonstone_pressure_plate = register("moonstone_pressure_plate", new MoonstonePressurePlateBlock(SkiesBlockSets.MOONSTONE, stonePlateProp));
-      turquoise_stone_pressure_plate = register("turquoise_stone_pressure_plate", new PressurePlateBlock(SkiesBlockSets.TURQUOISE_STONE, stonePlateProp));
-      lunar_stone_pressure_plate = register("lunar_stone_pressure_plate", new PressurePlateBlock(SkiesBlockSets.LUNAR_STONE, stonePlateProp));
-      bluebright_pressure_plate = register("bluebright_pressure_plate", new PressurePlateBlock(SkiesBlockSets.BLUEBRIGHT, woodPlateProp));
-      starlit_pressure_plate = register("starlit_pressure_plate", new PressurePlateBlock(SkiesBlockSets.STARLIT, woodPlateProp));
-      frostbright_pressure_plate = register("frostbright_pressure_plate", new PressurePlateBlock(SkiesBlockSets.FROSTBRIGHT, woodPlateProp));
-      lunar_pressure_plate = register("lunar_pressure_plate", new PressurePlateBlock(SkiesBlockSets.LUNAR, woodPlateProp));
-      dusk_pressure_plate = register("dusk_pressure_plate", new PressurePlateBlock(SkiesBlockSets.DUSK, woodPlateProp));
-      maple_pressure_plate = register("maple_pressure_plate", new PressurePlateBlock(SkiesBlockSets.MAPLE, woodPlateProp));
-      comet_pressure_plate = register("comet_pressure_plate", new PressurePlateBlock(SkiesBlockSets.COMET, woodPlateProp));
-      crystallized_pressure_plate = register("crystallized_pressure_plate", new PressurePlateBlock(SkiesBlockSets.CRYSTALLIZED, stonePlateProp));
+      turquoise_stone_pressure_plate = register("turquoise_stone_pressure_plate", new PressurePlateBlock(SkiesBlockSets.TURQUOISE_STONE, stonePlateProp) {});
+      lunar_stone_pressure_plate = register("lunar_stone_pressure_plate", new PressurePlateBlock(SkiesBlockSets.LUNAR_STONE, stonePlateProp) {});
+      bluebright_pressure_plate = register("bluebright_pressure_plate", new PressurePlateBlock(SkiesBlockSets.BLUEBRIGHT, woodPlateProp) {});
+      starlit_pressure_plate = register("starlit_pressure_plate", new PressurePlateBlock(SkiesBlockSets.STARLIT, woodPlateProp) {});
+      frostbright_pressure_plate = register("frostbright_pressure_plate", new PressurePlateBlock(SkiesBlockSets.FROSTBRIGHT, woodPlateProp) {});
+      lunar_pressure_plate = register("lunar_pressure_plate", new PressurePlateBlock(SkiesBlockSets.LUNAR, woodPlateProp) {});
+      dusk_pressure_plate = register("dusk_pressure_plate", new PressurePlateBlock(SkiesBlockSets.DUSK, woodPlateProp) {});
+      maple_pressure_plate = register("maple_pressure_plate", new PressurePlateBlock(SkiesBlockSets.MAPLE, woodPlateProp) {});
+      comet_pressure_plate = register("comet_pressure_plate", new PressurePlateBlock(SkiesBlockSets.COMET, woodPlateProp) {});
+      crystallized_pressure_plate = register("crystallized_pressure_plate", new PressurePlateBlock(SkiesBlockSets.CRYSTALLIZED, stonePlateProp) {});
       Properties woodButtonProp = Properties.ofFullCopy(Blocks.OAK_BUTTON);
       Properties stoneButtonProp = Properties.ofFullCopy(Blocks.STONE_BUTTON);
       turquoise_stone_button = register("turquoise_stone_button", new SkyButtonBlock.Stone(stoneButtonProp));
@@ -1123,8 +1123,8 @@ public class SkiesBlocks {
       comet_button = register("comet_button", new SkyButtonBlock.Wood(woodButtonProp));
       crystallized_button = register("crystallized_button", new SkyButtonBlock.Stone(stoneButtonProp));
       Properties leverProp = Properties.of().pushReaction(PushReaction.DESTROY).noCollission().strength(0.5F).sound(SoundType.WOOD);
-      turquoise_lever = register("turquoise_lever", new LeverBlock(leverProp));
-      lunar_lever = register("lunar_lever", new LeverBlock(leverProp));
+      turquoise_lever = register("turquoise_lever", new LeverBlock(leverProp) {});
+      lunar_lever = register("lunar_lever", new LeverBlock(leverProp) {});
       Properties signProp = Properties.ofFullCopy(Blocks.OAK_SIGN);
       bluebright_sign = registerBlock("bluebright_sign", new SkyStandingSignBlock(signProp, SkiesWoodTypes.BLUEBRIGHT));
       starlit_sign = registerBlock("starlit_sign", new SkyStandingSignBlock(signProp, SkiesWoodTypes.STARLIT));
@@ -1171,14 +1171,14 @@ public class SkiesBlocks {
       carved_blinding_stone = registerDungeon("carved_blinding_stone", new Block(Properties.ofFullCopy(blinding_stone)), SkiesDungeonType.BLINDING);
       blinding_stone_pillar = registerDungeon("blinding_stone_pillar", new RotatedPillarBlock(Properties.ofFullCopy(blinding_stone)), SkiesDungeonType.BLINDING);
       blinding_stairs = registerDungeon(
-         "blinding_stairs", new StairBlock(() -> blinding_stone.defaultBlockState(), Properties.ofFullCopy(blinding_stone)), SkiesDungeonType.BLINDING
+         "blinding_stairs", new StairBlock(blinding_stone.defaultBlockState(), Properties.ofFullCopy(blinding_stone)) {}, SkiesDungeonType.BLINDING
       );
       glowing_blinding_stairs = registerDungeon(
          "glowing_blinding_stairs",
          new LitStairsBlock(() -> glowing_blinding_stone.defaultBlockState(), Properties.ofFullCopy(glowing_blinding_stone)),
          SkiesDungeonType.BLINDING
       );
-      blinding_slab = registerDungeon("blinding_slab", new SlabBlock(Properties.ofFullCopy(blinding_stone)), SkiesDungeonType.BLINDING);
+      blinding_slab = registerDungeon("blinding_slab", new SlabBlock(Properties.ofFullCopy(blinding_stone)) {}, SkiesDungeonType.BLINDING);
       glowing_blinding_slab = registerDungeon(
          "glowing_blinding_slab", new LitSlabBlock(Properties.ofFullCopy(glowing_blinding_stone)), SkiesDungeonType.BLINDING
       );
@@ -1193,7 +1193,7 @@ public class SkiesBlocks {
       carved_nature_stonebrick = registerDungeon("carved_nature_stonebrick", new Block(Properties.ofFullCopy(nature_stonebrick)), SkiesDungeonType.NATURE);
       nature_stone_pillar = registerDungeon("nature_stone_pillar", new RotatedPillarBlock(Properties.ofFullCopy(nature_stonebrick)), SkiesDungeonType.NATURE);
       nature_stone_stairs = registerDungeon(
-         "nature_stone_stairs", new StairBlock(() -> nature_stone.defaultBlockState(), Properties.ofFullCopy(nature_stone)), SkiesDungeonType.NATURE
+         "nature_stone_stairs", new StairBlock(nature_stone.defaultBlockState(), Properties.ofFullCopy(nature_stone)) {}, SkiesDungeonType.NATURE
       );
       glowing_nature_stone_stairs = registerDungeon(
          "glowing_nature_stone_stairs",
@@ -1202,21 +1202,21 @@ public class SkiesBlocks {
       );
       nature_stonebrick_stairs = registerDungeon(
          "nature_stonebrick_stairs",
-         new StairBlock(() -> nature_stonebrick.defaultBlockState(), Properties.ofFullCopy(nature_stonebrick)),
+         new StairBlock(nature_stonebrick.defaultBlockState(), Properties.ofFullCopy(nature_stonebrick)) {},
          SkiesDungeonType.NATURE
       );
       glowing_nature_stonebrick_stairs = registerDungeon(
          "glowing_nature_stonebrick_stairs",
-         new StairBlock(() -> glowing_nature_stonebrick.defaultBlockState(), Properties.ofFullCopy(glowing_nature_stonebrick)),
+         new StairBlock(glowing_nature_stonebrick.defaultBlockState(), Properties.ofFullCopy(glowing_nature_stonebrick)) {},
          SkiesDungeonType.NATURE
       );
-      nature_stone_slab = registerDungeon("nature_stone_slab", new SlabBlock(Properties.ofFullCopy(nature_stone)), SkiesDungeonType.NATURE);
+      nature_stone_slab = registerDungeon("nature_stone_slab", new SlabBlock(Properties.ofFullCopy(nature_stone)) {}, SkiesDungeonType.NATURE);
       glowing_nature_stone_slab = registerDungeon(
          "glowing_nature_stone_slab", new LitSlabBlock(Properties.ofFullCopy(glowing_nature_stone)), SkiesDungeonType.NATURE
       );
-      nature_stonebrick_slab = registerDungeon("nature_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(nature_stonebrick)), SkiesDungeonType.NATURE);
+      nature_stonebrick_slab = registerDungeon("nature_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(nature_stonebrick)) {}, SkiesDungeonType.NATURE);
       glowing_nature_stonebrick_slab = registerDungeon(
-         "glowing_nature_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(glowing_nature_stonebrick)), SkiesDungeonType.NATURE
+         "glowing_nature_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(glowing_nature_stonebrick)) {}, SkiesDungeonType.NATURE
       );
       nature_stonebrick_wall = registerDungeon("nature_stonebrick_wall", new WallBlock(Properties.ofFullCopy(nature_stonebrick)), SkiesDungeonType.NATURE);
       glowing_nature_stonebrick_wall = registerDungeon(
@@ -1231,7 +1231,7 @@ public class SkiesBlocks {
       carved_poison_stonebrick = registerDungeon("carved_poison_stonebrick", new Block(Properties.ofFullCopy(poison_stonebrick)), SkiesDungeonType.POISON);
       poison_stone_pillar = registerDungeon("poison_stone_pillar", new RotatedPillarBlock(Properties.ofFullCopy(poison_stonebrick)), SkiesDungeonType.POISON);
       poison_stone_stairs = registerDungeon(
-         "poison_stone_stairs", new StairBlock(() -> poison_stone.defaultBlockState(), Properties.ofFullCopy(poison_stone)), SkiesDungeonType.POISON
+         "poison_stone_stairs", new StairBlock(poison_stone.defaultBlockState(), Properties.ofFullCopy(poison_stone)) {}, SkiesDungeonType.POISON
       );
       glowing_poison_stone_stairs = registerDungeon(
          "glowing_poison_stone_stairs",
@@ -1240,21 +1240,21 @@ public class SkiesBlocks {
       );
       poison_stonebrick_stairs = registerDungeon(
          "poison_stonebrick_stairs",
-         new StairBlock(() -> poison_stonebrick.defaultBlockState(), Properties.ofFullCopy(poison_stonebrick)),
+         new StairBlock(poison_stonebrick.defaultBlockState(), Properties.ofFullCopy(poison_stonebrick)) {},
          SkiesDungeonType.POISON
       );
       rough_poison_stonebrick_stairs = registerDungeon(
          "rough_poison_stonebrick_stairs",
-         new StairBlock(() -> rough_poison_stonebrick.defaultBlockState(), Properties.ofFullCopy(rough_poison_stonebrick)),
+         new StairBlock(rough_poison_stonebrick.defaultBlockState(), Properties.ofFullCopy(rough_poison_stonebrick)) {},
          SkiesDungeonType.POISON
       );
-      poison_stone_slab = registerDungeon("poison_stone_slab", new SlabBlock(Properties.ofFullCopy(poison_stone)), SkiesDungeonType.POISON);
+      poison_stone_slab = registerDungeon("poison_stone_slab", new SlabBlock(Properties.ofFullCopy(poison_stone)) {}, SkiesDungeonType.POISON);
       glowing_poison_stone_slab = registerDungeon(
          "glowing_poison_stone_slab", new LitSlabBlock(Properties.ofFullCopy(glowing_poison_stone)), SkiesDungeonType.POISON
       );
-      poison_stonebrick_slab = registerDungeon("poison_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(poison_stonebrick)), SkiesDungeonType.POISON);
+      poison_stonebrick_slab = registerDungeon("poison_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(poison_stonebrick)) {}, SkiesDungeonType.POISON);
       rough_poison_stonebrick_slab = registerDungeon(
-         "rough_poison_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(rough_poison_stonebrick)), SkiesDungeonType.POISON
+         "rough_poison_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(rough_poison_stonebrick)) {}, SkiesDungeonType.POISON
       );
       poison_stonebrick_wall = registerDungeon("poison_stonebrick_wall", new WallBlock(Properties.ofFullCopy(poison_stonebrick)), SkiesDungeonType.POISON);
       aquatic_stone = registerDungeon("aquatic_stone", new Block(getDungeonStoneProperties()), SkiesDungeonType.AQUATIC);
@@ -1262,28 +1262,28 @@ public class SkiesBlocks {
          "glowing_aquatic_stone", new Block(Properties.ofFullCopy(aquatic_stone).lightLevel(value -> 15)), SkiesDungeonType.AQUATIC
       );
       aquatic_stairs = registerDungeon(
-         "aquatic_stairs", new StairBlock(() -> aquatic_stone.defaultBlockState(), Properties.ofFullCopy(aquatic_stone)), SkiesDungeonType.AQUATIC
+         "aquatic_stairs", new StairBlock(aquatic_stone.defaultBlockState(), Properties.ofFullCopy(aquatic_stone)) {}, SkiesDungeonType.AQUATIC
       );
       glowing_aquatic_stairs = registerDungeon(
          "glowing_aquatic_stairs",
          new LitStairsBlock(() -> glowing_aquatic_stone.defaultBlockState(), Properties.ofFullCopy(glowing_aquatic_stone)),
          SkiesDungeonType.AQUATIC
       );
-      aquatic_slab = registerDungeon("aquatic_slab", new SlabBlock(Properties.ofFullCopy(aquatic_stone)), SkiesDungeonType.AQUATIC);
+      aquatic_slab = registerDungeon("aquatic_slab", new SlabBlock(Properties.ofFullCopy(aquatic_stone)) {}, SkiesDungeonType.AQUATIC);
       glowing_aquatic_slab = registerDungeon("glowing_aquatic_slab", new LitSlabBlock(Properties.ofFullCopy(glowing_aquatic_stone)), SkiesDungeonType.AQUATIC);
       aquatic_wall = registerDungeon("aquatic_wall", new WallBlock(Properties.ofFullCopy(aquatic_stone)), SkiesDungeonType.AQUATIC);
       glowing_aquatic_wall = registerDungeon("glowing_aquatic_wall", new WallBlock(Properties.ofFullCopy(glowing_aquatic_stone)), SkiesDungeonType.AQUATIC);
       life_stone = registerDungeon("life_stone", new Block(getDungeonStoneProperties()), SkiesDungeonType.LIFE);
       glowing_life_stone = registerDungeon("glowing_life_stone", new Block(Properties.ofFullCopy(life_stone).lightLevel(value -> 15)), SkiesDungeonType.LIFE);
       life_stairs = registerDungeon(
-         "life_stairs", new StairBlock(() -> life_stone.defaultBlockState(), Properties.ofFullCopy(life_stone)), SkiesDungeonType.LIFE
+         "life_stairs", new StairBlock(life_stone.defaultBlockState(), Properties.ofFullCopy(life_stone)) {}, SkiesDungeonType.LIFE
       );
       glowing_life_stairs = registerDungeon(
          "glowing_life_stairs",
          new LitStairsBlock(() -> glowing_life_stone.defaultBlockState(), Properties.ofFullCopy(glowing_life_stone)),
          SkiesDungeonType.LIFE
       );
-      life_slab = registerDungeon("life_slab", new SlabBlock(Properties.ofFullCopy(life_stone)), SkiesDungeonType.LIFE);
+      life_slab = registerDungeon("life_slab", new SlabBlock(Properties.ofFullCopy(life_stone)) {}, SkiesDungeonType.LIFE);
       glowing_life_slab = registerDungeon("glowing_life_slab", new LitSlabBlock(Properties.ofFullCopy(glowing_life_stone)), SkiesDungeonType.LIFE);
       life_wall = registerDungeon("life_wall", new WallBlock(Properties.ofFullCopy(life_stone)), SkiesDungeonType.LIFE);
       glowing_life_wall = registerDungeon("glowing_life_wall", new WallBlock(Properties.ofFullCopy(glowing_life_stone)), SkiesDungeonType.LIFE);
@@ -1302,41 +1302,41 @@ public class SkiesBlocks {
       alchemist_trophy = registerItemProperties("alchemist_trophy", new TrophyBlock(TrophyBlock.Type.ALCHEMIST, trophyProp), trophyItemProp);
       starlit_crusher_trophy = registerItemProperties("starlit_crusher_trophy", new TrophyBlock(TrophyBlock.Type.STARLIT_CRUSHER, trophyProp), trophyItemProp);
       arachnarch_trophy = registerItemProperties("arachnarch_trophy", new TrophyBlock(TrophyBlock.Type.ARACHNARCH, trophyProp), trophyItemProp);
-      bluebright_slab = register("bluebright_slab", new SlabBlock(Properties.ofFullCopy(bluebright_planks)));
-      starlit_slab = register("starlit_slab", new SlabBlock(Properties.ofFullCopy(starlit_planks)));
-      frostbright_slab = register("frostbright_slab", new SlabBlock(Properties.ofFullCopy(frostbright_planks)));
-      lunar_slab = register("lunar_slab", new SlabBlock(Properties.ofFullCopy(lunar_planks)));
-      dusk_slab = register("dusk_slab", new SlabBlock(Properties.ofFullCopy(dusk_planks)));
-      maple_slab = register("maple_slab", new SlabBlock(Properties.ofFullCopy(maple_planks)));
-      comet_slab = register("comet_slab", new SlabBlock(Properties.ofFullCopy(comet_planks)));
+      bluebright_slab = register("bluebright_slab", new SlabBlock(Properties.ofFullCopy(bluebright_planks)) {});
+      starlit_slab = register("starlit_slab", new SlabBlock(Properties.ofFullCopy(starlit_planks)) {});
+      frostbright_slab = register("frostbright_slab", new SlabBlock(Properties.ofFullCopy(frostbright_planks)) {});
+      lunar_slab = register("lunar_slab", new SlabBlock(Properties.ofFullCopy(lunar_planks)) {});
+      dusk_slab = register("dusk_slab", new SlabBlock(Properties.ofFullCopy(dusk_planks)) {});
+      maple_slab = register("maple_slab", new SlabBlock(Properties.ofFullCopy(maple_planks)) {});
+      comet_slab = register("comet_slab", new SlabBlock(Properties.ofFullCopy(comet_planks)) {});
       crystallized_slab = register("crystallized_slab", new TranslucentSlabBlock(Properties.ofFullCopy(crystallized_planks), crystallizedPlanks));
-      turquoise_stone_slab = register("turquoise_stone_slab", new SlabBlock(Properties.ofFullCopy(turquoise_stone)));
-      turquoise_cobblestone_slab = register("turquoise_cobblestone_slab", new SlabBlock(Properties.ofFullCopy(turquoise_cobblestone)));
-      mossy_turquoise_cobblestone_slab = register("mossy_turquoise_cobblestone_slab", new SlabBlock(Properties.ofFullCopy(mossy_turquoise_cobblestone)));
-      turquoise_stonebrick_slab = register("turquoise_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(turquoise_stonebrick)));
-      mossy_turquoise_stonebrick_slab = register("mossy_turquoise_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(mossy_turquoise_stonebrick)));
-      cracked_turquoise_stonebrick_slab = register("cracked_turquoise_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(cracked_turquoise_stonebrick)));
-      midnight_sandstone_slab = register("midnight_sandstone_slab", new SlabBlock(Properties.ofFullCopy(midnight_sandstone)));
-      smooth_midnight_sandstone_slab = register("smooth_midnight_sandstone_slab", new SlabBlock(Properties.ofFullCopy(smooth_midnight_sandstone)));
-      brumble_slab = register("brumble_slab", new SlabBlock(Properties.ofFullCopy(brumble_block)));
-      polished_brumble_slab = register("polished_brumble_slab", new SlabBlock(Properties.ofFullCopy(polished_brumble)));
-      polished_brumble_brick_slab = register("polished_brumble_brick_slab", new SlabBlock(Properties.ofFullCopy(polished_brumble_bricks)));
-      taratite_slab = register("taratite_slab", new SlabBlock(Properties.ofFullCopy(taratite)));
-      polished_taratite_slab = register("polished_taratite_slab", new SlabBlock(Properties.ofFullCopy(polished_taratite)));
-      rimestone_slab = register("rimestone_slab", new SlabBlock(Properties.ofFullCopy(rimestone)));
-      polished_rimestone_slab = register("polished_rimestone_slab", new SlabBlock(Properties.ofFullCopy(polished_rimestone)));
-      lunar_stone_slab = register("lunar_stone_slab", new SlabBlock(Properties.ofFullCopy(lunar_stone)));
-      lunar_cobblestone_slab = register("lunar_cobblestone_slab", new SlabBlock(Properties.ofFullCopy(lunar_cobblestone)));
-      mossy_lunar_cobblestone_slab = register("mossy_lunar_cobblestone_slab", new SlabBlock(Properties.ofFullCopy(mossy_lunar_cobblestone)));
-      lunar_stonebrick_slab = register("lunar_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(lunar_stonebrick)));
-      mossy_lunar_stonebrick_slab = register("mossy_lunar_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(mossy_lunar_stonebrick)));
-      cracked_lunar_stonebrick_slab = register("cracked_lunar_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(cracked_lunar_stonebrick)));
-      crystal_sandstone_slab = register("crystal_sandstone_slab", new SlabBlock(Properties.ofFullCopy(midnight_sandstone)));
-      smooth_crystal_sandstone_slab = register("smooth_crystal_sandstone_slab", new SlabBlock(Properties.ofFullCopy(smooth_crystal_sandstone)));
-      cut_midnight_sandstone_slab = register("cut_midnight_sandstone_slab", new SlabBlock(Properties.ofFullCopy(cut_midnight_sandstone)));
-      cut_crystal_sandstone_slab = register("cut_crystal_sandstone_slab", new SlabBlock(Properties.ofFullCopy(cut_crystal_sandstone)));
-      umber_slab = register("umber_slab", new SlabBlock(Properties.ofFullCopy(umber)));
-      polished_umber_slab = register("polished_umber_slab", new SlabBlock(Properties.ofFullCopy(polished_umber)));
+      turquoise_stone_slab = register("turquoise_stone_slab", new SlabBlock(Properties.ofFullCopy(turquoise_stone)) {});
+      turquoise_cobblestone_slab = register("turquoise_cobblestone_slab", new SlabBlock(Properties.ofFullCopy(turquoise_cobblestone)) {});
+      mossy_turquoise_cobblestone_slab = register("mossy_turquoise_cobblestone_slab", new SlabBlock(Properties.ofFullCopy(mossy_turquoise_cobblestone)) {});
+      turquoise_stonebrick_slab = register("turquoise_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(turquoise_stonebrick)) {});
+      mossy_turquoise_stonebrick_slab = register("mossy_turquoise_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(mossy_turquoise_stonebrick)) {});
+      cracked_turquoise_stonebrick_slab = register("cracked_turquoise_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(cracked_turquoise_stonebrick)) {});
+      midnight_sandstone_slab = register("midnight_sandstone_slab", new SlabBlock(Properties.ofFullCopy(midnight_sandstone)) {});
+      smooth_midnight_sandstone_slab = register("smooth_midnight_sandstone_slab", new SlabBlock(Properties.ofFullCopy(smooth_midnight_sandstone)) {});
+      brumble_slab = register("brumble_slab", new SlabBlock(Properties.ofFullCopy(brumble_block)) {});
+      polished_brumble_slab = register("polished_brumble_slab", new SlabBlock(Properties.ofFullCopy(polished_brumble)) {});
+      polished_brumble_brick_slab = register("polished_brumble_brick_slab", new SlabBlock(Properties.ofFullCopy(polished_brumble_bricks)) {});
+      taratite_slab = register("taratite_slab", new SlabBlock(Properties.ofFullCopy(taratite)) {});
+      polished_taratite_slab = register("polished_taratite_slab", new SlabBlock(Properties.ofFullCopy(polished_taratite)) {});
+      rimestone_slab = register("rimestone_slab", new SlabBlock(Properties.ofFullCopy(rimestone)) {});
+      polished_rimestone_slab = register("polished_rimestone_slab", new SlabBlock(Properties.ofFullCopy(polished_rimestone)) {});
+      lunar_stone_slab = register("lunar_stone_slab", new SlabBlock(Properties.ofFullCopy(lunar_stone)) {});
+      lunar_cobblestone_slab = register("lunar_cobblestone_slab", new SlabBlock(Properties.ofFullCopy(lunar_cobblestone)) {});
+      mossy_lunar_cobblestone_slab = register("mossy_lunar_cobblestone_slab", new SlabBlock(Properties.ofFullCopy(mossy_lunar_cobblestone)) {});
+      lunar_stonebrick_slab = register("lunar_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(lunar_stonebrick)) {});
+      mossy_lunar_stonebrick_slab = register("mossy_lunar_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(mossy_lunar_stonebrick)) {});
+      cracked_lunar_stonebrick_slab = register("cracked_lunar_stonebrick_slab", new SlabBlock(Properties.ofFullCopy(cracked_lunar_stonebrick)) {});
+      crystal_sandstone_slab = register("crystal_sandstone_slab", new SlabBlock(Properties.ofFullCopy(midnight_sandstone)) {});
+      smooth_crystal_sandstone_slab = register("smooth_crystal_sandstone_slab", new SlabBlock(Properties.ofFullCopy(smooth_crystal_sandstone)) {});
+      cut_midnight_sandstone_slab = register("cut_midnight_sandstone_slab", new SlabBlock(Properties.ofFullCopy(cut_midnight_sandstone)) {});
+      cut_crystal_sandstone_slab = register("cut_crystal_sandstone_slab", new SlabBlock(Properties.ofFullCopy(cut_crystal_sandstone)) {});
+      umber_slab = register("umber_slab", new SlabBlock(Properties.ofFullCopy(umber)) {});
+      polished_umber_slab = register("polished_umber_slab", new SlabBlock(Properties.ofFullCopy(polished_umber)) {});
       cinderstone_slab = register("cinderstone_slab", new LitSlabBlock(Properties.ofFullCopy(cinderstone)));
       polished_cinderstone_slab = register("polished_cinderstone_slab", new LitSlabBlock(Properties.ofFullCopy(polished_cinderstone)));
       turquoise_cobblestone_wall = register("turquoise_cobblestone_wall", new WallBlock(Properties.ofFullCopy(turquoise_cobblestone)));
@@ -1363,86 +1363,86 @@ public class SkiesBlocks {
       polished_umber_wall = register("polished_umber_wall", new WallBlock(Properties.ofFullCopy(polished_umber)));
       cinderstone_wall = register("cinderstone_wall", new WallBlock(Properties.ofFullCopy(cinderstone)));
       polished_cinderstone_wall = register("polished_cinderstone_wall", new WallBlock(Properties.ofFullCopy(polished_cinderstone)));
-      bluebright_stairs = register("bluebright_stairs", new StairBlock(() -> bluebright_planks.defaultBlockState(), Properties.ofFullCopy(bluebright_planks)));
-      starlit_stairs = register("starlit_stairs", new StairBlock(() -> starlit_planks.defaultBlockState(), Properties.ofFullCopy(starlit_planks)));
+      bluebright_stairs = register("bluebright_stairs", new StairBlock(bluebright_planks.defaultBlockState(), Properties.ofFullCopy(bluebright_planks)) {});
+      starlit_stairs = register("starlit_stairs", new StairBlock(starlit_planks.defaultBlockState(), Properties.ofFullCopy(starlit_planks)) {});
       frostbright_stairs = register(
-         "frostbright_stairs", new StairBlock(() -> frostbright_planks.defaultBlockState(), Properties.ofFullCopy(frostbright_planks))
+         "frostbright_stairs", new StairBlock(frostbright_planks.defaultBlockState(), Properties.ofFullCopy(frostbright_planks)) {}
       );
-      lunar_stairs = register("lunar_stairs", new StairBlock(() -> lunar_planks.defaultBlockState(), Properties.ofFullCopy(lunar_planks)));
-      dusk_stairs = register("dusk_stairs", new StairBlock(() -> dusk_planks.defaultBlockState(), Properties.ofFullCopy(dusk_planks)));
-      maple_stairs = register("maple_stairs", new StairBlock(() -> maple_planks.defaultBlockState(), Properties.ofFullCopy(maple_planks)));
-      comet_stairs = register("comet_stairs", new StairBlock(() -> comet_planks.defaultBlockState(), Properties.ofFullCopy(comet_planks)));
+      lunar_stairs = register("lunar_stairs", new StairBlock(lunar_planks.defaultBlockState(), Properties.ofFullCopy(lunar_planks)) {});
+      dusk_stairs = register("dusk_stairs", new StairBlock(dusk_planks.defaultBlockState(), Properties.ofFullCopy(dusk_planks)) {});
+      maple_stairs = register("maple_stairs", new StairBlock(maple_planks.defaultBlockState(), Properties.ofFullCopy(maple_planks)) {});
+      comet_stairs = register("comet_stairs", new StairBlock(comet_planks.defaultBlockState(), Properties.ofFullCopy(comet_planks)) {});
       crystallized_stairs = register(
          "crystallized_stairs",
          new TranslucentStairsBlock(() -> crystallized_planks.defaultBlockState(), Properties.ofFullCopy(crystallized_planks), crystallizedPlanks)
       );
       turquoise_stone_stairs = register(
-         "turquoise_stone_stairs", new StairBlock(() -> turquoise_stone.defaultBlockState(), Properties.ofFullCopy(turquoise_stone))
+         "turquoise_stone_stairs", new StairBlock(turquoise_stone.defaultBlockState(), Properties.ofFullCopy(turquoise_stone)) {}
       );
       turquoise_stonebrick_stairs = register(
-         "turquoise_stonebrick_stairs", new StairBlock(() -> turquoise_stonebrick.defaultBlockState(), Properties.ofFullCopy(turquoise_stonebrick))
+         "turquoise_stonebrick_stairs", new StairBlock(turquoise_stonebrick.defaultBlockState(), Properties.ofFullCopy(turquoise_stonebrick)) {}
       );
       mossy_turquoise_stonebrick_stairs = register(
          "mossy_turquoise_stonebrick_stairs",
-         new StairBlock(() -> mossy_turquoise_stonebrick.defaultBlockState(), Properties.ofFullCopy(mossy_turquoise_stonebrick))
+         new StairBlock(mossy_turquoise_stonebrick.defaultBlockState(), Properties.ofFullCopy(mossy_turquoise_stonebrick)) {}
       );
       cracked_turquoise_stonebrick_stairs = register(
          "cracked_turquoise_stonebrick_stairs",
-         new StairBlock(() -> cracked_turquoise_stonebrick.defaultBlockState(), Properties.ofFullCopy(cracked_turquoise_stonebrick))
+         new StairBlock(cracked_turquoise_stonebrick.defaultBlockState(), Properties.ofFullCopy(cracked_turquoise_stonebrick)) {}
       );
       turquoise_cobblestone_stairs = register(
-         "turquoise_cobblestone_stairs", new StairBlock(() -> turquoise_cobblestone.defaultBlockState(), Properties.ofFullCopy(turquoise_cobblestone))
+         "turquoise_cobblestone_stairs", new StairBlock(turquoise_cobblestone.defaultBlockState(), Properties.ofFullCopy(turquoise_cobblestone)) {}
       );
       mossy_turquoise_cobblestone_stairs = register(
          "mossy_turquoise_cobblestone_stairs",
-         new StairBlock(() -> mossy_turquoise_cobblestone.defaultBlockState(), Properties.ofFullCopy(mossy_turquoise_cobblestone))
+         new StairBlock(mossy_turquoise_cobblestone.defaultBlockState(), Properties.ofFullCopy(mossy_turquoise_cobblestone)) {}
       );
       midnight_sandstone_stairs = register(
-         "midnight_sandstone_stairs", new StairBlock(() -> midnight_sandstone.defaultBlockState(), Properties.ofFullCopy(midnight_sandstone))
+         "midnight_sandstone_stairs", new StairBlock(midnight_sandstone.defaultBlockState(), Properties.ofFullCopy(midnight_sandstone)) {}
       );
       smooth_midnight_sandstone_stairs = register(
          "smooth_midnight_sandstone_stairs",
-         new StairBlock(() -> smooth_midnight_sandstone.defaultBlockState(), Properties.ofFullCopy(smooth_midnight_sandstone))
+         new StairBlock(smooth_midnight_sandstone.defaultBlockState(), Properties.ofFullCopy(smooth_midnight_sandstone)) {}
       );
-      brumble_stairs = register("brumble_stairs", new StairBlock(() -> brumble_block.defaultBlockState(), Properties.ofFullCopy(brumble_block)));
+      brumble_stairs = register("brumble_stairs", new StairBlock(brumble_block.defaultBlockState(), Properties.ofFullCopy(brumble_block)) {});
       polished_brumble_stairs = register(
-         "polished_brumble_stairs", new StairBlock(() -> polished_brumble.defaultBlockState(), Properties.ofFullCopy(polished_brumble))
+         "polished_brumble_stairs", new StairBlock(polished_brumble.defaultBlockState(), Properties.ofFullCopy(polished_brumble)) {}
       );
       polished_brumble_brick_stairs = register(
-         "polished_brumble_brick_stairs", new StairBlock(() -> polished_brumble_bricks.defaultBlockState(), Properties.ofFullCopy(polished_brumble_bricks))
+         "polished_brumble_brick_stairs", new StairBlock(polished_brumble_bricks.defaultBlockState(), Properties.ofFullCopy(polished_brumble_bricks)) {}
       );
-      taratite_stairs = register("taratite_stairs", new StairBlock(() -> taratite.defaultBlockState(), Properties.ofFullCopy(taratite)));
+      taratite_stairs = register("taratite_stairs", new StairBlock(taratite.defaultBlockState(), Properties.ofFullCopy(taratite)) {});
       polished_taratite_stairs = register(
-         "polished_taratite_stairs", new StairBlock(() -> polished_taratite.defaultBlockState(), Properties.ofFullCopy(polished_taratite))
+         "polished_taratite_stairs", new StairBlock(polished_taratite.defaultBlockState(), Properties.ofFullCopy(polished_taratite)) {}
       );
-      rimestone_stairs = register("rimestone_stairs", new StairBlock(() -> rimestone.defaultBlockState(), Properties.ofFullCopy(rimestone)));
+      rimestone_stairs = register("rimestone_stairs", new StairBlock(rimestone.defaultBlockState(), Properties.ofFullCopy(rimestone)) {});
       polished_rimestone_stairs = register(
-         "polished_rimestone_stairs", new StairBlock(() -> polished_rimestone.defaultBlockState(), Properties.ofFullCopy(polished_rimestone))
+         "polished_rimestone_stairs", new StairBlock(polished_rimestone.defaultBlockState(), Properties.ofFullCopy(polished_rimestone)) {}
       );
-      lunar_stone_stairs = register("lunar_stone_stairs", new StairBlock(() -> lunar_stone.defaultBlockState(), Properties.ofFullCopy(lunar_stone)));
+      lunar_stone_stairs = register("lunar_stone_stairs", new StairBlock(lunar_stone.defaultBlockState(), Properties.ofFullCopy(lunar_stone)) {});
       lunar_stonebrick_stairs = register(
-         "lunar_stonebrick_stairs", new StairBlock(() -> lunar_stonebrick.defaultBlockState(), Properties.ofFullCopy(lunar_stonebrick))
+         "lunar_stonebrick_stairs", new StairBlock(lunar_stonebrick.defaultBlockState(), Properties.ofFullCopy(lunar_stonebrick)) {}
       );
       mossy_lunar_stonebrick_stairs = register(
-         "mossy_lunar_stonebrick_stairs", new StairBlock(() -> mossy_lunar_stonebrick.defaultBlockState(), Properties.ofFullCopy(mossy_lunar_stonebrick))
+         "mossy_lunar_stonebrick_stairs", new StairBlock(mossy_lunar_stonebrick.defaultBlockState(), Properties.ofFullCopy(mossy_lunar_stonebrick)) {}
       );
       cracked_lunar_stonebrick_stairs = register(
-         "cracked_lunar_stonebrick_stairs", new StairBlock(() -> cracked_lunar_stonebrick.defaultBlockState(), Properties.ofFullCopy(cracked_lunar_stonebrick))
+         "cracked_lunar_stonebrick_stairs", new StairBlock(cracked_lunar_stonebrick.defaultBlockState(), Properties.ofFullCopy(cracked_lunar_stonebrick)) {}
       );
       lunar_cobblestone_stairs = register(
-         "lunar_cobblestone_stairs", new StairBlock(() -> lunar_cobblestone.defaultBlockState(), Properties.ofFullCopy(lunar_cobblestone))
+         "lunar_cobblestone_stairs", new StairBlock(lunar_cobblestone.defaultBlockState(), Properties.ofFullCopy(lunar_cobblestone)) {}
       );
       mossy_lunar_cobblestone_stairs = register(
-         "mossy_lunar_cobblestone_stairs", new StairBlock(() -> mossy_lunar_cobblestone.defaultBlockState(), Properties.ofFullCopy(mossy_lunar_cobblestone))
+         "mossy_lunar_cobblestone_stairs", new StairBlock(mossy_lunar_cobblestone.defaultBlockState(), Properties.ofFullCopy(mossy_lunar_cobblestone)) {}
       );
       crystal_sandstone_stairs = register(
-         "crystal_sandstone_stairs", new StairBlock(() -> crystal_sandstone.defaultBlockState(), Properties.ofFullCopy(crystal_sandstone))
+         "crystal_sandstone_stairs", new StairBlock(crystal_sandstone.defaultBlockState(), Properties.ofFullCopy(crystal_sandstone)) {}
       );
       smooth_crystal_sandstone_stairs = register(
-         "smooth_crystal_sandstone_stairs", new StairBlock(() -> smooth_crystal_sandstone.defaultBlockState(), Properties.ofFullCopy(smooth_crystal_sandstone))
+         "smooth_crystal_sandstone_stairs", new StairBlock(smooth_crystal_sandstone.defaultBlockState(), Properties.ofFullCopy(smooth_crystal_sandstone)) {}
       );
-      umber_stairs = register("umber_stairs", new StairBlock(() -> umber.defaultBlockState(), Properties.ofFullCopy(umber)));
-      polished_umber_stairs = register("polished_umber_stairs", new StairBlock(() -> polished_umber.defaultBlockState(), Properties.ofFullCopy(polished_umber)));
+      umber_stairs = register("umber_stairs", new StairBlock(umber.defaultBlockState(), Properties.ofFullCopy(umber)) {});
+      polished_umber_stairs = register("polished_umber_stairs", new StairBlock(polished_umber.defaultBlockState(), Properties.ofFullCopy(polished_umber)) {});
       cinderstone_stairs = register("cinderstone_stairs", new LitStairsBlock(() -> cinderstone.defaultBlockState(), Properties.ofFullCopy(cinderstone)));
       polished_cinderstone_stairs = register(
          "polished_cinderstone_stairs", new LitStairsBlock(() -> polished_cinderstone.defaultBlockState(), Properties.ofFullCopy(polished_cinderstone))
@@ -1546,14 +1546,14 @@ public class SkiesBlocks {
    }
 
    private static DoorBlock door(Properties props, BlockSetType blockSet) {
-      return new DoorBlock(blockSet, props);
+      return new DoorBlock(blockSet, props) {};
    }
 
    private static TrapDoorBlock trapDoor(Properties props, BlockSetType blockSet) {
-      return new TrapDoorBlock(blockSet, props);
+      return new TrapDoorBlock(blockSet, props) {};
    }
 
    private static FenceGateBlock fenceGate(Properties props, WoodType woodType) {
-      return new FenceGateBlock(woodType, props);
+      return new FenceGateBlock(woodType, props) {};
    }
 }

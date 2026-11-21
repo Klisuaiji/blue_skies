@@ -1,0 +1,26 @@
+{
+  "parent": "blue_skies:everbright/kill_starlit_crusher",
+  "criteria": {
+    "punch_crusher": {
+      "trigger": "blue_skies:special_crusher_kill"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.everbright.kill_starlit_crusher_special.desc"
+    },
+    "frame": "challenge",
+    "icon": {
+      "item": "blue_skies:nature_arc"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.everbright.kill_starlit_crusher_special"
+    }
+  },
+  "requirements": [
+    [
+      "punch_crusher"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

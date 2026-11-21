@@ -1,0 +1,30 @@
+{
+  "parent": "blue_skies:everbright/use_tool_box",
+  "criteria": {
+    "use_tool_box": {
+      "conditions": {
+        "modifier": {
+          "tag": "blue_skies:ingots/falsite"
+        }
+      },
+      "trigger": "blue_skies:used_tool_box"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.everbright.use_falsite_in_tool_box.desc"
+    },
+    "icon": {
+      "item": "blue_skies:falsite_ingot"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.everbright.use_falsite_in_tool_box"
+    }
+  },
+  "requirements": [
+    [
+      "use_tool_box"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

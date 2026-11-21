@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.items.tools.weapons;
 
+import com.legacy.blue_skies.compat.*;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
@@ -84,7 +85,7 @@ public class SpearItem extends Item implements Vanishable, IFalsiteItem {
          int i = this.getUseDuration(stack) - timeLeft;
          if (i >= 10) {
             if (!world.isClientSide) {
-               stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(entityLiving.getUsedItemHand()));
+               stack.hurtAndBreak(1, player, net.minecraft.world.entity.EquipmentSlot.MAINHAND);
                SpearEntity spearEntity = new SpearEntity(world, player, stack);
                int piercingLevel = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, stack);
                if (piercingLevel > 0) {
@@ -119,20 +120,20 @@ public class SpearItem extends Item implements Vanishable, IFalsiteItem {
       ItemStack stack = player.getItemInHand(hand);
       if (stack.getDamageValue() >= stack.getMaxDamage()) {
          return InteractionResultHolder.fail(stack);
-      } else {
-         player.startUsingItem(hand);
-         return InteractionResultHolder.consume(stack);
       }
+
+      player.startUsingItem(hand);
+      return InteractionResultHolder.consume(stack);
    }
 
    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-      stack.hurtAndBreak(1, attacker, entity -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+      stack.hurtAndBreak(1, attacker, net.minecraft.world.entity.EquipmentSlot.MAINHAND);
       return true;
    }
 
    public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
       if (state.getDestroySpeed(worldIn, pos) != 0.0) {
-         stack.hurtAndBreak(2, entityLiving, entity -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+         stack.hurtAndBreak(2, entityLiving, net.minecraft.world.entity.EquipmentSlot.MAINHAND);
       }
 
       return true;
@@ -146,10 +147,10 @@ public class SpearItem extends Item implements Vanishable, IFalsiteItem {
       Multimap<Attribute, AttributeModifier> attributeMap = HashMultimap.create();
       if (equipmentSlot == EquipmentSlot.MAINHAND) {
          Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 3.0, Operation.ADDITION));
+         builder.put(Attributes.ATTACK_DAMAGE, LegacyAttrs.modifier(LegacyAttrs.BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 3.0, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE));
          builder.put(
             Attributes.ATTACK_SPEED,
-            new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", ToolUtils.getAttackSpeed(-2.9F, this.getStick()), Operation.ADDITION)
+            LegacyAttrs.modifier(LegacyAttrs.BASE_ATTACK_SPEED_UUID, "Tool modifier", ToolUtils.getAttackSpeed(-2.9F, this.getStick()), net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE)
          );
          attributeMap = builder.build();
       }
@@ -162,7 +163,7 @@ public class SpearItem extends Item implements Vanishable, IFalsiteItem {
    }
 
    @OnlyIn(Dist.CLIENT)
-   public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> lore, TooltipFlag flag) {
+   public void appendHoverText(ItemStack stack, Level world, List<Component> lore, TooltipFlag flag) {
       if (this == SkiesItems.soulbound_spear) {
          lore.add(Component.literal(StringUtil.getAbilityText("gui.blue_skies.item.ability.soulbound")));
       }

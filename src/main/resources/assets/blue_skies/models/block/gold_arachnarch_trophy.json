@@ -1,0 +1,6 @@
+{
+	"parent": "blue_skies:block/arachnarch_trophy",
+	"textures": {
+		"trophy": "blue_skies:block/trophy/gold_arachnarch_trophy"
+	}
+}

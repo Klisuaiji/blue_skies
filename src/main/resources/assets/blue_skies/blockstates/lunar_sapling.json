@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "stage=0": { "model": "blue_skies:block/lunar_sapling" },
+        "stage=1": { "model": "blue_skies:block/lunar_sapling" }
+    }
+}

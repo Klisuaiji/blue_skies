@@ -1,0 +1,10 @@
+{
+  "type": "blue_skies:cave_plant",
+  "config": {
+    "plant": {
+      "Name": "blue_skies:snowcap_pinhead"
+    },
+    "radius": 10,
+    "tries": 30
+  }
+}

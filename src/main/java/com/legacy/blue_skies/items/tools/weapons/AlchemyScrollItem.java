@@ -63,7 +63,7 @@ public class AlchemyScrollItem extends Item {
          Player player = (Player)entityIn;
          player.getCooldowns().addCooldown(this, 80);
          ItemStack itemstack = entityIn.getItemInHand(player.getUsedItemHand());
-         itemstack.hurtAndBreak(1, player, entity -> entity.broadcastBreakEvent(player.getUsedItemHand()));
+         itemstack.hurtAndBreak(1, player, net.minecraft.world.entity.EquipmentSlot.MAINHAND);
          beginSpikeSpawning(player, true);
          player.awardStat(Stats.ITEM_USED.get(this));
          player.level().playSound(null, player, SkiesSounds.ENTITY_PLAYER_CAST_SPELL, SoundSource.PLAYERS, 1.0F, 1.0F);
@@ -185,7 +185,7 @@ public class AlchemyScrollItem extends Item {
    }
 
    @OnlyIn(Dist.CLIENT)
-   public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> lore, TooltipFlag flagIn) {
+   public void appendHoverText(ItemStack stack, Level worldIn, List<Component> lore, TooltipFlag flagIn) {
       lore.add(Component.literal(StringUtil.getAbilityText("gui.blue_skies.item.ability.alchemy_scroll")));
    }
 }

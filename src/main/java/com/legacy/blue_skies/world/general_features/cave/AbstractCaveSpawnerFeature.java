@@ -42,13 +42,14 @@ public abstract class AbstractCaveSpawnerFeature extends AbstractCaveFeature<Non
    }
 
    public boolean generate(WorldGenLevel world, ChunkGenerator chunkGen, RandomSource rand, BlockPos pos, NoneFeatureConfiguration config) {
+      BlockPos placePos = pos;
       boolean flag = false;
       Rotation rotation = Rotation.getRandom(rand);
       StructureTemplateManager manager = world.getLevel().getServer().getStructureManager();
       AbstractCaveSpawnerFeature.SpawnerTemplateData templateData = this.getRandomTemplate(rand);
       StructureTemplate template = manager.getOrCreate(templateData.templateName);
       Vec3i size = template.getSize(rotation);
-      BlockPos placePos = template.getZeroPositionWithTransform(pos, Mirror.NONE, rotation);
+      placePos = template.getZeroPositionWithTransform(placePos, Mirror.NONE, rotation);
       placePos = pos.offset(-(pos.getX() % 16), 0, -(pos.getZ() % 16));
       BlockPos centerPos = placePos.offset(size.getX() / 2, 0, size.getZ() / 2);
 

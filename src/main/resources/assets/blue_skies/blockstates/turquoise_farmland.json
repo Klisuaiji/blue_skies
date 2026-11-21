@@ -1,0 +1,12 @@
+{
+    "variants": {
+        "moisture=0": { "model": "blue_skies:block/turquoise_farmland_dry" },
+        "moisture=1": { "model": "blue_skies:block/turquoise_farmland_dry" },
+        "moisture=2": { "model": "blue_skies:block/turquoise_farmland_dry" },
+        "moisture=3": { "model": "blue_skies:block/turquoise_farmland_dry" },
+        "moisture=4": { "model": "blue_skies:block/turquoise_farmland_dry" },
+        "moisture=5": { "model": "blue_skies:block/turquoise_farmland_dry" },
+        "moisture=6": { "model": "blue_skies:block/turquoise_farmland_dry" },
+        "moisture=7": { "model": "blue_skies:block/turquoise_farmland_moist" }
+    }
+}

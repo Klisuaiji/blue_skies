@@ -11,7 +11,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class SyncDataRegistryPacket implements PacketHandler.ModPacket<SyncDataRegistryPacket, SyncDataRegistryPacket.Handler> {
    private final byte id;
@@ -43,8 +43,8 @@ public class SyncDataRegistryPacket implements PacketHandler.ModPacket<SyncDataR
          return new SyncDataRegistryPacket(id, BlueSkiesData.getSyncedManager(id).fromNBT(tag));
       }
 
-      public void handler(SyncDataRegistryPacket packet, PlayPayloadContext context) {
-         context.workHandler().submitAsync(() -> {
+      public void handler(SyncDataRegistryPacket packet, IPayloadContext context) {
+         context.enqueueWork(() -> {
             if (FMLEnvironment.dist == Dist.CLIENT) {
                BlueJournalScreen.savedScreen = null;
                BlueSkiesData.getSyncedManager(packet.id).setData(packet.manager);

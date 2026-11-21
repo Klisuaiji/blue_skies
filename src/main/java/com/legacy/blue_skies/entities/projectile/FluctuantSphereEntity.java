@@ -70,7 +70,7 @@ public class FluctuantSphereEntity extends AbstractHurtingProjectile {
       if (this.level().isClientSide || (entity == null || entity.isAlive()) && this.level().isLoaded(this.blockPosition())) {
          super.tick();
          if (this.shouldBurn()) {
-            this.setSecondsOnFire(1);
+            this.setRemainingFireTicks(1);
          }
 
          HitResult raytraceresult = ProjectileUtil.getHitResultOnMoveVector(this, x$0 -> this.canHitEntity(x$0));

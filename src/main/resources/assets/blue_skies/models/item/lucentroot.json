@@ -1,0 +1,7 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "blue_skies:block/plants/lucentroot",
+		"layer1": "blue_skies:block/plants/lucentroot_glow"
+	}
+}

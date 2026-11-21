@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "blue_skies:block/plants/snowcap_pinhead"
+  }
+}

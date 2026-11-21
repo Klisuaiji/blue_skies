@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.client.init;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.data.objects.tags.SkiesBiomeTags;
 import com.legacy.blue_skies.items.util.FoodPrepUtils;
 import com.legacy.blue_skies.items.util.PreparedFood;
@@ -18,16 +19,12 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.biome.Biome;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod.EventBusSubscriber;
-import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.Block;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.Item;
 
-@EventBusSubscriber(
-   modid = "blue_skies",
-   bus = Bus.MOD,
-   value = {Dist.CLIENT}
-)
+@EventBusSubscriber(modid = "blue_skies", bus = Bus.MOD, value = Dist.CLIENT)
 public class SkiesColoring {
    @SubscribeEvent
    public static void registerBlockColors(Block event) {
@@ -108,13 +105,17 @@ public class SkiesColoring {
       );
       event.register((itemStack, index) -> index == 0 ? 9269656 : -1, new ItemLike[]{SkiesItems.moonlit_water_lily});
       event.register((itemStack, index) -> {
-         PreparedFood preparedFood = FoodPrepUtils.deserialize(itemStack.getTag());
+         PreparedFood preparedFood = FoodPrepUtils.deserialize(LegacyNbt.get(itemStack));
          List<ItemStack> ingredients = preparedFood.getIngredients();
          if (index == 1) {
             return ingredients.size() > 0 ? FoodPrepUtils.FoodColor.get(ingredients.get(0).getItem()).color : FoodPrepUtils.FoodColor.BEEF.color;
-         } else if (index == 2) {
+         }
+
+         if (index == 2) {
             return ingredients.size() > 1 ? FoodPrepUtils.FoodColor.get(ingredients.get(1).getItem()).color : FoodPrepUtils.FoodColor.LETTUCE.color;
-         } else if (index == 3) {
+         }
+
+         if (index == 3) {
             List<MobEffectInstance> effects = preparedFood.getEffects();
             if (effects.size() > 0) {
                return effects.get(0).getEffect().getColor();

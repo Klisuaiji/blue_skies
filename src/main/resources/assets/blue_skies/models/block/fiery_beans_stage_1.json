@@ -1,0 +1,6 @@
+{
+    "parent": "block/crop",
+    "textures": {
+        "crop": "blue_skies:block/plants/fiery_beans_stage_1"
+    }
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "blue_skies:get_moonstone_shard",
+  "criteria": {
+    "obtain_material": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "blue_skies:pyrope_gem"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.get_pyrope.desc"
+    },
+    "icon": {
+      "item": "blue_skies:pyrope_gem"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.get_pyrope"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_material"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -106,13 +106,13 @@ public class SkiesBlockEntityTypes {
          }
       )
       .build(null);
-   public static final BlockEntityType<SnowcapOvenBlockEntity> SNOWCAP_OVEN = Builder.of(SnowcapOvenBlockEntity::new, new Block[]{SkiesBlocks.snowcap_oven})
+   public static final BlockEntityType<SnowcapOvenBlockEntity> SNOWCAP_OVEN = Builder.<SnowcapOvenBlockEntity>of(SnowcapOvenBlockEntity::new, new Block[]{SkiesBlocks.snowcap_oven})
       .build(null);
    public static final BlockEntityType<HorizoniteForgeBlockEntity> HORIZONITE_FORGE = Builder.of(
          HorizoniteForgeBlockEntity::new, new Block[]{SkiesBlocks.horizonite_forge}
       )
       .build(null);
-   public static final BlockEntityType<BagOfSpoilsBlockEntity> BAG_OF_SPOILS = Builder.of(BagOfSpoilsBlockEntity::new, new Block[]{SkiesBlocks.bag_of_spoils})
+   public static final BlockEntityType<BagOfSpoilsBlockEntity> BAG_OF_SPOILS = Builder.<BagOfSpoilsBlockEntity>of(BagOfSpoilsBlockEntity::new, new Block[]{SkiesBlocks.bag_of_spoils})
       .build(null);
 
    public static void init(RegisterEvent event) {

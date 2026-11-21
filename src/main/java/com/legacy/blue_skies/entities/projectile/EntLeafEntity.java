@@ -51,6 +51,6 @@ public class EntLeafEntity extends ThrowableProjectile {
       super.tick();
    }
 
-   protected void defineSynchedData() {
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
    }
 }

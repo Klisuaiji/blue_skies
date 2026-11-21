@@ -19,7 +19,6 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -61,7 +60,7 @@ public class InfestedSwarmerEntity extends SkiesMonsterEntity {
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
    ) {
       return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
    }
@@ -80,9 +79,6 @@ public class InfestedSwarmerEntity extends SkiesMonsterEntity {
       return 1;
    }
 
-   public MobType getMobType() {
-      return MobType.ARTHROPOD;
-   }
 
    public boolean doHurtTarget(Entity entityIn) {
       this.playSound(SkiesSounds.ENTITY_INFESTED_SWARMER_BITE, this.getSoundVolume(), this.getVoicePitch());

@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.biome.Biome;
 
 @RegistrarHolder
@@ -59,7 +59,7 @@ public class SkiesBiomes {
       });
    }
 
-   private static Pointer<Biome> create(String name, Function<BootstapContext<?>, Biome> biome) {
+   private static Pointer<Biome> create(String name, Function<BootstrapContext<?>, Biome> biome) {
       return HANDLER.createPointer(name, biome);
    }
 }

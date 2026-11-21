@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class UpdateNatureHealthPacket implements PacketHandler.ModPacket<UpdateNatureHealthPacket, UpdateNatureHealthPacket.Handler> {
    private float health;
@@ -37,9 +37,9 @@ public class UpdateNatureHealthPacket implements PacketHandler.ModPacket<UpdateN
          return new UpdateNatureHealthPacket(buff.readFloat());
       }
 
-      public void handler(UpdateNatureHealthPacket packet, PlayPayloadContext context) {
+      public void handler(UpdateNatureHealthPacket packet, IPayloadContext context) {
          if (FMLEnvironment.dist == Dist.CLIENT) {
-            context.workHandler().submitAsync(() -> handlePacket(packet));
+            context.enqueueWork(() -> handlePacket(packet));
          }
       }
 

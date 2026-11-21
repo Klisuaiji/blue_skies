@@ -30,9 +30,9 @@ public class JournalRequirementProv extends SkiesDataProvider<JournalRequirement
    private void register(
       Map<ResourceLocation, JournalRequirement> registry,
       String key,
-      @Nullable Integer everbrightProgression,
-      @Nullable Integer everdawnProgression,
-      @Nullable ResourceLocation advancement
+      Integer everbrightProgression,
+      Integer everdawnProgression,
+      ResourceLocation advancement
    ) {
       ResourceLocation name = BlueSkies.locate(key);
       registry.put(

@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.items.buckets;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.entities.passive.fish.JellyDrifterEntity;
 import com.legacy.blue_skies.registries.SkiesEntityTypes;
 import com.legacy.blue_skies.util.StringUtil;
@@ -50,21 +51,21 @@ public class VentiumMobBucketItem extends VentiumBucketItem {
       }
    }
 
-   protected void playEmptySound(@Nullable Player player, LevelAccessor level, BlockPos pos) {
+   protected void playEmptySound(Player player, LevelAccessor level, BlockPos pos) {
       level.playSound(player, pos, this.getEmptySound(), SoundSource.NEUTRAL, 1.0F, 1.0F);
    }
 
    private void spawn(ServerLevel level, ItemStack bucketStack, BlockPos pos) {
       if (this.getHeldEntityType().spawn(level, bucketStack, (Player)null, pos, MobSpawnType.BUCKET, true, false) instanceof Bucketable bucketable) {
-         bucketable.loadFromBucketTag(bucketStack.getOrCreateTag());
+         bucketable.loadFromBucketTag(LegacyNbt.getOrCreate(bucketStack));
          bucketable.setFromBucket(true);
       }
    }
 
    @OnlyIn(Dist.CLIENT)
-   public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+   public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
       if (this.getHeldEntityType() == SkiesEntityTypes.JELLY_DRIFTER) {
-         CompoundTag compoundnbt = stack.getTag();
+         CompoundTag compoundnbt = LegacyNbt.get(stack);
          if (compoundnbt != null && compoundnbt.contains("Color", 99)) {
             byte i = compoundnbt.getByte("Color");
             ChatFormatting[] formatting = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};

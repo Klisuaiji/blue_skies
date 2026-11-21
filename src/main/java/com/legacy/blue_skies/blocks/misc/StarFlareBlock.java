@@ -50,7 +50,7 @@ public class StarFlareBlock extends Block {
       return PushReaction.DESTROY;
    }
 
-   public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+   public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
       if (level.isClientSide) {
          this.animateTick(state, level, pos, level.random);
       }

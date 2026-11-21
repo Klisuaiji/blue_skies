@@ -49,9 +49,9 @@ public class SpearRenderer<T extends SpearEntity> extends EntityRenderer<T> {
          VertexConsumer builder = ItemRenderer.getFoilBufferDirect(
             bufferIn, RenderType.entityCutout(this.getTextureLocation(entityIn)), false, entityIn.hasEffect()
          );
-         this.getModel(entityIn).renderToBuffer(matrixStackIn, builder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+         this.getModel(entityIn).renderToBuffer(matrixStackIn, builder, packedLightIn, OverlayTexture.NO_OVERLAY, -1);
          VertexConsumer glowBuilder = ItemRenderer.getFoilBufferDirect(bufferIn, RenderType.eyes(this.getGlowTexture(entityIn)), false, entityIn.hasEffect());
-         this.getModel(entityIn).renderToBuffer(matrixStackIn, glowBuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+         this.getModel(entityIn).renderToBuffer(matrixStackIn, glowBuilder, packedLightIn, OverlayTexture.NO_OVERLAY, -1);
          matrixStackIn.popPose();
          super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
       }

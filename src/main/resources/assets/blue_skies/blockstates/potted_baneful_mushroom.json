@@ -1,0 +1,6 @@
+{
+	"variants": {
+		"open=true": { "model": "blue_skies:block/potted_baneful_mushroom_open" },
+		"open=false": { "model": "blue_skies:block/potted_baneful_mushroom" }
+	}
+}

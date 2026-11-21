@@ -12,7 +12,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.Entity.MovementEmission;
@@ -108,9 +107,6 @@ public class FireflyEntity extends SkiesAnimalEntity implements FlyingAnimal {
       super.tick();
    }
 
-   public MobType getMobType() {
-      return MobType.ARTHROPOD;
-   }
 
    @Override
    public AgeableMob createChild(AgeableMob ageableIn) {

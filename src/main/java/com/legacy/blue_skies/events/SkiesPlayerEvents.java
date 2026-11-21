@@ -84,7 +84,7 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.bus.api.Event.Result;
 import net.neoforged.neoforge.common.ToolAction;
-import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
@@ -143,9 +143,7 @@ public class SkiesPlayerEvents {
       }
    }
 
-   @SubscribeEvent(
-      priority = EventPriority.HIGHEST
-   )
+   @SubscribeEvent(priority = EventPriority.HIGHEST)
    public static void teleportToKeystone(LivingDeathEvent event) {
       if (event.getEntity() instanceof Player player) {
          SkiesPlayer.ifPresent(player, skiesPlayer -> {
@@ -291,8 +289,8 @@ public class SkiesPlayerEvents {
                      }
                   }
                }
-            } catch (Throwable var14) {
-               var14.printStackTrace();
+            } catch (Throwable e) {
+               e.printStackTrace();
             }
          } else {
             if (entity.level() instanceof ServerLevel) {
@@ -311,13 +309,13 @@ public class SkiesPlayerEvents {
    @SubscribeEvent
    public static void onToolUse(BlockToolModificationEvent event) {
       ToolAction toolAction = event.getToolAction();
-      if (toolAction == ToolActions.AXE_STRIP) {
+      if (toolAction == ItemAbilities.AXE_STRIP) {
          BlockState finalState = event.getFinalState();
          Block result = ToolCompat.AXE_STRIPPING.get(finalState.getBlock());
          if (result != null) {
             event.setFinalState(result.withPropertiesOf(finalState));
          }
-      } else if (toolAction == ToolActions.HOE_TILL) {
+      } else if (toolAction == ItemAbilities.HOE_TILL) {
          Block result = ToolCompat.HOE_TILLING.get(event.getFinalState().getBlock());
          if (result != null) {
             event.setFinalState(result.defaultBlockState());
@@ -359,7 +357,7 @@ public class SkiesPlayerEvents {
    public static void attackEntity(AttackEntityEvent event) {
       Player player = event.getEntity();
       if (player.getMainHandItem().is(SkiesItemTags.HORIZONITE_TOOLS)) {
-         event.getTarget().setSecondsOnFire(3);
+         event.getTarget().setRemainingFireTicks(3);
       }
 
       if (event.getTarget() instanceof WallExtensionEntity ex) {
@@ -716,15 +714,15 @@ public class SkiesPlayerEvents {
             throw new IllegalStateException(
                "Blue Skies' player capability wasn't present for " + player.toString() + " when doing a progression check for \"" + type + "\""
             );
-         } else {
-            if (KNOWN_MISSING.add(player.getUUID())) {
-               BlueSkies.LOGGER
-                  .error(
-                     "Blue Skies' player capability wasn't present for {} when doing a progression check for \"{}\". This should be reported if happening consistently!",
-                     player.toString(),
-                     type
-                  );
-            }
+         }
+
+         if (KNOWN_MISSING.add(player.getUUID())) {
+            BlueSkies.LOGGER
+               .error(
+                  "Blue Skies' player capability wasn't present for {} when doing a progression check for \"{}\". This should be reported if happening consistently!",
+                  player.toString(),
+                  type
+               );
          }
       }
    }

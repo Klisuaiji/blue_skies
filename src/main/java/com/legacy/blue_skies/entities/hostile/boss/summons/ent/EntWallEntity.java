@@ -77,9 +77,9 @@ public class EntWallEntity extends LivingEntity {
       super.move(typeIn, Vec3.ZERO);
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(FACING_Z, false);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(FACING_Z, false);
    }
 
    public static Builder registerAttributes() {
@@ -171,21 +171,21 @@ public class EntWallEntity extends LivingEntity {
    public boolean hurt(DamageSource source, float amount) {
       if (source == this.damageSources().fellOutOfWorld()) {
          return super.hurt(source, amount);
-      } else {
-         if (source.getDirectEntity() instanceof LivingEntity) {
-            ItemStack stack = ((LivingEntity)source.getDirectEntity()).getMainHandItem();
-            if (stack.getItem() instanceof SkyAxeItem) {
-               this.playDamageEffect();
-               return super.hurt(source, amount);
-            }
+      }
 
-            if (source.getDirectEntity() instanceof Player) {
-               ((Player)source.getDirectEntity()).displayClientMessage(Component.translatable("gui.blue_skies.tooltip.invalid_ent_weapon"), true);
-            }
+      if (source.getDirectEntity() instanceof LivingEntity) {
+         ItemStack stack = ((LivingEntity)source.getDirectEntity()).getMainHandItem();
+         if (stack.getItem() instanceof SkyAxeItem) {
+            this.playDamageEffect();
+            return super.hurt(source, amount);
          }
 
-         return false;
+         if (source.getDirectEntity() instanceof Player) {
+            ((Player)source.getDirectEntity()).displayClientMessage(Component.translatable("gui.blue_skies.tooltip.invalid_ent_weapon"), true);
+         }
       }
+
+      return false;
    }
 
    protected void doPush(Entity entityIn) {

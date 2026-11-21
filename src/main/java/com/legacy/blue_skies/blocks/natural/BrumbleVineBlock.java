@@ -34,7 +34,7 @@ public class BrumbleVineBlock extends GrowingPlantBodyBlock implements LiquidBlo
       return SkiesBlocks.brumble_vine_top;
    }
 
-   public boolean canPlaceLiquid(@Nullable Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
+   public boolean canPlaceLiquid(Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
       return false;
    }
 

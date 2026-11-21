@@ -15,7 +15,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -59,11 +58,11 @@ public class WhistleshellCrabEntity extends SkiesMonsterEntity {
          .add(Attributes.MAX_HEALTH, 26.0)
          .add(Attributes.MOVEMENT_SPEED, 0.3)
          .add(Attributes.ARMOR, 2.0)
-         .add((Attribute)NeoForgeMod.STEP_HEIGHT.value(), 1.0);
+         .add(Attributes.STEP_HEIGHT, 1.0);
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
       this.getEntityData().define(TYPE, (byte)0);
    }
 
@@ -76,7 +75,7 @@ public class WhistleshellCrabEntity extends SkiesMonsterEntity {
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
    ) {
       spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
       this.setCrabType((byte)worldIn.getRandom().nextInt(2));
@@ -168,9 +167,6 @@ public class WhistleshellCrabEntity extends SkiesMonsterEntity {
       return super.canDrownInFluidType(type) && type != NeoForgeMod.WATER_TYPE.value();
    }
 
-   public MobType getMobType() {
-      return MobType.WATER;
-   }
 
    public boolean isPushedByFluid() {
       return false;

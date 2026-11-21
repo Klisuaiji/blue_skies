@@ -1,0 +1,13 @@
+{
+    "variants": {
+		"type=stalactite,section=tip_merge": { "model": "blue_skies:block/turquoise_stalactite_tip_merge" },
+        "type=stalactite,section=tip": { "model": "blue_skies:block/turquoise_stalactite_tip" },
+        "type=stalactite,section=middle": { "model": "blue_skies:block/turquoise_stalactite_middle" },
+		"type=stalactite,section=base": { "model": "blue_skies:block/turquoise_stalactite_base" },
+
+		"type=stalagmite,section=tip_merge": { "model": "blue_skies:block/turquoise_stalagmite_tip_merge" },
+		"type=stalagmite,section=tip": { "model": "blue_skies:block/turquoise_stalagmite_tip" },
+        "type=stalagmite,section=middle": { "model": "blue_skies:block/turquoise_stalagmite_middle" },
+		"type=stalagmite,section=base": { "model": "blue_skies:block/turquoise_stalagmite_base" }
+    }
+}

@@ -85,11 +85,11 @@ public class AzulfoEntity extends SkiesAnimalEntity {
          .add(Attributes.ARMOR, 4.0)
          .add(Attributes.ATTACK_DAMAGE, 4.0)
          .add(Attributes.ATTACK_KNOCKBACK)
-         .add((Attribute)NeoForgeMod.STEP_HEIGHT.value(), 1.0);
+         .add(Attributes.STEP_HEIGHT, 1.0);
    }
 
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
    ) {
       super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
       if (!this.isBaby()) {

@@ -1,0 +1,34 @@
+{
+  "parent": "blue_skies:everdawn/get_wood",
+  "criteria": {
+    "obtain_material": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "blue_skies:horizonite_ingot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.everdawn.get_horizonite.desc"
+    },
+    "icon": {
+      "item": "blue_skies:horizonite_ingot"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.everdawn.get_horizonite"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_material"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -31,8 +31,8 @@ import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
 public class StarrySkyRenderer {
-   private static final ResourceLocation SUN_TEXTURE = new ResourceLocation("textures/environment/sun.png");
-   private static final ResourceLocation MOON_TEXTURES = new ResourceLocation("textures/environment/moon_phases.png");
+   private static final ResourceLocation SUN_TEXTURE = ResourceLocation.parse("textures/environment/sun.png");
+   private static final ResourceLocation MOON_TEXTURES = ResourceLocation.parse("textures/environment/moon_phases.png");
    private static final ResourceLocation HALLOWEEN_MOON_TEXTURE = BlueSkies.locate("textures/environment/halloween_moon.png");
    private VertexBuffer starBuffer;
    private VertexBuffer skyBuffer;

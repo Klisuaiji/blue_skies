@@ -29,7 +29,7 @@ public class BlueJournalEntryScreen extends BlueJournalScreen {
    private List<List<FormattedText>> pagesOfLines = new ArrayList<>();
    private JournalEntry.Lore lore;
 
-   public BlueJournalEntryScreen(@Nullable BlueJournalScreen previousScreen, JournalEntry entry, JournalSectionButton sectionButton) {
+   public BlueJournalEntryScreen(BlueJournalScreen previousScreen, JournalEntry entry, JournalSectionButton sectionButton) {
       super(previousScreen);
       this.entry = entry;
       this.sectionButton = sectionButton;
@@ -80,54 +80,54 @@ public class BlueJournalEntryScreen extends BlueJournalScreen {
    protected JournalEntry.Lore getLore() {
       if (this.entry.lores.size() == 1) {
          return this.entry.lores.get(0);
-      } else {
-         this.entry.lores.sort((p1, p2) -> {
-            JournalRequirement r1 = BlueSkiesData.JOURNAL_REQUIREMENTS.getValue(p1.requirement);
-            JournalRequirement r2 = BlueSkiesData.JOURNAL_REQUIREMENTS.getValue(p2.requirement);
-            if (r1 != null && r2 != null) {
-               int a1 = r1.advancement == null ? 0 : 1;
-               int a2 = r2.advancement == null ? 0 : 1;
-               int b1 = r1.everbrightProgression < 0 ? 0 : r1.everbrightProgression;
-               int b2 = r2.everbrightProgression < 0 ? 0 : r2.everbrightProgression;
-               int d1 = r1.everdawnProgression < 0 ? 0 : r1.everdawnProgression;
-               int d2 = r2.everdawnProgression < 0 ? 0 : r2.everdawnProgression;
-               int total1 = a1 + b1 + d1;
-               int total2 = a2 + b2 + d2;
-               return Integer.compare(total1, total2);
-            } else {
-               return 0;
-            }
-         });
+      }
 
-         for (JournalEntry.Lore lorePair : Lists.reverse(this.entry.lores)) {
-            if (lorePair.requirement == null) {
-               return lorePair;
-            }
+      this.entry.lores.sort((p1, p2) -> {
+         JournalRequirement r1 = BlueSkiesData.JOURNAL_REQUIREMENTS.getValue(p1.requirement);
+         JournalRequirement r2 = BlueSkiesData.JOURNAL_REQUIREMENTS.getValue(p2.requirement);
+         if (r1 != null && r2 != null) {
+            int a1 = r1.advancement == null ? 0 : 1;
+            int a2 = r2.advancement == null ? 0 : 1;
+            int b1 = r1.everbrightProgression < 0 ? 0 : r1.everbrightProgression;
+            int b2 = r2.everbrightProgression < 0 ? 0 : r2.everbrightProgression;
+            int d1 = r1.everdawnProgression < 0 ? 0 : r1.everdawnProgression;
+            int d2 = r2.everdawnProgression < 0 ? 0 : r2.everdawnProgression;
+            int total1 = a1 + b1 + d1;
+            int total2 = a2 + b2 + d2;
+            return Integer.compare(total1, total2);
+         } else {
+            return 0;
+         }
+      });
 
-            LocalPlayer player = this.minecraft.player;
-            JournalRequirement requirement = BlueSkiesData.JOURNAL_REQUIREMENTS.getValue(lorePair.requirement);
-            if (requirement != null) {
-               boolean advancementDone = false;
-               if (requirement.advancement != null) {
-                  ClientAdvancements advancements = player.connection.getAdvancements();
-                  AdvancementHolder advancement = advancements.get(requirement.advancement);
-                  if (advancement != null) {
-                     advancementDone = ((AdvancementProgress)advancements.progress.get(advancement)).isDone();
-                  }
-               }
-
-               int everbrightProg = SkiesPlayer.getIfPresent(player, s -> Integer.valueOf(s.getBrightProgression()), () -> -1);
-               int everdawnProg = SkiesPlayer.getIfPresent(player, s -> Integer.valueOf(s.getDawnProgression()), () -> -1);
-               if ((advancementDone || requirement.advancement == null)
-                  && (everbrightProg >= requirement.everbrightProgression || requirement.everbrightProgression < 0)
-                  && (everdawnProg >= requirement.everdawnProgression || requirement.everdawnProgression < 0)) {
-                  return lorePair;
-               }
-            }
+      for (JournalEntry.Lore lorePair : Lists.reverse(this.entry.lores)) {
+         if (lorePair.requirement == null) {
+            return lorePair;
          }
 
-         return this.entry.lores.get(this.entry.lores.size() - 1);
+         LocalPlayer player = this.minecraft.player;
+         JournalRequirement requirement = BlueSkiesData.JOURNAL_REQUIREMENTS.getValue(lorePair.requirement);
+         if (requirement != null) {
+            boolean advancementDone = false;
+            if (requirement.advancement != null) {
+               ClientAdvancements advancements = player.connection.getAdvancements();
+               AdvancementHolder advancement = advancements.get(requirement.advancement);
+               if (advancement != null) {
+                  advancementDone = ((AdvancementProgress)advancements.progress.get(advancement)).isDone();
+               }
+            }
+
+            int everbrightProg = SkiesPlayer.getIfPresent(player, s -> Integer.valueOf(s.getBrightProgression()), () -> -1);
+            int everdawnProg = SkiesPlayer.getIfPresent(player, s -> Integer.valueOf(s.getDawnProgression()), () -> -1);
+            if ((advancementDone || requirement.advancement == null)
+               && (everbrightProg >= requirement.everbrightProgression || requirement.everbrightProgression < 0)
+               && (everdawnProg >= requirement.everdawnProgression || requirement.everdawnProgression < 0)) {
+               return lorePair;
+            }
+         }
       }
+
+      return this.entry.lores.get(this.entry.lores.size() - 1);
    }
 
    @Override

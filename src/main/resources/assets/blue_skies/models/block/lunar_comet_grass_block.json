@@ -1,0 +1,9 @@
+{
+	"parent": "blue_skies:block/multi_texture_base",
+	"textures": {
+		"particle": "blue_skies:block/dirt_grass/lunar_dirt",
+		"bottom": "blue_skies:block/dirt_grass/lunar_dirt",
+		"top": "blue_skies:block/dirt_grass/comet_grass_top",
+		"side": "blue_skies:block/dirt_grass/lunar_comet_grass_side"
+	}
+}

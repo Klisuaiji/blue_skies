@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "bites=0": { "model": "blue_skies:block/comet_berry_pie_uneaten" },
+        "bites=1": { "model": "blue_skies:block/comet_berry_pie_bites_1" },
+        "bites=2": { "model": "blue_skies:block/comet_berry_pie_bites_2" },
+        "bites=3": { "model": "blue_skies:block/comet_berry_pie_bites_3" },
+        "bites=4": { "model": "blue_skies:block/comet_berry_pie_bites_4" },
+        "bites=5": { "model": "blue_skies:block/comet_berry_pie_bites_5" },
+        "bites=6": { "model": "blue_skies:block/comet_berry_pie_bites_6" }
+    }
+}

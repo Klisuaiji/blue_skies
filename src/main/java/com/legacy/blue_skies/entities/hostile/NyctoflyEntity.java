@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.entities.hostile;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.entities.ai.NonCreatureAttackGoal;
 import com.legacy.blue_skies.entities.util.MovingEntitySound;
 import com.legacy.blue_skies.registries.SkiesDamageSources;
@@ -22,13 +23,12 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.FlyingMob;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.control.MoveControl.Operation;
+
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.Goal.Flag;
@@ -193,9 +193,6 @@ public class NyctoflyEntity extends FlyingMob implements Enemy {
       return true;
    }
 
-   public MobType getMobType() {
-      return MobType.ARTHROPOD;
-   }
 
    class AIMoveControl extends MoveControl {
       private NyctoflyEntity nycto = NyctoflyEntity.this;
@@ -205,11 +202,11 @@ public class NyctoflyEntity extends FlyingMob implements Enemy {
       }
 
       public void tick() {
-         if (this.operation == Operation.MOVE_TO) {
+         if (this.operation == MoveControl.Operation.MOVE_TO) {
             Vec3 difference = new Vec3(this.wantedX - this.nycto.getX(), this.wantedY - this.nycto.getY(), this.wantedZ - this.nycto.getZ());
             double d0 = difference.length();
             if (d0 < this.nycto.getBoundingBox().getSize()) {
-               this.operation = Operation.WAIT;
+               this.operation = MoveControl.Operation.WAIT;
                this.nycto.setDeltaMovement(this.nycto.getDeltaMovement().scale(0.5));
             } else {
                if (this.nycto.getTarget() != null && this.nycto.getTarget().isEyeInFluidType((FluidType)NeoForgeMod.WATER_TYPE.value())) {
@@ -225,7 +222,7 @@ public class NyctoflyEntity extends FlyingMob implements Enemy {
                   }
 
                   if (this.nycto.idleTime >= 300 || !this.nycto.isNotColliding(this.wantedX, this.wantedY, this.wantedZ, d0)) {
-                     this.operation = Operation.WAIT;
+                     this.operation = MoveControl.Operation.WAIT;
                   }
                } else {
                   double d4 = this.nycto.getTarget().getX() - this.nycto.getX();
@@ -282,18 +279,18 @@ public class NyctoflyEntity extends FlyingMob implements Enemy {
       public boolean canUse() {
          if (this.nycto.getTarget() != null) {
             return false;
-         } else {
-            MoveControl movementController = this.nycto.getMoveControl();
-            if (!movementController.hasWanted() && this.nycto.getTarget() == null) {
-               return true;
-            } else {
-               double d0 = movementController.getWantedX() - this.nycto.getX();
-               double d1 = movementController.getWantedY() - this.nycto.getY();
-               double d2 = movementController.getWantedZ() - this.nycto.getZ();
-               double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-               return d3 < 1.0 || d3 > 3600.0;
-            }
          }
+
+         MoveControl movementController = this.nycto.getMoveControl();
+         if (!movementController.hasWanted() && this.nycto.getTarget() == null) {
+            return true;
+         }
+
+         double d0 = movementController.getWantedX() - this.nycto.getX();
+         double d1 = movementController.getWantedY() - this.nycto.getY();
+         double d2 = movementController.getWantedZ() - this.nycto.getZ();
+         double d3 = d0 * d0 + d1 * d1 + d2 * d2;
+         return d3 < 1.0 || d3 > 3600.0;
       }
 
       public boolean canContinueToUse() {

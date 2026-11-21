@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"facing=north": { "model": "blue_skies:block/spider_nest" },
+        "facing=south": { "model": "blue_skies:block/spider_nest", "y": 180 },
+        "facing=west":  { "model": "blue_skies:block/spider_nest", "y": 270 },
+        "facing=east":  { "model": "blue_skies:block/spider_nest", "y": 90 },
+		"facing=up": { "model": "blue_skies:block/spider_nest", "x": 270 },
+		"facing=down": { "model": "blue_skies:block/spider_nest", "x": 90 }
+	}
+}

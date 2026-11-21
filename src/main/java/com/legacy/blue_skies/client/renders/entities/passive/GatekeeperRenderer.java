@@ -36,8 +36,7 @@ public class GatekeeperRenderer<T extends GatekeeperEntity> extends MobRenderer<
             ) {
                if (entitylivingbaseIn.isAggressive()) {
                   super.render(
-                     matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch
-                  );
+                     matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, -1);
                }
             }
          }

@@ -1,0 +1,17 @@
+{
+  "type": "blue_skies:cave_grass",
+  "config": {
+    "dirt": {
+      "Name": "blue_skies:turquoise_stone"
+    },
+    "grass": {
+      "Name": "blue_skies:sea_moss_carpet",
+      "Properties": {
+        "waterlogged": "false"
+      }
+    },
+    "grass_block": {
+      "Name": "blue_skies:turquoise_stone"
+    }
+  }
+}

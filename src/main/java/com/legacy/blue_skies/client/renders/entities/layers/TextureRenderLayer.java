@@ -58,7 +58,7 @@ public abstract class TextureRenderLayer<T extends LivingEntity, M extends Entit
          this.layerModel.prepareMobModel(entityIn, limbSwing, limbSwingAmount, partialTicks);
          this.layerModel.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
          VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.type);
-         this.layerModel.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+         this.layerModel.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, -1);
       }
    }
 

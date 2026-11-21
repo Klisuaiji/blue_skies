@@ -1,0 +1,8 @@
+{
+    "parent": "block/inner_stairs",
+    "textures": {
+        "bottom": "blue_skies:block/stone/umber",
+        "top": "blue_skies:block/stone/umber",
+        "side": "blue_skies:block/stone/umber"
+    }
+}

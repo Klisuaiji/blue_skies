@@ -1,0 +1,8 @@
+{
+  "type": "blue_skies:large_rock",
+  "config": {
+    "state": {
+      "Name": "blue_skies:lunar_cobblestone"
+    }
+  }
+}

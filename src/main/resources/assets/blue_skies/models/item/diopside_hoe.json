@@ -1,0 +1,7 @@
+{
+	"parent": "item/handheld",
+	"textures": {
+		"layer0": "blue_skies:item/tools/handles/handle",
+		"layer1": "blue_skies:item/tools/heads/hoe/diopside"
+	}
+}

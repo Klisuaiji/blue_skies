@@ -1,0 +1,26 @@
+{
+  "parent": "blue_skies:everdawn/kill_arachnarch",
+  "criteria": {
+    "drop_arachnarch": {
+      "trigger": "blue_skies:special_arachnarch_kill"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.everdawn.kill_arachnarch_special.desc"
+    },
+    "frame": "challenge",
+    "icon": {
+      "item": "blue_skies:poison_arc"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.everdawn.kill_arachnarch_special"
+    }
+  },
+  "requirements": [
+    [
+      "drop_arachnarch"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

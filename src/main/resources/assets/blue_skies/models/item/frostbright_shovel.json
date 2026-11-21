@@ -1,0 +1,7 @@
+{
+	"parent": "item/handheld",
+	"textures": {
+		"layer0": "blue_skies:item/tools/handles/handle_pommel",
+		"layer1": "blue_skies:item/tools/heads/shovel/frostbright"
+	}
+}

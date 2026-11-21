@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "powered=false": { "model": "blue_skies:block/crystallized_pressure_plate_up" },
+        "powered=true": { "model": "blue_skies:block/crystallized_pressure_plate_down" }
+    }
+}

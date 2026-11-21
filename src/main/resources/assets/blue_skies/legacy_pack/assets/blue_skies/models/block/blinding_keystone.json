@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "end": "blue_skies:block/dungeon/blinding_stone",
+        "side": "blue_skies:block/dungeon/blinding_keystone"
+    }
+}

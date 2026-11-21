@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.entities.passive.fish;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.entities.util.interfaces.IVentiumCatchable;
 import com.legacy.blue_skies.registries.SkiesItems;
@@ -33,7 +34,7 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.control.MoveControl.Operation;
+
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
@@ -68,10 +69,10 @@ public class JellyDrifterEntity extends WaterAnimal implements IVentiumCatchable
       return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 6.0);
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(COLOR, (byte)0);
-      this.entityData.define(FROM_BUCKET, false);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(COLOR, (byte)0);
+      builder.define(FROM_BUCKET, false);
    }
 
    public boolean requiresCustomPersistence() {
@@ -211,7 +212,7 @@ public class JellyDrifterEntity extends WaterAnimal implements IVentiumCatchable
          bucket.setHoverName(this.getCustomName());
       }
 
-      CompoundTag compoundnbt = bucket.getOrCreateTag();
+      CompoundTag compoundnbt = LegacyNbt.getOrCreate(bucket);
       compoundnbt.putByte("Color", this.getColor());
    }
 
@@ -221,7 +222,7 @@ public class JellyDrifterEntity extends WaterAnimal implements IVentiumCatchable
       return worldIn.getBlockState(p_223363_3_).getBlock() == Blocks.WATER && worldIn.getBlockState(p_223363_3_.above()).getBlock() == Blocks.WATER;
    }
 
-   public static enum Colors {
+   public enum Colors {
       SNOW,
       ICY,
       ROSE,
@@ -267,7 +268,7 @@ public class JellyDrifterEntity extends WaterAnimal implements IVentiumCatchable
             this.jellyfish.setDeltaMovement(this.jellyfish.getDeltaMovement().add(0.0, 0.005, 0.0));
          }
 
-         if (this.operation == Operation.MOVE_TO && !this.jellyfish.getNavigation().isDone()) {
+         if (this.operation == MoveControl.Operation.MOVE_TO && !this.jellyfish.getNavigation().isDone()) {
             double d0 = this.wantedX - this.jellyfish.getX();
             double d1 = this.wantedY - this.jellyfish.getY();
             double d2 = this.wantedZ - this.jellyfish.getZ();

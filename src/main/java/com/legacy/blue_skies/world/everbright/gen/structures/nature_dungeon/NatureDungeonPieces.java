@@ -513,10 +513,10 @@ public class NatureDungeonPieces {
          }
 
          for (int x = 0; x < 5; x++) {
-            for (int zx = 0; zx < 5; zx++) {
-               NatureDungeonPieces.Room room = this.get(x, zx).get();
+            for (int z = 0; z < 5; z++) {
+               NatureDungeonPieces.Room room = this.get(x, z).get();
                if (!room.isConnectedToMain && !room.mainPath) {
-                  BlueSkies.LOGGER.warn("Nature dungeon found invalid room at " + x + ", " + zx);
+                  BlueSkies.LOGGER.warn("Nature dungeon found invalid room at " + x + ", " + z);
                }
             }
          }
@@ -524,11 +524,11 @@ public class NatureDungeonPieces {
          this.updateEntry();
 
          for (int x = 0; x < 5; x++) {
-            for (int zxx = 0; zxx < 5; zxx++) {
-               Pair<Integer, Integer> pos = Pair.of(x, zxx);
+            for (int z = 0; z < 5; z++) {
+               Pair<Integer, Integer> pos = Pair.of(x, z);
                if (this.get(pos).isPresent()) {
                   NatureDungeonPieces.Room room = this.get(pos).get();
-                  List<Direction> conns = this.getSurroundingConnections(x, zxx);
+                  List<Direction> conns = this.getSurroundingConnections(x, z);
                   if (this.exitPos.equals(pos)) {
                      Rotation rot = Rotation.NONE;
                      if (conns.contains(Direction.EAST)) {
@@ -625,8 +625,8 @@ public class NatureDungeonPieces {
          List<Pair<Integer, Integer>> potentialKeyRooms = new ArrayList<>();
 
          for (int x = 0; x < 5; x++) {
-            for (int zxxx = 0; zxxx < 5; zxxx++) {
-               Pair<Integer, Integer> pos = Pair.of(x, zxxx);
+            for (int z = 0; z < 5; z++) {
+               Pair<Integer, Integer> pos = Pair.of(x, z);
                NatureDungeonPieces.Room room = this.get(pos).get();
                if (!room.mainPath && !pos.equals(this.entryPos) && !pos.equals(this.exitPos) && room.isConnectedToMain) {
                   potentialKeyRooms.add(pos);
@@ -1279,7 +1279,7 @@ public class NatureDungeonPieces {
          if (key.startsWith("spawner")) {
             if (!this.hasChests && !(rand.nextInt() < 0.7F)) {
                String[] split = key.split("-");
-               Block block = (Block)BuiltInRegistries.BLOCK.get(new ResourceLocation(split[1]));
+               Block block = (Block)BuiltInRegistries.BLOCK.get(ResourceLocation.parse(split[1]));
                if (block != null) {
                   worldIn.setBlock(pos, block.defaultBlockState(), 3);
                }
@@ -1364,7 +1364,7 @@ public class NatureDungeonPieces {
          }
       }
 
-      protected static enum ConnectionType {
+      protected enum ConnectionType {
          CROSS,
          T,
          L,

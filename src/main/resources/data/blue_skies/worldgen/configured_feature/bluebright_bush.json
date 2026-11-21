@@ -1,0 +1,21 @@
+{
+  "type": "blue_skies:bush",
+  "config": {
+    "fromDungeon": false,
+    "leaf": {
+      "Name": "blue_skies:bluebright_leaves",
+      "Properties": {
+        "distance": "7",
+        "persistent": "false",
+        "snowy": "false",
+        "waterlogged": "false"
+      }
+    },
+    "log": {
+      "Name": "blue_skies:bluebright_log",
+      "Properties": {
+        "axis": "y"
+      }
+    }
+  }
+}

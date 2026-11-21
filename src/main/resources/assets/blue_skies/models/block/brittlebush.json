@@ -1,0 +1,6 @@
+{
+    "parent": "block/tinted_cross",
+    "textures": {
+        "cross": "blue_skies:block/plants/brittlebush"
+    }
+}

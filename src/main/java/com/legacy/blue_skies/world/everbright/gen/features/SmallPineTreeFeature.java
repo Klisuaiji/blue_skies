@@ -30,22 +30,22 @@ public class SmallPineTreeFeature extends AbstractSkyTreeFeature {
       int height = rand.nextInt(3) + this.baseHeight;
       if (!this.isAreaOk(world, pos, height, 1, height - 2, 3)) {
          return false;
-      } else {
-         for (int y = 0; y < height; y++) {
-            this.setBlockIfOk(changedLogs, world, pos.above(y), (BlockState)this.log.get());
-         }
-
-         BlockState leaf = (BlockState)this.leaf.get();
-         this.setBlockIfOk(changedLeaves, world, pos.above(height), leaf);
-         this.setBlockIfOk(changedLeaves, world, pos.offset(1, height - 1, 0), leaf);
-         this.setBlockIfOk(changedLeaves, world, pos.offset(1, height - 2, 0), leaf);
-         this.setBlockIfOk(changedLeaves, world, pos.offset(-1, height - 1, 0), leaf);
-         this.setBlockIfOk(changedLeaves, world, pos.offset(-1, height - 2, 0), leaf);
-         this.setBlockIfOk(changedLeaves, world, pos.offset(0, height - 1, 1), leaf);
-         this.setBlockIfOk(changedLeaves, world, pos.offset(0, height - 2, 1), leaf);
-         this.setBlockIfOk(changedLeaves, world, pos.offset(0, height - 1, -1), leaf);
-         this.setBlockIfOk(changedLeaves, world, pos.offset(0, height - 2, -1), leaf);
-         return true;
       }
+
+      for (int y = 0; y < height; y++) {
+         this.setBlockIfOk(changedLogs, world, pos.above(y), (BlockState)this.log.get());
+      }
+
+      BlockState leaf = (BlockState)this.leaf.get();
+      this.setBlockIfOk(changedLeaves, world, pos.above(height), leaf);
+      this.setBlockIfOk(changedLeaves, world, pos.offset(1, height - 1, 0), leaf);
+      this.setBlockIfOk(changedLeaves, world, pos.offset(1, height - 2, 0), leaf);
+      this.setBlockIfOk(changedLeaves, world, pos.offset(-1, height - 1, 0), leaf);
+      this.setBlockIfOk(changedLeaves, world, pos.offset(-1, height - 2, 0), leaf);
+      this.setBlockIfOk(changedLeaves, world, pos.offset(0, height - 1, 1), leaf);
+      this.setBlockIfOk(changedLeaves, world, pos.offset(0, height - 2, 1), leaf);
+      this.setBlockIfOk(changedLeaves, world, pos.offset(0, height - 1, -1), leaf);
+      this.setBlockIfOk(changedLeaves, world, pos.offset(0, height - 2, -1), leaf);
+      return true;
    }
 }

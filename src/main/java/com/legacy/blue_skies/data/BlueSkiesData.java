@@ -63,9 +63,9 @@ public class BlueSkiesData {
    public static SkiesSyncedDataManager<?, ?, ?> getSyncedManager(int id) {
       if (id >= 0 && id < SYNCED_MANAGERS.size()) {
          return SYNCED_MANAGERS.get(id);
-      } else {
-         BlueSkies.LOGGER.warn("Attempted to get a client-synced manager with an invalid id: {}", id);
-         return TOOL_HANDLE_TYPES;
       }
+
+      BlueSkies.LOGGER.warn("Attempted to get a client-synced manager with an invalid id: {}", id);
+      return TOOL_HANDLE_TYPES;
    }
 }

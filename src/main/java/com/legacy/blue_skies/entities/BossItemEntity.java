@@ -38,9 +38,9 @@ public class BossItemEntity extends ItemEntity {
       this.lifespan = stack.getItem() == null ? 6000 : stack.getEntityLifespan(worldIn);
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(VISIBLE_PLAYER_UNIQUE_ID, Optional.empty());
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(VISIBLE_PLAYER_UNIQUE_ID, Optional.empty());
    }
 
    public void addAdditionalSaveData(CompoundTag compound) {
@@ -69,7 +69,7 @@ public class BossItemEntity extends ItemEntity {
       return (UUID)((Optional)this.entityData.get(VISIBLE_PLAYER_UNIQUE_ID)).orElse((UUID)null);
    }
 
-   public void setVisiblePlayerId(@Nullable UUID ownerId) {
+   public void setVisiblePlayerId(UUID ownerId) {
       this.entityData.set(VISIBLE_PLAYER_UNIQUE_ID, Optional.ofNullable(ownerId));
    }
 

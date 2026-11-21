@@ -500,24 +500,24 @@ public class SkiesVillagerTrades {
       public MerchantOffer getOffer(Entity trader, RandomSource rand) {
          if (!(trader.level() instanceof ServerLevel)) {
             return null;
-         } else {
-            boolean isBackup = false;
-            ServerLevel serverlevel = (ServerLevel)trader.level();
-            BlockPos blockpos = serverlevel.findNearestMapStructure(this.structureTag, trader.blockPosition(), 100, true);
-            if (blockpos == null) {
-               blockpos = serverlevel.findNearestMapStructure(this.backupTag, trader.blockPosition(), 100, true);
-               isBackup = blockpos != null;
-            }
+         }
 
-            if (blockpos != null) {
-               ItemStack itemstack = MapItem.create(serverlevel, blockpos.getX(), blockpos.getZ(), (byte)2, true, true);
-               MapItem.renderBiomePreviewMap(serverlevel, itemstack);
-               MapItemSavedData.addTargetDecoration(itemstack, blockpos, "+", this.mapDecorationType);
-               itemstack.setHoverName(Component.translatable("filled_map." + BlueSkies.find(isBackup ? this.backupName : this.displayName)));
-               return new MerchantOffer(new ItemStack(Items.EMERALD, this.count), new ItemStack(Items.COMPASS), itemstack, this.maxUses, this.xpValue, 0.2F);
-            } else {
-               return null;
-            }
+         boolean isBackup = false;
+         ServerLevel serverlevel = (ServerLevel)trader.level();
+         BlockPos blockpos = serverlevel.findNearestMapStructure(this.structureTag, trader.blockPosition(), 100, true);
+         if (blockpos == null) {
+            blockpos = serverlevel.findNearestMapStructure(this.backupTag, trader.blockPosition(), 100, true);
+            isBackup = blockpos != null;
+         }
+
+         if (blockpos != null) {
+            ItemStack itemstack = MapItem.create(serverlevel, blockpos.getX(), blockpos.getZ(), (byte)2, true, true);
+            MapItem.renderBiomePreviewMap(serverlevel, itemstack);
+            MapItemSavedData.addTargetDecoration(itemstack, blockpos, "+", this.mapDecorationType);
+            itemstack.setHoverName(Component.translatable("filled_map." + BlueSkies.find(isBackup ? this.backupName : this.displayName)));
+            return new MerchantOffer(new ItemStack(Items.EMERALD, this.count), new ItemStack(Items.COMPASS), itemstack, this.maxUses, this.xpValue, 0.2F);
+         } else {
+            return null;
          }
       }
    }
@@ -624,13 +624,13 @@ public class SkiesVillagerTrades {
 
       @Nullable
       public MerchantOffer getOffer(Entity trader, RandomSource rand) {
-         List<Item> stickList = (List<Item>)(trader.level().dimension().equals(SkiesDimensions.everbrightKey())
+         List<Item> stickList = trader.level().dimension().equals(SkiesDimensions.everbrightKey())
             ? SkiesVillagerTrades.EVERBRIGHT_STICKS
             : (
                trader.level().dimension().equals(SkiesDimensions.everdawnKey())
                   ? SkiesVillagerTrades.EVERDAWN_STICKS
                   : Lists.newArrayList(new Item[]{Items.STICK})
-            ));
+            );
          return new MerchantOffer(
             new ItemStack((ItemLike)stickList.get(rand.nextInt(stickList.size())), 32),
             new ItemStack(SkiesItems.falsite_ingot, this.count),
@@ -665,13 +665,13 @@ public class SkiesVillagerTrades {
       @Nullable
       public MerchantOffer getOffer(Entity trader, RandomSource rand) {
          ItemStack itemstack = new ItemStack(this.toolItem);
-         List<Item> stickList = (List<Item>)(trader.level().dimension().equals(SkiesDimensions.everbrightKey())
+         List<Item> stickList = trader.level().dimension().equals(SkiesDimensions.everbrightKey())
             ? SkiesVillagerTrades.EVERBRIGHT_STICKS
             : (
                trader.level().dimension().equals(SkiesDimensions.everdawnKey())
                   ? SkiesVillagerTrades.EVERDAWN_STICKS
                   : Lists.newArrayList(new Item[]{Items.STICK})
-            ));
+            );
          ToolUtils.setStickType(itemstack, stickList.get(rand.nextInt(stickList.size())));
          IFalsiteItem.applyFalsite(itemstack);
          if (this.enchantLevel > 0) {

@@ -1,0 +1,9 @@
+{
+  "asset_name": "blue_skies-horizonite",
+  "description": {
+    "color": "#FFA43A",
+    "translate": "trim_material.blue_skies.horizonite"
+  },
+  "ingredient": "blue_skies:horizonite_ingot",
+  "item_model_index": 0.518412
+}

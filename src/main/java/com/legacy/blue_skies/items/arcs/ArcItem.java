@@ -70,7 +70,7 @@ public class ArcItem extends ColoredNameItem implements IArcItem, ISpecialTabIte
    }
 
    @OnlyIn(Dist.CLIENT)
-   public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> lore, TooltipFlag flag) {
+   public void appendHoverText(ItemStack stack, Level world, List<Component> lore, TooltipFlag flag) {
       boolean unfinished = stack.getItem() == SkiesItems.aquatic_arc || stack.getItem() == SkiesItems.life_arc || stack.getItem() == SkiesItems.runic_arc;
       if (unfinished) {
          lore.add(StringUtil.UNFINISHED);
@@ -195,7 +195,7 @@ public class ArcItem extends ColoredNameItem implements IArcItem, ISpecialTabIte
          case 6:
             return SkiesSounds.ITEM_RUNIC_ARC_EQUIP;
          default:
-            return SoundEvents.ARMOR_EQUIP_GENERIC;
+            return SoundEvents.ARMOR_EQUIP_GENERIC.value();
       }
    }
 

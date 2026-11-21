@@ -98,7 +98,7 @@ public class SkiesMusicTicker implements Tickable {
                      this.playDungeonMusic(tracktype);
                   }
                } else if (properDimension) {
-                  SkiesMusicTicker.TrackType tracktypex = this.getRandomAmbientTrack(playerDim, inWater);
+                  SkiesMusicTicker.TrackType tracktype = this.getRandomAmbientTrack(playerDim, inWater);
                   if (this.bossMusic != null || this.dungeonMusic != null) {
                      this.stopBossMusic();
                      this.stopDungeonMusic();
@@ -107,14 +107,14 @@ public class SkiesMusicTicker implements Tickable {
                   if (this.ambientMusic != null && !this.mc.getSoundManager().isActive(this.ambientMusic)) {
                      this.ambientMusic = null;
                      this.timeUntilNextMusic = Math.min(
-                        Mth.nextInt(this.mc.player.getRandom(), tracktypex.getMinDelay(), tracktypex.getMaxDelay()), this.timeUntilNextMusic
+                        Mth.nextInt(this.mc.player.getRandom(), tracktype.getMinDelay(), tracktype.getMaxDelay()), this.timeUntilNextMusic
                      );
                   }
 
-                  this.timeUntilNextMusic = Math.min(this.timeUntilNextMusic, tracktypex.getMaxDelay());
+                  this.timeUntilNextMusic = Math.min(this.timeUntilNextMusic, tracktype.getMaxDelay());
                   if (this.ambientMusic != null && (this.ambientMusic.getSound() == null || this.ambientMusic.getVolume() < 1.0F)
                      || this.ambientMusic == null && this.timeUntilNextMusic-- <= 0) {
-                     this.playMusic(tracktypex);
+                     this.playMusic(tracktype);
                   }
                }
             }
@@ -138,20 +138,20 @@ public class SkiesMusicTicker implements Tickable {
       if (dimType == SkiesDimensions.everbrightKey()) {
          if (inWater) {
             return SkiesMusicTicker.TrackType.WHISTLESHELL;
-         } else {
-            int num = this.mc.player.getRandom().nextInt(5);
-            switch (num) {
-               case 0:
-                  return SkiesMusicTicker.TrackType.BRISEGEL;
-               case 1:
-                  return SkiesMusicTicker.TrackType.TURQUOISE;
-               case 2:
-                  return SkiesMusicTicker.TrackType.BRIGHTLANDS;
-               case 3:
-                  return SkiesMusicTicker.TrackType.BRITTLEBUSH;
-               default:
-                  return SkiesMusicTicker.TrackType.SNOWCAP;
-            }
+         }
+
+         int num = this.mc.player.getRandom().nextInt(5);
+         switch (num) {
+            case 0:
+               return SkiesMusicTicker.TrackType.BRISEGEL;
+            case 1:
+               return SkiesMusicTicker.TrackType.TURQUOISE;
+            case 2:
+               return SkiesMusicTicker.TrackType.BRIGHTLANDS;
+            case 3:
+               return SkiesMusicTicker.TrackType.BRITTLEBUSH;
+            default:
+               return SkiesMusicTicker.TrackType.SNOWCAP;
          }
       } else {
          int num = this.mc.player.getRandom().nextInt(5);
@@ -173,17 +173,17 @@ public class SkiesMusicTicker implements Tickable {
    public SkiesMusicTicker.TrackType getBossTrack(SkiesDungeonType bossType) {
       if (bossType == null) {
          return SkiesMusicTicker.TrackType.GENERIC_BOSS;
-      } else {
-         switch (bossType) {
-            case BLINDING:
-               return SkiesMusicTicker.TrackType.BLINDING_BOSS;
-            case NATURE:
-               return SkiesMusicTicker.TrackType.NATURE_BOSS;
-            case POISON:
-               return SkiesMusicTicker.TrackType.POISON_BOSS;
-            default:
-               return SkiesMusicTicker.TrackType.GENERIC_BOSS;
-         }
+      }
+
+      switch (bossType) {
+         case BLINDING:
+            return SkiesMusicTicker.TrackType.BLINDING_BOSS;
+         case NATURE:
+            return SkiesMusicTicker.TrackType.NATURE_BOSS;
+         case POISON:
+            return SkiesMusicTicker.TrackType.POISON_BOSS;
+         default:
+            return SkiesMusicTicker.TrackType.GENERIC_BOSS;
       }
    }
 
@@ -221,7 +221,7 @@ public class SkiesMusicTicker implements Tickable {
    }
 
    public void playBossFanfare(SkiesDungeonType bossType) {
-      SoundEvent sound = (SoundEvent)SoundEvents.AMBIENT_CAVE.value();
+      SoundEvent sound = (SoundEvent)SoundEvents.AMBIENT_CAVE;
       if (bossType != null) {
          switch (bossType) {
             case BLINDING:
@@ -266,7 +266,7 @@ public class SkiesMusicTicker implements Tickable {
    }
 
    @OnlyIn(Dist.CLIENT)
-   public static enum TrackType {
+   public enum TrackType {
       MARS(SkiesSounds.MUSIC_MARS, 1200, 1500),
       MOONLIT_BLOOM(SkiesSounds.MUSIC_MOONLIT_BLOOM, 1200, 1500),
       BRISEGEL(SkiesSounds.MUSIC_BRISEGEL, 1200, 1500),
@@ -291,7 +291,7 @@ public class SkiesMusicTicker implements Tickable {
       private final int minDelay;
       private final int maxDelay;
 
-      private TrackType(SoundEvent musicLocationIn, int minDelayIn, int maxDelayIn) {
+      TrackType(SoundEvent musicLocationIn, int minDelayIn, int maxDelayIn) {
          this.musicLocation = musicLocationIn;
          this.minDelay = minDelayIn;
          this.maxDelay = maxDelayIn;

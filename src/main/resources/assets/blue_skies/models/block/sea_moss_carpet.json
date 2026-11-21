@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/carpet",
+  "textures": {
+    "wool": "blue_skies:block/plants/sea_moss_block"
+  }
+}

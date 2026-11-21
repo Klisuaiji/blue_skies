@@ -1,0 +1,8 @@
+{
+    "parent": "block/stairs",
+    "textures": {
+        "bottom": "blue_skies:block/stone/polished_taratite",
+        "top": "blue_skies:block/stone/polished_taratite",
+        "side": "blue_skies:block/stone/polished_taratite"
+    }
+}

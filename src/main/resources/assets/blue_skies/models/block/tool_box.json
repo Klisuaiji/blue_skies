@@ -1,0 +1,25 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "blue_skies:block/orientable",
+	"textures": {
+		"3": "blue_skies:block/villager/tool_box_front",
+		"particle": "blue_skies:block/villager/tool_box_side",
+		"side": "blue_skies:block/villager/tool_box_side",
+		"top": "blue_skies:block/villager/tool_box_top",
+		"bottom": "blue_skies:block/villager/tool_box_bottom"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 14, 16],
+			"faces": {
+				"north": {"uv": [0, 2, 16, 16], "texture": "#3"},
+				"east": {"uv": [0, 2, 16, 16], "texture": "#side"},
+				"south": {"uv": [0, 2, 16, 16], "texture": "#side"},
+				"west": {"uv": [0, 2, 16, 16], "texture": "#side"},
+				"up": {"uv": [0, 0, 16, 16], "rotation": 180, "texture": "#top"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#bottom"}
+			}
+		}
+	]
+}

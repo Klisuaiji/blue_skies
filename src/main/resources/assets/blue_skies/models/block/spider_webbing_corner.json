@@ -1,0 +1,6 @@
+{	
+	"parent": "blue_skies:block/spider_webbing_full",
+	"textures": {
+		"particle": "blue_skies:block/misc/spider_webbing_corner"
+	}
+}

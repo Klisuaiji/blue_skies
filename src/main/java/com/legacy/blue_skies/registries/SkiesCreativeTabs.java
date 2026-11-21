@@ -19,17 +19,14 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod.EventBusSubscriber;
-import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.common.util.MutableHashedLinkedMap;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
-@EventBusSubscriber(
-   modid = "blue_skies",
-   bus = Bus.MOD
-)
+@EventBusSubscriber(modid = "blue_skies", bus = Bus.MOD)
 public class SkiesCreativeTabs {
    public static final Lazy<List<Item>> SPAWN_EGGS = Lazy.of(
       () -> BuiltInRegistries.ITEM
@@ -745,8 +742,8 @@ public class SkiesCreativeTabs {
             .collect(Collectors.toList())) {
             System.out.println(BuiltInRegistries.ITEM.getKey(e));
          }
-      } catch (Exception var5) {
-         var5.printStackTrace();
+      } catch (Exception e) {
+         e.printStackTrace();
       }
    }
 }

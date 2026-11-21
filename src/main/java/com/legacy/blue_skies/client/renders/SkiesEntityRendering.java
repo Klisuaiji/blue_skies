@@ -101,16 +101,12 @@ import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod.EventBusSubscriber;
-import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterLayerDefinitions;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers;
 
-@EventBusSubscriber(
-   modid = "blue_skies",
-   bus = Bus.MOD,
-   value = {Dist.CLIENT}
-)
+@EventBusSubscriber(modid = "blue_skies", bus = Bus.MOD, value = Dist.CLIENT)
 public class SkiesEntityRendering {
    @SubscribeEvent
    public static void initLayers(RegisterLayerDefinitions event) {

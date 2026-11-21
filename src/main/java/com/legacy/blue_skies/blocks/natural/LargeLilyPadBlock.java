@@ -134,7 +134,7 @@ public class LargeLilyPadBlock extends BushBlock {
       return CODEC;
    }
 
-   public static enum Corner implements StringRepresentable {
+   public enum Corner implements StringRepresentable {
       BOTTOM_L("bottom_left"),
       BOTTOM_R("bottom_right"),
       TOP_L("top_left"),
@@ -142,7 +142,7 @@ public class LargeLilyPadBlock extends BushBlock {
 
       private final String name;
 
-      private Corner(String name) {
+      Corner(String name) {
          this.name = name;
       }
 

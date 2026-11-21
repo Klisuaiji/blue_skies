@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "blue_skies:item/armor/pyrope_helmet",
+    "layer1": "minecraft:trims/items/helmet_trim_blue_skies-falsite"
+  }
+}

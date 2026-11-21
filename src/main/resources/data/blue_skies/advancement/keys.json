@@ -1,0 +1,34 @@
+{
+  "parent": "blue_skies:enter_blinding_dungeon",
+  "criteria": {
+    "obtain_key": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "blue_skies:blinding_key"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.keys.desc"
+    },
+    "icon": {
+      "item": "blue_skies:blinding_key"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.keys"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_key"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

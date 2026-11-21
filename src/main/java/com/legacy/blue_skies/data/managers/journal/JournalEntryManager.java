@@ -33,12 +33,12 @@ public class JournalEntryManager extends SkiesSyncedDataManager<ResourceLocation
 
    @Override
    public Pair<ResourceLocation, JournalEntry> entryFromNbt(CompoundTag keyNbt, CompoundTag valueNbt) {
-      ResourceLocation key = new ResourceLocation(keyNbt.getString("0"));
+      ResourceLocation key = ResourceLocation.parse(keyNbt.getString("0"));
       JsonObject json = ((JsonElement)NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, valueNbt)).getAsJsonObject();
 
       try {
          return Pair.of(key, (JournalEntry)this.parseJson(json, key).getSecond());
-      } catch (SkiesDataManager.RegistryObjectNotFoundException var6) {
+      } catch (SkiesDataManager.RegistryObjectNotFoundException e) {
          throw new IllegalArgumentException("Failed to get registry object");
       }
    }
@@ -51,7 +51,7 @@ public class JournalEntryManager extends SkiesSyncedDataManager<ResourceLocation
       for (JsonElement e : GsonHelper.getAsJsonArray(json, "lores")) {
          JsonObject loreJson = e.getAsJsonObject();
          String text = GsonHelper.getAsString(loreJson, "text");
-         ResourceLocation requirement = loreJson.has("requirement") ? new ResourceLocation(GsonHelper.getAsString(loreJson, "requirement")) : null;
+         ResourceLocation requirement = loreJson.has("requirement") ? ResourceLocation.parse(GsonHelper.getAsString(loreJson, "requirement")) : null;
          JournalEntryRenderers.IRenderable display = null;
          if (loreJson.has("display")) {
             JsonObject displayJson = GsonHelper.getAsJsonObject(loreJson, "display");
@@ -66,7 +66,7 @@ public class JournalEntryManager extends SkiesSyncedDataManager<ResourceLocation
                   throw new IllegalArgumentException("display type invalid");
                }
 
-               display = new JournalEntryRenderers.ImageDisplay(new ResourceLocation(GsonHelper.getAsString(displayData, "image")));
+               display = new JournalEntryRenderers.ImageDisplay(ResourceLocation.parse(GsonHelper.getAsString(displayData, "image")));
             }
          }
 
@@ -84,11 +84,11 @@ public class JournalEntryManager extends SkiesSyncedDataManager<ResourceLocation
             throw new IllegalArgumentException("icon type invalid");
          }
 
-         icon = new JournalEntryRenderers.TextureIcon(new ResourceLocation(GsonHelper.getAsString(iconData, "texture")));
+         icon = new JournalEntryRenderers.TextureIcon(ResourceLocation.parse(GsonHelper.getAsString(iconData, "texture")));
       }
 
-      ResourceLocation section = new ResourceLocation(GsonHelper.getAsString(json, "section"));
-      ResourceLocation requirement = json.has("requirement") ? new ResourceLocation(GsonHelper.getAsString(json, "requirement")) : null;
+      ResourceLocation section = ResourceLocation.parse(GsonHelper.getAsString(json, "section"));
+      ResourceLocation requirement = json.has("requirement") ? ResourceLocation.parse(GsonHelper.getAsString(json, "requirement")) : null;
       int priority = GsonHelper.getAsInt(json, "priority", 0);
       return Pair.of(name, new JournalEntry(title, lores, icon, section, requirement, priority));
    }

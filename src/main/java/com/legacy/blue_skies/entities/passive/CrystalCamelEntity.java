@@ -71,13 +71,13 @@ public class CrystalCamelEntity extends SkiesMountEntity {
       return Mob.createMobAttributes()
          .add(Attributes.MAX_HEALTH, 30.0)
          .add(Attributes.MOVEMENT_SPEED, 0.15F)
-         .add((Attribute)NeoForgeMod.STEP_HEIGHT.value(), 1.0);
+         .add(Attributes.STEP_HEIGHT, 1.0);
    }
 
    @Override
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(CHESTED, false);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(CHESTED, false);
    }
 
    @Override

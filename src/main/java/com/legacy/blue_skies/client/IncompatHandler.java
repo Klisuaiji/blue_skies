@@ -51,8 +51,8 @@ public class IncompatHandler {
                   }
 
                   reader.close();
-               } catch (Exception var3) {
-                  var3.printStackTrace();
+               } catch (Exception e) {
+                  e.printStackTrace();
                }
             }
 
@@ -64,7 +64,7 @@ public class IncompatHandler {
          try {
             Class.forName("net.optifine.Lang");
             return true;
-         } catch (Throwable var1) {
+         } catch (Throwable t) {
             return false;
          }
       }

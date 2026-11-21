@@ -48,7 +48,7 @@ public abstract class BlueJournalScreen extends Screen {
    protected JournalPageButton prevPageButton;
    protected JournalPageButton nextPageButton;
 
-   public BlueJournalScreen(@Nullable BlueJournalScreen previousScreen) {
+   public BlueJournalScreen(BlueJournalScreen previousScreen) {
       super(SCREEN_NAME);
       this.previousScreen = previousScreen;
       this.codeIndex = previousScreen != null ? previousScreen.codeIndex : 0;
@@ -135,8 +135,8 @@ public abstract class BlueJournalScreen extends Screen {
          }
       }
 
-      for (Renderable renderablex : this.renderables) {
-         if (renderablex instanceof AbstractWidget widget && widget.isHoveredOrFocused()) {
+      for (Renderable renderable : this.renderables) {
+         if (renderable instanceof AbstractWidget widget && widget.isHoveredOrFocused()) {
             widget.render(graphics, mouseX, mouseY, partialTicks);
          }
       }
@@ -160,7 +160,7 @@ public abstract class BlueJournalScreen extends Screen {
    }
 
    public static void open(boolean openInventoryOnBackButton) {
-      Minecraft.getInstance().setScreen((Screen)(savedScreen == null ? new BlueJournalStartScreen() : savedScreen));
+      Minecraft.getInstance().setScreen(savedScreen == null ? new BlueJournalStartScreen() : savedScreen);
       BlueJournalScreen.openInventoryOnBackButton = openInventoryOnBackButton;
    }
 

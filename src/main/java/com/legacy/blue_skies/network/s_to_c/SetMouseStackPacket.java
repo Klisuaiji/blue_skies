@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class SetMouseStackPacket implements PacketHandler.ModPacket<SetMouseStackPacket, SetMouseStackPacket.Handler> {
    private final ItemStack stack;
@@ -36,9 +36,9 @@ public class SetMouseStackPacket implements PacketHandler.ModPacket<SetMouseStac
          return new SetMouseStackPacket(buff.readItem());
       }
 
-      public void handler(SetMouseStackPacket packet, PlayPayloadContext context) {
+      public void handler(SetMouseStackPacket packet, IPayloadContext context) {
          if (FMLEnvironment.dist == Dist.CLIENT) {
-            context.workHandler().submitAsync(() -> {
+            context.enqueueWork(() -> {
                LocalPlayer player = Minecraft.getInstance().player;
                if (player != null) {
                   player.containerMenu.setCarried(packet.stack.copy());

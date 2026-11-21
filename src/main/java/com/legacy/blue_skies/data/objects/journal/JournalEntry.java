@@ -24,7 +24,7 @@ public class JournalEntry implements IToJson<JournalEntry> {
       List<JournalEntry.Lore> lores,
       JournalEntryRenderers.IRenderable icon,
       ResourceLocation section,
-      @Nullable ResourceLocation requirement,
+      ResourceLocation requirement,
       int priority
    ) {
       this.title = title;
@@ -132,7 +132,7 @@ public class JournalEntry implements IToJson<JournalEntry> {
       @Nullable
       public final JournalEntryRenderers.IRenderable display;
 
-      public Lore(String text, @Nullable ResourceLocation requirement, @Nullable JournalEntryRenderers.IRenderable display) {
+      public Lore(String text, ResourceLocation requirement, JournalEntryRenderers.IRenderable display) {
          this.text = text;
          this.requirement = requirement;
          this.display = display;

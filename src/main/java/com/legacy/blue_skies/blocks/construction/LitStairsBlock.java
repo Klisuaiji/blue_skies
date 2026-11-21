@@ -18,7 +18,7 @@ public class LitStairsBlock extends StairBlock {
    }
 
    private LitStairsBlock(BlockState state, Properties properties) {
-      this((Supplier<BlockState>)(() -> state), properties);
+      this(() -> state, properties);
    }
 
    public MapCodec<? extends LitStairsBlock> codec() {

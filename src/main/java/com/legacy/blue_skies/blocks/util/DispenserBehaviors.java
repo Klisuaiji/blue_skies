@@ -68,20 +68,20 @@ public class DispenserBehaviors {
                ItemStack fullBucketStack = VentiumBucketItem.convertBucket(((BucketPickup)block).pickupBlock(null, level, pos, state));
                if (fullBucketStack.isEmpty()) {
                   return super.execute(blockSource, stack);
-               } else {
-                  level.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
-                  Item fullBucket = fullBucketStack.getItem();
-                  stack.shrink(1);
-                  if (stack.isEmpty()) {
-                     return new ItemStack(fullBucket);
-                  } else {
-                     if (blockSource.blockEntity().addItem(new ItemStack(fullBucket)) < 0) {
-                        this.defaultDispenseItemBehavior.dispense(blockSource, new ItemStack(fullBucket));
-                     }
-
-                     return stack;
-                  }
                }
+
+               level.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
+               Item fullBucket = fullBucketStack.getItem();
+               stack.shrink(1);
+               if (stack.isEmpty()) {
+                  return new ItemStack(fullBucket);
+               }
+
+               if (blockSource.blockEntity().addItem(new ItemStack(fullBucket)) < 0) {
+                  this.defaultDispenseItemBehavior.dispense(blockSource, new ItemStack(fullBucket));
+               }
+
+               return stack;
             } else {
                return super.execute(blockSource, stack);
             }

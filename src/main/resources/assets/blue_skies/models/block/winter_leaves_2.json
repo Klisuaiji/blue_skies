@@ -1,0 +1,21 @@
+{	
+	"ambientocclusion": false,
+	"textures": {
+		"winter_leaves": "blue_skies:block/plants/winter_leaves",
+		"top": "blue_skies:block/plants/winter_leaves_top"
+	},
+	"elements": [ 	 
+		{
+			"from": [ 5, 0, 5 ],
+			"to": [ 11, 6, 11 ],
+			"faces": {
+				"down": { "uv": [ 0, 0, 6, 6 ], "texture": "#top" },
+				"up": { "uv": [ 0, 0, 6, 6 ], "texture": "#top" },
+				"north": { "uv": [ 0, 0, 6, 6 ], "texture": "#winter_leaves" },
+				"south": { "uv": [ 0, 0, 6, 6 ], "texture": "#winter_leaves" },
+				"west": { "uv": [ 0, 0, 6, 6 ], "texture": "#winter_leaves" },
+				"east": { "uv": [ 0, 0, 6, 6 ], "texture": "#winter_leaves" }
+			}
+		}
+	]
+}

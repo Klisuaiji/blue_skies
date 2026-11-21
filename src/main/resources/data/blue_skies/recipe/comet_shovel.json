@@ -1,0 +1,25 @@
+{
+  "type": "blue_skies:tool_recipe",
+  "pattern": {
+    "key": {
+      "m": {
+        "item": "blue_skies:comet_planks"
+      },
+      "s": {
+        "type": "blue_skies:tool_handles"
+      }
+    },
+    "pattern": [
+      "m",
+      "s",
+      "s"
+    ]
+  },
+  "result": {
+    "Count": 1,
+    "id": "blue_skies:comet_shovel",
+    "tag": {
+      "Damage": 0
+    }
+  }
+}

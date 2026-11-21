@@ -1,0 +1,63 @@
+{
+	"textures": {
+		"web": "blue_skies:block/misc/spider_webbing_full",
+		"keystone": "blue_skies:block/dungeon/poison_keystone",
+		"particle": "blue_skies:block/dungeon/poison_keystone"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 8],
+			"to": [16, 16, 8],
+			"shade": false,
+			"faces": {
+				"north": {"uv": [0, 16, 16, 0], "texture": "#web"},
+				"south": {"uv": [16, 16, 0, 0], "texture": "#web"}
+			}
+		},
+		{
+			"from": [4, 4, 7],
+			"to": [12, 12, 9],
+			"faces": {
+				"north": {"uv": [4, 4, 12, 12], "texture": "#keystone"},
+				"east": {"uv": [2, 4, 4, 12], "texture": "#keystone"},
+				"south": {"uv": [4, 4, 12, 12], "texture": "#keystone"},
+				"west": {"uv": [12, 4, 14, 12], "texture": "#keystone"},
+				"up": {"uv": [4, 2, 12, 4], "texture": "#keystone"},
+				"down": {"uv": [4, 12, 12, 14], "texture": "#keystone"}
+			}
+		}
+	],
+	"gui_light": "side",
+	"display": {
+		"gui": {
+		"rotation": [ 30, 225, 0 ],
+			"translation": [ 0, 0, 0],
+			"scale":[ 0.625, 0.625, 0.625 ]
+		},
+		"ground": {
+			"rotation": [ 0, 0, 0 ],
+			"translation": [ 0, 3, 0],
+			"scale":[ 0.25, 0.25, 0.25 ]
+		},
+		"fixed": {
+			"rotation": [ 0, 0, 0 ],
+			"translation": [ 0, 0, 0],
+			"scale":[ 0.5, 0.5, 0.5 ]
+		},
+		"thirdperson_righthand": {
+			"rotation": [ 75, 45, 0 ],
+			"translation": [ 0, 2.5, 0],
+			"scale": [ 0.375, 0.375, 0.375 ]
+		},
+		"firstperson_righthand": {
+			"rotation": [ 0, 45, 0 ],
+			"translation": [ 0, 0, 0 ],
+			"scale": [ 0.40, 0.40, 0.40 ]
+		},
+		"firstperson_lefthand": {
+			"rotation": [ 0, 225, 0 ],
+			"translation": [ 0, 0, 0 ],
+			"scale": [ 0.40, 0.40, 0.40 ]
+		}
+	}
+}

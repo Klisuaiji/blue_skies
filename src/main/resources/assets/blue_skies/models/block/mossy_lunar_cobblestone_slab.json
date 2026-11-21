@@ -1,0 +1,8 @@
+{
+    "parent": "block/slab",
+    "textures": {
+        "bottom": "blue_skies:block/stone/mossy_lunar_cobblestone",
+        "top": "blue_skies:block/stone/mossy_lunar_cobblestone",
+        "side": "blue_skies:block/stone/mossy_lunar_cobblestone"
+    }
+}

@@ -10,7 +10,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class OpenInventoryPacket {
    public static class Arcs implements PacketHandler.ModPacket<OpenInventoryPacket.Arcs, OpenInventoryPacket.Arcs.Handler> {
@@ -31,8 +31,8 @@ public class OpenInventoryPacket {
             return new OpenInventoryPacket.Arcs();
          }
 
-         public void handler(OpenInventoryPacket.Arcs packet, PlayPayloadContext context) {
-            context.workHandler().submitAsync(() -> {
+         public void handler(OpenInventoryPacket.Arcs packet, IPayloadContext context) {
+            context.enqueueWork(() -> {
                ServerPlayer player = this.serverPlayer(context);
                if (player != null) {
                   SkiesPlayer.ifPresent(player, skyPlayer -> {
@@ -66,8 +66,8 @@ public class OpenInventoryPacket {
             return new OpenInventoryPacket.Mount();
          }
 
-         public void handler(OpenInventoryPacket.Mount packet, PlayPayloadContext context) {
-            context.workHandler().submitAsync(() -> {
+         public void handler(OpenInventoryPacket.Mount packet, IPayloadContext context) {
+            context.enqueueWork(() -> {
                ServerPlayer player = this.serverPlayer(context);
                if (player != null && player.getVehicle() != null && player.getVehicle() instanceof SkiesMountEntity) {
                   SkiesMountEntity.openMountContainer(player, (SkiesMountEntity)player.getVehicle());
@@ -95,8 +95,8 @@ public class OpenInventoryPacket {
             return new OpenInventoryPacket.Vanilla();
          }
 
-         public void handler(OpenInventoryPacket.Vanilla packet, PlayPayloadContext context) {
-            context.workHandler().submitAsync(() -> {
+         public void handler(OpenInventoryPacket.Vanilla packet, IPayloadContext context) {
+            context.enqueueWork(() -> {
                ServerPlayer player = this.serverPlayer(context);
                if (player != null) {
                   if (player.getVehicle() != null && player.getVehicle() instanceof SkiesMountEntity) {

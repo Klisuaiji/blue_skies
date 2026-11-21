@@ -1,0 +1,7 @@
+{
+    "parent": "blue_skies:block/cross_crop",
+    "textures": {
+        "particle": "blue_skies:block/plants/pine_fruits_upper_2",
+        "cross": "blue_skies:block/plants/pine_fruits_upper_2"
+    }
+}

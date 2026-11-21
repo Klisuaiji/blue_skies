@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.block_entity;
 
+import net.minecraft.core.HolderLookup;
 import com.google.common.collect.Lists;
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.client.gui.menu.HorizoniteForgeMenu;
@@ -106,26 +107,26 @@ public class HorizoniteForgeBlockEntity
       return new HorizoniteForgeMenu(id, playerInv, this, this.data);
    }
 
-   public void load(CompoundTag nbt) {
-      super.load(nbt);
+   public void loadAdditional(CompoundTag nbt, HolderLookup.Provider p) {
+      super.loadAdditional(nbt, p);
       this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-      ContainerHelper.loadAllItems(nbt, this.items);
+      ContainerHelper.loadAllItems(nbt, this.items, p);
       this.energy = nbt.getInt("Energy");
       this.cookTime = nbt.getInt("CookTime");
       this.maxCookTime = nbt.getInt("MaxCookTime");
       CompoundTag recipesUsedNbt = nbt.getCompound("RecipesUsed");
 
       for (String s : recipesUsedNbt.getAllKeys()) {
-         this.recipesUsed.put(new ResourceLocation(s), recipesUsedNbt.getInt(s));
+         this.recipesUsed.put(ResourceLocation.parse(s), recipesUsedNbt.getInt(s));
       }
    }
 
-   public void saveAdditional(CompoundTag nbt) {
-      super.saveAdditional(nbt);
+   public void saveAdditional(CompoundTag nbt, HolderLookup.Provider p) {
+      super.saveAdditional(nbt, p);
       nbt.putInt("Energy", this.energy);
       nbt.putInt("CookTime", this.cookTime);
       nbt.putInt("MaxCookTime", this.maxCookTime);
-      ContainerHelper.saveAllItems(nbt, this.items);
+      ContainerHelper.saveAllItems(nbt, this.items, p);
       CompoundTag recipesUsedNbt = new CompoundTag();
       this.recipesUsed.forEach((recipeId, craftedAmount) -> recipesUsedNbt.putInt(recipeId.toString(), craftedAmount));
       nbt.put("RecipesUsed", recipesUsedNbt);
@@ -227,7 +228,7 @@ public class HorizoniteForgeBlockEntity
       return this.cookTime;
    }
 
-   private boolean canBurn(@Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
+   private boolean canBurn(Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
       if (!this.getRawStack().isEmpty() && recipe != null && this.energy > 0) {
          ItemStack recipeOutput = recipe.assemble(this, this.level.registryAccess());
          if (recipeOutput.isEmpty()) {
@@ -297,7 +298,7 @@ public class HorizoniteForgeBlockEntity
       }
    }
 
-   public boolean canPlaceItemThroughFace(int index, ItemStack stack, @Nullable Direction direction) {
+   public boolean canPlaceItemThroughFace(int index, ItemStack stack, Direction direction) {
       return this.canPlaceItem(index, stack);
    }
 

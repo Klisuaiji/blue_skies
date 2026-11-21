@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.items.tools.weapons;
 
+import com.legacy.blue_skies.compat.*;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.legacy.blue_skies.items.util.ToolUtils;
@@ -28,8 +29,8 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 public class InfusedArcSwordItem extends SkySwordItem {
-   protected AttributeModifier INFUSED_DAMAGE = new AttributeModifier(
-      BASE_ATTACK_DAMAGE_UUID, "Infused damage modifier", this.getDamage() * 0.7F, Operation.ADDITION
+   protected AttributeModifier INFUSED_DAMAGE = LegacyAttrs.modifier(
+      LegacyAttrs.BASE_ATTACK_DAMAGE_UUID, "Infused damage modifier", this.getDamage() * 0.7F, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE
    );
    private byte maxInfusedHits = 30;
 
@@ -38,22 +39,22 @@ public class InfusedArcSwordItem extends SkySwordItem {
    }
 
    public static byte getInfusedHits(ItemStack stack) {
-      CompoundTag compoundnbt = stack.getTag();
+      CompoundTag compoundnbt = LegacyNbt.get(stack);
       return compoundnbt.getByte("InfusedHits");
    }
 
    public static void setInfusedHits(ItemStack stack, byte hitsIn) {
-      CompoundTag compoundnbt = stack.getOrCreateTag();
+      CompoundTag compoundnbt = LegacyNbt.getOrCreate(stack);
       compoundnbt.putByte("InfusedHits", hitsIn);
    }
 
    public static int getInfusedCooldown(ItemStack stack) {
-      CompoundTag compoundnbt = stack.getTag();
+      CompoundTag compoundnbt = LegacyNbt.get(stack);
       return compoundnbt.getInt("InfusedCooldown");
    }
 
    public static void setInfusedCooldown(ItemStack stack, int cooldownIn) {
-      CompoundTag compoundnbt = stack.getOrCreateTag();
+      CompoundTag compoundnbt = LegacyNbt.getOrCreate(stack);
       compoundnbt.putInt("InfusedCooldown", cooldownIn);
    }
 
@@ -90,14 +91,14 @@ public class InfusedArcSwordItem extends SkySwordItem {
       Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
       if (equipmentSlot == EquipmentSlot.MAINHAND) {
          if (getInfusedCooldown(stack) > 0) {
-            multimap.put(Attributes.ATTACK_DAMAGE, this.INFUSED_DAMAGE);
+            multimap.put(Attributes.ATTACK_DAMAGE.value(), this.INFUSED_DAMAGE);
          } else {
-            multimap.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.getDamage(), Operation.ADDITION));
+            multimap.put(Attributes.ATTACK_DAMAGE.value(), LegacyAttrs.modifier(LegacyAttrs.BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.getDamage(), net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE));
          }
 
          multimap.put(
-            Attributes.ATTACK_SPEED,
-            new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", ToolUtils.getAttackSpeed(this.attackSpeed, stack), Operation.ADDITION)
+            Attributes.ATTACK_SPEED.value(),
+            LegacyAttrs.modifier(LegacyAttrs.BASE_ATTACK_SPEED_UUID, "Weapon modifier", ToolUtils.getAttackSpeed(this.attackSpeed, stack), net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE)
          );
       }
 
@@ -106,7 +107,7 @@ public class InfusedArcSwordItem extends SkySwordItem {
 
    @OnlyIn(Dist.CLIENT)
    @Override
-   public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> lore, TooltipFlag flagIn) {
+   public void appendHoverText(ItemStack stack, Level worldIn, List<Component> lore, TooltipFlag flagIn) {
       if (getInfusedCooldown(stack) <= 0) {
          lore.add(Component.literal(ChatFormatting.GRAY + "Charged Hits Remaining: " + (this.maxInfusedHits + 1 - getInfusedHits(stack))));
       } else {

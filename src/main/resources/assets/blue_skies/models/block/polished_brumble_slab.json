@@ -1,0 +1,8 @@
+{
+    "parent": "block/slab",
+    "textures": {
+        "bottom": "blue_skies:block/plants/polished_brumble",
+        "top": "blue_skies:block/plants/polished_brumble",
+        "side": "blue_skies:block/plants/polished_brumble"
+    }
+}

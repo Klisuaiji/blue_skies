@@ -1,0 +1,23 @@
+{
+	"variants": {
+		"facing=east,tier=bronze": { "model": "blue_skies:block/bronze_alchemist_trophy", "y": 90 },
+		"facing=north,tier=bronze": { "model": "blue_skies:block/bronze_alchemist_trophy" },
+		"facing=south,tier=bronze": { "model": "blue_skies:block/bronze_alchemist_trophy", "y": 180 },
+		"facing=west,tier=bronze": { "model": "blue_skies:block/bronze_alchemist_trophy", "y": 270 },
+		
+		"facing=east,tier=silver": { "model": "blue_skies:block/silver_alchemist_trophy", "y": 90 },
+		"facing=north,tier=silver": { "model": "blue_skies:block/silver_alchemist_trophy" },
+		"facing=south,tier=silver": { "model": "blue_skies:block/silver_alchemist_trophy", "y": 180 },
+		"facing=west,tier=silver": { "model": "blue_skies:block/silver_alchemist_trophy", "y": 270 },
+		
+		"facing=east,tier=gold": { "model": "blue_skies:block/gold_alchemist_trophy", "y": 90 },
+		"facing=north,tier=gold": { "model": "blue_skies:block/gold_alchemist_trophy" },
+		"facing=south,tier=gold": { "model": "blue_skies:block/gold_alchemist_trophy", "y": 180 },
+		"facing=west,tier=gold": { "model": "blue_skies:block/gold_alchemist_trophy", "y": 270 },
+		
+		"facing=east,tier=platinum": { "model": "blue_skies:block/platinum_alchemist_trophy", "y": 90 },
+		"facing=north,tier=platinum": { "model": "blue_skies:block/platinum_alchemist_trophy" },
+		"facing=south,tier=platinum": { "model": "blue_skies:block/platinum_alchemist_trophy", "y": 180 },
+		"facing=west,tier=platinum": { "model": "blue_skies:block/platinum_alchemist_trophy", "y": 270 }
+	}
+}

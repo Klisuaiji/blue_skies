@@ -6,7 +6,7 @@ import com.legacy.blue_skies.network.PacketHandler;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class GetClientMotionPacket implements PacketHandler.ModPacket<GetClientMotionPacket, GetClientMotionPacket.Handler> {
    private double motionX;
@@ -36,8 +36,8 @@ public class GetClientMotionPacket implements PacketHandler.ModPacket<GetClientM
          return new GetClientMotionPacket(buff.readDouble(), buff.readDouble());
       }
 
-      public void handler(GetClientMotionPacket packet, PlayPayloadContext context) {
-         context.workHandler().submitAsync(() -> handlePacket(packet, this.serverPlayer(context)));
+      public void handler(GetClientMotionPacket packet, IPayloadContext context) {
+         context.enqueueWork(() -> handlePacket(packet, this.serverPlayer(context)));
       }
 
       private static void handlePacket(GetClientMotionPacket packet, Player player) {

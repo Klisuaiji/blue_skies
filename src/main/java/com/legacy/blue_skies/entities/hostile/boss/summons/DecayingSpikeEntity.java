@@ -60,7 +60,7 @@ public class DecayingSpikeEntity extends FallingBlockEntity {
       this.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
    }
 
-   public void setCaster(@Nullable LivingEntity caster) {
+   public void setCaster(LivingEntity caster) {
       this.caster = caster;
       this.casterUuid = caster == null ? null : caster.getUUID();
    }
@@ -84,9 +84,9 @@ public class DecayingSpikeEntity extends FallingBlockEntity {
       }
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(DOWNWARD, true);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(DOWNWARD, true);
    }
 
    public void tick() {

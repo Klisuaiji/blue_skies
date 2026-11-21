@@ -62,12 +62,12 @@ public class SnowcapMushroomBlock extends DoublePlantBlock implements Bonemealab
    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
       if (state.getValue(HALF) == DoubleBlockHalf.LOWER) {
          return super.canSurvive(state, level, pos) || level.getBlockState(pos.below()).is(BlockTags.MUSHROOM_GROW_BLOCK);
-      } else {
-         BlockState lowerState = level.getBlockState(pos.below());
-         return state.getBlock() != this
-            ? super.canSurvive(state, level, pos)
-            : lowerState.getBlock() == this && lowerState.getValue(HALF) == DoubleBlockHalf.LOWER;
       }
+
+      BlockState lowerState = level.getBlockState(pos.below());
+      return state.getBlock() != this
+         ? super.canSurvive(state, level, pos)
+         : lowerState.getBlock() == this && lowerState.getValue(HALF) == DoubleBlockHalf.LOWER;
    }
 
    public boolean isRandomlyTicking(BlockState state) {

@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.entities.hostile;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.entities.util.base.SkiesMonsterEntity;
 import com.legacy.blue_skies.registries.SkiesItems;
 import com.legacy.structure_gel.api.util.Positions;
@@ -21,7 +22,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -40,8 +40,8 @@ import net.neoforged.neoforge.fluids.FluidType;
 
 public class SeclamEntity extends SkiesMonsterEntity {
    private static final UUID SHELL_ARMOR_BONUS_ID = UUID.fromString("bdf8660c-ccee-43fd-bbf2-40e7d4ddbea2");
-   private static final AttributeModifier SHELL_ARMOR_BONUS_MODIFIER = new AttributeModifier(
-      SHELL_ARMOR_BONUS_ID, "Shell armor bonus", 20.0, Operation.ADDITION
+   private static final AttributeModifier SHELL_ARMOR_BONUS_MODIFIER = LegacyAttrs.modifier(
+      SHELL_ARMOR_BONUS_ID, "Shell armor bonus", 20.0, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE
    );
    private static final EntityDataAccessor<Boolean> OPEN = SynchedEntityData.defineId(SeclamEntity.class, EntityDataSerializers.BOOLEAN);
    private static final EntityDataAccessor<Byte> TIMES_HIT_SINCE_OPEN = SynchedEntityData.defineId(SeclamEntity.class, EntityDataSerializers.BYTE);
@@ -63,16 +63,16 @@ public class SeclamEntity extends SkiesMonsterEntity {
          .add(Attributes.ATTACK_DAMAGE, 8.0);
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(OPEN, true);
-      this.entityData.define(TIMES_HIT_SINCE_OPEN, (byte)0);
-      this.entityData.define(HAS_PEARL, true);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(OPEN, true);
+      builder.define(TIMES_HIT_SINCE_OPEN, (byte)0);
+      builder.define(HAS_PEARL, true);
    }
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
    ) {
       spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
       int height = worldIn.getHeight(Types.OCEAN_FLOOR, (int)this.getX(), (int)this.getZ());
@@ -179,13 +179,13 @@ public class SeclamEntity extends SkiesMonsterEntity {
    public void setOpen(boolean open) {
       if (this.isOpen() != open) {
          if (open) {
-            if (this.getAttribute(Attributes.ARMOR).hasModifier(SHELL_ARMOR_BONUS_MODIFIER)) {
+            if (this.getAttribute(Attributes.ARMOR).hasModifier(SHELL_ARMOR_BONUS_MODIFIER.id())) {
                this.getAttribute(Attributes.ARMOR).removeModifier(SHELL_ARMOR_BONUS_MODIFIER.getId());
             }
          } else {
-            this.playSound(SoundEvents.ARMOR_EQUIP_TURTLE, 1.0F, this.getVoicePitch());
+            this.playSound(SoundEvents.ARMOR_EQUIP_TURTLE.value(), 1.0F, this.getVoicePitch());
             this.setTimesHitSinceOpen((byte)0);
-            if (!this.getAttribute(Attributes.ARMOR).hasModifier(SHELL_ARMOR_BONUS_MODIFIER)) {
+            if (!this.getAttribute(Attributes.ARMOR).hasModifier(SHELL_ARMOR_BONUS_MODIFIER.id())) {
                this.getAttribute(Attributes.ARMOR).addPermanentModifier(SHELL_ARMOR_BONUS_MODIFIER);
             }
          }
@@ -230,9 +230,6 @@ public class SeclamEntity extends SkiesMonsterEntity {
       return super.canDrownInFluidType(type) && type != NeoForgeMod.WATER_TYPE.value();
    }
 
-   public MobType getMobType() {
-      return MobType.WATER;
-   }
 
    public boolean isPushedByFluid() {
       return false;

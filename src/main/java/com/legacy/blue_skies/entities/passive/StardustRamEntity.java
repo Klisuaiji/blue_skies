@@ -1,5 +1,8 @@
 package com.legacy.blue_skies.entities.passive;
 
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.storage.loot.LootTable;
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.registries.SkiesBlocks;
 import com.legacy.blue_skies.registries.SkiesEntityTypes;
@@ -90,7 +93,7 @@ public class StardustRamEntity extends Sheep {
       return (StardustRamEntity)SkiesEntityTypes.STARDUST_RAM.create(this.level());
    }
 
-   public ResourceLocation getDefaultLootTable() {
+   public ResourceKey<LootTable> getDefaultLootTable() {
       return this.isSheared() ? this.getType().getDefaultLootTable() : BlueSkies.locate("entities/stardust_ram/" + this.getColor().toString());
    }
 
@@ -109,12 +112,12 @@ public class StardustRamEntity extends Sheep {
       public boolean canUse() {
          if (this.mob.getRandom().nextInt(this.mob.isBaby() ? 50 : 1000) != 0) {
             return false;
-         } else {
-            BlockPos blockpos = this.mob.blockPosition();
-            return IS_TALL_GRASS.test(this.level.getBlockState(blockpos))
-               ? true
-               : this.level.getBlockState(blockpos.below()).is(SkiesBlocks.turquoise_grass_block);
          }
+
+         BlockPos blockpos = this.mob.blockPosition();
+         return IS_TALL_GRASS.test(this.level.getBlockState(blockpos))
+            ? true
+            : this.level.getBlockState(blockpos.below()).is(SkiesBlocks.turquoise_grass_block);
       }
 
       public void start() {

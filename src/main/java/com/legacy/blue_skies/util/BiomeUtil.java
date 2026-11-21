@@ -16,9 +16,9 @@ public class BiomeUtil {
       Optional<ResourceKey<Biome>> biome = getOptionalKeyFromBiome(world, biomeIn);
       if (biome.isPresent()) {
          return biome.get();
-      } else {
-         BlueSkies.LOGGER.error("Failed to get the registry key from " + biomeIn + ". This is not good!");
-         return null;
       }
+
+      BlueSkies.LOGGER.error("Failed to get the registry key from " + biomeIn + ". This is not good!");
+      return null;
    }
 }

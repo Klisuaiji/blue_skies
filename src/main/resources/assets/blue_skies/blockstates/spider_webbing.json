@@ -1,0 +1,230 @@
+{
+	"multipart": [
+		
+		{
+			"when": {
+				"down": "false",
+				"north": "true",
+				"south": "false",
+				"up": "true"
+			},
+			"apply": { "model": "blue_skies:block/spider_webbing_corner", "x": 270, "y": 90 }
+		},
+		{
+			"when": {
+				"down": "false",
+				"north": "false",
+				"south": "true",
+				"up": "true"
+			},
+			"apply": { "model": "blue_skies:block/spider_webbing_corner", "x": 270, "y": 270 }
+		},
+		{
+			"when": {
+				"down": "true",
+				"north": "true",
+				"south": "false",
+				"up": "false"
+			},
+			"apply": { "model": "blue_skies:block/spider_webbing_corner", "x": 90, "y": 90 }
+		},
+		{
+			"when": {
+				"down": "true",
+				"north": "false",
+				"south": "true",
+				"up": "false"
+			},
+			"apply": { "model": "blue_skies:block/spider_webbing_corner", "x": 90, "y": 270 }
+		},
+		{
+			"when": {
+				"OR": [
+					{
+						"down": "false",
+						"north": "true",
+						"south": "true",
+						"up": "true"
+					},
+					{
+						"down": "true",
+						"north": "false",
+						"south": "true",
+						"up": "true"
+					},
+					{
+						"down": "true",
+						"north": "true",
+						"south": "false",
+						"up": "true"
+					},
+					{
+						"down": "true",
+						"north": "true",
+						"south": "true",
+						"up": "false"
+					},
+					{
+						"down": "true",
+						"north": "true",
+						"south": "true",
+						"up": "true"
+					}
+				]
+			},
+			"apply": { "model": "blue_skies:block/spider_webbing_full", "x": 90, "y": 90 }
+		},
+		
+		
+		
+		{
+			"when": {
+				"down": "false",
+				"east": "true",
+				"up": "true",
+				"west": "false"
+			},
+			"apply": { "model": "blue_skies:block/spider_webbing_corner", "x": 270, "y": 180 }
+		},
+		{
+			"when": {
+				"down": "false",
+				"east": "false",
+				"up": "true",
+				"west": "true"
+			},
+			"apply": { "model": "blue_skies:block/spider_webbing_corner", "x": 270 }
+		},
+		{
+			"when": {
+				"down": "true",
+				"east": "true",
+				"up": "false",
+				"west": "false"
+			},
+			"apply": { "model": "blue_skies:block/spider_webbing_corner", "x": 90, "y": 180 }
+		},
+		{
+			"when": {
+				"down": "true",
+				"east": "false",
+				"up": "false",
+				"west": "true"
+			},
+			"apply": { "model": "blue_skies:block/spider_webbing_corner", "x": 90 }
+		},
+		{
+			"when": {
+				"OR": [
+					{
+						"down": "false",
+						"east": "true",
+						"up": "true",
+						"west": "true"
+					},
+					{
+						"down": "true",
+						"east": "false",
+						"up": "true",
+						"west": "true"
+					},
+					{
+						"down": "true",
+						"east": "true",
+						"up": "false",
+						"west": "true"
+					},
+					{
+						"down": "true",
+						"east": "true",
+						"up": "true",
+						"west": "false"
+					},
+					{
+						"down": "true",
+						"east": "true",
+						"up": "true",
+						"west": "true"
+					}
+				]
+			},
+			"apply": { "model": "blue_skies:block/spider_webbing_full", "x": 90 }
+		},
+		
+		
+		
+		{
+			"when": {
+				"north": "true",
+				"east": "true",
+				"south": "false",
+				"west": "false"
+			},
+			"apply": { "model": "blue_skies:block/spider_webbing_corner", "y": 90 }
+		},
+		{
+			"when": {
+				"north": "true",
+				"east": "false",
+				"south": "false",
+				"west": "true"
+			},
+			"apply": { "model": "blue_skies:block/spider_webbing_corner" }
+		},
+		{
+			"when": {
+				"north": "false",
+				"east": "true",
+				"south": "true",
+				"west": "false"
+			},
+			"apply": { "model": "blue_skies:block/spider_webbing_corner", "y": 180 }
+		},
+		{
+			"when": {
+				"north": "false",
+				"east": "false",
+				"south": "true",
+				"west": "true"
+			},
+			"apply": { "model": "blue_skies:block/spider_webbing_corner", "y": 270 }
+		},
+		{
+			"when": {
+				"OR": [
+					{
+						"north": "false",
+						"east": "true",
+						"south": "true",
+						"west": "true"
+					},
+					{
+						"north": "true",
+						"east": "false",
+						"south": "true",
+						"west": "true"
+					},
+					{
+						"north": "true",
+						"east": "true",
+						"south": "false",
+						"west": "true"
+					},
+					{
+						"north": "true",
+						"east": "true",
+						"south": "true",
+						"west": "false"
+					},
+					{
+						"north": "true",
+						"east": "true",
+						"south": "true",
+						"west": "true"
+					}
+				]
+			},
+			"apply": { "model": "blue_skies:block/spider_webbing_full" }
+		}
+	]
+}

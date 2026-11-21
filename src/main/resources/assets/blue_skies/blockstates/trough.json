@@ -1,0 +1,144 @@
+{
+	"multipart": [
+		{
+			"when": {
+				"facing": "east"
+			},
+			"apply": { "model": "blue_skies:block/trough", "y": 90 }
+		},
+		{
+			"when": {
+				"facing": "north"
+			},
+			"apply": { "model": "blue_skies:block/trough" }
+		},
+		{
+			"when": {
+				"facing": "south"
+			},
+			"apply": { "model": "blue_skies:block/trough", "y": 180 }
+		},
+		{
+			"when": {
+				"facing": "west"
+			},
+			"apply": { "model": "blue_skies:block/trough", "y": 270 }
+		},
+		
+		{
+			"when": {
+				"facing": "east",
+				"level": "1"
+			},
+			"apply": { "model": "blue_skies:block/trough_inside_1", "y": 90 }
+		},
+		{
+			"when": {
+				"facing": "north",
+				"level": "1"
+			},
+			"apply": { "model": "blue_skies:block/trough_inside_1" }
+		},
+		{
+			"when": {
+				"facing": "south",
+				"level": "1"
+			},
+			"apply": { "model": "blue_skies:block/trough_inside_1", "y": 180 }
+		},
+		{
+			"when": {
+				"facing": "west",
+				"level": "1"
+			},
+			"apply": { "model": "blue_skies:block/trough_inside_1", "y": 270 }
+		},
+		
+		{
+			"when": {
+				"facing": "east",
+				"level": "2"
+			},
+			"apply": { "model": "blue_skies:block/trough_inside_2", "y": 90 }
+		},
+		{
+			"when": {
+				"facing": "north",
+				"level": "2"
+			},
+			"apply": { "model": "blue_skies:block/trough_inside_2" }
+		},
+		{
+			"when": {
+				"facing": "south",
+				"level": "2"
+			},
+			"apply": { "model": "blue_skies:block/trough_inside_2", "y": 180 }
+		},
+		{
+			"when": {
+				"facing": "west",
+				"level": "2"
+			},
+			"apply": { "model": "blue_skies:block/trough_inside_2", "y": 270 }
+		},
+		
+		{
+			"when": {
+				"facing": "east",
+				"level": "3"
+			},
+			"apply": { "model": "blue_skies:block/trough_inside_3", "y": 90 }
+		},
+		{
+			"when": {
+				"facing": "north",
+				"level": "3"
+			},
+			"apply": { "model": "blue_skies:block/trough_inside_3" }
+		},
+		{
+			"when": {
+				"facing": "south",
+				"level": "3"
+			},
+			"apply": { "model": "blue_skies:block/trough_inside_3", "y": 180 }
+		},
+		{
+			"when": {
+				"facing": "west",
+				"level": "3"
+			},
+			"apply": { "model": "blue_skies:block/trough_inside_3", "y": 270 }
+		},
+		
+		{
+			"when": {
+				"facing": "east",
+				"level": "4"
+			},
+			"apply": { "model": "blue_skies:block/trough_inside_4", "y": 90 }
+		},
+		{
+			"when": {
+				"facing": "north",
+				"level": "4"
+			},
+			"apply": { "model": "blue_skies:block/trough_inside_4" }
+		},
+		{
+			"when": {
+				"facing": "south",
+				"level": "4"
+			},
+			"apply": { "model": "blue_skies:block/trough_inside_4", "y": 180 }
+		},
+		{
+			"when": {
+				"facing": "west",
+				"level": "4"
+			},
+			"apply": { "model": "blue_skies:block/trough_inside_4", "y": 270 }
+		}
+	]
+}

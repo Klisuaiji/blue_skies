@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.items.tools.weapons;
 
+import com.legacy.blue_skies.compat.*;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.legacy.blue_skies.items.util.IFalsiteItem;
@@ -59,8 +60,8 @@ public class CrushingHammerItem extends Item implements IFalsiteItem {
    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack stack) {
       Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
       if (equipmentSlot == EquipmentSlot.MAINHAND) {
-         multimap.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", 11.0, Operation.ADDITION));
-         multimap.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", -3.3F, Operation.ADDITION));
+         multimap.put(Attributes.ATTACK_DAMAGE.value(), LegacyAttrs.modifier(LegacyAttrs.BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", 11.0, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE));
+         multimap.put(Attributes.ATTACK_SPEED.value(), LegacyAttrs.modifier(LegacyAttrs.BASE_ATTACK_SPEED_UUID, "Weapon modifier", -3.3F, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE));
       }
 
       return multimap;
@@ -82,7 +83,7 @@ public class CrushingHammerItem extends Item implements IFalsiteItem {
          Player player = (Player)entityIn;
          player.getCooldowns().addCooldown(this, 80);
          ItemStack itemstack = player.getItemInHand(player.getUsedItemHand());
-         itemstack.hurtAndBreak(1, player, e -> e.broadcastBreakEvent(player.getUsedItemHand()));
+         itemstack.hurtAndBreak(1, player, net.minecraft.world.entity.EquipmentSlot.MAINHAND);
          AABB hitbox = player.getBoundingBox().inflate(7.0, 1.0, 7.0);
          player.playSound(SkiesSounds.ENTITY_STARLIT_CRUSHER_HAMMER_SMASH, 1.0F, 1.0F);
          player.swing(player.getUsedItemHand(), true);
@@ -109,7 +110,7 @@ public class CrushingHammerItem extends Item implements IFalsiteItem {
    }
 
    @OnlyIn(Dist.CLIENT)
-   public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> lore, TooltipFlag flagIn) {
+   public void appendHoverText(ItemStack stack, Level worldIn, List<Component> lore, TooltipFlag flagIn) {
       lore.add(Component.literal(StringUtil.getAbilityText("gui.blue_skies.item.ability.crushing_hammer")));
    }
 

@@ -113,20 +113,20 @@ public class FurnaceFuels {
       Integer burnTime = itemBurnTimes.get(item);
       if (burnTime != null) {
          return burnTime;
-      } else {
-         if (item instanceof TieredItem) {
-            Tier tier = ((TieredItem)item).getTier();
-            if (tier == SkiesItemTier.WOOD || tier == SkiesItemTier.COMET || tier == Tiers.WOOD) {
-               return 200;
-            }
-         } else if (item instanceof SpearItem spear) {
-            Integer spearBurnTime = itemBurnTimes.get(spear.getStick());
-            if (spearBurnTime != null) {
-               return spearBurnTime * 2;
-            }
-         }
-
-         return -1;
       }
+
+      if (item instanceof TieredItem) {
+         Tier tier = ((TieredItem)item).getTier();
+         if (tier == SkiesItemTier.WOOD || tier == SkiesItemTier.COMET || tier == Tiers.WOOD) {
+            return 200;
+         }
+      } else if (item instanceof SpearItem spear) {
+         Integer spearBurnTime = itemBurnTimes.get(spear.getStick());
+         if (spearBurnTime != null) {
+            return spearBurnTime * 2;
+         }
+      }
+
+      return -1;
    }
 }

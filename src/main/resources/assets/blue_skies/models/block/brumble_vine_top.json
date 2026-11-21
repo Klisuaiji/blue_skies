@@ -1,0 +1,43 @@
+{
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "blue_skies:block/plants/brumble_vine_top"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 8],
+			"to": [16, 9, 8],
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 8, 8], "rescale": true},
+			"shade": false,
+			"faces": {
+				"north": {"uv": [0, 7, 16, 16], "texture": "#particle"},
+				"south": {"uv": [0, 7, 16, 16], "texture": "#particle"}
+			}
+		},
+		{
+			"from": [0, 0, 8],
+			"to": [16, 9, 8],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8], "rescale": true},
+			"shade": false,
+			"faces": {
+				"north": {"uv": [0, 7, 16, 16], "texture": "#particle"},
+				"south": {"uv": [0, 7, 16, 16], "texture": "#particle"}
+			}
+		},
+		{
+			"from": [6, 9, 6],
+			"to": [10, 13, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [14, 17, 14]},
+			"shade": false,
+			"faces": {
+				"north": {"uv": [6, 3, 10, 7], "texture": "#particle"},
+				"east": {"uv": [6, 3, 10, 7], "texture": "#particle"},
+				"south": {"uv": [6, 3, 10, 7], "texture": "#particle"},
+				"west": {"uv": [6, 3, 10, 7], "texture": "#particle"},
+				"up": {"uv": [6, 3, 10, 7], "texture": "#particle"},
+				"down": {"uv": [6, 3, 10, 7], "texture": "#particle"}
+			}
+		}
+	]
+}

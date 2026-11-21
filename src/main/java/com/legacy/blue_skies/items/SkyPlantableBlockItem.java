@@ -7,7 +7,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.IPlantable;
-import net.neoforged.neoforge.common.PlantType;
+import com.legacy.blue_skies.compat.PlantType;
 
 public class SkyPlantableBlockItem extends ItemNameBlockItem implements IPlantable {
    public SkyPlantableBlockItem(Block plantBlockIn, Properties properties) {

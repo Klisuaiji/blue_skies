@@ -34,16 +34,16 @@ public class CrescentFruitTreeFeature extends AbstractSkyTreeFeature {
       int height = rand.nextInt(3) + (rand.nextFloat() < 0.2 ? 9 : 6);
       if (!this.isAreaOk(world, pos, height, 1, 3, 5)) {
          return false;
-      } else {
-         this.setLeaves(changedLeaves, world, rand, pos, height);
-
-         for (int yOffset = 0; yOffset < height; yOffset++) {
-            this.setBlockIfOk(changedLogs, world, pos.above(yOffset), (BlockState)LOG.get());
-         }
-
-         this.setSideLogs(changedLogs, world, rand, pos);
-         return true;
       }
+
+      this.setLeaves(changedLeaves, world, rand, pos, height);
+
+      for (int yOffset = 0; yOffset < height; yOffset++) {
+         this.setBlockIfOk(changedLogs, world, pos.above(yOffset), (BlockState)LOG.get());
+      }
+
+      this.setSideLogs(changedLogs, world, rand, pos);
+      return true;
    }
 
    protected void setLeaves(BiConsumer<BlockPos, BlockState> changedLeaves, WorldGenLevel world, RandomSource rand, BlockPos pos, int height) {
@@ -65,19 +65,19 @@ public class CrescentFruitTreeFeature extends AbstractSkyTreeFeature {
          }
       }
 
-      for (int yx = 0; yx <= 1; yx++) {
-         if (yx == 0) {
-            this.setLeaf(changedLeaves, world, rand, pos.offset(1, yx, 1));
-            this.setLeaf(changedLeaves, world, rand, pos.offset(1, yx, -1));
-            this.setLeaf(changedLeaves, world, rand, pos.offset(-1, yx, 1));
-            this.setLeaf(changedLeaves, world, rand, pos.offset(-1, yx, -1));
+      for (int y = 0; y <= 1; y++) {
+         if (y == 0) {
+            this.setLeaf(changedLeaves, world, rand, pos.offset(1, y, 1));
+            this.setLeaf(changedLeaves, world, rand, pos.offset(1, y, -1));
+            this.setLeaf(changedLeaves, world, rand, pos.offset(-1, y, 1));
+            this.setLeaf(changedLeaves, world, rand, pos.offset(-1, y, -1));
          }
 
-         this.setLeaf(changedLeaves, world, rand, pos.offset(1, yx, 0));
-         this.setLeaf(changedLeaves, world, rand, pos.offset(0, yx, 1));
-         this.setLeaf(changedLeaves, world, rand, pos.offset(0, yx, 0));
-         this.setLeaf(changedLeaves, world, rand, pos.offset(0, yx, -1));
-         this.setLeaf(changedLeaves, world, rand, pos.offset(-1, yx, 0));
+         this.setLeaf(changedLeaves, world, rand, pos.offset(1, y, 0));
+         this.setLeaf(changedLeaves, world, rand, pos.offset(0, y, 1));
+         this.setLeaf(changedLeaves, world, rand, pos.offset(0, y, 0));
+         this.setLeaf(changedLeaves, world, rand, pos.offset(0, y, -1));
+         this.setLeaf(changedLeaves, world, rand, pos.offset(-1, y, 0));
       }
 
       this.setLeaf(changedLeaves, world, rand, pos.offset(2, 0, 0));

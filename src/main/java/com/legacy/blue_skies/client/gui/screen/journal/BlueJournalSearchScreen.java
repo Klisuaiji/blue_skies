@@ -14,7 +14,7 @@ import net.minecraft.client.gui.components.EditBox;
 public class BlueJournalSearchScreen extends BlueJournalSectionScreen {
    private EditBox searchBox;
 
-   public BlueJournalSearchScreen(@Nullable BlueJournalScreen previousScreen, JournalSection section, JournalSectionButton sectionButton) {
+   public BlueJournalSearchScreen(BlueJournalScreen previousScreen, JournalSection section, JournalSectionButton sectionButton) {
       super(previousScreen, section, sectionButton);
    }
 

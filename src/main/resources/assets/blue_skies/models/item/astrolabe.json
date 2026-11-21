@@ -1,0 +1,14 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "blue_skies:item/tools/astrolabe"
+	},
+    "overrides": [
+        {
+            "predicate": {
+                "can_use": 1
+            },
+            "model": "blue_skies:item/astrolabe_usable"
+        }
+    ]
+}

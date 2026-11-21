@@ -1,0 +1,6 @@
+{
+	"variants": {
+		"mature=false": { "model": "blue_skies:block/potted_brewberry_bush" },
+		"mature=true": { "model": "blue_skies:block/potted_brewberry_bush_mature" }
+	}
+}

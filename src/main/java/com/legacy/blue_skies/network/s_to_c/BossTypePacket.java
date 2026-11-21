@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class BossTypePacket implements PacketHandler.ModPacket<BossTypePacket, BossTypePacket.Handler> {
    private byte type;
@@ -38,9 +38,9 @@ public class BossTypePacket implements PacketHandler.ModPacket<BossTypePacket, B
          return new BossTypePacket(buff.readByte());
       }
 
-      public void handler(BossTypePacket packet, PlayPayloadContext context) {
+      public void handler(BossTypePacket packet, IPayloadContext context) {
          if (FMLEnvironment.dist == Dist.CLIENT) {
-            context.workHandler().submitAsync(() -> handlePacket(packet));
+            context.enqueueWork(() -> handlePacket(packet));
          }
       }
 

@@ -37,27 +37,31 @@ public class NonCreatureAttackGoal extends Goal {
       long i = this.mob.level().getGameTime();
       if (i - this.lastCanUseCheck < 20L) {
          return false;
-      } else {
-         this.lastCanUseCheck = i;
-         LivingEntity livingentity = this.mob.getTarget();
-         if (livingentity == null) {
-            return false;
-         } else if (!livingentity.isAlive()) {
-            return false;
-         } else if (this.canPenalize) {
-            if (--this.delayCounter <= 0) {
-               this.path = this.mob.getNavigation().createPath(livingentity, 0);
-               this.delayCounter = 4 + this.mob.getRandom().nextInt(7);
-               return this.path != null;
-            } else {
-               return true;
-            }
-         } else {
+      }
+
+      this.lastCanUseCheck = i;
+      LivingEntity livingentity = this.mob.getTarget();
+      if (livingentity == null) {
+         return false;
+      }
+
+      if (!livingentity.isAlive()) {
+         return false;
+      }
+
+      if (this.canPenalize) {
+         if (--this.delayCounter <= 0) {
             this.path = this.mob.getNavigation().createPath(livingentity, 0);
-            return this.path != null
-               ? true
-               : this.getAttackReachSqr(livingentity) >= this.mob.distanceToSqr(livingentity.getX(), livingentity.getBoundingBox().minY, livingentity.getZ());
+            this.delayCounter = 4 + this.mob.getRandom().nextInt(7);
+            return this.path != null;
+         } else {
+            return true;
          }
+      } else {
+         this.path = this.mob.getNavigation().createPath(livingentity, 0);
+         return this.path != null
+            ? true
+            : this.getAttackReachSqr(livingentity) >= this.mob.distanceToSqr(livingentity.getX(), livingentity.getBoundingBox().minY, livingentity.getZ());
       }
    }
 

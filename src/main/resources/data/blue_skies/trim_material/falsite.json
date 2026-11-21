@@ -1,0 +1,9 @@
+{
+  "asset_name": "blue_skies-falsite",
+  "description": {
+    "color": "#8980ED",
+    "translate": "trim_material.blue_skies.falsite"
+  },
+  "ingredient": "blue_skies:falsite_ingot",
+  "item_model_index": 0.908412
+}

@@ -12,7 +12,7 @@ import java.util.OptionalLong;
 import java.util.function.Function;
 import javax.annotation.Nullable;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -31,12 +31,12 @@ public class SkiesDimensions {
    public static final DimensionRegistrar EVERDAWN = createEverdawn();
 
    private static DimensionRegistrar createEverbright() {
-      Function<BootstapContext<?>, DimensionType> dimType = c -> DimensionTypeBuilder.of()
+      Function<BootstrapContext<?>, DimensionType> dimType = c -> DimensionTypeBuilder.of()
          .fixedTime(OptionalLong.of(6000L))
          .minY(0)
          .effects(EVERBRIGHT_ID)
          .build();
-      Function<BootstapContext<?>, NoiseGeneratorSettings> noiseSettings = c -> DimensionAccessHelper.newDimensionSettings(
+      Function<BootstrapContext<?>, NoiseGeneratorSettings> noiseSettings = c -> DimensionAccessHelper.newDimensionSettings(
          dummyNoise(),
          SkiesBlocks.turquoise_stone.defaultBlockState(),
          Blocks.WATER.defaultBlockState(),
@@ -45,17 +45,17 @@ public class SkiesDimensions {
          63,
          false
       );
-      Function<BootstapContext<?>, ChunkGenerator> chunkGen = c -> new EverbrightChunkGenerator(c.lookup(Registries.BIOME), c.lookup(Registries.NOISE_SETTINGS));
+      Function<BootstrapContext<?>, ChunkGenerator> chunkGen = c -> new EverbrightChunkGenerator(c.lookup(Registries.BIOME), c.lookup(Registries.NOISE_SETTINGS));
       return new DimensionRegistrar(EVERBRIGHT_ID, dimType, noiseSettings, chunkGen);
    }
 
    private static DimensionRegistrar createEverdawn() {
-      Function<BootstapContext<?>, DimensionType> dimType = c -> DimensionTypeBuilder.of()
+      Function<BootstrapContext<?>, DimensionType> dimType = c -> DimensionTypeBuilder.of()
          .fixedTime(OptionalLong.of(23200L))
          .minY(0)
          .effects(EVERDAWN_ID)
          .build();
-      Function<BootstapContext<?>, NoiseGeneratorSettings> noiseSettings = c -> DimensionAccessHelper.newDimensionSettings(
+      Function<BootstrapContext<?>, NoiseGeneratorSettings> noiseSettings = c -> DimensionAccessHelper.newDimensionSettings(
          dummyNoise(),
          SkiesBlocks.lunar_stone.defaultBlockState(),
          Blocks.WATER.defaultBlockState(),
@@ -64,7 +64,7 @@ public class SkiesDimensions {
          63,
          false
       );
-      Function<BootstapContext<?>, ChunkGenerator> chunkGen = c -> new EverdawnChunkGenerator(c.lookup(Registries.BIOME), c.lookup(Registries.NOISE_SETTINGS));
+      Function<BootstrapContext<?>, ChunkGenerator> chunkGen = c -> new EverdawnChunkGenerator(c.lookup(Registries.BIOME), c.lookup(Registries.NOISE_SETTINGS));
       return new DimensionRegistrar(EVERDAWN_ID, dimType, noiseSettings, chunkGen);
    }
 
@@ -80,7 +80,7 @@ public class SkiesDimensions {
       return EVERDAWN.getLevelKey();
    }
 
-   public static boolean inSkyDimension(@Nullable Entity entity) {
+   public static boolean inSkyDimension(Entity entity) {
       return entity != null && inSkyDimension(entity.level().dimension());
    }
 

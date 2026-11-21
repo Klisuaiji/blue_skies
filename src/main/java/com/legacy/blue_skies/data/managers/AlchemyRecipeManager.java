@@ -46,7 +46,7 @@ public class AlchemyRecipeManager extends SkiesSyncedDataManager<ResourceLocatio
    public Pair<ResourceLocation, AlchemyRecipe> entryFromNbt(CompoundTag keyNbt, CompoundTag valueNbt) {
       AlchemyRecipe methodHolder = AlchemyRecipe.Types.parse(valueNbt);
       AlchemyRecipe recipe = methodHolder.fromNbt(valueNbt);
-      return recipe != null ? Pair.of(new ResourceLocation(keyNbt.getString("name")), recipe) : null;
+      return recipe != null ? Pair.of(ResourceLocation.parse(keyNbt.getString("name")), recipe) : null;
    }
 
    @Override

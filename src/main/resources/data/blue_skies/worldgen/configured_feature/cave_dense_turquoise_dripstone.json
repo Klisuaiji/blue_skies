@@ -1,0 +1,14 @@
+{
+  "type": "blue_skies:dripstone",
+  "config": {
+    "dripstone": {
+      "Name": "blue_skies:turquoise_dripstone",
+      "Properties": {
+        "type": "stalagmite",
+        "fluidlogged": "empty",
+        "section": "tip"
+      }
+    },
+    "maxLength": 10
+  }
+}

@@ -96,7 +96,7 @@ public abstract class AbstractSkyTreeFeature extends TreeFeature implements IStr
       return this.natural ? isDirt(state) : isDirt(state) || state.getBlock() instanceof FarmBlock;
    }
 
-   protected boolean setBlockIfOk(@Nullable BiConsumer<BlockPos, BlockState> changedBlocks, WorldGenLevel level, BlockPos pos, BlockState state) {
+   protected boolean setBlockIfOk(BiConsumer<BlockPos, BlockState> changedBlocks, WorldGenLevel level, BlockPos pos, BlockState state) {
       Block block = state.getBlock();
       if (block instanceof RotatedPillarBlock) {
          if (this.isReplaceableByLogs(level, pos)) {
@@ -134,7 +134,7 @@ public abstract class AbstractSkyTreeFeature extends TreeFeature implements IStr
       }
    }
 
-   protected void setBlock(@Nullable BiConsumer<BlockPos, BlockState> changedBlocks, WorldGenLevel level, BlockPos pos, BlockState state) {
+   protected void setBlock(BiConsumer<BlockPos, BlockState> changedBlocks, WorldGenLevel level, BlockPos pos, BlockState state) {
       if (state.hasProperty(BlockStateProperties.WATERLOGGED) && level.getFluidState(pos).is(Fluids.WATER)) {
          state = (BlockState)state.setValue(BlockStateProperties.WATERLOGGED, true);
       }
@@ -207,10 +207,10 @@ public abstract class AbstractSkyTreeFeature extends TreeFeature implements IStr
                }
             }
          } else {
-            for (int yx = 0; yx <= 1 + trunkHeight && pos.getY() + yx >= 1 && pos.getY() + yx < level.getHeight(); yx++) {
+            for (int y = 0; y <= 1 + trunkHeight && pos.getY() + y >= 1 && pos.getY() + y < level.getHeight(); y++) {
                for (int x = 0; x < trunkWidth; x++) {
                   for (int z = 0; z < trunkWidth; z++) {
-                     if (!this.isReplaceableByLogs(level, pos.offset(x, yx, z))) {
+                     if (!this.isReplaceableByLogs(level, pos.offset(x, y, z))) {
                         return false;
                      }
                   }
@@ -220,10 +220,10 @@ public abstract class AbstractSkyTreeFeature extends TreeFeature implements IStr
 
          int width = Math.max((leafWidth - 1) / 2, 1);
 
-         for (int yx = leafStartHeight; yx <= trunkHeight + 2 && pos.getY() + yx >= 0 && pos.getY() + yx < level.getHeight(); yx++) {
+         for (int y = leafStartHeight; y <= trunkHeight + 2 && pos.getY() + y >= 0 && pos.getY() + y < level.getHeight(); y++) {
             for (int x = -width; x <= width; x++) {
-               for (int zx = -width; zx <= width; zx++) {
-                  if (!this.isReplaceableByLeaves(level, pos.offset(x, yx, zx))) {
+               for (int z = -width; z <= width; z++) {
+                  if (!this.isReplaceableByLeaves(level, pos.offset(x, y, z))) {
                      return false;
                   }
                }

@@ -30,18 +30,18 @@ public class JournalSectionManager extends SkiesSyncedDataManager<ResourceLocati
 
    @Override
    public Pair<ResourceLocation, JournalSection> entryFromNbt(CompoundTag keyNbt, CompoundTag valueNbt) {
-      ResourceLocation key = new ResourceLocation(keyNbt.getString("0"));
-      ResourceLocation name = new ResourceLocation(valueNbt.getString("0"));
+      ResourceLocation key = ResourceLocation.parse(keyNbt.getString("0"));
+      ResourceLocation name = ResourceLocation.parse(valueNbt.getString("0"));
       String displayText = valueNbt.getString("1");
-      ResourceLocation texture = new ResourceLocation(valueNbt.getString("2"));
+      ResourceLocation texture = ResourceLocation.parse(valueNbt.getString("2"));
       return Pair.of(key, new JournalSection(name, displayText, texture));
    }
 
    @Override
    protected Pair<ResourceLocation, JournalSection> parseJson(JsonObject json, ResourceLocation name) throws SkiesDataManager.RegistryObjectNotFoundException {
-      ResourceLocation _name = new ResourceLocation(GsonHelper.getAsString(json, "name"));
+      ResourceLocation _name = ResourceLocation.parse(GsonHelper.getAsString(json, "name"));
       String displayText = GsonHelper.getAsString(json, "display_text");
-      ResourceLocation texture = new ResourceLocation(GsonHelper.getAsString(json, "texture"));
+      ResourceLocation texture = ResourceLocation.parse(GsonHelper.getAsString(json, "texture"));
       return Pair.of(_name, new JournalSection(_name, displayText, texture));
    }
 }

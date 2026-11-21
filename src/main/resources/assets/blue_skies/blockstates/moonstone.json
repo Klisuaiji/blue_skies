@@ -1,0 +1,18 @@
+{
+    "variants": {
+        "face=floor,facing=east":  { "model": "blue_skies:block/moonstone", "y": 90 },
+        "face=floor,facing=west":  { "model": "blue_skies:block/moonstone", "y": 270 },
+        "face=floor,facing=south": { "model": "blue_skies:block/moonstone", "y": 180 },
+        "face=floor,facing=north": { "model": "blue_skies:block/moonstone" },
+        
+        "face=ceiling,facing=east":  { "model": "blue_skies:block/moonstone", "x": 180, "y": 90 },
+        "face=ceiling,facing=west":  { "model": "blue_skies:block/moonstone", "x": 180, "y": 270 },
+        "face=ceiling,facing=south": { "model": "blue_skies:block/moonstone", "x": 180, "y": 180 },
+        "face=ceiling,facing=north": { "model": "blue_skies:block/moonstone", "x": 180 },
+
+        "face=wall,facing=east":  { "model": "blue_skies:block/moonstone", "x": 270, "y": 270 },
+        "face=wall,facing=west":  { "model": "blue_skies:block/moonstone", "x": 270, "y": 90 },
+        "face=wall,facing=south": { "model": "blue_skies:block/moonstone", "x": 270 },
+        "face=wall,facing=north": { "model": "blue_skies:block/moonstone", "x": 270, "y": 180 }
+    }
+}

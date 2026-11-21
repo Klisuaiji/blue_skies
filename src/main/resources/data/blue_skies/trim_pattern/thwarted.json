@@ -1,0 +1,8 @@
+{
+  "asset_id": "blue_skies:thwarted",
+  "decal": false,
+  "description": {
+    "translate": "trim_pattern.blue_skies.thwarted"
+  },
+  "template_item": "blue_skies:thwarted_armor_trim_smithing_template"
+}

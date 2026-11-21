@@ -28,50 +28,50 @@ public class StarlitTreeFeature extends AbstractSkyTreeFeature {
       int height = rand.nextInt(3) + 7;
       if (!this.isAreaOk(world, pos, height, 1, 2, 0)) {
          return false;
-      } else {
-         for (int y = 0; y < height; y++) {
-            this.setBlockIfOk(changedLogs, world, pos.above(y), (BlockState)LOG.get());
+      }
+
+      for (int y = 0; y < height; y++) {
+         this.setBlockIfOk(changedLogs, world, pos.above(y), (BlockState)LOG.get());
+      }
+
+      this.setBlockIfOk(changedLeaves, world, pos.above(height), (BlockState)LEAF.get());
+      this.setBlockIfOk(changedLeaves, world, pos.above(height + 1), (BlockState)LEAF.get());
+      this.setBlockIfOk(changedLeaves, world, pos.above(height + 2), (BlockState)LEAF.get());
+
+      for (int y = height - 5; y <= height; y++) {
+         for (Direction dir : DirectionUtil.HORIZONTAL) {
+            this.setBlockIfOk(changedLeaves, world, pos.relative(dir).above(y), (BlockState)LEAF.get());
          }
 
-         this.setBlockIfOk(changedLeaves, world, pos.above(height), (BlockState)LEAF.get());
-         this.setBlockIfOk(changedLeaves, world, pos.above(height + 1), (BlockState)LEAF.get());
-         this.setBlockIfOk(changedLeaves, world, pos.above(height + 2), (BlockState)LEAF.get());
+         if (y == height - 4 || y == height - 2) {
+            int x = -2;
 
-         for (int y = height - 5; y <= height; y++) {
-            for (Direction dir : DirectionUtil.HORIZONTAL) {
-               this.setBlockIfOk(changedLeaves, world, pos.relative(dir).above(y), (BlockState)LEAF.get());
+            for (int z = 0; x <= 0; z++) {
+               this.setBlockIfOk(changedLeaves, world, pos.offset(x, y, z), (BlockState)LEAF.get());
+               this.setBlockIfOk(changedLeaves, world, pos.offset(x + 1, y, z - 1), (BlockState)LEAF.get());
+               this.setBlockIfOk(changedLeaves, world, pos.offset(x + 2, y, z - 2), (BlockState)LEAF.get());
+               x++;
             }
+         }
 
-            if (y == height - 4 || y == height - 2) {
-               int x = -2;
+         if (y == height - 3 || y == height - 1) {
+            int x = 1;
+            int z = 1;
 
-               for (int z = 0; x <= 0; z++) {
-                  this.setBlockIfOk(changedLeaves, world, pos.offset(x, y, z), (BlockState)LEAF.get());
-                  this.setBlockIfOk(changedLeaves, world, pos.offset(x + 1, y, z - 1), (BlockState)LEAF.get());
-                  this.setBlockIfOk(changedLeaves, world, pos.offset(x + 2, y, z - 2), (BlockState)LEAF.get());
-                  x++;
-               }
-            }
-
-            if (y == height - 3 || y == height - 1) {
-               int x = 1;
-               int z = 1;
-
-               for (int j = 0; j <= 1; j++) {
-                  for (int k = 0; k <= 1; k++) {
-                     if (rand.nextBoolean()) {
-                        this.setBlockIfOk(changedLeaves, world, pos.offset(x, y, z), (BlockState)LEAF.get());
-                     }
-
-                     z = Math.negateExact(z);
+            for (int j = 0; j <= 1; j++) {
+               for (int k = 0; k <= 1; k++) {
+                  if (rand.nextBoolean()) {
+                     this.setBlockIfOk(changedLeaves, world, pos.offset(x, y, z), (BlockState)LEAF.get());
                   }
 
-                  x = Math.negateExact(x);
+                  z = Math.negateExact(z);
                }
+
+               x = Math.negateExact(x);
             }
          }
-
-         return true;
       }
+
+      return true;
    }
 }

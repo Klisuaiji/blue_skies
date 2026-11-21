@@ -84,14 +84,14 @@ public class FruitLeavesBlock extends SkyLeavesBlock implements BonemealableBloc
       this.grow(state, level, pos);
    }
 
-   public static enum Growth implements StringRepresentable {
+   public enum Growth implements StringRepresentable {
       CANT_GROW("cant_grow"),
       CAN_GROW("can_grow"),
       GROWN("grown");
 
       private final String name;
 
-      private Growth(String name) {
+      Growth(String name) {
          this.name = name;
       }
 

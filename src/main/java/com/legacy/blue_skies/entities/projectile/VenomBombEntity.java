@@ -35,7 +35,7 @@ public class VenomBombEntity extends ThrowableProjectile {
       super(SkiesEntityTypes.VENOM_BOMB, x, y, z, worldIn);
    }
 
-   protected void defineSynchedData() {
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
    }
 
    public void tick() {
@@ -81,7 +81,7 @@ public class VenomBombEntity extends ThrowableProjectile {
       }
    }
 
-   private void applyEffectToNearbyMobs(MobEffectInstance effect, @Nullable Entity entityIn) {
+   private void applyEffectToNearbyMobs(MobEffectInstance effect, Entity entityIn) {
       if (effect != null) {
          AABB axisalignedbb = this.getBoundingBox().inflate(5.0, 2.0, 5.0);
          List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, axisalignedbb);

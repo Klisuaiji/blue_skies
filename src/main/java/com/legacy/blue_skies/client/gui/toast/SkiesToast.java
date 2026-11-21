@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 
 public class SkiesToast implements Toast {
-   private static final ResourceLocation BACKGROUND_SPRITE = new ResourceLocation("toast/advancement");
+   private static final ResourceLocation BACKGROUND_SPRITE = ResourceLocation.parse("toast/advancement");
    private final ResourceLocation backgroundTexture;
    private final Component desc;
    private final Component name;
@@ -31,7 +31,7 @@ public class SkiesToast implements Toast {
    private final SoundEvent sound;
 
    public SkiesToast(
-      Component nameIn, Component description, @Nullable SoundEvent soundIn, ResourceLocation backgroundTextureIn, Item itemIn, ChatFormatting defaultColorIn
+      Component nameIn, Component description, SoundEvent soundIn, ResourceLocation backgroundTextureIn, Item itemIn, ChatFormatting defaultColorIn
    ) {
       this.desc = description;
       this.name = nameIn;

@@ -47,7 +47,7 @@ public abstract class SkiesDataManager<K, V> extends SimpleJsonResourceReloadLis
    protected void apply(Map<ResourceLocation, JsonElement> jsonMap, ResourceManager resourceManager, ProfilerFiller profiler) {
       Map<K, V> newDataMap = Maps.newHashMap();
       new HashSet();
-      Object dataSet;
+      Set dataSet;
       if (this.hasOverrides) {
          Set<Entry<ResourceLocation, JsonElement>> newData = new HashSet<>();
          String folder = "blue_skies/" + this.name;
@@ -55,7 +55,7 @@ public abstract class SkiesDataManager<K, V> extends SimpleJsonResourceReloadLis
             .forEach(
                (fileName, resource) -> {
                   for (Resource iResource : resourceManager.getResourceStack(fileName)) {
-                     ResourceLocation location = new ResourceLocation(
+                     ResourceLocation location = ResourceLocation.fromNamespaceAndPath(
                         fileName.getNamespace(), fileName.getPath().substring(folder.length() + 1, fileName.getPath().length() - ".json".length())
                      );
 
@@ -66,7 +66,7 @@ public abstract class SkiesDataManager<K, V> extends SimpleJsonResourceReloadLis
                         if (jsonObj != null) {
                            newData.add(new SimpleEntry<>(location, jsonObj));
                         }
-                     } catch (Exception var11x) {
+                     } catch (Exception e) {
                         LOGGER.error("Failed to load {}", location.toString());
                      }
                   }
@@ -83,12 +83,12 @@ public abstract class SkiesDataManager<K, V> extends SimpleJsonResourceReloadLis
          try {
             Pair<K, V> parsedData = this.parseJson(entry.getValue().getAsJsonObject(), name);
             this.registerData(newDataMap, (K)parsedData.getFirst(), (V)parsedData.getSecond());
-         } catch (SkiesDataManager.RegistryObjectNotFoundException var10) {
+         } catch (SkiesDataManager.RegistryObjectNotFoundException e) {
             if (BlueSkiesConfig.COMMON.shouldLogMissingRegistryObjectForDatapack()) {
-               LOGGER.error(var10);
+               LOGGER.error(e);
             }
-         } catch (Exception var11) {
-            LOGGER.error("Parsing error loading {}: {}", this.name, name, var11);
+         } catch (Exception e) {
+            LOGGER.error("Parsing error loading {}: {}", this.name, name, e);
          }
       }
 
@@ -112,12 +112,12 @@ public abstract class SkiesDataManager<K, V> extends SimpleJsonResourceReloadLis
    }
 
    @Nullable
-   public static <R> R parseRegistry(JsonObject json, String key, Registry<R> registry, @Nullable R defaultVal) throws SkiesDataManager.RegistryObjectNotFoundException {
+   public static <R> R parseRegistry(JsonObject json, String key, Registry<R> registry, R defaultVal) throws SkiesDataManager.RegistryObjectNotFoundException {
       String val = GsonHelper.getAsString(json, key, null);
       if (val == null) {
          return defaultVal;
-      } else if (registry.containsKey(new ResourceLocation(val))) {
-         return (R)registry.get(new ResourceLocation(val));
+      } else if (registry.containsKey(ResourceLocation.parse(val))) {
+         return (R)registry.get(ResourceLocation.parse(val));
       } else {
          throw new SkiesDataManager.RegistryObjectNotFoundException(String.format("The %s does not exist in the %s registry", val, registry.key()));
       }

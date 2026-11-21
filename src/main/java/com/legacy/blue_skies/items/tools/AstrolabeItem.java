@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.items.tools;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.blocks.construction.StarEmitterBlock;
 import com.legacy.blue_skies.events.SkiesPlayerEvents;
@@ -119,8 +120,8 @@ public class AstrolabeItem extends Item implements Vanishable {
                   player.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
                   player.stopUsingItem();
                }
-            } catch (Exception var11) {
-               BlueSkies.LOGGER.error(var11);
+            } catch (Exception e) {
+               BlueSkies.LOGGER.error(e);
             }
 
             return;
@@ -139,33 +140,33 @@ public class AstrolabeItem extends Item implements Vanishable {
    }
 
    public static int getTeleportCooldown(ItemStack stack) {
-      CompoundTag compoundnbt = stack.getTag();
+      CompoundTag compoundnbt = LegacyNbt.get(stack);
       return compoundnbt == null ? 0 : compoundnbt.getInt("TeleportCooldown");
    }
 
    public static void setTeleportCooldown(ItemStack stack, int cooldownIn) {
-      CompoundTag compoundnbt = stack.getOrCreateTag();
+      CompoundTag compoundnbt = LegacyNbt.getOrCreate(stack);
       compoundnbt.putInt("TeleportCooldown", cooldownIn);
    }
 
    @Nullable
    public static BlockPos getTeleportPos(ItemStack stack) {
-      CompoundTag compoundnbt = stack.getTag();
+      CompoundTag compoundnbt = LegacyNbt.get(stack);
       return compoundnbt == null ? null : NbtUtils.readBlockPos(compoundnbt.getCompound("TeleportPosition"));
    }
 
    public static void setTeleportPos(ItemStack stack, BlockPos pos) {
-      CompoundTag compoundnbt = stack.getOrCreateTag();
+      CompoundTag compoundnbt = LegacyNbt.getOrCreate(stack);
       compoundnbt.put("TeleportPosition", NbtUtils.writeBlockPos(pos));
    }
 
    public static Optional<ResourceKey<Level>> getTeleportDimension(ItemStack stack) {
-      CompoundTag compoundnbt = stack.getTag();
+      CompoundTag compoundnbt = LegacyNbt.get(stack);
       return compoundnbt == null ? Optional.empty() : Level.RESOURCE_KEY_CODEC.parse(NbtOps.INSTANCE, compoundnbt.get("TeleportDimension")).result();
    }
 
    public static void setTeleportDimension(ItemStack stack, ResourceKey<Level> dimension) {
-      CompoundTag compoundnbt = stack.getOrCreateTag();
+      CompoundTag compoundnbt = LegacyNbt.getOrCreate(stack);
       Level.RESOURCE_KEY_CODEC.encodeStart(NbtOps.INSTANCE, dimension).result().ifPresent(dim -> compoundnbt.put("TeleportDimension", dim));
    }
 
@@ -182,7 +183,7 @@ public class AstrolabeItem extends Item implements Vanishable {
    }
 
    @OnlyIn(Dist.CLIENT)
-   public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> lore, TooltipFlag flagIn) {
+   public void appendHoverText(ItemStack stack, Level worldIn, List<Component> lore, TooltipFlag flagIn) {
       lore.add(Component.translatable(StringUtil.getAbilityText("gui.blue_skies.item.ability.teleportation")));
       if (getTeleportCooldown(stack) > 0) {
          lore.add(Component.literal(ChatFormatting.YELLOW + "Teleport Cooldown: " + getTeleportCooldown(stack)));

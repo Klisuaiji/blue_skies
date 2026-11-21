@@ -226,7 +226,7 @@ public class GatekeeperEntity extends AbstractVillager implements RangedAttackMo
    }
 
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
    ) {
       ItemStack bow = new ItemStack(Items.BOW);
       bow.enchant(Enchantments.POWER_ARROWS, 2);
@@ -240,7 +240,7 @@ public class GatekeeperEntity extends AbstractVillager implements RangedAttackMo
             super.setTarget(entitylivingbaseIn);
          } else {
             if (this.getTarget() == null && this.hurtTime == 0) {
-               this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC, 1.2F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+               this.playSound(SoundEvents.ARMOR_EQUIP_GENERIC.value(), 1.2F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
                this.playSound(SkiesSounds.ENTITY_GATEKEEPER_NO, 1.0F, this.getVoicePitch());
             }
 
@@ -249,9 +249,9 @@ public class GatekeeperEntity extends AbstractVillager implements RangedAttackMo
       }
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(SPELL, (byte)0);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(SPELL, (byte)0);
    }
 
    public void addAdditionalSaveData(CompoundTag compound) {
@@ -270,7 +270,7 @@ public class GatekeeperEntity extends AbstractVillager implements RangedAttackMo
       }
 
       if (compound.contains("GatekeeperHomePos")) {
-         this.homePos = NbtUtils.readBlockPos(compound.getCompound("GatekeeperHomePos"));
+         this.homePos = NbtUtils.readBlockPos(compound, "GatekeeperHomePos").orElse(this.homePos);
       }
    }
 
@@ -352,30 +352,36 @@ public class GatekeeperEntity extends AbstractVillager implements RangedAttackMo
       if (flag) {
          itemstack.interactLivingEntity(player, this, hand);
          return InteractionResult.SUCCESS;
-      } else if (itemstack.getItem() == SkiesItems.gatekeeper_spawn_egg || !this.isAlive() || this.isTrading() || this.isBaby()) {
+      }
+
+      if (itemstack.getItem() == SkiesItems.gatekeeper_spawn_egg || !this.isAlive() || this.isTrading() || this.isBaby()) {
          return super.mobInteract(player, hand);
-      } else if (this.isAggressive() && !this.level().isClientSide) {
+      }
+
+      if (this.isAggressive() && !this.level().isClientSide) {
          this.playSound(SkiesSounds.ENTITY_GATEKEEPER_NO, 1.0F, this.getVoicePitch());
          return InteractionResult.PASS;
-      } else if (player.getItemInHand(hand).getItem() == SkiesBlocks.bag_of_spoils.asItem() && !this.level().isClientSide) {
+      }
+
+      if (player.getItemInHand(hand).getItem() == SkiesBlocks.bag_of_spoils.asItem() && !this.level().isClientSide) {
          this.setTarget(player);
          return InteractionResult.PASS;
-      } else {
-         if (hand == InteractionHand.MAIN_HAND) {
-            player.awardStat(Stats.TALKED_TO_VILLAGER);
-         }
-
-         if (this.getOffers().isEmpty()) {
-            return super.mobInteract(player, hand);
-         } else {
-            if (!this.level().isClientSide) {
-               this.setTradingPlayer(player);
-               this.openTradingScreen(player, this.getDisplayName(), 1);
-            }
-
-            return InteractionResult.SUCCESS;
-         }
       }
+
+      if (hand == InteractionHand.MAIN_HAND) {
+         player.awardStat(Stats.TALKED_TO_VILLAGER);
+      }
+
+      if (this.getOffers().isEmpty()) {
+         return super.mobInteract(player, hand);
+      }
+
+      if (!this.level().isClientSide) {
+         this.setTradingPlayer(player);
+         this.openTradingScreen(player, this.getDisplayName(), 1);
+      }
+
+      return InteractionResult.SUCCESS;
    }
 
    protected void rewardTradeXp(MerchantOffer offer) {
@@ -503,7 +509,7 @@ public class GatekeeperEntity extends AbstractVillager implements RangedAttackMo
          } else {
             f = 0.5F;
          }
-      } catch (Exception var4) {
+      } catch (Exception e) {
          f = 0.5F;
          canGetAttributes = false;
       }
@@ -566,12 +572,12 @@ public class GatekeeperEntity extends AbstractVillager implements RangedAttackMo
       double d2 = target.getZ() - this.getZ();
       double d3 = Mth.sqrt((float)(d0 * d0 + d2 * d2));
       abstractarrowentity.shoot(d0, d1 + d3 * 0.2F, d2, 1.6F, 14 - this.level().getDifficulty().getId() * 4);
-      this.playSound(SoundEvents.ARROW_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+      this.playSound(SoundEvents.ARROW_SHOOT.value(), 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
       this.level().addFreshEntity(abstractarrowentity);
    }
 
    @OnlyIn(Dist.CLIENT)
-   public static enum ArmPose {
+   public enum ArmPose {
       CROSSED,
       ATTACKING,
       BOW_AND_ARROW,
@@ -783,18 +789,18 @@ public class GatekeeperEntity extends AbstractVillager implements RangedAttackMo
       public boolean canUse() {
          if (GatekeeperEntity.this.tickCount < this.spellCooldown) {
             return false;
-         } else {
-            GatekeeperEntity keeper = GatekeeperEntity.this;
-            Player player = keeper.level().getNearestPlayer(keeper, 30.0);
-            boolean criticalHealth = keeper.isCriticalHealth();
-            boolean should = !keeper.isSleeping()
-               && !keeper.isSpellcasting()
-               && keeper.getHealth() < keeper.getMaxHealth()
-               && (keeper.getTarget() == null || criticalHealth);
-            return !criticalHealth && player != null
-               ? should && !keeper.getSensing().hasLineOfSight(player)
-               : should && (criticalHealth && (keeper.getTarget() != null || keeper.hurtTime > 0) || player == null);
          }
+
+         GatekeeperEntity keeper = GatekeeperEntity.this;
+         Player player = keeper.level().getNearestPlayer(keeper, 30.0);
+         boolean criticalHealth = keeper.isCriticalHealth();
+         boolean should = !keeper.isSleeping()
+            && !keeper.isSpellcasting()
+            && keeper.getHealth() < keeper.getMaxHealth()
+            && (keeper.getTarget() == null || criticalHealth);
+         return !criticalHealth && player != null
+            ? should && !keeper.getSensing().hasLineOfSight(player)
+            : should && (criticalHealth && (keeper.getTarget() != null || keeper.hurtTime > 0) || player == null);
       }
 
       @Override

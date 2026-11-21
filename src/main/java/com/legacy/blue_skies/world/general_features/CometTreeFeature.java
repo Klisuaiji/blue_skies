@@ -47,16 +47,16 @@ public class CometTreeFeature extends AbstractSkyTreeFeature {
          int height = rand.nextInt(3) + 10;
          if (!this.isAreaOk(world, pos, height, 1, height - 4, 7)) {
             return false;
-         } else {
-            for (int y = 0; y < height; y++) {
-               this.setBlockIfOk(changedLogs, world, pos.above(y), (BlockState)LOG.get());
-            }
-
-            this.setLeafBall(changedLeaves, world, pos.offset(0, height - 2, 0), rand);
-            this.setBranches(changedLogs, changedLeaves, world, rand, pos, height);
-            this.setSideLogs(changedLogs, world, pos);
-            return true;
          }
+
+         for (int y = 0; y < height; y++) {
+            this.setBlockIfOk(changedLogs, world, pos.above(y), (BlockState)LOG.get());
+         }
+
+         this.setLeafBall(changedLeaves, world, pos.offset(0, height - 2, 0), rand);
+         this.setBranches(changedLogs, changedLeaves, world, rand, pos, height);
+         this.setSideLogs(changedLogs, world, pos);
+         return true;
       } else {
          return false;
       }

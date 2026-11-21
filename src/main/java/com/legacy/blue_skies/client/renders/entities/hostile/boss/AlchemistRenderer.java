@@ -75,24 +75,14 @@ public class AlchemistRenderer<T extends AlchemistEntity> extends IllagerRendere
                   matrixStackIn,
                   ivertexbuilder,
                   packedLightIn,
-                  getOverlayCoords(entityIn, this.getWhiteOverlayProgress(entityIn, partialTicks)),
-                  1.0F,
-                  1.0F,
-                  1.0F,
-                  1.0F
-               );
+                  getOverlayCoords(entityIn, this.getWhiteOverlayProgress(entityIn, partialTicks)), -1);
          } else {
             this.foldedScrollModel
                .renderToBuffer(
                   matrixStackIn,
                   ivertexbuilder,
                   packedLightIn,
-                  getOverlayCoords(entityIn, this.getWhiteOverlayProgress(entityIn, partialTicks)),
-                  1.0F,
-                  1.0F,
-                  1.0F,
-                  1.0F
-               );
+                  getOverlayCoords(entityIn, this.getWhiteOverlayProgress(entityIn, partialTicks)), -1);
          }
 
          matrixStackIn.popPose();

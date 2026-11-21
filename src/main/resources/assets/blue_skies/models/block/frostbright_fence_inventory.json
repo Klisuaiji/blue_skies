@@ -1,0 +1,6 @@
+{
+    "parent": "block/fence_inventory",
+    "textures": {
+        "texture": "blue_skies:block/wood/frostbright_planks"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "parent": "block/fence_post",
+    "textures": {
+        "texture": "blue_skies:block/wood/starlit_planks"
+    }
+}

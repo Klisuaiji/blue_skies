@@ -16,7 +16,6 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
@@ -80,9 +79,9 @@ public class PolargeistEntity extends SkiesMonsterEntity {
       return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 26.0).add(Attributes.MOVEMENT_SPEED, 0.23F).add(Attributes.ATTACK_DAMAGE, 4.5);
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(STANDING, false);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(STANDING, false);
    }
 
    public void addAdditionalSaveData(CompoundTag compound) {
@@ -179,7 +178,4 @@ public class PolargeistEntity extends SkiesMonsterEntity {
       return 1;
    }
 
-   public MobType getMobType() {
-      return MobType.UNDEAD;
-   }
 }

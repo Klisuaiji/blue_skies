@@ -67,10 +67,10 @@ public class SpearEntity extends AbstractArrow {
       this.thrownStack = new ItemStack(SpearEntity.Type.getSpear(id));
    }
 
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(LOYALTY_LEVEL, (byte)0);
-      this.entityData.define(HAS_EFFECT, false);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(LOYALTY_LEVEL, (byte)0);
+      builder.define(HAS_EFFECT, false);
    }
 
    public void tick() {
@@ -236,7 +236,7 @@ public class SpearEntity extends AbstractArrow {
       return (byte)(stack.getItem() == SkiesItems.soulbound_spear ? Math.max(1, loyaltyLevel) : loyaltyLevel);
    }
 
-   public static enum Type {
+   public enum Type {
       BLUEBRIGHT(0, SkiesItems.bluebright_spear),
       STARLIT(1, SkiesItems.starlit_spear),
       FROSTBRIGHT(2, SkiesItems.frostbright_spear),
@@ -249,7 +249,7 @@ public class SpearEntity extends AbstractArrow {
       final byte value;
       final Item item;
 
-      private Type(int value, Item item) {
+      Type(int value, Item item) {
          this.value = (byte)value;
          this.item = item;
       }

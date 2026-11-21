@@ -1,0 +1,28 @@
+{
+  "parent": "blue_skies:root",
+  "criteria": {
+    "enter_everdawn": {
+      "conditions": {
+        "to": "blue_skies:everdawn"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.blue_skies.everdawn.enter.desc"
+    },
+    "icon": {
+      "item": "blue_skies:everdawn_portal"
+    },
+    "title": {
+      "translate": "advancements.blue_skies.everdawn.enter"
+    }
+  },
+  "requirements": [
+    [
+      "enter_everdawn"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

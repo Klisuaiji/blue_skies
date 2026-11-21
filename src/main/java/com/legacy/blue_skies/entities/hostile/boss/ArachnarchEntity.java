@@ -58,7 +58,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -92,7 +91,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.common.NeoForgeMod;
-import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
 
 public class ArachnarchEntity extends SkiesBossEntity implements RangedAttackMob, IStunnableMob {
    protected static final EntityDataAccessor<Byte> CLIMBING = SynchedEntityData.defineId(ArachnarchEntity.class, EntityDataSerializers.BYTE);
@@ -164,7 +163,7 @@ public class ArachnarchEntity extends SkiesBossEntity implements RangedAttackMob
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
    ) {
       SpawnGroupData flag = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
       if (!this.level().isClientSide()) {
@@ -191,7 +190,7 @@ public class ArachnarchEntity extends SkiesBossEntity implements RangedAttackMob
          .add(Attributes.KNOCKBACK_RESISTANCE, 100.0)
          .add(Attributes.ARMOR, 6.0)
          .add(Attributes.ATTACK_KNOCKBACK, 4.0)
-         .add((Attribute)NeoForgeMod.STEP_HEIGHT.value(), 2.0);
+         .add(Attributes.STEP_HEIGHT, 2.0);
    }
 
    @Override
@@ -225,16 +224,16 @@ public class ArachnarchEntity extends SkiesBossEntity implements RangedAttackMob
    }
 
    @Override
-   protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(CLIMBING, (byte)0);
-      this.entityData.define(CEILING_LOCKED, false);
-      this.entityData.define(CHARGING, false);
-      this.entityData.define(STUNNED, false);
-      this.entityData.define(TIME_ON_CEILING, 0);
-      this.entityData.define(TIME_SINCE_LOCKED, 0);
-      this.entityData.define(TIME_STUNNED, 0);
-      this.entityData.define(TICKS_UNTIL_NEXT_SCREECH, 0);
+   protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(CLIMBING, (byte)0);
+      builder.define(CEILING_LOCKED, false);
+      builder.define(CHARGING, false);
+      builder.define(STUNNED, false);
+      builder.define(TIME_ON_CEILING, 0);
+      builder.define(TIME_SINCE_LOCKED, 0);
+      builder.define(TIME_STUNNED, 0);
+      builder.define(TICKS_UNTIL_NEXT_SCREECH, 0);
    }
 
    @Override
@@ -391,7 +390,7 @@ public class ArachnarchEntity extends SkiesBossEntity implements RangedAttackMob
             }
 
             if (this.isStunned()) {
-               for (int tx = 0; tx < 4; tx++) {
+               for (int t = 0; t < 4; t++) {
                   this.level()
                      .addParticle(
                         ParticleTypes.AMBIENT_ENTITY_EFFECT,
@@ -455,36 +454,36 @@ public class ArachnarchEntity extends SkiesBossEntity implements RangedAttackMob
    public boolean doHurtTarget(Entity entityIn) {
       if (this.isAlliedTo(entityIn)) {
          return false;
-      } else {
-         if (entityIn instanceof Player player) {
-            ItemStack playerItem = player.isUsingItem() ? player.getUseItem() : ItemStack.EMPTY;
-            if (!playerItem.isEmpty() && !this.level().isClientSide) {
-               if (SHIELDS.contains(playerItem.getItem())) {
-                  this.level().broadcastEntityEvent(this, (byte)4);
-                  this.setStunned(true);
-                  this.level().broadcastEntityEvent(player, (byte)29);
-                  this.level().broadcastEntityEvent(player, (byte)30);
-                  player.disableShield(true);
-                  SHIELDS.forEach(item -> player.getCooldowns().addCooldown(item, 300));
-                  if (player.getUsedItemHand() != null) {
-                     playerItem.hurtAndBreak(1, player, e -> e.broadcastBreakEvent(player.getUsedItemHand()));
-                  }
+      }
 
-                  return false;
+      if (entityIn instanceof Player player) {
+         ItemStack playerItem = player.isUsingItem() ? player.getUseItem() : ItemStack.EMPTY;
+         if (!playerItem.isEmpty() && !this.level().isClientSide) {
+            if (SHIELDS.contains(playerItem.getItem())) {
+               this.level().broadcastEntityEvent(this, (byte)4);
+               this.setStunned(true);
+               this.level().broadcastEntityEvent(player, (byte)29);
+               this.level().broadcastEntityEvent(player, (byte)30);
+               player.disableShield(true);
+               SHIELDS.forEach(item -> player.getCooldowns().addCooldown(item, 300));
+               if (player.getUsedItemHand() != null) {
+                  playerItem.hurtAndBreak(1, player, net.minecraft.world.entity.EquipmentSlot.MAINHAND);
                }
 
-               if (playerItem.canPerformAction(ToolActions.SHIELD_BLOCK)) {
-                  player.displayClientMessage(Component.translatable("gui.blue_skies.tooltip.arachnarch_incorrect_shield"), true);
-                  player.disableShield(true);
-                  this.level().broadcastEntityEvent(player, (byte)30);
-                  player.getCooldowns().addCooldown(playerItem.getItem(), 800);
-                  return super.doHurtTarget(entityIn);
-               }
+               return false;
+            }
+
+            if (playerItem.canPerformAction(ItemAbilities.SHIELD_BLOCK)) {
+               player.displayClientMessage(Component.translatable("gui.blue_skies.tooltip.arachnarch_incorrect_shield"), true);
+               player.disableShield(true);
+               this.level().broadcastEntityEvent(player, (byte)30);
+               player.getCooldowns().addCooldown(playerItem.getItem(), 800);
+               return super.doHurtTarget(entityIn);
             }
          }
-
-         return super.doHurtTarget(entityIn);
       }
+
+      return super.doHurtTarget(entityIn);
    }
 
    @Override
@@ -687,9 +686,6 @@ public class ArachnarchEntity extends SkiesBossEntity implements RangedAttackMob
       }
    }
 
-   public MobType getMobType() {
-      return MobType.ARTHROPOD;
-   }
 
    protected SoundEvent getAmbientSound() {
       return this.isStunned() ? null : SkiesSounds.ENTITY_ARACHNARCH_IDLE;

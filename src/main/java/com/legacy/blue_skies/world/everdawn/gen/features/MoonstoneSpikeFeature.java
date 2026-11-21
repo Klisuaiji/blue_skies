@@ -52,10 +52,10 @@ public class MoonstoneSpikeFeature extends Feature<MoonstoneSpikeFeature.Config>
             }
 
             for (int x = -radius; x <= radius; x++) {
-               for (int zx = -radius; zx <= radius; zx++) {
-                  if (Math.abs(x) + Math.abs(zx) <= radius + 1) {
+               for (int z = -radius; z <= radius; z++) {
+                  if (Math.abs(x) + Math.abs(z) <= radius + 1) {
                      for (int y = -2; y <= 0; y++) {
-                        this.setBlock(world, pos.offset(x, height + y, zx));
+                        this.setBlock(world, pos.offset(x, height + y, z));
                      }
                   }
                }

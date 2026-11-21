@@ -1,0 +1,7 @@
+{
+  "parent": "blue_skies:block/sky_door_top_left",
+  "textures": {
+    "bottom": "blue_skies:block/doors/comet_lower",
+    "top": "blue_skies:block/doors/comet_upper"
+  }
+}

@@ -1,5 +1,6 @@
 package com.legacy.blue_skies.items.tools.weapons;
 
+import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.entities.hostile.boss.summons.ArtificialGolemEntity;
 import com.legacy.blue_skies.entities.projectile.FluctuantSphereEntity;
 import com.legacy.blue_skies.registries.SkiesSounds;
@@ -81,7 +82,7 @@ public class SummoningTomeItem extends Item {
       if (entityIn instanceof Player && i > (summonsGolems ? 20 : 10)) {
          Player player = (Player)entityIn;
          ItemStack itemstack = player.getItemInHand(player.getUsedItemHand());
-         itemstack.hurtAndBreak(1, player, entity -> entity.broadcastBreakEvent(player.getUsedItemHand()));
+         itemstack.hurtAndBreak(1, player, net.minecraft.world.entity.EquipmentSlot.MAINHAND);
          if (!worldIn.isClientSide()) {
             if (summonsGolems) {
                BlockPos pos = player.blockPosition();
@@ -145,18 +146,18 @@ public class SummoningTomeItem extends Item {
    }
 
    public static boolean canSummonGolems(ItemStack stack) {
-      CompoundTag compoundnbt = stack.getTag();
+      CompoundTag compoundnbt = LegacyNbt.get(stack);
       return compoundnbt.getBoolean("SummonsGolems");
    }
 
    public static ItemStack setSummonsGolems(ItemStack stack, boolean canSummon) {
-      CompoundTag compoundnbt = stack.getOrCreateTag();
+      CompoundTag compoundnbt = LegacyNbt.getOrCreate(stack);
       compoundnbt.putBoolean("SummonsGolems", canSummon);
       return stack;
    }
 
    @OnlyIn(Dist.CLIENT)
-   public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> lore, TooltipFlag flagIn) {
+   public void appendHoverText(ItemStack stack, Level worldIn, List<Component> lore, TooltipFlag flagIn) {
       lore.add(
          Component.literal(
             StringUtil.getAbilityText("gui.blue_skies.item.ability.summoning_tome." + (canSummonGolems(stack) ? "artificial_golem" : "fluctuant_sphere"))

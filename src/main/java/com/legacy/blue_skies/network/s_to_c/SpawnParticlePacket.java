@@ -14,7 +14,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class SpawnParticlePacket implements PacketHandler.ModPacket<SpawnParticlePacket, SpawnParticlePacket.Handler> {
    private final byte id;
@@ -57,9 +57,9 @@ public class SpawnParticlePacket implements PacketHandler.ModPacket<SpawnParticl
          return new SpawnParticlePacket(buff.readByte(), new Vec3(buff.readFloat(), buff.readFloat(), buff.readFloat()));
       }
 
-      public void handler(SpawnParticlePacket packet, PlayPayloadContext context) {
+      public void handler(SpawnParticlePacket packet, IPayloadContext context) {
          if (FMLEnvironment.dist == Dist.CLIENT) {
-            context.workHandler().submitAsync(() -> handlePacket(packet));
+            context.enqueueWork(() -> handlePacket(packet));
          }
       }
 
@@ -72,9 +72,9 @@ public class SpawnParticlePacket implements PacketHandler.ModPacket<SpawnParticl
                double speed = 0.02F;
 
                for (int i = 0; i < 6; i++) {
-                  double x = LogicUtil.plusOrMinus((double)(packet.x + 0.5F), spread, world.random);
-                  double y = LogicUtil.plusOrMinus((double)(packet.y + 0.5F), spread, world.random);
-                  double z = LogicUtil.plusOrMinus((double)(packet.z + 0.5F), spread, world.random);
+                  double x = LogicUtil.plusOrMinus(packet.x + 0.5F, spread, world.random);
+                  double y = LogicUtil.plusOrMinus(packet.y + 0.5F, spread, world.random);
+                  double z = LogicUtil.plusOrMinus(packet.z + 0.5F, spread, world.random);
                   double dx = LogicUtil.plusOrMinus(speed, world.random);
                   double dy = LogicUtil.plusOrMinus(speed, world.random);
                   double dz = LogicUtil.plusOrMinus(speed, world.random);
