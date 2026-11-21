@@ -53,7 +53,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -74,6 +73,13 @@ import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public class SkiesTagProv {
+   // NEW_TAG_HELPER_121: 1.21.1 removed several c: namespace tag fields.
+   public static net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block> cBlockTag(String path) {
+      return net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BLOCK, net.minecraft.resources.ResourceLocation.parse("c:" + path));
+   }
+   public static net.minecraft.tags.TagKey<net.minecraft.world.item.Item> cItemTag(String path) {
+      return net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM, net.minecraft.resources.ResourceLocation.parse("c:" + path));
+   }
    public static class BiomeTagProv extends BiomeTagsProvider {
       public BiomeTagProv(DataGenerator generatorIn, ExistingFileHelper existingFileHelper, CompletableFuture<Provider> lookup) {
          super(generatorIn.getPackOutput(), lookup, "blue_skies", existingFileHelper);
@@ -274,7 +280,7 @@ public class SkiesTagProv {
                new TagKey[]{
                   SkiesBlockTags.STONES,
                   BlockTags.DIRT,
-                  net.neoforged.neoforge.common.Tags.Blocks.SANDSTONE,
+                  net.neoforged.neoforge.common.Tags.Blocks.SANDSTONE_BLOCKS,
                   BlockTags.SNOW,
                   BlockTags.ICE,
                   BlockTags.DIRT,
@@ -918,11 +924,11 @@ public class SkiesTagProv {
                   SkiesBlocks.comet_fence_gate
                }
             );
-         this.tag(net.neoforged.neoforge.common.Tags.Blocks.COBBLESTONE).addTags(new TagKey[]{SkiesBlockTags.COBBLESTONES});
-         this.tag(net.neoforged.neoforge.common.Tags.Blocks.STONE).addTags(new TagKey[]{SkiesBlockTags.STONES});
-         this.tag(net.neoforged.neoforge.common.Tags.Blocks.STAINED_GLASS).add(new Block[]{SkiesBlocks.crystal_glass, SkiesBlocks.midnight_glass});
-         this.tag(net.neoforged.neoforge.common.Tags.Blocks.GLASS_SILICA).add(new Block[]{SkiesBlocks.crystal_glass, SkiesBlocks.midnight_glass});
-         this.tag(net.neoforged.neoforge.common.Tags.Blocks.STAINED_GLASS_PANES)
+         this.tag(net.neoforged.neoforge.common.Tags.Blocks.COBBLESTONES).addTags(new TagKey[]{SkiesBlockTags.COBBLESTONES});
+         this.tag(SkiesTagProv.cBlockTag("stone")).addTags(new TagKey[]{SkiesBlockTags.STONES});
+         this.tag(net.neoforged.neoforge.common.Tags.Blocks.GLASS_BLOCKS_TINTED).add(new Block[]{SkiesBlocks.crystal_glass, SkiesBlocks.midnight_glass});
+         this.tag(net.neoforged.neoforge.common.Tags.Blocks.GLASS_BLOCKS_CHEAP).add(new Block[]{SkiesBlocks.crystal_glass, SkiesBlocks.midnight_glass});
+         this.tag(net.neoforged.neoforge.common.Tags.Blocks.GLASS_PANES)
             .add(new Block[]{SkiesBlocks.crystal_glass_pane, SkiesBlocks.midnight_glass_pane});
          this.tag(net.neoforged.neoforge.common.Tags.Blocks.ORE_RATES_SPARSE)
             .add(new Block[]{SkiesBlocks.everdawn_moonstone_ore, SkiesBlocks.everbright_moonstone_ore});
@@ -959,7 +965,7 @@ public class SkiesTagProv {
             );
          this.tag(net.neoforged.neoforge.common.Tags.Blocks.ORES_EMERALD)
             .add(new Block[]{SkiesBlocks.everbright_emerald_ore, SkiesBlocks.everdawn_emerald_ore});
-         this.tag(net.neoforged.neoforge.common.Tags.Blocks.SANDSTONE)
+         this.tag(net.neoforged.neoforge.common.Tags.Blocks.SANDSTONE_BLOCKS)
             .add(
                new Block[]{
                   SkiesBlocks.crystal_sandstone,
@@ -989,7 +995,7 @@ public class SkiesTagProv {
                   SkiesBlockTags.RAW_VENTIUM_BLOCKS
                }
             );
-         this.tag(net.neoforged.neoforge.common.Tags.Blocks.SAND).add(new Block[]{SkiesBlocks.crystal_sand, SkiesBlocks.midnight_sand});
+         this.tag(net.minecraft.tags.BlockTags.SAND).add(new Block[]{SkiesBlocks.crystal_sand, SkiesBlocks.midnight_sand});
          this.tag(net.neoforged.neoforge.common.Tags.Blocks.BOOKSHELVES).addTag(SkiesBlockTags.BOOKSHELVES);
       }
 
@@ -1382,7 +1388,7 @@ public class SkiesTagProv {
                   SkiesItems.horizonite_ingot
                }
             );
-         this.addMatching(ItemTags.MUSIC_DISCS, i -> i instanceof RecordItem);
+         this.addMatching(net.neoforged.neoforge.common.Tags.Items.MUSIC_DISCS, i -> true);
          this.tag(ItemTags.SWORDS).addTag(SkiesItemTags.SWORDS);
          this.tag(ItemTags.PICKAXES).addTag(SkiesItemTags.PICKAXES);
          this.tag(ItemTags.AXES).addTag(SkiesItemTags.AXES);
@@ -1463,10 +1469,10 @@ public class SkiesTagProv {
 
       private void forge() {
          this.copy(net.neoforged.neoforge.common.Tags.Blocks.CHESTS_WOODEN, net.neoforged.neoforge.common.Tags.Items.CHESTS_WOODEN);
-         this.copy(net.neoforged.neoforge.common.Tags.Blocks.COBBLESTONE, net.neoforged.neoforge.common.Tags.Items.COBBLESTONE);
-         this.copy(net.neoforged.neoforge.common.Tags.Blocks.STONE, net.neoforged.neoforge.common.Tags.Items.STONE);
+         this.copy(net.neoforged.neoforge.common.Tags.Blocks.COBBLESTONES, net.neoforged.neoforge.common.Tags.Items.COBBLESTONES);
+         this.copy(SkiesTagProv.cBlockTag("stone"), SkiesTagProv.cItemTag("stone"));
          this.copy(SkiesBlockTags.BOOKSHELVES, net.neoforged.neoforge.common.Tags.Items.BOOKSHELVES);
-         this.copy(net.neoforged.neoforge.common.Tags.Blocks.SAND, net.neoforged.neoforge.common.Tags.Items.SAND);
+         this.copy(net.minecraft.tags.BlockTags.SAND, net.minecraft.tags.ItemTags.SAND);
          this.tag(net.neoforged.neoforge.common.Tags.Items.RODS_WOODEN)
             .add(
                new Item[]{
@@ -1479,12 +1485,12 @@ public class SkiesTagProv {
                   SkiesItems.comet_stick
                }
             );
-         this.copy(net.neoforged.neoforge.common.Tags.Blocks.STAINED_GLASS, net.neoforged.neoforge.common.Tags.Items.STAINED_GLASS);
-         this.copy(net.neoforged.neoforge.common.Tags.Blocks.GLASS_SILICA, net.neoforged.neoforge.common.Tags.Items.GLASS_SILICA);
-         this.copy(net.neoforged.neoforge.common.Tags.Blocks.STAINED_GLASS_PANES, net.neoforged.neoforge.common.Tags.Items.STAINED_GLASS_PANES);
+         this.copy(net.neoforged.neoforge.common.Tags.Blocks.GLASS_BLOCKS_TINTED, net.neoforged.neoforge.common.Tags.Items.GLASS_BLOCKS_TINTED);
+         this.copy(net.neoforged.neoforge.common.Tags.Blocks.GLASS_BLOCKS_CHEAP, net.neoforged.neoforge.common.Tags.Items.GLASS_BLOCKS_CHEAP);
+         this.copy(net.neoforged.neoforge.common.Tags.Blocks.GLASS_PANES, net.neoforged.neoforge.common.Tags.Items.GLASS_PANES);
          this.copy(net.neoforged.neoforge.common.Tags.Blocks.ORES, net.neoforged.neoforge.common.Tags.Items.ORES);
          this.copy(net.neoforged.neoforge.common.Tags.Blocks.ORES_EMERALD, net.neoforged.neoforge.common.Tags.Items.ORES_EMERALD);
-         this.copy(net.neoforged.neoforge.common.Tags.Blocks.SANDSTONE, net.neoforged.neoforge.common.Tags.Items.SANDSTONE);
+         this.copy(net.neoforged.neoforge.common.Tags.Blocks.SANDSTONE_BLOCKS, net.neoforged.neoforge.common.Tags.Items.SANDSTONE_BLOCKS);
          this.copy(net.neoforged.neoforge.common.Tags.Blocks.STORAGE_BLOCKS, net.neoforged.neoforge.common.Tags.Items.STORAGE_BLOCKS);
          this.copy(net.neoforged.neoforge.common.Tags.Blocks.ORE_RATES_SPARSE, net.neoforged.neoforge.common.Tags.Items.ORE_RATES_SPARSE);
          this.copy(net.neoforged.neoforge.common.Tags.Blocks.ORE_RATES_SINGULAR, net.neoforged.neoforge.common.Tags.Items.ORE_RATES_SINGULAR);
@@ -1515,7 +1521,7 @@ public class SkiesTagProv {
                }
             );
          this.tag(net.neoforged.neoforge.common.Tags.Items.ENCHANTING_FUELS).addTag(SkiesItemTags.FALSITE_NUGGETS);
-         this.tag(net.neoforged.neoforge.common.Tags.Items.ARMORS_HELMETS)
+         this.tag(net.minecraft.tags.ItemTags.HEAD_ARMOR)
             .add(
                new Item[]{
                   SkiesItems.pyrope_helmet,
@@ -1526,7 +1532,7 @@ public class SkiesTagProv {
                   SkiesItems.shadow_helmet
                }
             );
-         this.tag(net.neoforged.neoforge.common.Tags.Items.ARMORS_CHESTPLATES)
+         this.tag(net.minecraft.tags.ItemTags.CHEST_ARMOR)
             .add(
                new Item[]{
                   SkiesItems.pyrope_chestplate,
@@ -1537,7 +1543,7 @@ public class SkiesTagProv {
                   SkiesItems.shadow_chestplate
                }
             );
-         this.tag(net.neoforged.neoforge.common.Tags.Items.ARMORS_LEGGINGS)
+         this.tag(net.minecraft.tags.ItemTags.LEG_ARMOR)
             .add(
                new Item[]{
                   SkiesItems.pyrope_leggings,
@@ -1548,7 +1554,7 @@ public class SkiesTagProv {
                   SkiesItems.shadow_leggings
                }
             );
-         this.tag(net.neoforged.neoforge.common.Tags.Items.ARMORS_BOOTS)
+         this.tag(net.minecraft.tags.ItemTags.FOOT_ARMOR)
             .add(
                new Item[]{
                   SkiesItems.pyrope_boots,
@@ -1672,7 +1678,7 @@ public class SkiesTagProv {
          TagAppender<Structure> appender = this.tag(tagKey);
 
          for (StructureRegistrar<?> entry : registrars) {
-            entry.getStructures().values().forEach(r -> appender.add(r.getKey()));
+            entry.getStructures().values().forEach(r -> appender.add((net.minecraft.resources.ResourceKey<Structure>) (net.minecraft.resources.ResourceKey<?>) r.getKey()));
          }
       }
 
