@@ -4,7 +4,7 @@ import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.entities.util.base.SkiesIllagerBossEntity;
 import com.legacy.blue_skies.network.PacketHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -28,11 +28,11 @@ public class IllagerTeleportPacket implements PacketHandler.ModPacket<IllagerTel
          return BlueSkies.locate("illager_teleport");
       }
 
-      public void encoder(IllagerTeleportPacket packet, FriendlyByteBuf buff) {
+      public void encoder(IllagerTeleportPacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeInt(packet.entityId);
       }
 
-      public IllagerTeleportPacket decoder(FriendlyByteBuf buff) {
+      public IllagerTeleportPacket decoder(RegistryFriendlyByteBuf buff) {
          return new IllagerTeleportPacket(buff.readInt());
       }
 

@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -42,8 +43,9 @@ public class SkiesCreativeTabs {
 
    @SubscribeEvent
    public static void modifyExisting(BuildCreativeModeTabContentsEvent event) {
-      if (event.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS)) {
-         for (Item item : (List)SPAWN_EGGS.get()) {
+      // 1.21.1: CreativeModeTabs' ResourceKey constants are private; compare the key location.
+      if (event.getTabKey().location().equals(ResourceLocation.withDefaultNamespace("spawn_eggs"))) {
+         for (Item item : SPAWN_EGGS.get()) {
             event.accept(item);
          }
       }
@@ -704,7 +706,7 @@ public class SkiesCreativeTabs {
                      }
                   }
 
-                  for (Item item : (List)SPAWN_EGGS.get()) {
+                  for (Item item : SPAWN_EGGS.get()) {
                      output.accept(item);
                   }
                }
@@ -732,8 +734,8 @@ public class SkiesCreativeTabs {
       try {
          Set<Item> items = new HashSet<>();
 
-         for (Entry<ItemStack, TabVisibility> e : event.getEntries()) {
-            items.add(e.getKey().getItem());
+         for (ItemStack e : event.getParentEntries()) {
+            items.add(e.getItem());
          }
 
          for (Item e : BuiltInRegistries.ITEM

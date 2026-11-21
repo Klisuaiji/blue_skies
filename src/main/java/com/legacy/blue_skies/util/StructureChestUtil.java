@@ -8,7 +8,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.RandomizableContainer;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ChestBlock;
@@ -33,7 +36,7 @@ public class StructureChestUtil {
                .rotate(level, pos, rotation),
             2
          );
-         RandomizableContainer.setBlockEntityLootTable(level, rand, pos, loot);
+         RandomizableContainer.setBlockEntityLootTable(level, rand, pos, ResourceKey.create(Registries.LOOT_TABLE, loot));
       }
    }
 

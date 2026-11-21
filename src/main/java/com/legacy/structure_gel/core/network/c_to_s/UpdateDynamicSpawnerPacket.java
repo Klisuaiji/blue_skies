@@ -7,7 +7,7 @@ import com.legacy.structure_gel.core.block_entity.DynamicSpawnerBlockEntity;
 import com.legacy.structure_gel.core.network.SGPacketHandler;
 import com.legacy.structure_gel.core.registry.SGRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,14 +37,14 @@ public class UpdateDynamicSpawnerPacket implements SGPacketHandler.ModPacket<Upd
          return StructureGelMod.locate("update_dynamic_spawner");
       }
 
-      public void encoder(UpdateDynamicSpawnerPacket packet, FriendlyByteBuf buff) {
+      public void encoder(UpdateDynamicSpawnerPacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeBlockPos(packet.pos);
          buff.writeResourceLocation(packet.type);
          buff.writeInt(packet.expRange.min);
          buff.writeInt(packet.expRange.max);
       }
 
-      public UpdateDynamicSpawnerPacket decoder(FriendlyByteBuf buff) {
+      public UpdateDynamicSpawnerPacket decoder(RegistryFriendlyByteBuf buff) {
          try {
             BlockPos pos = buff.readBlockPos();
             ResourceLocation type = buff.readResourceLocation();

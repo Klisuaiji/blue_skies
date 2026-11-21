@@ -3,7 +3,7 @@ package com.legacy.blue_skies.network.c_to_s;
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.capability.SkiesPlayer;
 import com.legacy.blue_skies.network.PacketHandler;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -27,12 +27,12 @@ public class GetClientMotionPacket implements PacketHandler.ModPacket<GetClientM
          return BlueSkies.locate("get_client_motion");
       }
 
-      public void encoder(GetClientMotionPacket packet, FriendlyByteBuf buff) {
+      public void encoder(GetClientMotionPacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeDouble(packet.motionX);
          buff.writeDouble(packet.motionZ);
       }
 
-      public GetClientMotionPacket decoder(FriendlyByteBuf buff) {
+      public GetClientMotionPacket decoder(RegistryFriendlyByteBuf buff) {
          return new GetClientMotionPacket(buff.readDouble(), buff.readDouble());
       }
 

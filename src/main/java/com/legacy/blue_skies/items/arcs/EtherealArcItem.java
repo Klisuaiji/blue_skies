@@ -25,7 +25,7 @@ public class EtherealArcItem extends ArcItem {
    public void onEquip(ItemStack stack, Player player) {
       AttributeInstance attribute = player.getAttribute(Attributes.MOVEMENT_SPEED);
       int level = this.getFunctionalLevel(stack, player);
-      if (!attribute.hasModifier(SPEED_BOOSTS[level])) {
+      if (!attribute.hasModifier(SPEED_BOOSTS[level].id())) {
          attribute.addTransientModifier(SPEED_BOOSTS[level]);
       }
    }
@@ -35,8 +35,8 @@ public class EtherealArcItem extends ArcItem {
       AttributeInstance attribute = player.getAttribute(Attributes.MOVEMENT_SPEED);
 
       for (int i = 0; i < SPEED_BOOSTS.length; i++) {
-         if (attribute.hasModifier(SPEED_BOOSTS[i])) {
-            attribute.removeModifier(SPEED_BOOSTS[i].getId());
+         if (attribute.hasModifier(SPEED_BOOSTS[i].id())) {
+            attribute.removeModifier(SPEED_BOOSTS[i].id());
          }
       }
    }

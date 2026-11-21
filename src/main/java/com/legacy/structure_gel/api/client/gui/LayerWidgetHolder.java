@@ -59,7 +59,7 @@ public interface LayerWidgetHolder extends ContainerEventHandler {
 
    default Optional<GuiEventListener> getChildAt(double mouseX, double mouseY) {
       GuiEventListener top = this.getTopWidget(mouseX, mouseY);
-      return top != null ? Optional.of(top) : super.getChildAt(mouseX, mouseY);
+      return top != null ? Optional.of(top) : ContainerEventHandler.super.getChildAt(mouseX, mouseY);
    }
 
    default boolean mouseClicked(double mouseX, double mouseY, int click) {
@@ -72,16 +72,16 @@ public interface LayerWidgetHolder extends ContainerEventHandler {
 
          return true;
       } else {
-         return super.mouseClicked(mouseX, mouseY, click);
+         return ContainerEventHandler.super.mouseClicked(mouseX, mouseY, click);
       }
    }
 
    default boolean mouseReleased(double mouseX, double mouseY, int click) {
-      return super.mouseReleased(mouseX, mouseY, click);
+      return ContainerEventHandler.super.mouseReleased(mouseX, mouseY, click);
    }
 
    default boolean mouseScrolled(double mouseX, double mouseY, double deltaX, double deltaY) {
-      return super.mouseScrolled(mouseX, mouseY, deltaX, deltaY);
+      return ContainerEventHandler.super.mouseScrolled(mouseX, mouseY, deltaX, deltaY);
    }
 
    default void mouseMoved(double mouseX, double mouseY) {

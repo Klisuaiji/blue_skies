@@ -6,7 +6,7 @@ import com.legacy.structure_gel.core.capability.level.BuildingToolPlayerData;
 import com.legacy.structure_gel.core.item.building_tool.CapturedBlocks;
 import com.legacy.structure_gel.core.network.SGPacketHandler;
 import com.legacy.structure_gel.core.network.s_to_c.EditClipboardPacket;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -30,11 +30,11 @@ public class RequestClipboardPacket implements SGPacketHandler.ModPacket<Request
          return StructureGelMod.locate("request_clipboard_packet");
       }
 
-      public void encoder(RequestClipboardPacket packet, FriendlyByteBuf buff) {
+      public void encoder(RequestClipboardPacket packet, RegistryFriendlyByteBuf buff) {
          NetworkUtil.writeBoundingBox(buff, packet.bounds);
       }
 
-      public RequestClipboardPacket decoder(FriendlyByteBuf buff) {
+      public RequestClipboardPacket decoder(RegistryFriendlyByteBuf buff) {
          return new RequestClipboardPacket(NetworkUtil.readBoundingBox(buff));
       }
 

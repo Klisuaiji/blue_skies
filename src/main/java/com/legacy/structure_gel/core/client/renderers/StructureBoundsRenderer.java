@@ -84,12 +84,11 @@ public class StructureBoundsRenderer implements IRenderBase {
          }
 
          this.lineBuffer = new VertexBuffer(Usage.STATIC);
-         BufferBuilder buffBuilder = Tesselator.getInstance().getBuilder();
-         buffBuilder.begin(Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+         BufferBuilder buffBuilder = Tesselator.getInstance().begin(Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
          PoseStack compileStack = new PoseStack();
          this.compileBounds(mc, compileStack, buffBuilder, camX, camY, camZ);
          this.lineBuffer.bind();
-         this.lineBuffer.upload(buffBuilder.end());
+         this.lineBuffer.upload(buffBuilder.buildOrThrow());
          VertexBuffer.unbind();
       }
 

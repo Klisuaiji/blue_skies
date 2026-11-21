@@ -7,7 +7,7 @@ import com.legacy.blue_skies.util.LogicUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -46,14 +46,14 @@ public class SpawnParticlePacket implements PacketHandler.ModPacket<SpawnParticl
          return BlueSkies.locate("spawn_particle");
       }
 
-      public void encoder(SpawnParticlePacket packet, FriendlyByteBuf buff) {
+      public void encoder(SpawnParticlePacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeByte(packet.id);
          buff.writeFloat(packet.x);
          buff.writeFloat(packet.y);
          buff.writeFloat(packet.z);
       }
 
-      public SpawnParticlePacket decoder(FriendlyByteBuf buff) {
+      public SpawnParticlePacket decoder(RegistryFriendlyByteBuf buff) {
          return new SpawnParticlePacket(buff.readByte(), new Vec3(buff.readFloat(), buff.readFloat(), buff.readFloat()));
       }
 

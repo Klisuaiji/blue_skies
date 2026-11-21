@@ -5,17 +5,15 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 
 public class SkiesWoodTypes {
-   public static final WoodType BLUEBRIGHT = register("bluebright", SkiesBlockSets.BLUEBRIGHT);
-   public static final WoodType STARLIT = register("starlit", SkiesBlockSets.STARLIT);
-   public static final WoodType FROSTBRIGHT = register("frostbright", SkiesBlockSets.FROSTBRIGHT);
-   public static final WoodType LUNAR = register("lunar", SkiesBlockSets.LUNAR);
-   public static final WoodType DUSK = register("dusk", SkiesBlockSets.DUSK);
-   public static final WoodType MAPLE = register("maple", SkiesBlockSets.MAPLE);
-   public static final WoodType COMET = register("comet", SkiesBlockSets.COMET);
-
-   public static WoodType register(String key, BlockSetType blockSet) {
-      return WoodType.register(new WoodType(BlueSkies.find(key), blockSet));
-   }
+   // 1.21.1: WoodType is a final record and WoodType.register is private. Custom wood
+   // types are constructed directly; they are referenced by the mod's sign blocks only.
+   public static final WoodType BLUEBRIGHT = new WoodType(BlueSkies.find("bluebright"), SkiesBlockSets.BLUEBRIGHT);
+   public static final WoodType STARLIT = new WoodType(BlueSkies.find("starlit"), SkiesBlockSets.STARLIT);
+   public static final WoodType FROSTBRIGHT = new WoodType(BlueSkies.find("frostbright"), SkiesBlockSets.FROSTBRIGHT);
+   public static final WoodType LUNAR = new WoodType(BlueSkies.find("lunar"), SkiesBlockSets.LUNAR);
+   public static final WoodType DUSK = new WoodType(BlueSkies.find("dusk"), SkiesBlockSets.DUSK);
+   public static final WoodType MAPLE = new WoodType(BlueSkies.find("maple"), SkiesBlockSets.MAPLE);
+   public static final WoodType COMET = new WoodType(BlueSkies.find("comet"), SkiesBlockSets.COMET);
 
    public static void init() {
    }

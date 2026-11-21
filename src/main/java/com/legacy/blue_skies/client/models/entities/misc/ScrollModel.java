@@ -58,15 +58,16 @@ public class ScrollModel extends Model {
       return LayerDefinition.create(mesh, 32, 32);
    }
 
-   public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+   // 1.21.1 Model#renderToBuffer takes a packed ARGB int instead of four color floats.
+   public void renderToBuffer(PoseStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
       if (this.folded) {
-         this.foldedTopHandle.render(matrixStack, buffer, packedLight, packedOverlay);
-         this.foldedBottomHandle.render(matrixStack, buffer, packedLight, packedOverlay);
-         this.foldedPage.render(matrixStack, buffer, packedLight, packedOverlay);
+         this.foldedTopHandle.render(matrixStack, buffer, packedLight, packedOverlay, color);
+         this.foldedBottomHandle.render(matrixStack, buffer, packedLight, packedOverlay, color);
+         this.foldedPage.render(matrixStack, buffer, packedLight, packedOverlay, color);
       } else {
-         this.topHandle.render(matrixStack, buffer, packedLight, packedOverlay);
-         this.bottomHandle.render(matrixStack, buffer, packedLight, packedOverlay);
-         this.page.render(matrixStack, buffer, packedLight, packedOverlay);
+         this.topHandle.render(matrixStack, buffer, packedLight, packedOverlay, color);
+         this.bottomHandle.render(matrixStack, buffer, packedLight, packedOverlay, color);
+         this.page.render(matrixStack, buffer, packedLight, packedOverlay, color);
       }
    }
 }

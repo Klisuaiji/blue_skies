@@ -2,7 +2,7 @@ package com.legacy.blue_skies.network.c_to_s;
 
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.network.PacketHandler;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -18,10 +18,10 @@ public class OpenedPerksScreenPacket implements PacketHandler.ModPacket<OpenedPe
          return BlueSkies.locate("opened_perks_screen");
       }
 
-      public void encoder(OpenedPerksScreenPacket packet, FriendlyByteBuf buff) {
+      public void encoder(OpenedPerksScreenPacket packet, RegistryFriendlyByteBuf buff) {
       }
 
-      public OpenedPerksScreenPacket decoder(FriendlyByteBuf buff) {
+      public OpenedPerksScreenPacket decoder(RegistryFriendlyByteBuf buff) {
          return new OpenedPerksScreenPacket();
       }
 

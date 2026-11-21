@@ -553,7 +553,7 @@ public class BuildingToolScreen extends LayeredScreen {
          stack = Optional.of(Items.BUCKET.getDefaultInstance());
       } else {
          int i = this.itemStackRenderIndex % statesList.size();
-         stack = Optional.of(BuildingToolItem.getItemForBlock((BlockState)statesList.get(i).getData(), Minecraft.getInstance().level));
+         stack = Optional.of(BuildingToolItem.getItemForBlock((BlockState)statesList.get(i).data(), Minecraft.getInstance().level));
       }
 
       this.selectedStateRender = stack;

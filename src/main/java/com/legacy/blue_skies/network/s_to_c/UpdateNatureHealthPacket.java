@@ -4,7 +4,7 @@ import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.capability.SkiesPlayer;
 import com.legacy.blue_skies.network.PacketHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
@@ -29,11 +29,11 @@ public class UpdateNatureHealthPacket implements PacketHandler.ModPacket<UpdateN
          return BlueSkies.locate("update_nature_health");
       }
 
-      public void encoder(UpdateNatureHealthPacket packet, FriendlyByteBuf buff) {
+      public void encoder(UpdateNatureHealthPacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeFloat(packet.health);
       }
 
-      public UpdateNatureHealthPacket decoder(FriendlyByteBuf buff) {
+      public UpdateNatureHealthPacket decoder(RegistryFriendlyByteBuf buff) {
          return new UpdateNatureHealthPacket(buff.readFloat());
       }
 

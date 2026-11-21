@@ -4,7 +4,7 @@ import com.legacy.structure_gel.core.StructureGelMod;
 import com.legacy.structure_gel.core.item.building_tool.BuildingToolItem;
 import com.legacy.structure_gel.core.network.SGPacketHandler;
 import com.legacy.structure_gel.core.registry.SGRegistry;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -27,18 +27,19 @@ public class ExportPalettePacket implements SGPacketHandler.ModPacket<ExportPale
          return StructureGelMod.locate("export_palette");
       }
 
-      public void encoder(ExportPalettePacket packet, FriendlyByteBuf buff) {
-         buff.writeItem(packet.palette);
+      public void encoder(ExportPalettePacket packet, RegistryFriendlyByteBuf buff) {
+         // 1.21.1: FriendlyByteBuf#writeItem was removed; item stacks use ItemStack.STREAM_CODEC.
+         ItemStack.OPTIONAL_STREAM_CODEC.encode(buff, packet.palette);
       }
 
-      public ExportPalettePacket decoder(FriendlyByteBuf buff) {
-         return new ExportPalettePacket(buff.readItem());
+      public ExportPalettePacket decoder(RegistryFriendlyByteBuf buff) {
+         return new ExportPalettePacket(ItemStack.OPTIONAL_STREAM_CODEC.decode(buff));
       }
 
       public void handler(ExportPalettePacket packet, IPayloadContext context) {
          context.enqueueWork(() -> {
             ServerPlayer player = this.serverPlayer(context);
-            if (player != null && !context.level().isEmpty()) {
+            if (player != null && player.level() != null) {
                if (BuildingToolItem.hasToolPermission(SGRegistry.Items.BUILDING_TOOL.getDefaultInstance(), player)) {
                   ItemStack paletteItem = packet.palette.copy();
                   if (!player.addItem(paletteItem)) {

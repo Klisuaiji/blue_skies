@@ -6,7 +6,7 @@ import com.legacy.structure_gel.core.registry.SGRegistry;
 import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -25,7 +25,7 @@ public record LeftClickBuildingToolPacket(InteractionHand hand, BlockPos pos, Di
          return StructureGelMod.locate("left_click_building_tool");
       }
 
-      public void encoder(LeftClickBuildingToolPacket packet, FriendlyByteBuf buff) {
+      public void encoder(LeftClickBuildingToolPacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeBoolean(packet.hand == InteractionHand.MAIN_HAND);
          buff.writeBoolean(packet.pos != null);
          if (packet.pos != null) {
@@ -36,7 +36,7 @@ public record LeftClickBuildingToolPacket(InteractionHand hand, BlockPos pos, Di
          buff.writeBoolean(packet.isHolding);
       }
 
-      public LeftClickBuildingToolPacket decoder(FriendlyByteBuf buff) {
+      public LeftClickBuildingToolPacket decoder(RegistryFriendlyByteBuf buff) {
          InteractionHand hand = buff.readBoolean() ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
          boolean isPosPresent = buff.readBoolean();
          BlockPos pos = isPosPresent ? buff.readBlockPos() : null;

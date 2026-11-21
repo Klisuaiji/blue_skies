@@ -17,17 +17,15 @@ import com.legacy.structure_gel.core.network.s_to_c.SendRegistryKeysToClientPack
 import com.legacy.structure_gel.core.network.s_to_c.SendStructureInfoToClientPacket;
 import com.legacy.structure_gel.core.network.s_to_c.ToggleViewBoundsPacket;
 import com.legacy.structure_gel.core.network.s_to_c.UpdateGelPlayerPacket;
-import java.util.Optional;
 import javax.annotation.Nullable;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -36,50 +34,78 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import net.neoforged.neoforge.common.util.FakePlayer;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent;
-import net.neoforged.neoforge.network.handling.ConfigurationPayloadContext;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
-import net.neoforged.neoforge.network.registration.IPayloadRegistrar;
+import net.neoforged.neoforge.network.handling.IPayloadHandler;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 @EventBusSubscriber(bus = Bus.MOD)
 public class SGPacketHandler {
+   // 1.21.1 NeoForge: channels are replaced by CustomPacketPayload + PayloadRegistrar.
+   // Payloads must be registered through RegisterPayloadHandlersEvent (fired on the mod bus).
    @SubscribeEvent
-   public static void registerPayloads(RegisterPayloadHandlerEvent event) {
-      IPayloadRegistrar r = event.registrar("structure_gel").versioned("9").optional();
-      playPacket(r, new EditClipboardPacket.Handler());
-      playPacket(r, new PlaySoundPacket.Handler());
-      playPacket(r, new SendRegistryKeysToClientPacket.Handler());
-      playPacket(r, new SendStructureInfoToClientPacket.Handler());
-      playPacket(r, new ToggleViewBoundsPacket.Handler());
-      playPacket(r, new UpdateGelPlayerPacket.Handler());
-      playPacket(r, new ActionHistoryPacket.Handler());
-      playPacket(r, new LeftClickBuildingToolPacket.Handler());
-      playPacket(r, new RightClickBuildingToolPacket.Handler());
-      playPacket(r, new MiddleClickBuildingToolPacket.Handler());
-      playPacket(r, new RequestClipboardPacket.Handler());
-      playPacket(r, new RequestRegistryKeysPacket.Handler());
-      playPacket(r, new UpdateDynamicSpawnerPacket.Handler());
-      playPacket(r, new UpdateDataHandlerPacket.Handler());
-      playPacket(r, new ProcessDeletePacket.Handler());
-      playPacket(r, new ExportPalettePacket.Handler());
-      playPacket(r, new UpdateBuildingToolPacket.Handler());
+   public static void registerPayloads(RegisterPayloadHandlersEvent event) {
+      PayloadRegistrar registrar = event.registrar("9");
+      playToClient(registrar, new EditClipboardPacket.Handler());
+      playToClient(registrar, new PlaySoundPacket.Handler());
+      playToClient(registrar, new SendRegistryKeysToClientPacket.Handler());
+      playToClient(registrar, new SendStructureInfoToClientPacket.Handler());
+      playToClient(registrar, new ToggleViewBoundsPacket.Handler());
+      playToClient(registrar, new UpdateGelPlayerPacket.Handler());
+      playToServer(registrar, new ActionHistoryPacket.Handler());
+      playToServer(registrar, new LeftClickBuildingToolPacket.Handler());
+      playToServer(registrar, new RightClickBuildingToolPacket.Handler());
+      playToServer(registrar, new MiddleClickBuildingToolPacket.Handler());
+      playToServer(registrar, new RequestClipboardPacket.Handler());
+      playToServer(registrar, new RequestRegistryKeysPacket.Handler());
+      playToServer(registrar, new UpdateDynamicSpawnerPacket.Handler());
+      playToServer(registrar, new UpdateDataHandlerPacket.Handler());
+      playToServer(registrar, new ProcessDeletePacket.Handler());
+      playToServer(registrar, new ExportPalettePacket.Handler());
+      playBidirectional(registrar, new UpdateBuildingToolPacket.Handler());
    }
 
-   private static <T extends SGPacketHandler.ModPacket<T, ?>> void playPacket(IPayloadRegistrar registrar, SGPacketHandler.PlayHandler<T> handler) {
-      registrar.play(handler.id(), handler::decoder, handler::handlePacket);
+   private static <T extends SGPacketHandler.ModPacket<T, ?>> void playToClient(PayloadRegistrar registrar, SGPacketHandler.PlayHandler<T> handler) {
+      registrar.playToClient(handler.type(), codec(handler), payloadHandler(handler));
    }
 
-   private static <T extends SGPacketHandler.ModPacket<T, ?>> void configurationPacket(
-      IPayloadRegistrar registrar, SGPacketHandler.ConfigurationHandler<T> handler
-   ) {
-      registrar.configuration(handler.id(), handler::decoder, handler::handlePacket);
+   private static <T extends SGPacketHandler.ModPacket<T, ?>> void playToServer(PayloadRegistrar registrar, SGPacketHandler.PlayHandler<T> handler) {
+      registrar.playToServer(handler.type(), codec(handler), payloadHandler(handler));
+   }
+
+   private static <T extends SGPacketHandler.ModPacket<T, ?>> void playBidirectional(PayloadRegistrar registrar, SGPacketHandler.PlayHandler<T> handler) {
+      registrar.playBidirectional(handler.type(), codec(handler), payloadHandler(handler));
+   }
+
+   private static <T extends SGPacketHandler.ModPacket<T, ?>> StreamCodec<RegistryFriendlyByteBuf, T> codec(SGPacketHandler.Serializer<T> serializer) {
+      return new StreamCodec<RegistryFriendlyByteBuf, T>() {
+         @Override
+         public T decode(RegistryFriendlyByteBuf buff) {
+            return serializer.decoder(buff);
+         }
+
+         @Override
+         public void encode(RegistryFriendlyByteBuf buff, T packet) {
+            serializer.encoder(packet, buff);
+         }
+      };
+   }
+
+   private static <T extends SGPacketHandler.ModPacket<T, ?>> IPayloadHandler<T> payloadHandler(SGPacketHandler.PlayHandler<T> handler) {
+      return (packet, context) -> {
+         if (context.flow().isServerbound()) {
+            handler.handleServerbound(packet, context);
+         } else {
+            handler.handleClientbound(packet, context);
+         }
+      };
    }
 
    public static void sendToClient(CustomPacketPayload packet, ServerPlayer serverPlayer) {
       if (!(serverPlayer instanceof FakePlayer)) {
-         serverPlayer.connection.send(packet);
+         PacketDistributor.sendToPlayer(serverPlayer, packet);
       }
    }
 
@@ -108,40 +134,39 @@ public class SGPacketHandler {
    }
 
    public static void sendToServer(CustomPacketPayload packet) {
-      Minecraft.getInstance().getConnection().send(packet);
+      PacketDistributor.sendToServer(packet);
    }
 
-   public interface ConfigurationHandler<T extends SGPacketHandler.ModPacket<T, ?>> extends SGPacketHandler.Handler<T, ConfigurationPayloadContext> {
-      private void handlePacket(T packet, ConfigurationPayloadContext context) {
-         if (context.flow().isServerbound()) {
-            this.handleServerbound(packet, context);
-         } else {
-            this.handleClientbound(packet, context);
-         }
+   protected interface Handler<T extends SGPacketHandler.ModPacket<T, ?>> extends SGPacketHandler.Serializer<T> {
+      void handler(T var1, IPayloadContext var2);
+
+      default CustomPacketPayload.Type<T> type() {
+         return new CustomPacketPayload.Type<>(this.id());
       }
-   }
-
-   protected interface Handler<T extends SGPacketHandler.ModPacket<T, ?>, C extends IPayloadContext> extends SGPacketHandler.Serializer<T> {
-      void handler(T var1, C var2);
 
       @OnlyIn(Dist.CLIENT)
-      default void handleClientbound(T packet, C context) {
+      default void handleClientbound(T packet, IPayloadContext context) {
          this.handler(packet, context);
       }
 
-      default void handleServerbound(T packet, C context) {
+      default void handleServerbound(T packet, IPayloadContext context) {
          this.handler(packet, context);
       }
    }
 
-   public interface ModPacket<T extends SGPacketHandler.ModPacket<T, ?>, H extends SGPacketHandler.Handler<T, ?>> extends CustomPacketPayload {
+   public interface ModPacket<T extends SGPacketHandler.ModPacket<T, ?>, H extends SGPacketHandler.Handler<T>> extends CustomPacketPayload {
       H handler();
+
+      @Override
+      default CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+         return this.handler().type();
+      }
 
       default ResourceLocation id() {
          return this.handler().id();
       }
 
-      default void write(FriendlyByteBuf buff) {
+      default void write(RegistryFriendlyByteBuf buff) {
          this.handler().encoder(this.getSelf(), buff);
       }
 
@@ -150,38 +175,31 @@ public class SGPacketHandler {
       }
    }
 
-   public interface PlayHandler<T extends SGPacketHandler.ModPacket<T, ?>> extends SGPacketHandler.Handler<T, IPayloadContext> {
-      private void handlePacket(T packet, IPayloadContext context) {
-         if (context.flow().isServerbound()) {
-            this.handleServerbound(packet, context);
-         } else {
-            this.handleClientbound(packet, context);
-         }
-      }
+   public interface PlayHandler<T extends SGPacketHandler.ModPacket<T, ?>> extends SGPacketHandler.Handler<T> {
    }
 
    protected interface Serializer<T extends SGPacketHandler.ModPacket<T, ?>> {
       ResourceLocation id();
 
-      void encoder(T var1, FriendlyByteBuf var2);
+      void encoder(T var1, RegistryFriendlyByteBuf var2);
 
-      T decoder(FriendlyByteBuf var1);
+      T decoder(RegistryFriendlyByteBuf var1);
 
       @Nullable
       default MinecraftServer server(IPayloadContext context) {
-         return context.level().<MinecraftServer>map(Level::getServer).orElseGet(ServerLifecycleHooks::getCurrentServer);
+         // 1.21.1: IPayloadContext has no level(); resolve the server from the sending player.
+         return context.player().level() instanceof ServerLevel serverLevel ? serverLevel.getServer() : ServerLifecycleHooks.getCurrentServer();
       }
 
       @Nullable
       default ServerPlayer serverPlayer(IPayloadContext context) {
-         Optional<Player> player = context.player();
-         return player.isPresent() && player.get() instanceof ServerPlayer s ? s : null;
+         // 1.21.1: IPayloadContext#player() returns a Player directly instead of an Optional.
+         return context.player() instanceof ServerPlayer serverPlayer ? serverPlayer : null;
       }
 
       @Nullable
       default ServerLevel serverLevel(IPayloadContext context) {
-         Optional<Level> level = context.level();
-         return level.isPresent() && level.get() instanceof ServerLevel s ? s : null;
+         return context.player().level() instanceof ServerLevel serverLevel ? serverLevel : null;
       }
    }
 }

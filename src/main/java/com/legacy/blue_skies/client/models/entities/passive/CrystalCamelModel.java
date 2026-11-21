@@ -136,35 +136,36 @@ public class CrystalCamelModel<T extends CrystalCamelEntity> extends EntityModel
       this.rightHindLeg.xRot = Mth.cos(limbSwing * 0.6662F) * legSwing * limbSwingAmount;
    }
 
+   // 1.21.1 Model#renderToBuffer takes a packed ARGB int instead of four color floats.
    public void renderToBuffer(
-      PoseStack matrixStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha
+      PoseStack matrixStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, int color
    ) {
       if (this.young) {
          matrixStackIn.pushPose();
          matrixStackIn.scale(0.71428573F, 0.64935064F, 0.7936508F);
          matrixStackIn.translate(0.0, 1.3125, 0.22F);
-         this.getCamelHeadParts().forEach(model -> model.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, -1));
+         this.getCamelHeadParts().forEach(model -> model.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, color));
          matrixStackIn.popPose();
          matrixStackIn.pushPose();
          matrixStackIn.scale(0.625F, 0.45454544F, 0.45454544F);
          matrixStackIn.translate(0.0, 2.0625, 0.0);
-         this.getCamelBodyParts().forEach(model -> model.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, -1));
+         this.getCamelBodyParts().forEach(model -> model.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, color));
          matrixStackIn.popPose();
          matrixStackIn.pushPose();
          matrixStackIn.scale(0.45454544F, 0.41322312F, 0.45454544F);
          matrixStackIn.translate(0.0, 2.0625, 0.0);
-         this.getCamelLegParts().forEach(model -> model.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, -1));
+         this.getCamelLegParts().forEach(model -> model.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, color));
          matrixStackIn.popPose();
       } else {
-         this.getCamelLegParts().forEach(model -> model.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, -1));
-         this.getCamelBodyParts().forEach(model -> model.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, -1));
-         this.getCamelHeadParts().forEach(model -> model.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, -1));
+         this.getCamelLegParts().forEach(model -> model.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, color));
+         this.getCamelBodyParts().forEach(model -> model.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, color));
+         this.getCamelHeadParts().forEach(model -> model.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, color));
          if (this.saddled) {
-            this.saddleTop.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, -1);
+            this.saddleTop.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, color);
          }
 
          if (this.chested) {
-            this.chest.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, -1);
+            this.chest.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, color);
          }
       }
    }

@@ -60,7 +60,7 @@ public class FillTool extends BuildingToolMode.ForCorners {
                   if (shape.isInside(centerPos.add(-pos.getX(), -pos.getY(), -pos.getZ()), dx, dy, dz) && rand.nextFloat() < integrity) {
                      Optional<Wrapper<BlockState>> opState = palette.getRandom(level.random);
                      if (opState.isPresent()) {
-                        BlockState toPlace = (BlockState)opState.get().getData();
+                        BlockState toPlace = (BlockState)opState.get().data();
                         if (replace.shouldReplace(level, clickedState, pos)) {
                            return this.setBlock(
                               level, pos, oldState -> copyStates ? IModifyState.mergeStates(toPlace, oldState) : toPlace, causesBlockUpdates, action

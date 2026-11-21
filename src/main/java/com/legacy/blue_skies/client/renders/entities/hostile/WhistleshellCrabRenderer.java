@@ -26,8 +26,9 @@ public class WhistleshellCrabRenderer<T extends WhistleshellCrabEntity> extends 
       matrixStackIn.translate(0.0F, 0.0F, -0.15F);
    }
 
-   protected void setupRotations(T entityIn, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
-      super.setupRotations(entityIn, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
+   // 1.21.1 appended a float scale argument to LivingEntityRenderer#setupRotations.
+   protected void setupRotations(T entityIn, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
+      super.setupRotations(entityIn, matrixStackIn, ageInTicks, rotationYaw, partialTicks, scale);
       float f = ageInTicks - entityIn.tickCount;
       float animScale = entityIn.getSidewaysAnimationScale(f);
       animScale *= animScale;

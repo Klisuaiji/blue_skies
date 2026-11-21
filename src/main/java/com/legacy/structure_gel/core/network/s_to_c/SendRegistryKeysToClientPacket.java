@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import net.minecraft.core.Registry;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
@@ -27,12 +27,12 @@ public record SendRegistryKeysToClientPacket(ResourceKey<? extends Registry<?>> 
          return StructureGelMod.locate("send_registry_keys");
       }
 
-      public void encoder(SendRegistryKeysToClientPacket packet, FriendlyByteBuf buff) {
+      public void encoder(SendRegistryKeysToClientPacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeResourceLocation(packet.registry.location());
          buff.writeCollection(packet.keys, (b, c) -> b.writeResourceLocation(c));
       }
 
-      public SendRegistryKeysToClientPacket decoder(FriendlyByteBuf buff) {
+      public SendRegistryKeysToClientPacket decoder(RegistryFriendlyByteBuf buff) {
          return new SendRegistryKeysToClientPacket(ResourceKey.createRegistryKey(buff.readResourceLocation()), buff.readList(b -> b.readResourceLocation()));
       }
 
@@ -48,7 +48,9 @@ public record SendRegistryKeysToClientPacket(ResourceKey<? extends Registry<?>> 
          List<ResourceKey<?>> keys = new ArrayList<>(packet.keys.size());
 
          for (ResourceLocation key : packet.keys) {
-            keys.add(ResourceKey.create(registry, key));
+            // 1.21.1: ResourceKey#create(ResourceKey<? extends Registry<T>>, ResourceLocation) cannot be
+            // inferred from a wildcard capture, so erase to the raw key (value is unused here).
+            keys.add(ResourceKey.create((ResourceKey)registry, key));
          }
 
          ClientUtil.REGISTRY_KEYS.put(registry, keys);

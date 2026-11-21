@@ -66,9 +66,9 @@ public class StoneletEntity extends SkiesMonsterEntity {
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn
    ) {
-      spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+      spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
       this.setLeftHanded(this.random.nextFloat() >= 0.05F);
       return spawnDataIn;
    }

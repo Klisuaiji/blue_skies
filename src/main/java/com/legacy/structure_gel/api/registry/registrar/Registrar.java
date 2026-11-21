@@ -36,22 +36,32 @@ public abstract class Registrar<T> {
       return createPointer(registry, name, c -> value.get());
    }
 
+   @SuppressWarnings({"unchecked", "rawtypes"})
    public static <T, V extends T> Registrar.Pointer<V> createPointer(
       ResourceKey<Registry<T>> registry, ResourceLocation name, Function<BootstrapContext<?>, V> value
    ) {
-      return DatagenModLoader.isRunningDataGen() ? new Registrar.DataGenPointer<>(registry, name, value) : new Registrar.Pointer<>(registry, name);
+      // The registry is typed with the registry's element supertype while the pointer is typed with
+      // the concrete subtype, so the diamond cannot be inferred (same generic signature as 1.20.4).
+      // Raw construction keeps the exact runtime types used before.
+      return (Registrar.Pointer<V>) (DatagenModLoader.isRunningDataGen()
+         ? new Registrar.DataGenPointer(registry, name, value)
+         : new Registrar.Pointer(registry, name));
    }
 
+   @SuppressWarnings("unchecked")
    public static <T, V extends T> Registrar.Static<V> createStatic(ResourceKey<Registry<T>> registry, ResourceLocation name, Supplier<V> value) {
-      return new Registrar.Static<>(registry, name, value);
+      // Explicit static<T> witness satisfies the registry argument; the cast widens to the requested V.
+      return (Registrar.Static<V>) new Registrar.Static<T>(registry, name, value);
    }
 
+   @SuppressWarnings({"unchecked", "rawtypes"})
    public static <T, V extends Block> Registrar.BlockRef<V> createBlockRef(ResourceKey<Registry<T>> registry, ResourceLocation name, Supplier<V> value) {
-      return new Registrar.BlockRef<>(registry, name, value);
+      return (Registrar.BlockRef<V>) new Registrar.BlockRef(registry, name, value);
    }
 
+   @SuppressWarnings({"unchecked", "rawtypes"})
    public static <T, V extends Item> Registrar.ItemRef<V> createItemRef(ResourceKey<Registry<T>> registry, ResourceLocation name, Supplier<V> value) {
-      return new Registrar.ItemRef<>(registry, name, value);
+      return (Registrar.ItemRef<V>) new Registrar.ItemRef(registry, name, value);
    }
 
    @Nullable
@@ -64,9 +74,11 @@ public abstract class Registrar<T> {
       return this.get(level.registryAccess());
    }
 
+   @SuppressWarnings({"unchecked", "rawtypes"})
    @Nullable
    public T get(Registry<?> registry) {
-      return (T)registry.get(this.getKey());
+      // Registry<?> captures its element type, so the key can only be passed through a raw call.
+      return (T) ((Registry) registry).get(this.getKey());
    }
 
    @Nullable
@@ -92,16 +104,18 @@ public abstract class Registrar<T> {
       return this.getHolder(level.registryAccess());
    }
 
+   @SuppressWarnings({"unchecked", "rawtypes"})
    public Optional<Holder<T>> getHolder(Registry<?> registry) {
-      return registry.getHolder(this.getKey());
+      return ((Registry) registry).getHolder(this.getKey());
    }
 
    public Optional<Reference<T>> getHolder(BootstrapContext<?> bootstrapContext) {
       return this.getHolder(bootstrapContext.lookup(this.getRegistryKey()));
    }
 
+   @SuppressWarnings({"unchecked", "rawtypes"})
    public Optional<Reference<T>> getHolder(HolderGetter<?> holderGetter) {
-      return holderGetter.get(this.getKey());
+      return ((HolderGetter) holderGetter).get(this.getKey());
    }
 
    public ResourceKey<? extends Registry<?>> getRegistryKey() {
@@ -144,8 +158,9 @@ public abstract class Registrar<T> {
          this.valueFactory = valueFactory;
       }
 
+      @SuppressWarnings({"unchecked", "rawtypes"})
       public void registerData(BootstrapContext<?> context) {
-         context.register(this.getKey(), this.valueFactory.apply(context));
+         ((BootstrapContext) context).register(this.getKey(), this.valueFactory.apply(context));
       }
    }
 

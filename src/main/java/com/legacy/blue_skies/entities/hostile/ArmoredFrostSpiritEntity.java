@@ -55,7 +55,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 
 public class ArmoredFrostSpiritEntity extends SkiesMonsterEntity {
@@ -63,8 +63,8 @@ public class ArmoredFrostSpiritEntity extends SkiesMonsterEntity {
 
    public ArmoredFrostSpiritEntity(EntityType<? extends ArmoredFrostSpiritEntity> type, Level worldIn) {
       super(type, worldIn);
-      this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
-      this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, -1.0F);
+      this.setPathfindingMalus(PathType.WATER, -1.0F);
+      this.setPathfindingMalus(PathType.WATER_BORDER, -1.0F);
    }
 
    protected void registerGoals() {
@@ -88,9 +88,9 @@ public class ArmoredFrostSpiritEntity extends SkiesMonsterEntity {
    @Nullable
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnDataIn
    ) {
-      spawnDataIn = super.finalizeSpawn(worldIn, difficulty, reason, spawnDataIn, dataTag);
+      spawnDataIn = super.finalizeSpawn(worldIn, difficulty, reason, spawnDataIn);
       this.determineTypeByDifficulty();
       float f = difficulty.getSpecialMultiplier();
       this.setCanPickUpLoot(this.random.nextFloat() < 0.55F * f);

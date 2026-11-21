@@ -38,7 +38,8 @@ public class EntWallRenderer<T extends EntWallEntity> extends LivingEntityRender
       return 0.0F;
    }
 
-   protected void setupRotations(T entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
+   // 1.21.1 appended a float scale argument to LivingEntityRenderer#setupRotations.
+   protected void setupRotations(T entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
    }
 
    public static String getVariant(EntityRenderer<EntWallEntity> entityRenderer, Entity entity) {

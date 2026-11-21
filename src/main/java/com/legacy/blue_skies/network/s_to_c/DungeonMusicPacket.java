@@ -5,7 +5,7 @@ import com.legacy.blue_skies.capability.SkiesPlayer;
 import com.legacy.blue_skies.entities.util.SkiesDungeonType;
 import com.legacy.blue_skies.network.PacketHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
@@ -30,11 +30,11 @@ public class DungeonMusicPacket implements PacketHandler.ModPacket<DungeonMusicP
          return BlueSkies.locate("dungeon_music");
       }
 
-      public void encoder(DungeonMusicPacket packet, FriendlyByteBuf buff) {
+      public void encoder(DungeonMusicPacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeByte(packet.type);
       }
 
-      public DungeonMusicPacket decoder(FriendlyByteBuf buff) {
+      public DungeonMusicPacket decoder(RegistryFriendlyByteBuf buff) {
          return new DungeonMusicPacket(buff.readByte());
       }
 

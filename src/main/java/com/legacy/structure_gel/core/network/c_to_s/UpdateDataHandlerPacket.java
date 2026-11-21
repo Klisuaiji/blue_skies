@@ -15,7 +15,7 @@ import java.util.Map.Entry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -80,7 +80,7 @@ public record UpdateDataHandlerPacket(
          return StructureGelMod.locate("update_data_handler");
       }
 
-      public void encoder(UpdateDataHandlerPacket packet, FriendlyByteBuf buff) {
+      public void encoder(UpdateDataHandlerPacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeByte(packet.mode);
          buff.writeBlockPos(packet.pos);
          buff.writeInt(packet.handlers.size());
@@ -106,7 +106,7 @@ public record UpdateDataHandlerPacket(
          buff.writeBoolean(packet.markPostProcessing);
       }
 
-      public UpdateDataHandlerPacket decoder(FriendlyByteBuf buff) {
+      public UpdateDataHandlerPacket decoder(RegistryFriendlyByteBuf buff) {
          try {
             byte mode = buff.readByte();
             BlockPos pos = buff.readBlockPos();
@@ -150,8 +150,7 @@ public record UpdateDataHandlerPacket(
                   sender.level().dimension().location()
                );
          } else {
-            context.workHandler()
-               .submitAsync(
+            context.enqueueWork(
                   () -> {
                      ServerLevel level = this.serverLevel(context);
                      BlockPos pos = packet.pos;
@@ -173,7 +172,7 @@ public record UpdateDataHandlerPacket(
                         if (packet.mode == 1) {
                            ServerPlayer player = this.serverPlayer(context);
                            ItemStack stack = SGRegistry.Blocks.DATA_HANDLER.get().getCloneItemStack(level, pos, state, true);
-                           blockEntity.saveToItem(stack);
+                           blockEntity.saveToItem(stack, level.registryAccess());
                            boolean hasItem = false;
 
                            for (ItemStack invStack : player.getInventory().items) {
@@ -184,7 +183,8 @@ public record UpdateDataHandlerPacket(
                                     tag.remove("display");
                                  }
 
-                                 if (ItemStack.isSameItemSameTags(cloneInvStack, stack)) {
+                                 if (// 1.21.1: NBT tag comparison was replaced by data component comparison.
+                                 ItemStack.isSameItemSameComponents(cloneInvStack, stack)) {
                                     hasItem = true;
                                     break;
                                  }
@@ -204,7 +204,7 @@ public record UpdateDataHandlerPacket(
                               pos.offset(-offsetAmt, -offsetAmt, -offsetAmt), pos.offset(offsetAmt, offsetAmt, offsetAmt)
                            );
                            DataHandler.process(
-                              state, dataHandler.saveWithFullMetadata(), pos, level, level.random, bounds, new UpdateDataHandlerPacket.DummyPiece(bounds), true
+                              state, dataHandler.saveWithFullMetadata(level.registryAccess()), pos, level, level.random, bounds, new UpdateDataHandlerPacket.DummyPiece(bounds), true
                            );
                         }
                      } else {

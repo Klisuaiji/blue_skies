@@ -5,7 +5,7 @@ import com.legacy.structure_gel.core.item.building_tool.BuildingToolItem;
 import com.legacy.structure_gel.core.network.SGPacketHandler;
 import com.legacy.structure_gel.core.network.s_to_c.PlaySoundPacket;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -24,24 +24,23 @@ public class ProcessDeletePacket implements SGPacketHandler.ModPacket<ProcessDel
          return StructureGelMod.locate("process_delete");
       }
 
-      public void encoder(ProcessDeletePacket packet, FriendlyByteBuf buff) {
+      public void encoder(ProcessDeletePacket packet, RegistryFriendlyByteBuf buff) {
       }
 
-      public ProcessDeletePacket decoder(FriendlyByteBuf buff) {
+      public ProcessDeletePacket decoder(RegistryFriendlyByteBuf buff) {
          return new ProcessDeletePacket();
       }
 
       public void handler(ProcessDeletePacket packet, IPayloadContext context) {
-         context.workHandler()
-            .submitAsync(
+         context.enqueueWork(
                () -> {
                   ServerPlayer player = this.serverPlayer(context);
-                  if (player != null && !context.level().isEmpty()) {
+                  if (player != null && player.level() != null) {
                      Pair<InteractionHand, ItemStack> tool = BuildingToolItem.getBuildingTool(player);
                      if (tool != null) {
                         ItemStack stack = (ItemStack)tool.getSecond();
                         if (BuildingToolItem.hasToolPermission(stack, player)
-                           && BuildingToolItem.getMode(stack).onDelete((Level)context.level().get(), player, stack)) {
+                           && BuildingToolItem.getMode(stack).onDelete(player.level(), player, stack)) {
                            SGPacketHandler.sendToClient(new PlaySoundPacket((byte)0), player);
                         }
                      }

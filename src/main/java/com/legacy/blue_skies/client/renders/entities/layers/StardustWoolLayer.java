@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.item.DyeColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -36,28 +37,23 @@ public class StardustWoolLayer<T extends StardustRamEntity> extends RenderLayer<
       float headPitch
    ) {
       if (!entitylivingbaseIn.isSheared() && !entitylivingbaseIn.isInvisible()) {
-         float f;
-         float f1;
-         float f2;
+         int color;
          if (!entitylivingbaseIn.hasCustomName()
             || !"jeb_".equals(entitylivingbaseIn.getName().getContents()) && !"Jesterguy".equals(entitylivingbaseIn.getName().getContents())) {
-            float[] afloat = StardustRamEntity.getColorArray(entitylivingbaseIn.getColor());
-            f = afloat[0];
-            f1 = afloat[1];
-            f2 = afloat[2];
+            // 1.21.1 removed Sheep#getColorArray(DyeColor); Sheep#getColor(DyeColor) now returns the packed ARGB wool color.
+            color = StardustRamEntity.getColor(entitylivingbaseIn.getColor());
          } else {
             int i = entitylivingbaseIn.tickCount / 25 + entitylivingbaseIn.getId();
             int j = DyeColor.values().length;
             int k = i % j;
             int l = (i + 1) % j;
             float f3 = (entitylivingbaseIn.tickCount % 25 + partialTicks) / 25.0F;
-            float[] afloat1 = StardustRamEntity.getColorArray(DyeColor.byId(k));
-            float[] afloat2 = StardustRamEntity.getColorArray(DyeColor.byId(l));
-            f = afloat1[0] * (1.0F - f3) + afloat2[0] * f3;
-            f1 = afloat1[1] * (1.0F - f3) + afloat2[1] * f3;
-            f2 = afloat1[2] * (1.0F - f3) + afloat2[2] * f3;
+            int color1 = StardustRamEntity.getColor(DyeColor.byId(k));
+            int color2 = StardustRamEntity.getColor(DyeColor.byId(l));
+            color = FastColor.ARGB32.lerp(f3, color1, color2);
          }
 
+         // 1.21.1 signature: the last three float RGB components were folded into one packed ARGB int.
          coloredCutoutModelCopyLayerRender(
             this.getParentModel(),
             this.sheepModel,
@@ -72,9 +68,7 @@ public class StardustWoolLayer<T extends StardustRamEntity> extends RenderLayer<
             netHeadYaw,
             headPitch,
             partialTicks,
-            f,
-            f1,
-            f2
+            color
          );
       }
    }

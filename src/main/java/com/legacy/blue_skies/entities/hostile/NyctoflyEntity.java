@@ -39,7 +39,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -61,7 +61,7 @@ public class NyctoflyEntity extends FlyingMob implements Enemy {
       this.xpReward = 5;
       this.setNoGravity(true);
       this.moveControl = new NyctoflyEntity.AIMoveControl(this);
-      this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
+      this.setPathfindingMalus(PathType.WATER, -1.0F);
    }
 
    protected void registerGoals() {

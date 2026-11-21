@@ -45,7 +45,8 @@ public class ArachnarchRenderer<T extends ArachnarchEntity> extends MobRenderer<
       }
    }
 
-   protected void setupRotations(T entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
+   // 1.21.1 appended a float scale argument to LivingEntityRenderer#setupRotations.
+   protected void setupRotations(T entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
       if (entityLiving.deathTicks > 0) {
          rotationYaw += (float)(Math.cos(entityLiving.tickCount * 3.25) * Math.PI * 0.55);
       }
@@ -54,7 +55,7 @@ public class ArachnarchRenderer<T extends ArachnarchEntity> extends MobRenderer<
          rotationYaw += (float)(Math.sin(entityLiving.tickCount * 3.25) * Math.PI * 0.55);
       }
 
-      super.setupRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
+      super.setupRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks, scale);
    }
 
    protected float getFlipDegrees(T entityLivingBaseIn) {

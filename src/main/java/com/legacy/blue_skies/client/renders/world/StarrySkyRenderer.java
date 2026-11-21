@@ -9,10 +9,10 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.MeshData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexBuffer;
-import com.mojang.blaze3d.vertex.BufferBuilder.RenderedBuffer;
 import com.mojang.blaze3d.vertex.VertexBuffer.Usage;
 import com.mojang.blaze3d.vertex.VertexFormat.Mode;
 import com.mojang.math.Axis;
@@ -66,7 +66,6 @@ public class StarrySkyRenderer {
       float f1 = (float)vec3d.y;
       float f2 = (float)vec3d.z;
       FogRenderer.levelFogColor();
-      BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
       RenderSystem.depthMask(false);
       RenderSystem.setShaderColor(f, f1, f2, 1.0F);
       ShaderInstance shaderinstance = RenderSystem.getShader();
@@ -90,17 +89,19 @@ public class StarrySkyRenderer {
          float f5 = afloat[1];
          float f6 = afloat[2];
          Matrix4f matrix4f = pose.last().pose();
-         bufferbuilder.begin(Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION_COLOR);
-         bufferbuilder.vertex(matrix4f, 0.0F, 100.0F, 0.0F).color(f4, f5, f6, afloat[3]).endVertex();
+         // 1.21.1: BufferBuilder is created via Tesselator#begin, vertices use addVertex/setColor
+         // chains and the result is a MeshData handed to BufferUploader.
+         BufferBuilder bufferbuilder = Tesselator.getInstance().begin(Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION_COLOR);
+         bufferbuilder.addVertex(matrix4f, 0.0F, 100.0F, 0.0F).setColor(f4, f5, f6, afloat[3]);
 
          for (int j = 0; j <= 16; j++) {
             float f7 = j * (float) (Math.PI * 2) / 16.0F;
             float f8 = Mth.sin(f7);
             float f9 = Mth.cos(f7);
-            bufferbuilder.vertex(matrix4f, f8 * 120.0F, f9 * 120.0F, -f9 * 40.0F * afloat[3]).color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
+            bufferbuilder.addVertex(matrix4f, f8 * 120.0F, f9 * 120.0F, -f9 * 40.0F * afloat[3]).setColor(afloat[0], afloat[1], afloat[2], 0.0F);
          }
 
-         BufferUploader.drawWithShader(bufferbuilder.end());
+         BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
          pose.popPose();
       }
 
@@ -114,22 +115,22 @@ public class StarrySkyRenderer {
       float f12 = 30.0F;
       RenderSystem.setShader(GameRenderer::getPositionTexShader);
       RenderSystem.setShaderTexture(0, SUN_TEXTURE);
-      bufferbuilder.begin(Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-      bufferbuilder.vertex(matrix4f1, -f12, 100.0F, -f12).uv(0.0F, 0.0F).endVertex();
-      bufferbuilder.vertex(matrix4f1, f12, 100.0F, -f12).uv(1.0F, 0.0F).endVertex();
-      bufferbuilder.vertex(matrix4f1, f12, 100.0F, f12).uv(1.0F, 1.0F).endVertex();
-      bufferbuilder.vertex(matrix4f1, -f12, 100.0F, f12).uv(0.0F, 1.0F).endVertex();
-      BufferUploader.drawWithShader(bufferbuilder.end());
+      BufferBuilder bufferbuilder = Tesselator.getInstance().begin(Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+      bufferbuilder.addVertex(matrix4f1, -f12, 100.0F, -f12).setUv(0.0F, 0.0F);
+      bufferbuilder.addVertex(matrix4f1, f12, 100.0F, -f12).setUv(1.0F, 0.0F);
+      bufferbuilder.addVertex(matrix4f1, f12, 100.0F, f12).setUv(1.0F, 1.0F);
+      bufferbuilder.addVertex(matrix4f1, -f12, 100.0F, f12).setUv(0.0F, 1.0F);
+      BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
       if (this.pinkSunrise) {
          f12 = 20.0F;
          if (BlueSkiesConfig.COMMON.isHalloween()) {
             RenderSystem.setShaderTexture(0, HALLOWEEN_MOON_TEXTURE);
-            bufferbuilder.begin(Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-            bufferbuilder.vertex(matrix4f1, -f12, -100.0F, f12).uv(0.0F, 0.0F).endVertex();
-            bufferbuilder.vertex(matrix4f1, f12, -100.0F, f12).uv(1.0F, 0.0F).endVertex();
-            bufferbuilder.vertex(matrix4f1, f12, -100.0F, -f12).uv(1.0F, 1.0F).endVertex();
-            bufferbuilder.vertex(matrix4f1, -f12, -100.0F, -f12).uv(0.0F, 1.0F).endVertex();
-            BufferUploader.drawWithShader(bufferbuilder.end());
+            BufferBuilder moonbuilder = Tesselator.getInstance().begin(Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+            moonbuilder.addVertex(matrix4f1, -f12, -100.0F, f12).setUv(0.0F, 0.0F);
+            moonbuilder.addVertex(matrix4f1, f12, -100.0F, f12).setUv(1.0F, 0.0F);
+            moonbuilder.addVertex(matrix4f1, f12, -100.0F, -f12).setUv(1.0F, 1.0F);
+            moonbuilder.addVertex(matrix4f1, -f12, -100.0F, -f12).setUv(0.0F, 1.0F);
+            BufferUploader.drawWithShader(moonbuilder.buildOrThrow());
          } else {
             RenderSystem.setShaderTexture(0, MOON_TEXTURES);
             int k = 8;
@@ -139,12 +140,12 @@ public class StarrySkyRenderer {
             float f14 = (i1 + 0) / 2.0F;
             float f15 = (l + 1) / 4.0F;
             float f16 = (i1 + 1) / 2.0F;
-            bufferbuilder.begin(Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-            bufferbuilder.vertex(matrix4f1, -f12, -100.0F, f12).uv(f15, f16).endVertex();
-            bufferbuilder.vertex(matrix4f1, f12, -100.0F, f12).uv(f13, f16).endVertex();
-            bufferbuilder.vertex(matrix4f1, f12, -100.0F, -f12).uv(f13, f14).endVertex();
-            bufferbuilder.vertex(matrix4f1, -f12, -100.0F, -f12).uv(f15, f14).endVertex();
-            BufferUploader.drawWithShader(bufferbuilder.end());
+            BufferBuilder moonbuilder = Tesselator.getInstance().begin(Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+            moonbuilder.addVertex(matrix4f1, -f12, -100.0F, f12).setUv(f15, f16);
+            moonbuilder.addVertex(matrix4f1, f12, -100.0F, f12).setUv(f13, f16);
+            moonbuilder.addVertex(matrix4f1, f12, -100.0F, -f12).setUv(f13, f14);
+            moonbuilder.addVertex(matrix4f1, -f12, -100.0F, -f12).setUv(f15, f14);
+            BufferUploader.drawWithShader(moonbuilder.buildOrThrow());
          }
       }
 
@@ -186,22 +187,20 @@ public class StarrySkyRenderer {
 
    private void generateStars() {
       Tesselator tesselator = Tesselator.getInstance();
-      BufferBuilder bufferbuilder = tesselator.getBuilder();
       RenderSystem.setShader(GameRenderer::getPositionShader);
       if (this.starBuffer != null) {
          this.starBuffer.close();
       }
 
       this.starBuffer = new VertexBuffer(Usage.STATIC);
-      RenderedBuffer box = this.renderStars(bufferbuilder);
+      MeshData meshdata = this.renderStars(tesselator.begin(Mode.QUADS, DefaultVertexFormat.POSITION));
       this.starBuffer.bind();
-      this.starBuffer.upload(box);
+      this.starBuffer.upload(meshdata);
       VertexBuffer.unbind();
    }
 
-   private RenderedBuffer renderStars(BufferBuilder bufferBuilderIn) {
+   private MeshData renderStars(BufferBuilder bufferBuilderIn) {
       Random random = new Random(1337L);
-      bufferBuilderIn.begin(Mode.QUADS, DefaultVertexFormat.POSITION);
 
       for (int i = 0; i < 1500; i++) {
          double d0 = random.nextFloat() * 2.0F - 1.0F;
@@ -236,53 +235,50 @@ public class StarrySkyRenderer {
                double d24 = 0.0 * d12 - d21 * d13;
                double d25 = d24 * d9 - d22 * d10;
                double d26 = d22 * d9 + d24 * d10;
-               bufferBuilderIn.vertex(d5 + d25, d6 + d23, d7 + d26).endVertex();
+               bufferBuilderIn.addVertex((float)(d5 + d25), (float)(d6 + d23), (float)(d7 + d26));
             }
          }
       }
 
-      return bufferBuilderIn.end();
+      return bufferBuilderIn.buildOrThrow();
    }
 
    private void generateDarkSky() {
       Tesselator tesselator = Tesselator.getInstance();
-      BufferBuilder bufferbuilder = tesselator.getBuilder();
       if (this.darkBuffer != null) {
          this.darkBuffer.close();
       }
 
       this.darkBuffer = new VertexBuffer(Usage.STATIC);
-      RenderedBuffer box = this.buildSkybox(bufferbuilder, -16.0F);
+      MeshData meshdata = this.buildSkybox(tesselator.begin(Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION), -16.0F);
       this.darkBuffer.bind();
-      this.darkBuffer.upload(box);
+      this.darkBuffer.upload(meshdata);
       VertexBuffer.unbind();
    }
 
    private void generateSky() {
       Tesselator tesselator = Tesselator.getInstance();
-      BufferBuilder bufferbuilder = tesselator.getBuilder();
       if (this.skyBuffer != null) {
          this.skyBuffer.close();
       }
 
       this.skyBuffer = new VertexBuffer(Usage.STATIC);
-      RenderedBuffer box = this.buildSkybox(bufferbuilder, 16.0F);
+      MeshData meshdata = this.buildSkybox(tesselator.begin(Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION), 16.0F);
       this.skyBuffer.bind();
-      this.skyBuffer.upload(box);
+      this.skyBuffer.upload(meshdata);
       VertexBuffer.unbind();
    }
 
-   private RenderedBuffer buildSkybox(BufferBuilder bufferBuilderIn, float posY) {
+   private MeshData buildSkybox(BufferBuilder bufferBuilderIn, float posY) {
       float f = Math.signum(posY) * 512.0F;
       RenderSystem.setShader(GameRenderer::getPositionShader);
-      bufferBuilderIn.begin(Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION);
-      bufferBuilderIn.vertex(0.0, posY, 0.0).endVertex();
+      bufferBuilderIn.addVertex(0.0F, posY, 0.0F);
 
       for (int i = -180; i <= 180; i += 45) {
-         bufferBuilderIn.vertex(f * Mth.cos(i * (float) (Math.PI / 180.0)), posY, 512.0F * Mth.sin(i * (float) (Math.PI / 180.0))).endVertex();
+         bufferBuilderIn.addVertex(f * Mth.cos(i * (float) (Math.PI / 180.0)), posY, 512.0F * Mth.sin(i * (float) (Math.PI / 180.0)));
       }
 
-      return bufferBuilderIn.end();
+      return bufferBuilderIn.buildOrThrow();
    }
 
    public float[] calcDawnSunriseSunsetColors(float celestialAngle, float partialTicks) {

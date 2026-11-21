@@ -27,7 +27,7 @@ public class SkiesMonsterEntity extends Monster {
    }
 
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn
    ) {
       if (reason == MobSpawnType.NATURAL) {
          int rot = worldIn.getRandom().nextInt(360);
@@ -35,7 +35,8 @@ public class SkiesMonsterEntity extends Monster {
          this.setYHeadRot(rot);
       }
 
-      return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+      // 1.21.1: Mob#finalizeSpawn lost its CompoundTag parameter (spawn NBT is applied elsewhere).
+      return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
    }
 
    public float getWalkTargetValue(BlockPos pos, LevelReader worldIn) {

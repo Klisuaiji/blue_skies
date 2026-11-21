@@ -30,7 +30,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.levelgen.Heightmap.Types;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -50,7 +50,7 @@ public class WhistleshellCrabEntity extends SkiesMonsterEntity {
 
    public WhistleshellCrabEntity(EntityType<? extends WhistleshellCrabEntity> type, Level worldIn) {
       super(type, worldIn);
-      this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+      this.setPathfindingMalus(PathType.WATER, 0.0F);
    }
 
    public static Builder registerAttributes() {
@@ -75,9 +75,9 @@ public class WhistleshellCrabEntity extends SkiesMonsterEntity {
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn
    ) {
-      spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+      spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
       this.setCrabType((byte)worldIn.getRandom().nextInt(2));
       int height = worldIn.getHeight(Types.OCEAN_FLOOR, (int)this.getX(), (int)this.getZ());
       BlockPos newPos = Positions.blockPos(this.getX(), height, this.getZ());

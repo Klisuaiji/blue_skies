@@ -38,7 +38,7 @@ public class VentiumBucketItem extends BucketItem {
       BlockHitResult hitResult = getPlayerPOVHitResult(
          level,
          player,
-         this.getFluid() == Fluids.EMPTY ? net.minecraft.world.level.ClipContext.Fluid.SOURCE_ONLY : net.minecraft.world.level.ClipContext.Fluid.NONE
+         this.content == Fluids.EMPTY ? net.minecraft.world.level.ClipContext.Fluid.SOURCE_ONLY : net.minecraft.world.level.ClipContext.Fluid.NONE
       );
       InteractionResultHolder<ItemStack> ret = EventHooks.onBucketUse(player, level, handStack, hitResult);
       if (ret != null) {
@@ -58,7 +58,7 @@ public class VentiumBucketItem extends BucketItem {
       BlockPos offsetPos = hitPos.relative(offset);
       if (level.mayInteract(player, hitPos) && player.mayUseItemAt(offsetPos, offset, handStack)) {
          BlockState hitState = level.getBlockState(hitPos);
-         if (this.getFluid() == Fluids.EMPTY) {
+         if (this.content == Fluids.EMPTY) {
             if (hitState.getBlock() instanceof BucketPickup bucketPickup && isValidFluid(hitState.getFluidState().getType())) {
                ItemStack fullBucket = convertBucket(bucketPickup.pickupBlock(player, level, hitPos, hitState));
                if (!fullBucket.isEmpty()) {
@@ -101,7 +101,7 @@ public class VentiumBucketItem extends BucketItem {
 
    protected boolean canBlockContainFluid(Player player, Level level, BlockPos pos, BlockState state) {
       return state.getBlock() instanceof LiquidBlockContainer
-         && ((LiquidBlockContainer)state.getBlock()).canPlaceLiquid(player, level, pos, state, this.getFluid());
+         && ((LiquidBlockContainer)state.getBlock()).canPlaceLiquid(player, level, pos, state, this.content);
    }
 
    public static ItemStack convertBucket(ItemStack stack) {

@@ -7,6 +7,7 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.item.DyeColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -59,7 +60,11 @@ public class StarFlareParticle extends TextureSheetParticle {
    }
 
    public static StarFlareData dyeToRGB(DyeColor color) {
-      float[] rgb = color.getTextureDiffuseColors();
+      // 1.21.1 replaced DyeColor#getTextureDiffuseColors() with the packed ARGB getTextureDiffuseColor().
+      int packed = color.getTextureDiffuseColor();
+      float[] rgb = new float[]{
+         FastColor.ARGB32.red(packed) / 255.0F, FastColor.ARGB32.green(packed) / 255.0F, FastColor.ARGB32.blue(packed) / 255.0F
+      };
       float s = (color == DyeColor.BLACK ? 0.9F : 1.15F) + (float)(Math.random() * 0.1);
       return new StarFlareData(Math.min(rgb[0] * s, 1.0F), Math.min(rgb[1] * s, 1.0F), Math.min(rgb[2] * s, 1.0F));
    }

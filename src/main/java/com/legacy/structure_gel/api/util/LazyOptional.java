@@ -1,9 +1,15 @@
 package com.legacy.structure_gel.api.util;
 
 import java.util.function.Supplier;
+import javax.annotation.Nullable;
 import net.neoforged.neoforge.common.util.Lazy;
 
-public class LazyOptional<T> implements Lazy<T> {
+/**
+ * 1.21.1 note: NeoForge's {@link Lazy} is a final class now (it was an interface in 1.20.4),
+ * so this wrapper can no longer implement it. It exposes the same Supplier contract and keeps
+ * the "is this value present yet" tracking used by the Registrar system.
+ */
+public class LazyOptional<T> implements Supplier<T> {
    protected final Lazy<T> lazy;
    protected boolean isPresent = false;
 
@@ -20,12 +26,13 @@ public class LazyOptional<T> implements Lazy<T> {
    }
 
    @Nullable
+   @Override
    public T get() {
       if (!this.isPresent) {
          this.isPresent = true;
       }
 
-      return (T)this.lazy.get();
+      return this.lazy.get();
    }
 
    public <E extends T> T orElseGet(Supplier<E> orElse) {

@@ -226,12 +226,12 @@ public class GatekeeperEntity extends AbstractVillager implements RangedAttackMo
    }
 
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn
    ) {
       ItemStack bow = new ItemStack(Items.BOW);
       bow.enchant(Enchantments.POWER_ARROWS, 2);
       this.setItemSlot(EquipmentSlot.MAINHAND, bow);
-      return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+      return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
    }
 
    public void setTarget(LivingEntity entitylivingbaseIn) {

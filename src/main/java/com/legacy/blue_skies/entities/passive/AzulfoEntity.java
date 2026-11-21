@@ -89,9 +89,9 @@ public class AzulfoEntity extends SkiesAnimalEntity {
    }
 
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn
    ) {
-      super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+      super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
       if (!this.isBaby()) {
          if (spawnDataIn == null) {
             spawnDataIn = new AzulfoEntity.HerdData(this);

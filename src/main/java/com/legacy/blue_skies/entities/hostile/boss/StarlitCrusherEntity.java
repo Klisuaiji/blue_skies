@@ -201,7 +201,7 @@ public class StarlitCrusherEntity extends SkiesBossEntity implements IStunnableM
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn
    ) {
       if (reason == MobSpawnType.TRIGGERED && this.getHome() != null) {
          this.level().destroyBlock(this.getHome(), false);
@@ -214,7 +214,7 @@ public class StarlitCrusherEntity extends SkiesBossEntity implements IStunnableM
             );
       }
 
-      return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+      return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
    }
 
    @Override

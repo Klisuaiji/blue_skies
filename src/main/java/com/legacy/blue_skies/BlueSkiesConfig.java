@@ -24,12 +24,14 @@ public class BlueSkiesConfig {
    public static final BlueSkiesConfig.CommonConfig COMMON;
 
    static {
-      Pair<BlueSkiesConfig.ClientConfig, ModConfigSpec> pair = new Builder().configure(BlueSkiesConfig.ClientConfig::new);
-      CLIENT = (BlueSkiesConfig.ClientConfig)pair.getLeft();
-      CLIENT_SPEC = (ModConfigSpec)pair.getRight();
-      pair = new Builder().configure(BlueSkiesConfig.CommonConfig::new);
-      COMMON = (BlueSkiesConfig.CommonConfig)pair.getLeft();
-      COMMON_SPEC = (ModConfigSpec)pair.getRight();
+      // 1.21.1 ModConfigSpec.Builder#configure is generic over one config class;
+      // assign each pair to its own variable so inference cannot unify them.
+      Pair<BlueSkiesConfig.ClientConfig, ModConfigSpec> clientPair = new Builder().configure(BlueSkiesConfig.ClientConfig::new);
+      CLIENT = clientPair.getLeft();
+      CLIENT_SPEC = clientPair.getRight();
+      Pair<BlueSkiesConfig.CommonConfig, ModConfigSpec> commonPair = new Builder().configure(BlueSkiesConfig.CommonConfig::new);
+      COMMON = commonPair.getLeft();
+      COMMON_SPEC = commonPair.getRight();
    }
 
    public static class ClientConfig {
@@ -205,14 +207,14 @@ public class BlueSkiesConfig {
 
       private static Set<EntityType<?>> parseAllowedSpawns(List<? extends String> input) {
          Set<EntityType<?>> entities = input.stream()
-            .filter(ResourceLocation::isValidResourceLocation)
-            .map(ResourceLocation::new)
+            .filter(s -> ResourceLocation.tryParse(s) != null)
+            .map(ResourceLocation::parse)
             .filter(BuiltInRegistries.ENTITY_TYPE::containsKey)
             .<EntityType<?>>map(BuiltInRegistries.ENTITY_TYPE::get)
             .collect(Collectors.toCollection(HashSet::new));
          entities.addAll(
-            ImmutableSet.of(
-               EntityType.VILLAGER, EntityType.IRON_GOLEM, EntityType.CAT, EntityType.CAVE_SPIDER, EntityType.COD, EntityType.SALMON, new EntityType[0]
+            ImmutableSet.<EntityType<?>>of(
+               EntityType.VILLAGER, EntityType.IRON_GOLEM, EntityType.CAT, EntityType.CAVE_SPIDER, EntityType.COD, EntityType.SALMON
             )
          );
          return entities;

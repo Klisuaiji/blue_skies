@@ -132,7 +132,7 @@ public abstract class BuildingToolMode {
          sendMessage(
             player,
             palette.unwrap().size() == 1 ? "info.structure_gel.building_tool.message.select_state" : "info.structure_gel.building_tool.message.select_palette",
-            ((BlockState)((Wrapper)palette.unwrap().get(0)).getData()).getBlock().getName().getString()
+            ((BlockState)((Wrapper)palette.unwrap().get(0)).data()).getBlock().getName().getString()
          );
          playSound(player, SoundEvents.ITEM_PICKUP);
       }
@@ -355,7 +355,7 @@ public abstract class BuildingToolMode {
    protected static void playSound(Player player, BlockState state) {
       SoundEvent sound;
       if (state.getBlock() instanceof LiquidBlock liquidBlock) {
-         SoundEvent emptySound = liquidBlock.getFluid().getFluidType().getSound(SoundActions.BUCKET_EMPTY);
+         SoundEvent emptySound = liquidBlock.fluid.getFluidType().getSound(SoundActions.BUCKET_EMPTY);
          sound = emptySound == null ? SoundEvents.BUCKET_EMPTY : emptySound;
       } else {
          sound = state.getSoundType().getPlaceSound();
@@ -378,7 +378,7 @@ public abstract class BuildingToolMode {
          replaceMode,
          placedBlocks,
          paletteSize,
-         paletteSize > 0 ? (BlockState)((Wrapper)palette.unwrap().get(0)).getData() : Blocks.STONE.defaultBlockState()
+         paletteSize > 0 ? (BlockState)((Wrapper)palette.unwrap().get(0)).data() : Blocks.STONE.defaultBlockState()
       );
    }
 

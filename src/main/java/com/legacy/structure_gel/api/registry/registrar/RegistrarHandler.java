@@ -57,7 +57,9 @@ public class RegistrarHandler<T> {
          if (r.equals(Registries.BLOCK)) {
             return new RegistrarHandler.BlockHandler(modID);
          } else {
-            return r.equals(Registries.ITEM) ? new RegistrarHandler.ItemHandler(modID) : new RegistrarHandler((ResourceKey<Registry<T>>)r, modID);
+            return r.equals(Registries.ITEM)
+                  ? new RegistrarHandler.ItemHandler(modID)
+                  : new RegistrarHandler((ResourceKey<Registry<T>>) (ResourceKey<?>) r, modID);
          }
       });
    }
@@ -98,7 +100,10 @@ public class RegistrarHandler<T> {
       ResourceKey<Registry<T>> registry, String modID, Function<ResourceKey<Registry<?>>, RegistrarHandler<?>> handlerFactory
    ) {
       synchronized (HANDLERS) {
-         return (RegistrarHandler<T>)HANDLERS.computeIfAbsent(modID, s -> new HashMap<>()).computeIfAbsent(registry, handlerFactory);
+         // HANDLERS is keyed by wildcard registry keys; the concrete key is safe here because
+         // handlers are cached per (mod, registry) pair.
+         return (RegistrarHandler<T>)HANDLERS.computeIfAbsent(modID, s -> new HashMap<>())
+               .computeIfAbsent((ResourceKey<Registry<?>>) (ResourceKey<?>) registry, handlerFactory);
       }
    }
 
@@ -205,7 +210,13 @@ public class RegistrarHandler<T> {
       }
 
       for (Entry<ResourceKey<Registry<?>>, List<RegistrarHandler<?>>> entry : registrars.entrySet()) {
-         builder.add(entry.getKey(), c -> entry.getValue().forEach(r -> r.registerForDatagen(c)));
+         // RegistrySetBuilder wants a key of a concrete element type; the handlers know their own
+         // type, so the wildcard key is cast back through a raw call.
+         @SuppressWarnings({"unchecked", "rawtypes"})
+         ResourceKey<? extends Registry<Object>> key = (ResourceKey<? extends Registry<Object>>) (ResourceKey) entry.getKey();
+         @SuppressWarnings("unchecked")
+         RegistrySetBuilder.RegistryBootstrap<Object> bootstrap = c -> entry.getValue().forEach(r -> ((RegistrarHandler) r).registerForDatagen(c));
+         builder.add(key, bootstrap);
       }
 
       return builder;
@@ -240,7 +251,8 @@ public class RegistrarHandler<T> {
       }
 
       public <V extends Block> Registrar.BlockRef<V> createStatic(ResourceLocation key, Supplier<V> value) {
-         Registrar.BlockRef<V> ret = Registrar.createBlockRef((ResourceKey<Registry<T>>)this.registry, key, value);
+         // BlockHandler extends RegistrarHandler<Block>, so the inherited key already has the right type.
+         Registrar.BlockRef<V> ret = Registrar.createBlockRef(this.registry, key, value);
          this.needsRegistered.add(ret);
          return ret;
       }
@@ -263,7 +275,9 @@ public class RegistrarHandler<T> {
          ResourceLocation key, Supplier<V> value, Properties itemProperties, BiFunction<V, Properties, BlockItem> blockItemFactory
       ) {
          Registrar.BlockRef<V> ret = this.createStatic(key, value);
-         getOrCreateItems(this.modID).createStatic(key, () -> (V)((BlockItem)blockItemFactory.apply(ret.get(), itemProperties)));
+         // The item is a BlockItem for the produced block; it lives in the item registry and is
+         // returned as an ItemRef<BlockItem> (it does not need to be of the block's type V).
+         getOrCreateItems(this.modID).<BlockItem>createStatic(key, () -> blockItemFactory.apply(ret.get(), itemProperties));
          return ret;
       }
    }

@@ -77,9 +77,9 @@ public class SpewterEntity extends SkiesMonsterEntity implements ISkyBossMob, Ra
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn
    ) {
-      spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+      spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
       if (!this.level().isClientSide) {
          double maxHealth = difficultyIn.getDifficulty() == Difficulty.HARD ? 32.0 : (difficultyIn.getDifficulty() == Difficulty.NORMAL ? 28.0 : 26.0);
          this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);

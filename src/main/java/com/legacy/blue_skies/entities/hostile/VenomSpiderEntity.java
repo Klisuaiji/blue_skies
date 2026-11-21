@@ -103,7 +103,7 @@ public class VenomSpiderEntity extends SkiesMonsterEntity implements RangedAttac
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn
    ) {
       if (spawnDataIn == null) {
          spawnDataIn = new SpiderEffectsGroupData();

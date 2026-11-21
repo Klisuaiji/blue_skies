@@ -579,7 +579,7 @@ public final class BuildingToolItem extends Item {
 
       for (Wrapper<BlockState> state : states) {
          int percent = Math.round(state.getWeight().asInt() / totalWeight * 100.0F);
-         paletteStr.append("\n   " + percent + "% " + ((BlockState)state.getData()).getBlock().getName().getString());
+         paletteStr.append("\n   " + percent + "% " + ((BlockState)state.data()).getBlock().getName().getString());
       }
 
       return paletteStr.toString();
@@ -710,7 +710,7 @@ public final class BuildingToolItem extends Item {
 
       for (Wrapper<BlockState> state : palette.unwrap()) {
          CompoundTag stateTag = new CompoundTag();
-         stateTag.put("state", NbtUtils.writeBlockState((BlockState)state.getData()));
+         stateTag.put("state", NbtUtils.writeBlockState((BlockState)state.data()));
          stateTag.putInt("weight", state.getWeight().asInt());
          paletteList.add(stateTag);
       }
@@ -788,7 +788,7 @@ public final class BuildingToolItem extends Item {
       Block block = state.getBlock();
       ItemStack stack;
       if (block instanceof LiquidBlock liquidBlock) {
-         stack = liquidBlock.getFluid().getBucket().getDefaultInstance();
+         stack = liquidBlock.fluid.getBucket().getDefaultInstance();
       } else {
          stack = block.asItem().getDefaultInstance();
       }
@@ -805,7 +805,7 @@ public final class BuildingToolItem extends Item {
       if (item instanceof BlockItem blockItem) {
          state = blockItem.getBlock().defaultBlockState();
       } else if (item instanceof BucketItem bucket) {
-         state = bucket.getFluid().defaultFluidState().createLegacyBlock();
+         state = bucket.content.defaultFluidState().createLegacyBlock();
       } else if (item instanceof SolidBucketItem solidBucket) {
          state = solidBucket.getBlock().defaultBlockState();
       } else if (includeAir) {

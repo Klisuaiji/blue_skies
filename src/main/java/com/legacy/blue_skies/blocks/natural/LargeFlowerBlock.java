@@ -1,7 +1,7 @@
 package com.legacy.blue_skies.blocks.natural;
 
 import com.legacy.blue_skies.registries.SkiesBlocks;
-import java.util.function.Supplier;
+import net.minecraft.core.Holder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.level.BlockGetter;
@@ -18,11 +18,11 @@ public class LargeFlowerBlock extends FlowerBlock {
    private static final VoxelShape SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 13.0, 14.0);
    private final boolean allowedOnCometGrass;
 
-   public LargeFlowerBlock(Supplier<MobEffect> effect, int effectDuration, Properties properties) {
+   public LargeFlowerBlock(Holder<MobEffect> effect, int effectDuration, Properties properties) {
       this(effect, effectDuration, properties, false);
    }
 
-   public LargeFlowerBlock(Supplier<MobEffect> effect, int effectDuration, Properties properties, boolean allowedOnComet) {
+   public LargeFlowerBlock(Holder<MobEffect> effect, int effectDuration, Properties properties, boolean allowedOnComet) {
       super(effect, effectDuration, properties);
       this.allowedOnCometGrass = allowedOnComet;
    }

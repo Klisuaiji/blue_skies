@@ -4,6 +4,7 @@ import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.data.objects.tags.SkiesBiomeTags;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat.Mode;
@@ -51,7 +52,9 @@ public class DawnWeatherRenderer {
          int j = Mth.floor(yIn);
          int k = Mth.floor(zIn);
          Tesselator tessellator = Tesselator.getInstance();
-         BufferBuilder bufferbuilder = tessellator.getBuilder();
+         // 1.21.1 removes Tesselator#getBuilder/BufferBuilder#begin/tessellator.end(): a new BufferBuilder
+         // is obtained from Tesselator#begin and its MeshData must be uploaded before the next one starts.
+         BufferBuilder bufferbuilder = null;
          RenderSystem.disableCull();
          RenderSystem.enableBlend();
          RenderSystem.defaultBlendFunc();
@@ -100,12 +103,12 @@ public class DawnWeatherRenderer {
                      if (!hasSandstorm) {
                         if (i1 != 0) {
                            if (i1 >= 0) {
-                              tessellator.end();
+                              BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
                            }
 
                            i1 = 0;
                            RenderSystem.setShaderTexture(0, thunderStrength >= 0.5F ? RAIN_TEXTURES : LIGHT_RAIN_TEXTURES);
-                           bufferbuilder.begin(Mode.QUADS, DefaultVertexFormat.PARTICLE);
+                           bufferbuilder = tessellator.begin(Mode.QUADS, DefaultVertexFormat.PARTICLE);
                         }
 
                         int i3 = ticks + k1 * k1 * 3121 + k1 * 45238971 + j1 * j1 * 418711 + j1 * 13761 & 31;
@@ -116,35 +119,31 @@ public class DawnWeatherRenderer {
                         float f5 = ((1.0F - f4 * f4) * 0.5F + 0.5F) * rainStrength;
                         blockpos$mutable.set(k1, l2, j1);
                         int j3 = LevelRenderer.getLightColor(level, blockpos$mutable);
-                        bufferbuilder.vertex(k1 - xIn - d0 + 0.5, k2 - yIn, j1 - zIn - d1 + 0.5)
-                           .uv(0.0F, j2 * 0.25F + f3)
-                           .color(1.0F, 1.0F, 1.0F, f5)
-                           .uv2(j3)
-                           .endVertex();
-                        bufferbuilder.vertex(k1 - xIn + d0 + 0.5, k2 - yIn, j1 - zIn + d1 + 0.5)
-                           .uv(1.0F, j2 * 0.25F + f3)
-                           .color(1.0F, 1.0F, 1.0F, f5)
-                           .uv2(j3)
-                           .endVertex();
-                        bufferbuilder.vertex(k1 - xIn + d0 + 0.5, j2 - yIn, j1 - zIn + d1 + 0.5)
-                           .uv(1.0F, k2 * 0.25F + f3)
-                           .color(1.0F, 1.0F, 1.0F, f5)
-                           .uv2(j3)
-                           .endVertex();
-                        bufferbuilder.vertex(k1 - xIn - d0 + 0.5, j2 - yIn, j1 - zIn - d1 + 0.5)
-                           .uv(0.0F, k2 * 0.25F + f3)
-                           .color(1.0F, 1.0F, 1.0F, f5)
-                           .uv2(j3)
-                           .endVertex();
+                        bufferbuilder.addVertex((float)(k1 - xIn - d0 + 0.5), (float)(k2 - yIn), (float)(j1 - zIn - d1 + 0.5))
+                           .setUv(0.0F, j2 * 0.25F + f3)
+                           .setColor(1.0F, 1.0F, 1.0F, f5)
+                           .setLight(j3);
+                        bufferbuilder.addVertex((float)(k1 - xIn + d0 + 0.5), (float)(k2 - yIn), (float)(j1 - zIn + d1 + 0.5))
+                           .setUv(1.0F, j2 * 0.25F + f3)
+                           .setColor(1.0F, 1.0F, 1.0F, f5)
+                           .setLight(j3);
+                        bufferbuilder.addVertex((float)(k1 - xIn + d0 + 0.5), (float)(j2 - yIn), (float)(j1 - zIn + d1 + 0.5))
+                           .setUv(1.0F, k2 * 0.25F + f3)
+                           .setColor(1.0F, 1.0F, 1.0F, f5)
+                           .setLight(j3);
+                        bufferbuilder.addVertex((float)(k1 - xIn - d0 + 0.5), (float)(j2 - yIn), (float)(j1 - zIn - d1 + 0.5))
+                           .setUv(0.0F, k2 * 0.25F + f3)
+                           .setColor(1.0F, 1.0F, 1.0F, f5)
+                           .setLight(j3);
                      } else {
                         if (i1 != 1) {
                            if (i1 >= 0) {
-                              tessellator.end();
+                              BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
                            }
 
                            i1 = 1;
                            RenderSystem.setShaderTexture(0, SAND_TEXTURES);
-                           bufferbuilder.begin(Mode.QUADS, DefaultVertexFormat.PARTICLE);
+                           bufferbuilder = tessellator.begin(Mode.QUADS, DefaultVertexFormat.PARTICLE);
                         }
 
                         float f6 = -((ticks & 511) + partialTicks) / 56.0F;
@@ -160,26 +159,22 @@ public class DawnWeatherRenderer {
                         int i4 = k3 & 65535;
                         int j4 = (l3 * 3 + 240) / 4;
                         int k4 = (i4 * 3 + 240) / 4;
-                        bufferbuilder.vertex(k1 - xIn - d0 + 0.5, k2 - yIn, j1 - zIn - d1 + 0.5)
-                           .uv(0.0F + f7, j2 * 0.25F + f6 + f8)
-                           .color(1.0F, 1.0F, 1.0F, f10)
-                           .uv2(k4, j4)
-                           .endVertex();
-                        bufferbuilder.vertex(k1 - xIn + d0 + 0.5, k2 - yIn, j1 - zIn + d1 + 0.5)
-                           .uv(1.0F + f7, j2 * 0.25F + f6 + f8)
-                           .color(1.0F, 1.0F, 1.0F, f10)
-                           .uv2(k4, j4)
-                           .endVertex();
-                        bufferbuilder.vertex(k1 - xIn + d0 + 0.5, j2 - yIn, j1 - zIn + d1 + 0.5)
-                           .uv(1.0F + f7, k2 * 0.25F + f6 + f8)
-                           .color(1.0F, 1.0F, 1.0F, f10)
-                           .uv2(k4, j4)
-                           .endVertex();
-                        bufferbuilder.vertex(k1 - xIn - d0 + 0.5, j2 - yIn, j1 - zIn - d1 + 0.5)
-                           .uv(0.0F + f7, k2 * 0.25F + f6 + f8)
-                           .color(1.0F, 1.0F, 1.0F, f10)
-                           .uv2(k4, j4)
-                           .endVertex();
+                        bufferbuilder.addVertex((float)(k1 - xIn - d0 + 0.5), (float)(k2 - yIn), (float)(j1 - zIn - d1 + 0.5))
+                           .setUv(0.0F + f7, j2 * 0.25F + f6 + f8)
+                           .setColor(1.0F, 1.0F, 1.0F, f10)
+                           .setUv2(k4, j4);
+                        bufferbuilder.addVertex((float)(k1 - xIn + d0 + 0.5), (float)(k2 - yIn), (float)(j1 - zIn + d1 + 0.5))
+                           .setUv(1.0F + f7, j2 * 0.25F + f6 + f8)
+                           .setColor(1.0F, 1.0F, 1.0F, f10)
+                           .setUv2(k4, j4);
+                        bufferbuilder.addVertex((float)(k1 - xIn + d0 + 0.5), (float)(j2 - yIn), (float)(j1 - zIn + d1 + 0.5))
+                           .setUv(1.0F + f7, k2 * 0.25F + f6 + f8)
+                           .setColor(1.0F, 1.0F, 1.0F, f10)
+                           .setUv2(k4, j4);
+                        bufferbuilder.addVertex((float)(k1 - xIn - d0 + 0.5), (float)(j2 - yIn), (float)(j1 - zIn - d1 + 0.5))
+                           .setUv(0.0F + f7, k2 * 0.25F + f6 + f8)
+                           .setColor(1.0F, 1.0F, 1.0F, f10)
+                           .setUv2(k4, j4);
                      }
                   }
                }
@@ -187,7 +182,7 @@ public class DawnWeatherRenderer {
          }
 
          if (i1 >= 0) {
-            tessellator.end();
+            BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
          }
 
          RenderSystem.enableCull();

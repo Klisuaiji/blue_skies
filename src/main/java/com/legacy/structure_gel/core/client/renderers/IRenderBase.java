@@ -287,45 +287,45 @@ public interface IRenderBase {
       float nsG = g * ns;
       float nsB = b * ns;
       if ((culled & WEST) == 0) {
-         vertexCon.vertex(matrix4f, mnX, mnY, mnZ).color(ewR, ewG, ewB, a).endVertex();
-         vertexCon.vertex(matrix4f, mnX, mnY, mxZ).color(ewR, ewG, ewB, a).endVertex();
-         vertexCon.vertex(matrix4f, mnX, mxY, mxZ).color(ewR, ewG, ewB, a).endVertex();
-         vertexCon.vertex(matrix4f, mnX, mxY, mnZ).color(ewR, ewG, ewB, a).endVertex();
+         vertexCon.addVertex(matrix4f, mnX, mnY, mnZ).setColor(ewR, ewG, ewB, a);
+         vertexCon.addVertex(matrix4f, mnX, mnY, mxZ).setColor(ewR, ewG, ewB, a);
+         vertexCon.addVertex(matrix4f, mnX, mxY, mxZ).setColor(ewR, ewG, ewB, a);
+         vertexCon.addVertex(matrix4f, mnX, mxY, mnZ).setColor(ewR, ewG, ewB, a);
       }
 
       if ((culled & SOUTH) == 0) {
-         vertexCon.vertex(matrix4f, mnX, mnY, mxZ).color(nsR, nsG, nsB, a).endVertex();
-         vertexCon.vertex(matrix4f, mxX, mnY, mxZ).color(nsR, nsG, nsB, a).endVertex();
-         vertexCon.vertex(matrix4f, mxX, mxY, mxZ).color(nsR, nsG, nsB, a).endVertex();
-         vertexCon.vertex(matrix4f, mnX, mxY, mxZ).color(nsR, nsG, nsB, a).endVertex();
+         vertexCon.addVertex(matrix4f, mnX, mnY, mxZ).setColor(nsR, nsG, nsB, a);
+         vertexCon.addVertex(matrix4f, mxX, mnY, mxZ).setColor(nsR, nsG, nsB, a);
+         vertexCon.addVertex(matrix4f, mxX, mxY, mxZ).setColor(nsR, nsG, nsB, a);
+         vertexCon.addVertex(matrix4f, mnX, mxY, mxZ).setColor(nsR, nsG, nsB, a);
       }
 
       if ((culled & EAST) == 0) {
-         vertexCon.vertex(matrix4f, mxX, mnY, mxZ).color(ewR, ewG, ewB, a).endVertex();
-         vertexCon.vertex(matrix4f, mxX, mnY, mnZ).color(ewR, ewG, ewB, a).endVertex();
-         vertexCon.vertex(matrix4f, mxX, mxY, mnZ).color(ewR, ewG, ewB, a).endVertex();
-         vertexCon.vertex(matrix4f, mxX, mxY, mxZ).color(ewR, ewG, ewB, a).endVertex();
+         vertexCon.addVertex(matrix4f, mxX, mnY, mxZ).setColor(ewR, ewG, ewB, a);
+         vertexCon.addVertex(matrix4f, mxX, mnY, mnZ).setColor(ewR, ewG, ewB, a);
+         vertexCon.addVertex(matrix4f, mxX, mxY, mnZ).setColor(ewR, ewG, ewB, a);
+         vertexCon.addVertex(matrix4f, mxX, mxY, mxZ).setColor(ewR, ewG, ewB, a);
       }
 
       if ((culled & NORTH) == 0) {
-         vertexCon.vertex(matrix4f, mxX, mnY, mnZ).color(nsR, nsG, nsB, a).endVertex();
-         vertexCon.vertex(matrix4f, mnX, mnY, mnZ).color(nsR, nsG, nsB, a).endVertex();
-         vertexCon.vertex(matrix4f, mnX, mxY, mnZ).color(nsR, nsG, nsB, a).endVertex();
-         vertexCon.vertex(matrix4f, mxX, mxY, mnZ).color(nsR, nsG, nsB, a).endVertex();
+         vertexCon.addVertex(matrix4f, mxX, mnY, mnZ).setColor(nsR, nsG, nsB, a);
+         vertexCon.addVertex(matrix4f, mnX, mnY, mnZ).setColor(nsR, nsG, nsB, a);
+         vertexCon.addVertex(matrix4f, mnX, mxY, mnZ).setColor(nsR, nsG, nsB, a);
+         vertexCon.addVertex(matrix4f, mxX, mxY, mnZ).setColor(nsR, nsG, nsB, a);
       }
 
       if ((culled & DOWN) == 0) {
-         vertexCon.vertex(matrix4f, mnX, mnY, mnZ).color(dR, dG, dB, a).endVertex();
-         vertexCon.vertex(matrix4f, mxX, mnY, mnZ).color(dR, dG, dB, a).endVertex();
-         vertexCon.vertex(matrix4f, mxX, mnY, mxZ).color(dR, dG, dB, a).endVertex();
-         vertexCon.vertex(matrix4f, mnX, mnY, mxZ).color(dR, dG, dB, a).endVertex();
+         vertexCon.addVertex(matrix4f, mnX, mnY, mnZ).setColor(dR, dG, dB, a);
+         vertexCon.addVertex(matrix4f, mxX, mnY, mnZ).setColor(dR, dG, dB, a);
+         vertexCon.addVertex(matrix4f, mxX, mnY, mxZ).setColor(dR, dG, dB, a);
+         vertexCon.addVertex(matrix4f, mnX, mnY, mxZ).setColor(dR, dG, dB, a);
       }
 
       if ((culled & UP) == 0) {
-         vertexCon.vertex(matrix4f, mnX, mxY, mnZ).color(r, g, b, a).endVertex();
-         vertexCon.vertex(matrix4f, mnX, mxY, mxZ).color(r, g, b, a).endVertex();
-         vertexCon.vertex(matrix4f, mxX, mxY, mxZ).color(r, g, b, a).endVertex();
-         vertexCon.vertex(matrix4f, mxX, mxY, mnZ).color(r, g, b, a).endVertex();
+         vertexCon.addVertex(matrix4f, mnX, mxY, mnZ).setColor(r, g, b, a);
+         vertexCon.addVertex(matrix4f, mnX, mxY, mxZ).setColor(r, g, b, a);
+         vertexCon.addVertex(matrix4f, mxX, mxY, mxZ).setColor(r, g, b, a);
+         vertexCon.addVertex(matrix4f, mxX, mxY, mnZ).setColor(r, g, b, a);
       }
    }
 }

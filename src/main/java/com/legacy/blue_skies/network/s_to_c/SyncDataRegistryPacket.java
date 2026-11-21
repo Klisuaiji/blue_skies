@@ -7,7 +7,7 @@ import com.legacy.blue_skies.data.managers.SkiesSyncedDataManager;
 import com.legacy.blue_skies.network.PacketHandler;
 import com.legacy.structure_gel.api.util.NetworkUtil;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
@@ -32,12 +32,12 @@ public class SyncDataRegistryPacket implements PacketHandler.ModPacket<SyncDataR
          return BlueSkies.locate("sync_data_registry");
       }
 
-      public void encoder(SyncDataRegistryPacket packet, FriendlyByteBuf buff) {
+      public void encoder(SyncDataRegistryPacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeByte(packet.id);
          NetworkUtil.writeCompressedNbt(buff, packet.manager.toNBT());
       }
 
-      public SyncDataRegistryPacket decoder(FriendlyByteBuf buff) {
+      public SyncDataRegistryPacket decoder(RegistryFriendlyByteBuf buff) {
          byte id = buff.readByte();
          CompoundTag tag = NetworkUtil.readCompressedNbt(buff);
          return new SyncDataRegistryPacket(id, BlueSkiesData.getSyncedManager(id).fromNBT(tag));

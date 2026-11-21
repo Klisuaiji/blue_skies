@@ -20,7 +20,7 @@ public class LifeArcItem extends ArcItem {
       if (player.getRemainingFireTicks() > 0 && this.getFunctionalLevel(stack, player) >= 3 && player.tickCount % 60 == 0) {
          List<MobEffectInstance> effects = new ArrayList<>(player.getActiveEffects());
          effects.forEach(effect -> {
-            if (effect.getEffect().getCategory().equals(MobEffectCategory.HARMFUL)) {
+            if (effect.getEffect().value().getCategory().equals(MobEffectCategory.HARMFUL)) {
                player.removeEffect(effect.getEffect());
             }
          });
@@ -29,10 +29,15 @@ public class LifeArcItem extends ArcItem {
 
    @Override
    public void onHit(ItemStack stack, Player player, LivingDamageEvent event) {
+      // 1.21.1: LivingDamageEvent was split; amount access lives on the .Pre subclass.
+      if (!(event instanceof LivingDamageEvent.Pre pre)) {
+         return;
+      }
+
       int level = this.getFunctionalLevel(stack, player);
       float reductionHealth = level == 0 ? 4.0F : (level == 1 ? 8.0F : 12.0F);
       if (player.getRemainingFireTicks() > 0 && player.getHealth() <= reductionHealth) {
-         event.setAmount(event.getAmount() / 2.0F);
+         pre.setAmount(pre.getAmount() / 2.0F);
       }
    }
 }

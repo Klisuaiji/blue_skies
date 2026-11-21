@@ -5,7 +5,7 @@ import com.legacy.blue_skies.capability.SkiesPlayer;
 import com.legacy.blue_skies.entities.util.SkiesDungeonType;
 import com.legacy.blue_skies.network.PacketHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
@@ -30,11 +30,11 @@ public class BossTypePacket implements PacketHandler.ModPacket<BossTypePacket, B
          return BlueSkies.locate("boss_type");
       }
 
-      public void encoder(BossTypePacket packet, FriendlyByteBuf buff) {
+      public void encoder(BossTypePacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeByte(packet.type);
       }
 
-      public BossTypePacket decoder(FriendlyByteBuf buff) {
+      public BossTypePacket decoder(RegistryFriendlyByteBuf buff) {
          return new BossTypePacket(buff.readByte());
       }
 

@@ -6,7 +6,7 @@ import com.legacy.structure_gel.core.network.SGPacketHandler;
 import com.legacy.structure_gel.core.structure.StructureInfo;
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.neoforged.api.distmarker.Dist;
@@ -30,7 +30,7 @@ public class SendStructureInfoToClientPacket implements SGPacketHandler.ModPacke
          return StructureGelMod.locate("send_structure_info");
       }
 
-      public void encoder(SendStructureInfoToClientPacket packet, FriendlyByteBuf buff) {
+      public void encoder(SendStructureInfoToClientPacket packet, RegistryFriendlyByteBuf buff) {
          StructureInfo info = packet.structureInfo;
          if (info.dimension() != null) {
             buff.writeResourceLocation(info.dimension());
@@ -46,7 +46,7 @@ public class SendStructureInfoToClientPacket implements SGPacketHandler.ModPacke
          }
       }
 
-      private static void writeBB(BoundingBox bb, FriendlyByteBuf buff) {
+      private static void writeBB(BoundingBox bb, RegistryFriendlyByteBuf buff) {
          buff.writeInt(bb.minX());
          buff.writeInt(bb.minY());
          buff.writeInt(bb.minZ());
@@ -55,7 +55,7 @@ public class SendStructureInfoToClientPacket implements SGPacketHandler.ModPacke
          buff.writeInt(bb.maxZ());
       }
 
-      public SendStructureInfoToClientPacket decoder(FriendlyByteBuf buff) {
+      public SendStructureInfoToClientPacket decoder(RegistryFriendlyByteBuf buff) {
          ResourceLocation dimensionType = buff.readResourceLocation();
          BoundingBox fullBounds = readBB(buff);
          int count = buff.readInt();
@@ -70,7 +70,7 @@ public class SendStructureInfoToClientPacket implements SGPacketHandler.ModPacke
          return new SendStructureInfoToClientPacket(new StructureInfo(dimensionType, fullBounds, pieces));
       }
 
-      private static BoundingBox readBB(FriendlyByteBuf buff) {
+      private static BoundingBox readBB(RegistryFriendlyByteBuf buff) {
          return new BoundingBox(buff.readInt(), buff.readInt(), buff.readInt(), buff.readInt(), buff.readInt(), buff.readInt());
       }
 

@@ -68,7 +68,7 @@ public class BuildingToolOverlay {
                      int texV = tileWidth - texY - (isBottom ? 0 : borderWidth);
                      graphics.blit(TEXTURE, x - 3 + texX, y - 3 + texY, texX, texY, texU, texV);
                      RenderSystem.disableBlend();
-                     ItemStack item = BuildingToolItem.getItemForBlock((BlockState)wrapper.getData(), mc.level);
+                     ItemStack item = BuildingToolItem.getItemForBlock((BlockState)wrapper.data(), mc.level);
                      graphics.renderItem(item, x, y);
                      if (size > 1) {
                         graphics.renderItemDecorations(font, item, x, y, "x" + wrapper.getWeight().asInt());

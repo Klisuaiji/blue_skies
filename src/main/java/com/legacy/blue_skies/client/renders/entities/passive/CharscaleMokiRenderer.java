@@ -28,8 +28,9 @@ public class CharscaleMokiRenderer<T extends CharscaleMokiEntity> extends MobRen
       return TEXTURE;
    }
 
-   protected void setupRotations(T entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
-      super.setupRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
+   // 1.21.1 appended a float scale argument to LivingEntityRenderer#setupRotations.
+   protected void setupRotations(T entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
+      super.setupRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks, scale);
       float f = 4.3F * Mth.sin(0.6F * ageInTicks);
       matrixStackIn.mulPose(Axis.YP.rotationDegrees(f));
       if (!entityLiving.isInWater()) {

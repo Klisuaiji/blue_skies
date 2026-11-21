@@ -35,8 +35,9 @@ public class GatekeeperRenderer<T extends GatekeeperEntity> extends MobRenderer<
                float headPitch
             ) {
                if (entitylivingbaseIn.isAggressive()) {
+                  // Full argument list restored: the 1.21.1 ItemInHandLayer#render still needs the six animation floats.
                   super.render(
-                     matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, -1);
+                     matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
                }
             }
          }

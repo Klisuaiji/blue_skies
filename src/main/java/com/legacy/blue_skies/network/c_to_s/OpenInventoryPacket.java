@@ -6,7 +6,7 @@ import com.legacy.blue_skies.client.gui.menu.ArcsMenuProvider;
 import com.legacy.blue_skies.entities.util.base.SkiesMountEntity;
 import com.legacy.blue_skies.network.PacketHandler;
 import com.legacy.blue_skies.network.s_to_c.SetMouseStackPacket;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -24,10 +24,10 @@ public class OpenInventoryPacket {
             return BlueSkies.locate("open_inventory_arcs");
          }
 
-         public void encoder(OpenInventoryPacket.Arcs packet, FriendlyByteBuf buffer) {
+         public void encoder(OpenInventoryPacket.Arcs packet, RegistryFriendlyByteBuf buffer) {
          }
 
-         public OpenInventoryPacket.Arcs decoder(FriendlyByteBuf buff) {
+         public OpenInventoryPacket.Arcs decoder(RegistryFriendlyByteBuf buff) {
             return new OpenInventoryPacket.Arcs();
          }
 
@@ -59,10 +59,10 @@ public class OpenInventoryPacket {
             return BlueSkies.locate("open_inventory_mount");
          }
 
-         public void encoder(OpenInventoryPacket.Mount packet, FriendlyByteBuf buffer) {
+         public void encoder(OpenInventoryPacket.Mount packet, RegistryFriendlyByteBuf buffer) {
          }
 
-         public OpenInventoryPacket.Mount decoder(FriendlyByteBuf buff) {
+         public OpenInventoryPacket.Mount decoder(RegistryFriendlyByteBuf buff) {
             return new OpenInventoryPacket.Mount();
          }
 
@@ -88,10 +88,10 @@ public class OpenInventoryPacket {
             return BlueSkies.locate("open_inventory_vanilla");
          }
 
-         public void encoder(OpenInventoryPacket.Vanilla packet, FriendlyByteBuf buffer) {
+         public void encoder(OpenInventoryPacket.Vanilla packet, RegistryFriendlyByteBuf buffer) {
          }
 
-         public OpenInventoryPacket.Vanilla decoder(FriendlyByteBuf buff) {
+         public OpenInventoryPacket.Vanilla decoder(RegistryFriendlyByteBuf buff) {
             return new OpenInventoryPacket.Vanilla();
          }
 

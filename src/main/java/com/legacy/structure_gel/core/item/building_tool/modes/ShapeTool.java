@@ -53,8 +53,8 @@ public class ShapeTool extends BuildingToolMode {
                            level,
                            pos,
                            oldState -> replace == ToolModeProperty.Replace.CLICKED_BLOCK
-                              ? IModifyState.mergeStates((BlockState)opState.get().getData(), oldState)
-                              : (BlockState)opState.get().getData(),
+                              ? IModifyState.mergeStates((BlockState)opState.get().data(), oldState)
+                              : (BlockState)opState.get().data(),
                            causesBlockUpdates,
                            action
                         );

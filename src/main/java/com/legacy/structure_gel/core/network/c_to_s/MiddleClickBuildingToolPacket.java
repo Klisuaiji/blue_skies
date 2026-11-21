@@ -5,7 +5,7 @@ import com.legacy.structure_gel.core.network.SGPacketHandler;
 import com.legacy.structure_gel.core.registry.SGRegistry;
 import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -24,7 +24,7 @@ public record MiddleClickBuildingToolPacket(InteractionHand hand, BlockPos pos)
          return StructureGelMod.locate("middle_click_building_tool");
       }
 
-      public void encoder(MiddleClickBuildingToolPacket packet, FriendlyByteBuf buff) {
+      public void encoder(MiddleClickBuildingToolPacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeBoolean(packet.hand == InteractionHand.MAIN_HAND);
          buff.writeBoolean(packet.pos != null);
          if (packet.pos != null) {
@@ -32,7 +32,7 @@ public record MiddleClickBuildingToolPacket(InteractionHand hand, BlockPos pos)
          }
       }
 
-      public MiddleClickBuildingToolPacket decoder(FriendlyByteBuf buff) {
+      public MiddleClickBuildingToolPacket decoder(RegistryFriendlyByteBuf buff) {
          InteractionHand hand = buff.readBoolean() ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
          boolean isPosPresent = buff.readBoolean();
          BlockPos pos = isPosPresent ? buff.readBlockPos() : null;

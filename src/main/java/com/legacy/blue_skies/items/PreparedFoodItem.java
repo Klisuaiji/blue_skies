@@ -134,7 +134,7 @@ public class PreparedFoodItem extends Item {
                         .append(
                            String.format(
                               "%s x%d %d:%d",
-                              i.getEffect().getDisplayName().getString(),
+                              i.getEffect().value().getDisplayName().getString(),
                               i.getAmplifier() + 1,
                               (int)(i.getDuration() / 20.0F) / 60,
                               (int)(i.getDuration() / 20.0F) % 60

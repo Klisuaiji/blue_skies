@@ -33,8 +33,8 @@ public class PoisonArcItem extends ArcItem {
       AttributeInstance attribute = player.getAttribute(Attributes.ATTACK_DAMAGE);
 
       for (int i = 0; i < DAMAGE_BOOSTS.length; i++) {
-         if (attribute.hasModifier(DAMAGE_BOOSTS[i])) {
-            attribute.removeModifier(DAMAGE_BOOSTS[i].getId());
+         if (attribute.hasModifier(DAMAGE_BOOSTS[i].id())) {
+            attribute.removeModifier(DAMAGE_BOOSTS[i].id());
          }
       }
    }
@@ -42,16 +42,16 @@ public class PoisonArcItem extends ArcItem {
    @Override
    public void serverTick(ItemStack stack, ServerPlayer player) {
       AttributeInstance attribute = player.getAttribute(Attributes.ATTACK_DAMAGE);
-      boolean isPoisoned = player.getEffect(SkiesEffects.DEADLY_VENOM) != null || player.getEffect(MobEffects.POISON) != null;
+      boolean isPoisoned = player.getEffect(net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(SkiesEffects.DEADLY_VENOM)) != null || player.getEffect(MobEffects.POISON) != null;
       int level = this.getFunctionalLevel(stack, player);
       if (isPoisoned) {
-         if (!attribute.hasModifier(DAMAGE_BOOSTS[level])) {
+         if (!attribute.hasModifier(DAMAGE_BOOSTS[level].id())) {
             attribute.addTransientModifier(DAMAGE_BOOSTS[level]);
          }
       } else {
          for (int i = 0; i < DAMAGE_BOOSTS.length; i++) {
-            if (attribute.hasModifier(DAMAGE_BOOSTS[i])) {
-               attribute.removeModifier(DAMAGE_BOOSTS[i].getId());
+            if (attribute.hasModifier(DAMAGE_BOOSTS[i].id())) {
+               attribute.removeModifier(DAMAGE_BOOSTS[i].id());
             }
          }
       }

@@ -72,9 +72,9 @@ public class SeclamEntity extends SkiesMonsterEntity {
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn
    ) {
-      spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+      spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
       int height = worldIn.getHeight(Types.OCEAN_FLOOR, (int)this.getX(), (int)this.getZ());
       BlockPos newPos = Positions.blockPos(this.getX(), height, this.getZ());
       if (reason == MobSpawnType.NATURAL && worldIn.isWaterAt(this.blockPosition().below()) && !worldIn.isWaterAt(this.blockPosition())) {

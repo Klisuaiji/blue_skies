@@ -78,7 +78,9 @@ public class StructureRegistrar<S extends Structure> {
             builder.structureBuilders.forEach((name, structureBuilder) -> {
                Optional<Reference<S>> structure = this.structures.get(name).getHolder(structureRegistry);
                if (structure.isPresent()) {
-                  Holder<S> holder = (Holder<S>)structure.get();
+                  // StructureSet.entry is declared with Holder<Structure>; Holder is invariant in 1.21.1.
+                  @SuppressWarnings({"unchecked", "rawtypes"})
+                  Holder<Structure> holder = (Holder) structure.get();
                   structureWeights.add(StructureSet.entry(holder, structureBuilder.weight));
                }
             });
@@ -120,7 +122,8 @@ public class StructureRegistrar<S extends Structure> {
    }
 
    public static StructureRegistrar.Builder<ExtendedJigsawStructure> jigsawBuilder(ResourceLocation registryName) {
-      return existingTypeBuilder(registryName, (Supplier<StructureType<S>>)SGRegistry.StructureTypes.EXTENDED_JIGSAW);
+      // The static registrar is a Supplier<StructureType<ExtendedJigsawStructure>> already.
+      return existingTypeBuilder(registryName, SGRegistry.StructureTypes.EXTENDED_JIGSAW);
    }
 
    public StructureType<S> getType() {
@@ -152,14 +155,16 @@ public class StructureRegistrar<S extends Structure> {
       return this.structures;
    }
 
+   @SuppressWarnings({"unchecked", "rawtypes"})
    @Nullable
    public Registrar.Pointer<Structure> getStructure(String name) {
-      return this.getStructureExact(name);
+      return (Registrar.Pointer<Structure>) (Registrar.Pointer<?>) this.getStructureExact(name);
    }
 
+   @SuppressWarnings({"unchecked", "rawtypes"})
    @Nullable
    public Registrar.Pointer<Structure> getStructure() throws IllegalArgumentException {
-      return this.getStructureExact();
+      return (Registrar.Pointer<Structure>) (Registrar.Pointer<?>) this.getStructureExact();
    }
 
    @Nullable

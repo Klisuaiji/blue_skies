@@ -4,6 +4,7 @@ import com.legacy.structure_gel.api.registry.registrar.Registrar;
 import com.legacy.structure_gel.core.registry.SGRegistry;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,8 +22,12 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderOwner;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.HolderSet.Named;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.HolderSetCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
@@ -56,14 +61,31 @@ public class FilterHolderSet<T> implements ICustomHolderSet<T> {
       return builder(Registries.BIOME);
    }
 
-   public static <T> Codec<? extends ICustomHolderSet<T>> codec(ResourceKey<? extends Registry<T>> registryKey, Codec<Holder<T>> holderCodec, boolean forceList) {
-      return RecordCodecBuilder.create(
+   public static <T> MapCodec<FilterHolderSet<T>> codec(ResourceKey<? extends Registry<T>> registryKey, Codec<Holder<T>> holderCodec, boolean forceList) {
+      // Explicit type witness: 1.21.1 HolderSetType#makeCodec exposes this as a MapCodec.
+      return RecordCodecBuilder.<FilterHolderSet<T>>mapCodec(
          instance -> instance.group(
                HolderSetCodec.create(registryKey, holderCodec, forceList).fieldOf("whitelist").forGetter(f -> f.whitelist),
                HolderSetCodec.create(registryKey, holderCodec, forceList).fieldOf("blacklist").forGetter(f -> f.blacklist)
             )
             .apply(instance, FilterHolderSet::new)
       );
+   }
+
+   /**
+    * Network codec for {@link net.neoforged.neoforge.registries.holdersets.HolderSetType#makeStreamCodec}.
+    * The two holder sets are carried as registry-aware NBT so tags and direct entries both survive.
+    */
+   public static <T> StreamCodec<RegistryFriendlyByteBuf, FilterHolderSet<T>> streamCodec(ResourceKey<? extends Registry<T>> registryKey) {
+      Codec<HolderSet<T>> setCodec = RegistryCodecs.homogeneousList(registryKey);
+      Codec<FilterHolderSet<T>> codec = RecordCodecBuilder.<FilterHolderSet<T>>create(
+         instance -> instance.group(
+               setCodec.fieldOf("whitelist").forGetter(f -> f.whitelist),
+               setCodec.fieldOf("blacklist").forGetter(f -> f.blacklist)
+            )
+            .apply(instance, FilterHolderSet::new)
+      );
+      return ByteBufCodecs.fromCodecWithRegistries(codec);
    }
 
    public Stream<Holder<T>> stream() {
@@ -229,11 +251,11 @@ public class FilterHolderSet<T> implements ICustomHolderSet<T> {
       ) {
          List<HolderSet<T>> compiledSets = new ArrayList<>();
          if (!keys.isEmpty()) {
-            compiledSets.add(HolderSet.direct(keys.stream().<Optional>map(registry::get).filter(Optional::isPresent).map(Optional::get).toList()));
+            compiledSets.add(HolderSet.direct(keys.stream().map(registry::get).filter(Optional::isPresent).map(Optional::get).toList()));
          }
 
          if (!tags.isEmpty()) {
-            compiledSets.addAll(tags.stream().<Optional>map(registry::get).filter(Optional::isPresent).map(n -> (HolderSet<T>)n.get()).toList());
+            compiledSets.addAll(tags.stream().map(registry::get).filter(Optional::isPresent).map(n -> (HolderSet<T>) n.get()).toList());
          }
 
          if (!holderSets.isEmpty()) {

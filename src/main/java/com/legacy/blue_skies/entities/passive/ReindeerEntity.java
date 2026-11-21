@@ -72,9 +72,9 @@ public class ReindeerEntity extends SkiesMountEntity {
       return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 16.0).add(Attributes.MOVEMENT_SPEED, 0.15F);
    }
 
-   public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData group, CompoundTag nbt) {
+   public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData group) {
       this.setFestiveStatus(this.random.nextFloat() < 0.4F ? 1 : 0);
-      return super.finalizeSpawn(level, difficulty, reason, group, nbt);
+      return super.finalizeSpawn(level, difficulty, reason, group);
    }
 
    protected SoundEvent getAmbientSound() {

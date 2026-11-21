@@ -133,7 +133,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.common.util.NonNullLazy;
+import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 public class SkiesBlocks {
@@ -172,10 +172,10 @@ public class SkiesBlocks {
    public static Block polished_cinderstone;
    public static SkyDripstoneBlock lunar_dripstone;
    public static SkyDripstoneBlock turquoise_dripstone;
-   public static NonNullLazy<SkyFarmlandBlock> turquoise_farmland = NonNullLazy.of(
+   public static Lazy<SkyFarmlandBlock> turquoise_farmland = Lazy.of(
       () -> new SkyFarmlandBlock(Properties.ofFullCopy(Blocks.FARMLAND), () -> turquoise_dirt)
    );
-   public static NonNullLazy<SkyFarmlandBlock> lunar_farmland = NonNullLazy.of(
+   public static Lazy<SkyFarmlandBlock> lunar_farmland = Lazy.of(
       () -> new SkyFarmlandBlock(Properties.ofFullCopy(Blocks.FARMLAND), () -> lunar_dirt)
    );
    public static Block bluebright_log;

@@ -39,8 +39,9 @@ public class StoneletRenderer<T extends StoneletEntity> extends MobRenderer<T, S
             ) {
                matrixStackIn.pushPose();
                matrixStackIn.translate(0.0F, 0.35F, 0.0F);
+               // Full argument list restored: the 1.21.1 ItemInHandLayer#render still needs the six animation floats.
                super.render(
-                  matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, -1);
+                  matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
                matrixStackIn.popPose();
             }
          }

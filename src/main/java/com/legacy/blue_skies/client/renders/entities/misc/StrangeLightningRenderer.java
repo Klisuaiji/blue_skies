@@ -102,32 +102,28 @@ public class StrangeLightningRenderer<T extends StrangeLightningEntity> extends 
       boolean p_229116_14_,
       boolean p_229116_15_
    ) {
-      buffer.vertex(
+      buffer.addVertex(
             matrix, p_229116_2_ + (p_229116_12_ ? p_229116_11_ : -p_229116_11_), p_229116_4_ * 16, p_229116_3_ + (p_229116_13_ ? p_229116_11_ : -p_229116_11_)
          )
-         .color(p_229116_7_, p_229116_8_, p_229116_9_, 0.3F)
-         .endVertex();
-      buffer.vertex(
+         .setColor(p_229116_7_, p_229116_8_, p_229116_9_, 0.3F);
+      buffer.addVertex(
             matrix,
             p_229116_5_ + (p_229116_12_ ? p_229116_10_ : -p_229116_10_),
             (p_229116_4_ + 1) * 16,
             p_229116_6_ + (p_229116_13_ ? p_229116_10_ : -p_229116_10_)
          )
-         .color(p_229116_7_, p_229116_8_, p_229116_9_, 0.3F)
-         .endVertex();
-      buffer.vertex(
+         .setColor(p_229116_7_, p_229116_8_, p_229116_9_, 0.3F);
+      buffer.addVertex(
             matrix,
             p_229116_5_ + (p_229116_14_ ? p_229116_10_ : -p_229116_10_),
             (p_229116_4_ + 1) * 16,
             p_229116_6_ + (p_229116_15_ ? p_229116_10_ : -p_229116_10_)
          )
-         .color(p_229116_7_, p_229116_8_, p_229116_9_, 0.3F)
-         .endVertex();
-      buffer.vertex(
+         .setColor(p_229116_7_, p_229116_8_, p_229116_9_, 0.3F);
+      buffer.addVertex(
             matrix, p_229116_2_ + (p_229116_14_ ? p_229116_11_ : -p_229116_11_), p_229116_4_ * 16, p_229116_3_ + (p_229116_15_ ? p_229116_11_ : -p_229116_11_)
          )
-         .color(p_229116_7_, p_229116_8_, p_229116_9_, 0.3F)
-         .endVertex();
+         .setColor(p_229116_7_, p_229116_8_, p_229116_9_, 0.3F);
    }
 
    public ResourceLocation getTextureLocation(T entity) {

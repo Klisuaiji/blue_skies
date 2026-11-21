@@ -5,7 +5,7 @@ import com.legacy.blue_skies.client.gui.menu.SummoningTableMenu;
 import com.legacy.blue_skies.network.PacketHandler;
 import com.legacy.blue_skies.registries.SkiesSounds;
 import com.legacy.blue_skies.registries.SkiesStats;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
@@ -30,12 +30,12 @@ public class ChangeTomePacket implements PacketHandler.ModPacket<ChangeTomePacke
          return BlueSkies.locate("change_tome");
       }
 
-      public void encoder(ChangeTomePacket packet, FriendlyByteBuf buff) {
+      public void encoder(ChangeTomePacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeInt(packet.containerId);
          buff.writeBoolean(packet.enablingGolems);
       }
 
-      public ChangeTomePacket decoder(FriendlyByteBuf buff) {
+      public ChangeTomePacket decoder(RegistryFriendlyByteBuf buff) {
          return new ChangeTomePacket(buff.readInt(), buff.readBoolean());
       }
 

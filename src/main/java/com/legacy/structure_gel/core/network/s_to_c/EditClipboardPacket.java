@@ -8,7 +8,7 @@ import com.legacy.structure_gel.core.network.SGPacketHandler;
 import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -41,7 +41,7 @@ public class EditClipboardPacket implements SGPacketHandler.ModPacket<EditClipbo
          return StructureGelMod.locate("edit_clipboard");
       }
 
-      public void encoder(EditClipboardPacket packet, FriendlyByteBuf buff) {
+      public void encoder(EditClipboardPacket packet, RegistryFriendlyByteBuf buff) {
          NetworkUtil.writeBoundingBox(buff, packet.addKey);
          if (!packet.addKey.equals(BoundingBox.infinite()) && packet.captured != null) {
             CompoundTag tag = packet.captured.toCompressedTag(packet.level.registryAccess());
@@ -51,7 +51,7 @@ public class EditClipboardPacket implements SGPacketHandler.ModPacket<EditClipbo
          NetworkUtil.writeBoundingBox(buff, packet.removeKey);
       }
 
-      public EditClipboardPacket decoder(FriendlyByteBuf buff) {
+      public EditClipboardPacket decoder(RegistryFriendlyByteBuf buff) {
          if (FMLEnvironment.dist == Dist.CLIENT) {
             BoundingBox addKey = NetworkUtil.readBoundingBox(buff);
             CapturedBlocks captured = null;

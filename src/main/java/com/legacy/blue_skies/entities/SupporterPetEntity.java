@@ -160,14 +160,14 @@ public class SupporterPetEntity extends TamableAnimal {
    }
 
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn
    ) {
       Player owner = this.getPlayerOwner();
       if (owner != null) {
          SkiesPlayer.ifPresent(owner, skyPlayer -> skyPlayer.setSupporterPet(this));
       }
 
-      return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+      return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
    }
 
    public boolean causeFallDamage(float distance, float damageMultiplier, DamageSource source) {

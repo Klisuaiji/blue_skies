@@ -243,8 +243,8 @@ public class BuildingToolRenderers {
                         this.destLastRenderInfo.isFinished = false;
                         this.destFutureRender = CompletableFuture.supplyAsync(() -> {
                            PoseStack poseStackx = new PoseStack();
-                           BufferBuilder buffBuilderx = this.destTesselator.getBuilder();
-                           buffBuilderx.begin(Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+                           // 1.21.1: Tesselator.begin(mode, format) returns an already-begun BufferBuilder.
+                           BufferBuilder buffBuilderx = this.destTesselator.begin(Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
                            BuildingToolRenderer.RenderInfo renderInfox = new BuildingToolRenderer.RenderInfo();
                            this.compileDest(mc, stack, poseStackx, buffBuilderx, camX, camY, camZ, renderInfox);
                            return new BuildingToolRenderer.RenderResult(renderInfox, buffBuilderx);
@@ -261,7 +261,8 @@ public class BuildingToolRenderers {
 
                            this.destBuffer = new VertexBuffer(Usage.STATIC);
                            this.destBuffer.bind();
-                           this.destBuffer.upload(result.buffBuilder().end());
+                           // 1.21.1: BufferBuilder.end() -> buildOrThrow(); VertexBuffer.upload(MeshData) closes the mesh.
+                           this.destBuffer.upload(result.buffBuilder().buildOrThrow());
                            this.destFutureRender = null;
                            VertexBuffer.unbind();
                            this.destLastRenderInfo = result.renderInfo();
@@ -271,8 +272,8 @@ public class BuildingToolRenderers {
                      }
                   } else {
                      PoseStack poseStack = new PoseStack();
-                     BufferBuilder buffBuilder = Tesselator.getInstance().getBuilder();
-                     buffBuilder.begin(Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+                     // 1.21.1: Tesselator.begin(mode, format) returns an already-begun BufferBuilder.
+                     BufferBuilder buffBuilder = Tesselator.getInstance().begin(Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
                      BuildingToolRenderer.RenderInfo renderInfo = new BuildingToolRenderer.RenderInfo();
                      this.compileDest(mc, stack, poseStack, buffBuilder, camX, camY, camZ, renderInfo);
                      if (this.destBuffer != null) {
@@ -281,7 +282,7 @@ public class BuildingToolRenderers {
 
                      this.destBuffer = new VertexBuffer(Usage.STATIC);
                      this.destBuffer.bind();
-                     this.destBuffer.upload(buffBuilder.end());
+                     this.destBuffer.upload(buffBuilder.buildOrThrow());
                      VertexBuffer.unbind();
                      renderInfo.isFinished = true;
                      this.destLastRenderInfo = renderInfo;
@@ -295,7 +296,7 @@ public class BuildingToolRenderers {
                protected void render(
                   Minecraft mc, LocalPlayer player, ItemStack stack, PoseStack poseStack, Matrix4f projectionMatrix, double camX, double camY, double camZ
                ) {
-                  super.render(mc, player, stack, poseStack, -1);
+                  super.render(mc, player, stack, poseStack, projectionMatrix, camX, camY, camZ);
                   if (this.destBuffer != null && this.hitPos != null && this.capturedBlocksCache != null) {
                      poseStack.pushPose();
                      RenderSystem.setShader(GameRenderer::getPositionColorShader);

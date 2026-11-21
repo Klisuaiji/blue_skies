@@ -49,6 +49,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -229,7 +230,7 @@ public class SkiesPlayer {
          for (int i = 0; i < this.arcInventory.getContainerSize(); i++) {
             ItemStack stack = this.arcInventory.getItem(i);
             if (!stack.isEmpty()) {
-               if (!EnchantmentHelper.hasVanishingCurse(stack)) {
+               if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.VANISHING_CURSE, stack) == 0) {
                   drops.add(this.player.drop(stack, true, false));
                }
 
@@ -291,7 +292,7 @@ public class SkiesPlayer {
       if (this.isSupporterPetEnabled() && this.getSupporterPet() == null && BlueSkies.ML_SUPPORTER.getRank(this.player).hasPerks()) {
          try {
             SupporterPetEntity pet = createPet(this.player.level());
-            pet.setTame(true);
+            pet.setTame(true, true);
             pet.setOwnerUUID(this.player.getUUID());
             this.setSupporterPet(pet);
             pet.setTypeID((byte)Math.max(0, this.getSupporterPetID()));
@@ -446,9 +447,9 @@ public class SkiesPlayer {
    public static class Serializer implements IAttachmentSerializer<CompoundTag, SkiesPlayer> {
       public static final SkiesPlayer.Serializer INSTANCE = new SkiesPlayer.Serializer();
 
-      public CompoundTag write(SkiesPlayer attachment) {
+      public CompoundTag write(SkiesPlayer attachment, net.minecraft.core.HolderLookup.Provider provider) {
          CompoundTag compound = new CompoundTag();
-         compound.put("ArcInventory", attachment.arcInventory.write(new ListTag()));
+         compound.put("ArcInventory", attachment.arcInventory.write(provider));
          compound.putByte("EverbrightProgression", attachment.getBrightProgression());
          compound.putByte("EverdawnProgression", attachment.getDawnProgression());
          compound.putByte("SupporterPetID", attachment.getSupporterPetID());
@@ -470,9 +471,9 @@ public class SkiesPlayer {
          return compound;
       }
 
-      public SkiesPlayer read(IAttachmentHolder holder, CompoundTag compound) {
+      public SkiesPlayer read(IAttachmentHolder holder, CompoundTag compound, net.minecraft.core.HolderLookup.Provider provider) {
          SkiesPlayer attachment = new SkiesPlayer((Player)holder);
-         attachment.arcInventory.read(compound.getList("ArcInventory", 10));
+         attachment.arcInventory.read(provider, compound.getList("ArcInventory", 10));
          attachment.setBrightProgression(compound.getByte("EverbrightProgression"));
          attachment.setDawnProgression(compound.getByte("EverdawnProgression"));
          attachment.setSupporterPetID(compound.getByte("SupporterPetID"));

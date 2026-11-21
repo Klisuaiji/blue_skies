@@ -44,7 +44,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biome.Precipitation;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -64,7 +64,7 @@ public class CrogreEntity extends SkiesMountEntity {
    public CrogreEntity(EntityType<? extends CrogreEntity> type, Level worldIn) {
       super(type, worldIn);
       this.moveControl = new CrogreEntity.MoveHelperController(this);
-      this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+      this.setPathfindingMalus(PathType.WATER, 0.0F);
    }
 
    @Override

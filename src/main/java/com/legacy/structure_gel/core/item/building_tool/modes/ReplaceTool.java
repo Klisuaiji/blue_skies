@@ -49,7 +49,7 @@ public class ReplaceTool extends BuildingToolMode {
                if (rand.nextFloat() < integrity) {
                   Optional<Wrapper<BlockState>> opState = palette.getRandom(rand);
                   if (opState.isPresent()) {
-                     BlockState toPlace = (BlockState)opState.get().getData();
+                     BlockState toPlace = (BlockState)opState.get().data();
                      this.setBlock(level, pos, oldState -> copyStates ? IModifyState.mergeStates(toPlace, oldState) : toPlace, causesBlockUpdates, action);
                   }
                }

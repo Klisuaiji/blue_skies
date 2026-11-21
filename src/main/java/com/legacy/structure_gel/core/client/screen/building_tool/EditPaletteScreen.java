@@ -71,7 +71,7 @@ public class EditPaletteScreen extends LayeredScreen {
 
       for (int i = 0; i < paletteList.size(); i++) {
          Wrapper<BlockState> wrapper = paletteList.get(i);
-         this.addPaletteEntry((BlockState)wrapper.getData(), wrapper.getWeight().asInt(), false);
+         this.addPaletteEntry((BlockState)wrapper.data(), wrapper.getWeight().asInt(), false);
       }
 
       TooltipImageButton addButton = this.addRenderableWidget(

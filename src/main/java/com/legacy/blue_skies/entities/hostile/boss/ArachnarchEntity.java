@@ -163,9 +163,9 @@ public class ArachnarchEntity extends SkiesBossEntity implements RangedAttackMob
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn
    ) {
-      SpawnGroupData flag = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+      SpawnGroupData flag = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
       if (!this.level().isClientSide()) {
          if (this.getDifficultyID() >= ISkyBoss.BossLevel.GOLD.getId()) {
             if (this.getDifficultyID() >= ISkyBoss.BossLevel.PLATINUM.getId()) {

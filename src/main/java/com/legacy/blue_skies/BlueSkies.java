@@ -45,6 +45,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig.Type;
@@ -69,9 +70,11 @@ public class BlueSkies {
    public static IEventBus MOD_BUS;
    public static final boolean IDE = isRunningFromIDE();
 
-   public BlueSkies(IEventBus modBus) {
+   public BlueSkies(IEventBus modBus, ModContainer modContainer) {
       MOD_BUS = modBus;
-      ModLoadingContext.get().registerConfig(Type.COMMON, BlueSkiesConfig.COMMON_SPEC);
+      // 1.21.1 registers configs on the mod container injected into the constructor;
+      // ModLoadingContext no longer exposes registerConfig.
+      modContainer.registerConfig(Type.COMMON, BlueSkiesConfig.COMMON_SPEC);
       IEventBus forgeBus = NeoForge.EVENT_BUS;
       if (FMLEnvironment.dist == Dist.DEDICATED_SERVER) {
          SCHEDULER.start(forgeBus);
@@ -79,7 +82,7 @@ public class BlueSkies {
 
       if (FMLEnvironment.dist == Dist.CLIENT) {
          SCHEDULER.runChecks();
-         ModLoadingContext.get().registerConfig(Type.CLIENT, BlueSkiesConfig.CLIENT_SPEC);
+         modContainer.registerConfig(Type.CLIENT, BlueSkiesConfig.CLIENT_SPEC);
          BlueSkiesAssets.init();
          modBus.addListener(BlueSkies::clientInit);
          modBus.addListener(BlueSkies::registerMenus);
@@ -138,7 +141,7 @@ public class BlueSkies {
    public static void registerMenus(RegisterMenuScreensEvent event) {
       event.register(SkiesContainers.ARC_INVENTORY, ArcsScreen::new);
       event.register(SkiesContainers.MOUNT_INVENTORY, MountInventoryScreen::new);
-      event.<HorizoniteForgeMenu, HorizoniteForgeScreen>register(SkiesContainers.HORIZONITE_FORGE, HorizoniteForgeScreen::new);
+      event.register(SkiesContainers.HORIZONITE_FORGE, HorizoniteForgeScreen::new);
       event.register(SkiesContainers.SNOWCAP_OVEN, SnowcapOvenScreen::new);
       event.register(SkiesContainers.SUMMONING_TABLE, SummoningTableScreen::new);
       event.register(SkiesContainers.ALCHEMY_TABLE, AlchemyTableScreen::new);

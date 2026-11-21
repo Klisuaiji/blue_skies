@@ -17,7 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.NbtUtils;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.random.WeightedRandomList;
@@ -150,7 +150,7 @@ public record UpdateBuildingToolPacket(
          return StructureGelMod.locate("update_building_tool");
       }
 
-      public void encoder(UpdateBuildingToolPacket packet, FriendlyByteBuf buff) {
+      public void encoder(UpdateBuildingToolPacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeBoolean(packet.toServer);
          buff.writeBoolean(packet.hand == InteractionHand.MAIN_HAND);
          NetworkUtil.writeOptional(buff, packet.mode.map(BuildingToolMode::getName), buff::writeResourceLocation);
@@ -170,7 +170,7 @@ public record UpdateBuildingToolPacket(
             buff.writeInt(list.size());
 
             for (Wrapper<BlockState> state : list) {
-               buff.writeNbt(NbtUtils.writeBlockState((BlockState)state.getData()));
+               buff.writeNbt(NbtUtils.writeBlockState((BlockState)state.data()));
                buff.writeInt(state.getWeight().asInt());
             }
          });
@@ -179,7 +179,7 @@ public record UpdateBuildingToolPacket(
          NetworkUtil.writeOptional(buff, packet.causeBlockUpdates, buff::writeBoolean);
       }
 
-      public UpdateBuildingToolPacket decoder(FriendlyByteBuf buff) {
+      public UpdateBuildingToolPacket decoder(RegistryFriendlyByteBuf buff) {
          boolean toServer = buff.readBoolean();
          InteractionHand hand = buff.readBoolean() ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
          Optional<BuildingToolMode> mode = NetworkUtil.<ResourceLocation>readOptional(buff, buff::readResourceLocation, () -> null)
@@ -228,7 +228,7 @@ public record UpdateBuildingToolPacket(
       }
 
       public void handleServerbound(UpdateBuildingToolPacket packet, IPayloadContext context) {
-         context.enqueueWork(() -> handle(packet, (Player)context.player().get()));
+         context.enqueueWork(() -> handle(packet, context.player()));
       }
 
       @OnlyIn(Dist.CLIENT)

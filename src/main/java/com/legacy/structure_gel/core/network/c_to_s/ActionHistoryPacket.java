@@ -8,7 +8,7 @@ import com.legacy.structure_gel.core.item.building_tool.BuildingToolModes;
 import com.legacy.structure_gel.core.item.building_tool.modes.CloneTool;
 import com.legacy.structure_gel.core.network.SGPacketHandler;
 import com.legacy.structure_gel.core.network.s_to_c.PlaySoundPacket;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -66,13 +66,13 @@ public class ActionHistoryPacket implements SGPacketHandler.ModPacket<ActionHist
          return StructureGelMod.locate("action_history");
       }
 
-      public void encoder(ActionHistoryPacket packet, FriendlyByteBuf buff) {
+      public void encoder(ActionHistoryPacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeInt(packet.action.ordinal());
          buff.writeBoolean(packet.hand == InteractionHand.MAIN_HAND);
          buff.writeBoolean(packet.playSound);
       }
 
-      public ActionHistoryPacket decoder(FriendlyByteBuf buff) {
+      public ActionHistoryPacket decoder(RegistryFriendlyByteBuf buff) {
          return new ActionHistoryPacket(
             ActionHistoryPacket.Action.get(buff.readInt()), buff.readBoolean() ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND, buff.readBoolean()
          );

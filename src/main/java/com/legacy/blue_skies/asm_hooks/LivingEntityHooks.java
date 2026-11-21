@@ -10,6 +10,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.core.Holder;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.ItemStack;
@@ -24,7 +25,7 @@ public class LivingEntityHooks {
 
             for (ItemStack stack : player.getArmorSlots()) {
                if (!(stack.getItem() instanceof SkyArmorItem) && stack.getItem() instanceof ArmorItem armor) {
-                  ArmorMaterial material = armor.getMaterial();
+                  Holder<ArmorMaterial> material = armor.getMaterial();
                   if (material != ArmorMaterials.LEATHER && material != ArmorMaterials.GOLD && material != ArmorMaterials.TURTLE) {
                      i += Math.max(2, Math.min(4, armor.getDefense() / 2));
                   }
@@ -46,7 +47,7 @@ public class LivingEntityHooks {
          rider.teleportTo(
             boss.getX() + vec3d.x * 3.0,
             boss.getY()
-               + rider.getMyRidingOffset(mount)
+               + mount.getPassengerRidingPosition(rider).y - mount.getY()
                + (boss.isCeilingLocked() ? -Mth.cos(boss.tickCount * 0.1F) : Mth.cos(boss.tickCount * 0.1F)) * 0.05
                + (boss.isCeilingLocked() ? -1.2F : 1.4),
             boss.getZ() + vec3d.z * 3.0

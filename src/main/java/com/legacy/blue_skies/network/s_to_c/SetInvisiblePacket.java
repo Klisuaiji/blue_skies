@@ -5,7 +5,7 @@ import com.legacy.blue_skies.capability.SkiesPlayer;
 import com.legacy.blue_skies.network.PacketHandler;
 import java.util.UUID;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
@@ -34,13 +34,13 @@ public class SetInvisiblePacket implements PacketHandler.ModPacket<SetInvisibleP
          return BlueSkies.locate("set_invisible");
       }
 
-      public void encoder(SetInvisiblePacket packet, FriendlyByteBuf buff) {
+      public void encoder(SetInvisiblePacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeBoolean(packet.value);
          buff.writeByte(packet.mode);
          buff.writeUUID(packet.uuid);
       }
 
-      public SetInvisiblePacket decoder(FriendlyByteBuf buff) {
+      public SetInvisiblePacket decoder(RegistryFriendlyByteBuf buff) {
          return new SetInvisiblePacket(buff.readBoolean(), buff.readByte(), buff.readUUID());
       }
 

@@ -43,9 +43,10 @@ public class SpearModel extends Model {
       return LayerDefinition.create(mesh, 32, 32);
    }
 
+   // 1.21.1 Model#renderToBuffer takes a packed ARGB int instead of four color floats.
    public void renderToBuffer(
-      PoseStack matrixStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha
+      PoseStack matrixStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, int color
    ) {
-      this.stick.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, -1);
+      this.stick.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, color);
    }
 }

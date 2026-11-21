@@ -42,7 +42,10 @@ import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.FireworkRocketItem.Shape;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.component.FireworkExplosion;
+import net.minecraft.world.item.component.Fireworks;
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
@@ -112,29 +115,16 @@ public class EntityUtil {
    }
 
    public static ItemStack makeFirework(DyeColor color, int flightTime, DyeColor fadeColor) {
+      // 1.21.1 replaced firework NBT with data components (FireworkExplosion / Fireworks).
+      FireworkExplosion explosion = new FireworkExplosion(
+         FireworkExplosion.Shape.LARGE_BALL,
+         IntList.of(color.getFireworkColor()),
+         IntList.of(fadeColor.getFireworkColor()),
+         true,
+         false
+      );
       ItemStack itemstack = new ItemStack(Items.FIREWORK_ROCKET, 1);
-      ItemStack itemstack1 = new ItemStack(Items.FIREWORK_STAR);
-      CompoundTag compoundnbt = itemstack1.getOrCreateTagElement("Explosion");
-      List<Integer> list = Lists.newArrayList();
-      list.add(color.getFireworkColor());
-      compoundnbt.putIntArray("Colors", list);
-      List<Integer> fadelist = Lists.newArrayList();
-      fadelist.add(fadeColor.getFireworkColor());
-      compoundnbt.putIntArray("FadeColors", fadelist);
-      compoundnbt.putByte("Type", (byte)Shape.LARGE_BALL.getId());
-      CompoundTag compoundnbt1 = itemstack.getOrCreateTagElement("Fireworks");
-      ListTag listnbt = new ListTag();
-      compoundnbt.putBoolean("Flicker", true);
-      CompoundTag compoundnbt2 = itemstack1.getTagElement("Explosion");
-      if (compoundnbt2 != null) {
-         listnbt.add(compoundnbt2);
-      }
-
-      compoundnbt1.putByte("Flight", (byte)flightTime);
-      if (!listnbt.isEmpty()) {
-         compoundnbt1.put("Explosions", listnbt);
-      }
-
+      itemstack.set(DataComponents.FIREWORKS, new Fireworks(flightTime, Lists.newArrayList(explosion)));
       return itemstack;
    }
 

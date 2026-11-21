@@ -116,9 +116,9 @@ public abstract class SkiesIllagerBossEntity extends SpellcasterIllager implemen
    }
 
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn
    ) {
-      SpawnGroupData flag = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+      SpawnGroupData flag = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
       this.setBossCanJoinRaid(reason == MobSpawnType.SPAWN_EGG || reason == MobSpawnType.COMMAND);
       if (reason == MobSpawnType.TRIGGERED) {
          this.level().destroyBlock(this.blockPosition(), false);

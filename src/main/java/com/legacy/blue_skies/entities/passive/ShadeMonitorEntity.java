@@ -85,9 +85,9 @@ public class ShadeMonitorEntity extends SkiesAnimalEntity {
    }
 
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn
    ) {
-      spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+      spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
       this.setBiome(
          ShadeMonitorEntity.Biomes.get(this.level().registryAccess().registryOrThrow(Registries.BIOME), this.level().getBiome(this.blockPosition())).getId()
       );

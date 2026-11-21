@@ -3,7 +3,7 @@ package com.legacy.blue_skies.network.c_to_s;
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.capability.SkiesPlayer;
 import com.legacy.blue_skies.network.PacketHandler;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -33,7 +33,7 @@ public class SpawnSupporterPetPacket implements PacketHandler.ModPacket<SpawnSup
          return BlueSkies.locate("spawn_supporter_pet");
       }
 
-      public void encoder(SpawnSupporterPetPacket packet, FriendlyByteBuf buff) {
+      public void encoder(SpawnSupporterPetPacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeByte(packet.petID);
          buff.writeBoolean(packet.petEnabled);
          buff.writeBoolean(packet.petAudible);
@@ -41,7 +41,7 @@ public class SpawnSupporterPetPacket implements PacketHandler.ModPacket<SpawnSup
          buff.writeByte(packet.styleID);
       }
 
-      public SpawnSupporterPetPacket decoder(FriendlyByteBuf buff) {
+      public SpawnSupporterPetPacket decoder(RegistryFriendlyByteBuf buff) {
          return new SpawnSupporterPetPacket(buff.readByte(), buff.readBoolean(), buff.readBoolean(), buff.readUtf(16), buff.readByte());
       }
 

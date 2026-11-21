@@ -26,7 +26,7 @@ public class AquaticArcItem extends ArcItem {
    public void onEquip(ItemStack stack, Player player) {
       AttributeInstance swimSpeed = player.getAttribute(NeoForgeMod.SWIM_SPEED);
       int level = this.getFunctionalLevel(stack, player);
-      if (!swimSpeed.hasModifier(SWIM_SPEED_BOOSTS[Math.min(1, level)])) {
+      if (!swimSpeed.hasModifier(SWIM_SPEED_BOOSTS[Math.min(1, level)].id())) {
          swimSpeed.addTransientModifier(SWIM_SPEED_BOOSTS[Math.min(1, level)]);
       }
    }
@@ -36,8 +36,8 @@ public class AquaticArcItem extends ArcItem {
       AttributeInstance swimSpeed = player.getAttribute(NeoForgeMod.SWIM_SPEED);
 
       for (int i = 0; i < SWIM_SPEED_BOOSTS.length; i++) {
-         if (swimSpeed.hasModifier(SWIM_SPEED_BOOSTS[i])) {
-            swimSpeed.removeModifier(SWIM_SPEED_BOOSTS[i].getId());
+         if (swimSpeed.hasModifier(SWIM_SPEED_BOOSTS[i].id())) {
+            swimSpeed.removeModifier(SWIM_SPEED_BOOSTS[i].id());
          }
       }
    }

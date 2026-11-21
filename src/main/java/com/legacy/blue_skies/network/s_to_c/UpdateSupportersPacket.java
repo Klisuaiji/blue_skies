@@ -2,7 +2,7 @@ package com.legacy.blue_skies.network.s_to_c;
 
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.network.PacketHandler;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -20,10 +20,10 @@ public class UpdateSupportersPacket implements PacketHandler.ModPacket<UpdateSup
          return BlueSkies.locate("update_supporters");
       }
 
-      public void encoder(UpdateSupportersPacket packet, FriendlyByteBuf buff) {
+      public void encoder(UpdateSupportersPacket packet, RegistryFriendlyByteBuf buff) {
       }
 
-      public UpdateSupportersPacket decoder(FriendlyByteBuf buff) {
+      public UpdateSupportersPacket decoder(RegistryFriendlyByteBuf buff) {
          return new UpdateSupportersPacket();
       }
 

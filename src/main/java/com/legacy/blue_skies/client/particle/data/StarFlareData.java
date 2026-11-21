@@ -1,42 +1,36 @@
 package com.legacy.blue_skies.client.particle.data;
 
 import com.legacy.blue_skies.registries.SkiesParticles;
-import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.Locale;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.ParticleOptions.Deserializer;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 public class StarFlareData implements ParticleOptions {
-   public static final Deserializer<StarFlareData> DESERIALIZER = new Deserializer<StarFlareData>() {
-      public StarFlareData fromCommand(ParticleType<StarFlareData> particleTypeIn, StringReader reader) throws CommandSyntaxException {
-         reader.expect(' ');
-         float r = (float)reader.readDouble();
-         reader.expect(' ');
-         float g = (float)reader.readDouble();
-         reader.expect(' ');
-         float b = (float)reader.readDouble();
-         return new StarFlareData(r, g, b);
-      }
-
-      public StarFlareData fromNetwork(ParticleType<StarFlareData> particleTypeIn, FriendlyByteBuf buffer) {
-         return new StarFlareData(buffer.readFloat(), buffer.readFloat(), buffer.readFloat());
-      }
-   };
-   public static final Codec<StarFlareData> CODEC = RecordCodecBuilder.create(
+   // 1.21.1 particle payloads serialize through a MapCodec on ParticleType and a StreamCodec on the network,
+   // replacing the removed ParticleOptions.Deserializer.
+   public static final MapCodec<StarFlareData> CODEC = RecordCodecBuilder.mapCodec(
       instance -> instance.group(
             Codec.FLOAT.fieldOf("r").forGetter(starFlareData -> starFlareData.getRed()),
             Codec.FLOAT.fieldOf("g").forGetter(starFlareData -> starFlareData.getGreen()),
             Codec.FLOAT.fieldOf("b").forGetter(starFlareData -> starFlareData.getBlue())
          )
          .apply(instance, StarFlareData::new)
+   );
+   public static final StreamCodec<RegistryFriendlyByteBuf, StarFlareData> STREAM_CODEC = StreamCodec.composite(
+      ByteBufCodecs.FLOAT,
+      StarFlareData::getRed,
+      ByteBufCodecs.FLOAT,
+      StarFlareData::getGreen,
+      ByteBufCodecs.FLOAT,
+      StarFlareData::getBlue,
+      StarFlareData::new
    );
    private final float red;
    private final float green;
@@ -46,16 +40,6 @@ public class StarFlareData implements ParticleOptions {
       this.red = r;
       this.green = g;
       this.blue = b;
-   }
-
-   public void writeToNetwork(FriendlyByteBuf buffer) {
-      buffer.writeFloat(this.red);
-      buffer.writeFloat(this.green);
-      buffer.writeFloat(this.blue);
-   }
-
-   public String writeToString() {
-      return String.format(Locale.ROOT, "%s %.2f %.2f %.2f", BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()), this.red, this.green, this.blue);
    }
 
    public ParticleType<StarFlareData> getType() {

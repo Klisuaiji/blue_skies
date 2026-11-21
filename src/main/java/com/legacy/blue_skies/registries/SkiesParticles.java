@@ -18,10 +18,14 @@ import com.legacy.blue_skies.client.particle.StarGlimmerParticle;
 import com.legacy.blue_skies.client.particle.data.PoisonData;
 import com.legacy.blue_skies.client.particle.data.StarFlareData;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.core.particles.ParticleOptions.Deserializer;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
@@ -31,14 +35,49 @@ public class SkiesParticles {
    public static final SimpleParticleType BLACK_FLAME = new SimpleParticleType(false) {};
    public static final SimpleParticleType EVERBRIGHT_PORTAL = new SimpleParticleType(false) {};
    public static final SimpleParticleType EVERDAWN_PORTAL = new SimpleParticleType(false) {};
-   public static final ParticleType<PoisonData> POISON = new ParticleType<PoisonData>(false, PoisonData.DESERIALIZER) {
-      public Codec<PoisonData> codec() {
-         return PoisonData.CODEC;
+
+   // 1.21.1: ParticleType now requires a MapCodec (de)serializer plus a StreamCodec for
+   // network sync. The legacy ParticleOptions.Deserializer was removed from vanilla.
+   private static final MapCodec<PoisonData> POISON_CODEC = RecordCodecBuilder.mapCodec(
+      instance -> instance.group(Codec.BOOL.fieldOf("small").forGetter(PoisonData::isSmall)).apply(instance, PoisonData::new)
+   );
+   private static final StreamCodec<RegistryFriendlyByteBuf, PoisonData> POISON_STREAM_CODEC = StreamCodec.composite(
+      ByteBufCodecs.BOOL, PoisonData::isSmall, PoisonData::new
+   );
+   private static final MapCodec<StarFlareData> STAR_FLARE_CODEC = RecordCodecBuilder.mapCodec(
+      instance -> instance.group(
+            Codec.FLOAT.fieldOf("r").forGetter(StarFlareData::getRed),
+            Codec.FLOAT.fieldOf("g").forGetter(StarFlareData::getGreen),
+            Codec.FLOAT.fieldOf("b").forGetter(StarFlareData::getBlue)
+         )
+         .apply(instance, StarFlareData::new)
+   );
+   private static final StreamCodec<RegistryFriendlyByteBuf, StarFlareData> STAR_FLARE_STREAM_CODEC = StreamCodec.composite(
+      ByteBufCodecs.FLOAT,
+      StarFlareData::getRed,
+      ByteBufCodecs.FLOAT,
+      StarFlareData::getGreen,
+      ByteBufCodecs.FLOAT,
+      StarFlareData::getBlue,
+      StarFlareData::new
+   );
+
+   public static final ParticleType<PoisonData> POISON = new ParticleType<PoisonData>(false) {
+      public MapCodec<PoisonData> codec() {
+         return POISON_CODEC;
+      }
+
+      public StreamCodec<? super RegistryFriendlyByteBuf, PoisonData> streamCodec() {
+         return POISON_STREAM_CODEC;
       }
    };
-   public static final ParticleType<StarFlareData> STAR_FLARE = new ParticleType<StarFlareData>(true, StarFlareData.DESERIALIZER) {
-      public Codec<StarFlareData> codec() {
-         return StarFlareData.CODEC;
+   public static final ParticleType<StarFlareData> STAR_FLARE = new ParticleType<StarFlareData>(true) {
+      public MapCodec<StarFlareData> codec() {
+         return STAR_FLARE_CODEC;
+      }
+
+      public StreamCodec<? super RegistryFriendlyByteBuf, StarFlareData> streamCodec() {
+         return STAR_FLARE_STREAM_CODEC;
       }
    };
    public static final SimpleParticleType DUSK_SMOKE = new SimpleParticleType(false) {};

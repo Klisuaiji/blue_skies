@@ -51,7 +51,7 @@ public class LineTool extends BuildingToolMode.ForCorners {
             for (BlockPos pos : poses) {
                if (rand.nextFloat() < integrity && replace.shouldReplace(level, clickedState, pos)) {
                   Optional<Wrapper<BlockState>> opState = palette.getRandom(rand);
-                  if (opState.isPresent() && this.setBlock(level, pos, (BlockState)opState.get().getData(), causesBlockUpdates, action)) {
+                  if (opState.isPresent() && this.setBlock(level, pos, (BlockState)opState.get().data(), causesBlockUpdates, action)) {
                      total++;
                   }
                }

@@ -26,7 +26,8 @@ public class JellyDrifterRenderer<T extends JellyDrifterEntity> extends Transluc
       }
    }
 
-   protected void setupRotations(T entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
+   // 1.21.1 appended a float scale argument to LivingEntityRenderer#setupRotations.
+   protected void setupRotations(T entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
       if (entityLiving.deathTime > 0) {
          float f = (entityLiving.deathTime + partialTicks - 1.0F) / 20.0F * 1.6F;
          f = Mth.sqrt(f);

@@ -32,7 +32,9 @@ public class DynamicSpawnerRenderer implements BlockEntityRenderer<DynamicSpawne
          posStack.translate(0.0F, -0.2F, 0.0F);
          posStack.mulPose(Axis.XP.rotationDegrees(-30.0F));
          posStack.scale(scale, scale, scale);
-         Minecraft.getInstance().getEntityRenderDispatcher().render(entity, 0.0, 0.0, 0.0, -1);
+         Minecraft.getInstance()
+            .getEntityRenderDispatcher()
+            .render(entity, 0.0, 0.0, 0.0, 0.0F, partialTicks, posStack, buff, packedLight);
       }
 
       posStack.popPose();

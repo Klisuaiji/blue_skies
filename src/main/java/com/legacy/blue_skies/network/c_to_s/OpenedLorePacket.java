@@ -3,7 +3,7 @@ package com.legacy.blue_skies.network.c_to_s;
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.capability.SkiesPlayer;
 import com.legacy.blue_skies.network.PacketHandler;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -19,10 +19,10 @@ public class OpenedLorePacket implements PacketHandler.ModPacket<OpenedLorePacke
          return BlueSkies.locate("opened_lore_packet");
       }
 
-      public void encoder(OpenedLorePacket packet, FriendlyByteBuf buff) {
+      public void encoder(OpenedLorePacket packet, RegistryFriendlyByteBuf buff) {
       }
 
-      public OpenedLorePacket decoder(FriendlyByteBuf buff) {
+      public OpenedLorePacket decoder(RegistryFriendlyByteBuf buff) {
          return new OpenedLorePacket();
       }
 

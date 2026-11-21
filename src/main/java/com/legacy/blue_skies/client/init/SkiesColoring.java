@@ -118,7 +118,8 @@ public class SkiesColoring {
          if (index == 3) {
             List<MobEffectInstance> effects = preparedFood.getEffects();
             if (effects.size() > 0) {
-               return effects.get(0).getEffect().getColor();
+               // 1.21.1 stores mob effects behind a Holder, so unwrap the effect before reading its color.
+               return effects.get(0).getEffect().value().getColor();
             } else {
                return ingredients.size() > 2 ? FoodPrepUtils.FoodColor.get(ingredients.get(2).getItem()).color : FoodPrepUtils.FoodColor.CHEESE.color;
             }

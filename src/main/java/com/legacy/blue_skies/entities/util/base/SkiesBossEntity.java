@@ -49,8 +49,12 @@ public abstract class SkiesBossEntity extends SkiesMonsterEntity implements ISky
    }
 
    protected void registerGoals() {
-      this.goalSelector2 = (SkiesGoalSelector)(this.goalSelector = new SkiesGoalSelector(this.level().getProfilerSupplier()));
-      this.targetSelector2 = (SkiesGoalSelector)(this.targetSelector = new SkiesGoalSelector(this.level().getProfilerSupplier()));
+      // 1.21.1: Mob#goalSelector/targetSelector are final, so wrap the real selectors and clear the
+      // goals vanilla Monster#registerGoals would have added instead of swapping in fresh selectors.
+      this.goalSelector2 = new SkiesGoalSelector(this.goalSelector);
+      this.targetSelector2 = new SkiesGoalSelector(this.targetSelector);
+      this.goalSelector2.removeAllGoals();
+      this.targetSelector2.removeAllGoals();
       this.goalSelector2.addSkyGoal(0, new SkiesBossEntity.DoNothingGoal());
    }
 
@@ -72,9 +76,9 @@ public abstract class SkiesBossEntity extends SkiesMonsterEntity implements ISky
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn
    ) {
-      SpawnGroupData flag = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+      SpawnGroupData flag = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn);
       if (!this.level().isClientSide()) {
          this.defaultSpawningRoutine(difficultyIn);
       }
@@ -121,7 +125,9 @@ public abstract class SkiesBossEntity extends SkiesMonsterEntity implements ISky
       this.getBossInfo().removePlayer(player);
    }
 
-   public boolean canChangeDimensions() {
+   @Override
+   public boolean canChangeDimensions(Level from, Level to) {
+      // 1.21.1: the old no-arg canChangeDimensions() was replaced by this two-level variant.
       return false;
    }
 

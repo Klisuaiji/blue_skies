@@ -3,7 +3,7 @@ package com.legacy.structure_gel.core.network.s_to_c;
 import com.legacy.structure_gel.core.StructureGelMod;
 import com.legacy.structure_gel.core.client.screen.building_tool.BuildingToolScreen;
 import com.legacy.structure_gel.core.network.SGPacketHandler;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
@@ -22,11 +22,11 @@ public record PlaySoundPacket(byte sound) implements SGPacketHandler.ModPacket<P
          return StructureGelMod.locate("play_sound");
       }
 
-      public void encoder(PlaySoundPacket packet, FriendlyByteBuf buff) {
+      public void encoder(PlaySoundPacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeByte(packet.sound);
       }
 
-      public PlaySoundPacket decoder(FriendlyByteBuf buff) {
+      public PlaySoundPacket decoder(RegistryFriendlyByteBuf buff) {
          return new PlaySoundPacket(buff.readByte());
       }
 

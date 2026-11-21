@@ -55,7 +55,7 @@ public class FloodTool extends BuildingToolMode {
                   mutPos.move(Direction.DOWN)
                ) {
                   Optional<Wrapper<BlockState>> opState = palette.getRandom(level.random);
-                  if (opState.isPresent() && this.setBlock(level, mutPos.immutable(), (BlockState)opState.get().getData(), causesBlockUpdates, action)) {
+                  if (opState.isPresent() && this.setBlock(level, mutPos.immutable(), (BlockState)opState.get().data(), causesBlockUpdates, action)) {
                      total++;
                   }
                }

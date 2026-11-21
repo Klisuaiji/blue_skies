@@ -77,7 +77,8 @@ public class DataHandlerRenderer implements BlockEntityRenderer<DataHandlerBlock
    public AABB getRenderBoundingBox(DataHandlerBlockEntity dataHandler) {
       Vec3 offset = dataHandler.getOffset();
       if (Vec3.ZERO.equals(offset)) {
-         return super.getRenderBoundingBox(dataHandler);
+         // 1.21.1: getRenderBoundingBox lives in IBlockEntityRendererExtension; its default is the unit cube at the pos.
+         return new AABB(dataHandler.getBlockPos());
       }
 
       double size = Math.max(Math.max(Math.abs(offset.x()), Math.abs(offset.y())), Math.abs(offset.z())) + 3.0;

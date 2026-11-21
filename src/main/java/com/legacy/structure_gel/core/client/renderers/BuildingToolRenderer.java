@@ -114,7 +114,7 @@ public abstract class BuildingToolRenderer implements IRenderBase {
                   instance.needsCompiled = false;
                }
 
-               instance.render(mc, player, toolStack, poseStack, -1);
+               instance.render(mc, player, toolStack, poseStack, projectionMatrix, camX, camY, camZ);
                poseStack.popPose();
             }
          }
@@ -127,8 +127,8 @@ public abstract class BuildingToolRenderer implements IRenderBase {
             this.lastRenderInfo.isFinished = false;
             this.futureRender = CompletableFuture.supplyAsync(() -> {
                PoseStack poseStackx = new PoseStack();
-               BufferBuilder buffBuilderx = this.tesselator.getBuilder();
-               buffBuilderx.begin(Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+               // 1.21.1: Tesselator.begin(mode, format) returns an already-begun BufferBuilder.
+               BufferBuilder buffBuilderx = this.tesselator.begin(Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
                BuildingToolRenderer.RenderInfo renderInfox = new BuildingToolRenderer.RenderInfo();
                this.compileInfo(mc, stack, poseStackx, buffBuilderx, camX, camY, camZ, renderInfox);
                return new BuildingToolRenderer.RenderResult(renderInfox, buffBuilderx);
@@ -145,7 +145,8 @@ public abstract class BuildingToolRenderer implements IRenderBase {
 
                this.lineBuffer = new VertexBuffer(Usage.STATIC);
                this.lineBuffer.bind();
-               this.lineBuffer.upload(result.buffBuilder().end());
+               // 1.21.1: BufferBuilder.end() -> buildOrThrow(); VertexBuffer.upload(MeshData) closes the mesh.
+               this.lineBuffer.upload(result.buffBuilder().buildOrThrow());
                this.futureRender = null;
                VertexBuffer.unbind();
                this.renderPos = result.renderInfo().renderPos;
@@ -156,8 +157,8 @@ public abstract class BuildingToolRenderer implements IRenderBase {
          }
       } else {
          PoseStack poseStack = new PoseStack();
-         BufferBuilder buffBuilder = Tesselator.getInstance().getBuilder();
-         buffBuilder.begin(Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+         // 1.21.1: Tesselator.begin(mode, format) returns an already-begun BufferBuilder.
+         BufferBuilder buffBuilder = Tesselator.getInstance().begin(Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
          BuildingToolRenderer.RenderInfo renderInfo = new BuildingToolRenderer.RenderInfo();
          this.compileInfo(mc, stack, poseStack, buffBuilder, camX, camY, camZ, renderInfo);
          if (this.lineBuffer != null) {
@@ -166,7 +167,7 @@ public abstract class BuildingToolRenderer implements IRenderBase {
 
          this.lineBuffer = new VertexBuffer(Usage.STATIC);
          this.lineBuffer.bind();
-         this.lineBuffer.upload(buffBuilder.end());
+         this.lineBuffer.upload(buffBuilder.buildOrThrow());
          VertexBuffer.unbind();
          this.renderPos = renderInfo.renderPos;
          renderInfo.isFinished = true;
@@ -453,11 +454,11 @@ public abstract class BuildingToolRenderer implements IRenderBase {
 
          this.targetBuffer = new VertexBuffer(Usage.STATIC);
          PoseStack poseStack = new PoseStack();
-         BufferBuilder buffBuilder = Tesselator.getInstance().getBuilder();
-         buffBuilder.begin(Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+         // 1.21.1: Tesselator.begin(mode, format) returns an already-begun BufferBuilder.
+         BufferBuilder buffBuilder = Tesselator.getInstance().begin(Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
          this.compileTarget(mc, stack, poseStack, buffBuilder, camX, camY, camZ, ret);
          this.targetBuffer.bind();
-         this.targetBuffer.upload(buffBuilder.end());
+         this.targetBuffer.upload(buffBuilder.buildOrThrow());
          VertexBuffer.unbind();
          return ret;
       }
@@ -469,7 +470,7 @@ public abstract class BuildingToolRenderer implements IRenderBase {
          Vec3i camPos = mc.gameRenderer.getMainCamera().getBlockPosition();
          int dist = 300;
          if (this.pos != null && this.pos.closerThan(camPos, dist) || this.secondPos != null && this.secondPos.closerThan(camPos, dist)) {
-            super.render(mc, player, stack, poseStack, -1);
+            super.render(mc, player, stack, poseStack, projectionMatrix, camX, camY, camZ);
          }
 
          if (this.targetBuffer != null && this.hitPos != null) {

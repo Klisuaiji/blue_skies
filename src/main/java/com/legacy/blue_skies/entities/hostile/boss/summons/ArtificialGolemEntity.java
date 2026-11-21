@@ -78,9 +78,9 @@ public class ArtificialGolemEntity extends SkiesMonsterEntity implements ISkyBos
 
    @Override
    public SpawnGroupData finalizeSpawn(
-      ServerLevelAccessor worldIn, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag
+      ServerLevelAccessor worldIn, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnDataIn
    ) {
-      spawnDataIn = super.finalizeSpawn(worldIn, difficulty, reason, spawnDataIn, dataTag);
+      spawnDataIn = super.finalizeSpawn(worldIn, difficulty, reason, spawnDataIn);
       this.populateDefaultEquipmentEnchantments(worldIn.getRandom(), difficulty);
       if (reason == MobSpawnType.SPAWN_EGG) {
          float chance = this.level().random.nextFloat();

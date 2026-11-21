@@ -4,7 +4,7 @@ import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.capability.SkiesPlayer;
 import com.legacy.blue_skies.network.PacketHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
@@ -29,11 +29,11 @@ public class UpdateBlueLorePacket implements PacketHandler.ModPacket<UpdateBlueL
          return BlueSkies.locate("update_blue_lore");
       }
 
-      public void encoder(UpdateBlueLorePacket packet, FriendlyByteBuf buff) {
+      public void encoder(UpdateBlueLorePacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeBoolean(packet.usedLore);
       }
 
-      public UpdateBlueLorePacket decoder(FriendlyByteBuf buff) {
+      public UpdateBlueLorePacket decoder(RegistryFriendlyByteBuf buff) {
          return new UpdateBlueLorePacket(buff.readBoolean());
       }
 

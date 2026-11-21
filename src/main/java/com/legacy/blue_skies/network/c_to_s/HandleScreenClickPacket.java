@@ -2,7 +2,7 @@ package com.legacy.blue_skies.network.c_to_s;
 
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.network.PacketHandler;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -26,12 +26,12 @@ public class HandleScreenClickPacket implements PacketHandler.ModPacket<HandleSc
          return BlueSkies.locate("handle_screen_click");
       }
 
-      public void encoder(HandleScreenClickPacket packet, FriendlyByteBuf buff) {
+      public void encoder(HandleScreenClickPacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeInt(packet.containerId);
          buff.writeInt(packet.buttonIndex);
       }
 
-      public HandleScreenClickPacket decoder(FriendlyByteBuf buff) {
+      public HandleScreenClickPacket decoder(RegistryFriendlyByteBuf buff) {
          return new HandleScreenClickPacket(buff.readInt(), buff.readInt());
       }
 

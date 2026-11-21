@@ -5,7 +5,7 @@ import com.legacy.blue_skies.capability.SkiesPlayer;
 import com.legacy.blue_skies.network.PacketHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -29,12 +29,12 @@ public class SyncPlayerPacket implements PacketHandler.ModPacket<SyncPlayerPacke
          return BlueSkies.locate("sync_player");
       }
 
-      public void encoder(SyncPlayerPacket packet, FriendlyByteBuf buff) {
+      public void encoder(SyncPlayerPacket packet, RegistryFriendlyByteBuf buff) {
          CompoundTag tag = SkiesPlayer.Serializer.INSTANCE.write(packet.attachment);
          buff.writeNbt(tag);
       }
 
-      public SyncPlayerPacket decoder(FriendlyByteBuf buff) {
+      public SyncPlayerPacket decoder(RegistryFriendlyByteBuf buff) {
          SkiesPlayer attachment = SkiesPlayer.Serializer.INSTANCE.read(null, buff.readNbt());
          return new SyncPlayerPacket(attachment);
       }

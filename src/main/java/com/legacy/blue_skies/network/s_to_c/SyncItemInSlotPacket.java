@@ -4,7 +4,7 @@ import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.network.PacketHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
@@ -24,14 +24,14 @@ public record SyncItemInSlotPacket(ItemStack mainItem, ItemStack offItem, int se
          return BlueSkies.locate("sync_item_in_slot");
       }
 
-      public void encoder(SyncItemInSlotPacket packet, FriendlyByteBuf buff) {
-         buff.writeItem(packet.mainItem);
-         buff.writeItem(packet.offItem);
+      public void encoder(SyncItemInSlotPacket packet, RegistryFriendlyByteBuf buff) {
+         ItemStack.OPTIONAL_STREAM_CODEC.encode(buff, packet.mainItem);
+         ItemStack.OPTIONAL_STREAM_CODEC.encode(buff, packet.offItem);
          buff.writeInt(packet.selectedSlot);
       }
 
-      public SyncItemInSlotPacket decoder(FriendlyByteBuf buff) {
-         return new SyncItemInSlotPacket(buff.readItem(), buff.readItem(), buff.readInt());
+      public SyncItemInSlotPacket decoder(RegistryFriendlyByteBuf buff) {
+         return new SyncItemInSlotPacket(ItemStack.OPTIONAL_STREAM_CODEC.decode(buff), ItemStack.OPTIONAL_STREAM_CODEC.decode(buff), buff.readInt());
       }
 
       public void handler(SyncItemInSlotPacket packet, IPayloadContext context) {

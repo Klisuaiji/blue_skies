@@ -53,7 +53,7 @@ public class SkiesItemModelPredicates {
          ResourceLocation.parse(predicateName),
          (stack, world, entity, num) -> entity != null
                && entity.getUseItem() == stack
-               && entity.getUseItemRemainingTicks() <= stack.getUseDuration() - maxUseTime
+               && entity.getUseItemRemainingTicks() <= stack.getUseDuration(entity) - maxUseTime
             ? 1.0F
             : 0.0F
       );
@@ -64,7 +64,7 @@ public class SkiesItemModelPredicates {
          item,
          ResourceLocation.parse(predicateName),
          (stack, world, entity, num) -> entity != null && entity.getUseItem() == stack
-            ? (float)(stack.getUseDuration() - entity.getUseItemRemainingTicks()) / maxUseTime
+            ? (float)(stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / maxUseTime
             : 0.0F
       );
    }

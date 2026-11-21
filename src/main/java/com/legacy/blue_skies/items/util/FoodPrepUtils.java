@@ -3,7 +3,6 @@ package com.legacy.blue_skies.items.util;
 import com.legacy.blue_skies.compat.*;
 import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.registries.SkiesItems;
-import com.mojang.datafixers.util.Pair;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -12,24 +11,29 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
 import javax.annotation.Nullable;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.Container;
 import net.minecraft.world.effect.InstantenousMobEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.FlowerBlock;
+import net.neoforged.fml.loading.FMLEnvironment;
 
 public class FoodPrepUtils {
    public static final String INGREDIENTS_KEY = "Ingredients";
@@ -39,16 +43,34 @@ public class FoodPrepUtils {
    public static final String MAX_USES_KEY = "MaxUses";
    public static final String EFFECTS_KEY = "Effects";
 
+   /** 1.21.1: item stacks are saved through their data components, which requires a
+    *  registry lookup provider. Use the running server when available, otherwise the
+    *  client level (tooltip rendering), falling back to an empty registry. */
+   private static HolderLookup.Provider lookupProvider() {
+      MinecraftServer server = net.neoforged.neoforge.server.ServerLifecycleHooks.getCurrentServer();
+      if (server != null) {
+         return server.registryAccess();
+      }
+
+      if (FMLEnvironment.dist.isClient()) {
+         return ClientRegistryProvider.get();
+      }
+
+      return net.minecraft.core.RegistryAccess.EMPTY;
+   }
+
    public static void serialize(CompoundTag itemNbt, PreparedFood preparedFood) {
+      HolderLookup.Provider provider = lookupProvider();
       ListTag ingredients = new ListTag();
-      preparedFood.getIngredients().forEach(i -> ingredients.add(i.save(new CompoundTag())));
+      preparedFood.getIngredients().forEach(i -> ingredients.add(i.save(provider)));
       itemNbt.put("Ingredients", ingredients);
       itemNbt.putInt("Total_Hunger", preparedFood.getTotalHunger());
       itemNbt.putFloat("Saturation", preparedFood.getSaturation());
       itemNbt.putInt("Uses", preparedFood.getUses());
       itemNbt.putInt("MaxUses", preparedFood.getMaxUses());
       ListTag effects = new ListTag();
-      preparedFood.getEffects().forEach(e -> effects.add(e.save(new CompoundTag())));
+      // 1.21.1: MobEffectInstance#save() takes no arguments and returns the NBT tag.
+      preparedFood.getEffects().forEach(e -> effects.add(e.save()));
       itemNbt.put("Effects", effects);
    }
 
@@ -61,11 +83,13 @@ public class FoodPrepUtils {
       float saturation = 0.0F;
       if (itemNbt != null) {
          if (itemNbt.contains("Ingredients")) {
+            HolderLookup.Provider provider = lookupProvider();
             itemNbt.getList("Ingredients", 10).forEach(nbt -> {
                ItemStack ingredient = null;
 
                try {
-                  ingredient = ItemStack.of((CompoundTag)nbt);
+                  // 1.21.1: ItemStack.of(tag) was replaced by ItemStack.parse(provider, tag).
+                  ingredient = ItemStack.parse(provider, nbt).orElse(null);
                } catch (Exception e) {
                   BlueSkies.LOGGER.warn(e);
                }
@@ -170,9 +194,12 @@ public class FoodPrepUtils {
       return stack;
    }
 
+   /** 1.21.1: Item#isEdible() was removed; edible state lives in the FOOD data component. */
    public static boolean isValidIngredient(ItemStack stack) {
       Item item = stack.getItem();
-      return item.isEdible() || item == Items.POTION || item instanceof BlockItem && ((BlockItem)item).getBlock() instanceof FlowerBlock;
+      return item.components().has(DataComponents.FOOD)
+         || item == Items.POTION
+         || item instanceof BlockItem blockItem && blockItem.getBlock() instanceof FlowerBlock;
    }
 
    public static void causeInstability(PreparedFood preparedFood, LivingEntity entity) {
@@ -213,8 +240,9 @@ public class FoodPrepUtils {
       List<Item> usedIngredients = new ArrayList<>();
 
       for (ItemStack ingredient : ingredients) {
-         if (ingredient.isEdible()) {
-            hunger += ingredient.getFoodProperties(null).getNutrition() + (!usedIngredients.contains(ingredient.getItem()) ? 2.5 : 0.0);
+         if (ingredient.has(DataComponents.FOOD)) {
+            FoodProperties food = ingredient.get(DataComponents.FOOD);
+            hunger += food.nutrition() + (!usedIngredients.contains(ingredient.getItem()) ? 2.5 : 0.0);
             usedIngredients.add(ingredient.getItem());
          }
       }
@@ -231,8 +259,8 @@ public class FoodPrepUtils {
       float count = 0.0F;
 
       for (ItemStack ingredient : ingredients) {
-         if (ingredient.isEdible()) {
-            saturation += ingredient.getFoodProperties(null).getSaturationModifier();
+         if (ingredient.has(DataComponents.FOOD)) {
+            saturation += ingredient.get(DataComponents.FOOD).saturation();
             count++;
          }
       }
@@ -241,23 +269,27 @@ public class FoodPrepUtils {
    }
 
    private static List<MobEffectInstance> getEffects(List<ItemStack> ingredients, int maxUses) {
-      Map<MobEffect, MobEffectInstance> effectMap = new LinkedHashMap<>();
+      Map<Holder<MobEffect>, MobEffectInstance> effectMap = new LinkedHashMap<>();
       boolean brewberryFlag = false;
 
       for (ItemStack ingredient : ingredients) {
          if (ingredient.getItem() instanceof BlockItem && ((BlockItem)ingredient.getItem()).getBlock() instanceof FlowerBlock) {
             FlowerBlock flower = (FlowerBlock)((BlockItem)ingredient.getItem()).getBlock();
-            flower.getSuspiciousEffects().forEach(flowerEffect -> addEffect(effectMap, flowerEffect.createEffectInstance()));
+            flower.getSuspiciousEffects().effects().forEach(flowerEffect -> addEffect(effectMap, flowerEffect.createEffectInstance()));
          }
 
-         if (ingredient.isEdible()) {
-            for (MobEffectInstance effect : (List)ingredient.getFoodProperties(null).getEffects().stream().map(Pair::getFirst).collect(Collectors.toList())) {
-               addEffect(effectMap, effect);
+         if (ingredient.has(DataComponents.FOOD)) {
+            for (FoodProperties.PossibleEffect possibleEffect : ingredient.get(DataComponents.FOOD).effects()) {
+               addEffect(effectMap, possibleEffect.effect());
             }
          }
 
          if (ingredient.getItem() == Items.POTION) {
-            PotionUtils.getAllEffects(LegacyNbt.getOrCreate(ingredient)).forEach(e -> addEffect(effectMap, e));
+            // 1.21.1: potion effects moved from PotionUtils to the POTION_CONTENTS component.
+            PotionContents contents = ingredient.get(DataComponents.POTION_CONTENTS);
+            if (contents != null) {
+               contents.getAllEffects().forEach(e -> addEffect(effectMap, e));
+            }
          }
 
          if (ingredient.getItem() == SkiesItems.brewberry) {
@@ -267,9 +299,9 @@ public class FoodPrepUtils {
 
       List<MobEffectInstance> effects = new ArrayList<>();
 
-      for (Entry<MobEffect, MobEffectInstance> entry : effectMap.entrySet()) {
+      for (Entry<Holder<MobEffect>, MobEffectInstance> entry : effectMap.entrySet()) {
          MobEffectInstance effect = entry.getValue();
-         if (!(effect.getEffect() instanceof InstantenousMobEffect) || effect.getEffect() == MobEffects.SATURATION) {
+         if (!(effect.getEffect().value() instanceof InstantenousMobEffect) || effect.getEffect().is(MobEffects.SATURATION)) {
             float time = (float)effect.getDuration() / maxUses;
             time *= brewberryFlag ? 1.4F : 1.1F;
             effects.add(new MobEffectInstance(effect.getEffect(), Math.round(time), effect.getAmplifier()));
@@ -279,7 +311,7 @@ public class FoodPrepUtils {
       return effects;
    }
 
-   private static void addEffect(Map<MobEffect, MobEffectInstance> map, MobEffectInstance newEffect) {
+   private static void addEffect(Map<Holder<MobEffect>, MobEffectInstance> map, MobEffectInstance newEffect) {
       if (map.containsKey(newEffect.getEffect())) {
          MobEffectInstance oldEffect = map.get(newEffect.getEffect());
          if (newEffect.getAmplifier() > oldEffect.getAmplifier()) {

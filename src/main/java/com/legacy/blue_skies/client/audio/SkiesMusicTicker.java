@@ -221,7 +221,8 @@ public class SkiesMusicTicker implements Tickable {
    }
 
    public void playBossFanfare(SkiesDungeonType bossType) {
-      SoundEvent sound = (SoundEvent)SoundEvents.AMBIENT_CAVE;
+      // SoundEvents constants are Holder<SoundEvent> in 1.21.1; the sound manager wants the value.
+      SoundEvent sound = SoundEvents.AMBIENT_CAVE.value();
       if (bossType != null) {
          switch (bossType) {
             case BLINDING:

@@ -45,7 +45,9 @@ public class SkiesEmissives {
    }
 
    public static <B extends Block> void register(B block, RenderType... types) {
-      block.properties.emissiveRendering((state, world, pos) -> true);
+      // 1.21.1: BlockState copies its emissive predicate from Properties when the block
+      // state definition is built, so mutating the properties afterwards has no effect.
+      // The EMISSIVES map is the authoritative list consumed by the render hook.
       EMISSIVES.put(block, Set.of(types));
    }
 }

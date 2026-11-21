@@ -30,7 +30,7 @@ public class ClientPaletteTooltip implements ClientTooltipComponent {
          int row = i / perRow;
          int itemX = x + horizontalIndex * this.getXSpacing();
          int itemY = y + row * this.getYSpacing();
-         ItemStack item = BuildingToolItem.getItemForBlock((BlockState)wrapper.getData(), mc.level);
+         ItemStack item = BuildingToolItem.getItemForBlock((BlockState)wrapper.data(), mc.level);
          graphics.renderItem(item, itemX, itemY);
          if (size > 1) {
             graphics.renderItemDecorations(font, item, itemX, itemY, "x" + wrapper.getWeight().asInt());

@@ -6,7 +6,7 @@ import com.legacy.structure_gel.core.capability.entity.GelEntity;
 import com.legacy.structure_gel.core.network.SGPacketHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -30,12 +30,12 @@ public class UpdateGelPlayerPacket implements SGPacketHandler.ModPacket<UpdateGe
          return StructureGelMod.locate("update_gel_player");
       }
 
-      public void encoder(UpdateGelPlayerPacket packet, FriendlyByteBuf buff) {
+      public void encoder(UpdateGelPlayerPacket packet, RegistryFriendlyByteBuf buff) {
          CompoundTag tag = GelEntity.Serializer.INSTANCE.write(packet.gelEntity);
          buff.writeNbt(tag);
       }
 
-      public UpdateGelPlayerPacket decoder(FriendlyByteBuf buff) {
+      public UpdateGelPlayerPacket decoder(RegistryFriendlyByteBuf buff) {
          GelEntity gelEntity = GelEntity.Serializer.INSTANCE.read(null, buff.readNbt());
          return new UpdateGelPlayerPacket(gelEntity);
       }

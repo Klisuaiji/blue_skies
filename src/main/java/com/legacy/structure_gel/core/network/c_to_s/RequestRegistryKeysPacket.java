@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Map.Entry;
 import net.minecraft.core.Registry;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -28,11 +28,11 @@ public record RequestRegistryKeysPacket(ResourceKey<? extends Registry<?>> regis
          return StructureGelMod.locate("request_registry_keys");
       }
 
-      public void encoder(RequestRegistryKeysPacket packet, FriendlyByteBuf buff) {
+      public void encoder(RequestRegistryKeysPacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeResourceKey(packet.registry);
       }
 
-      public RequestRegistryKeysPacket decoder(FriendlyByteBuf buff) {
+      public RequestRegistryKeysPacket decoder(RegistryFriendlyByteBuf buff) {
          return new RequestRegistryKeysPacket(buff.readRegistryKey());
       }
 

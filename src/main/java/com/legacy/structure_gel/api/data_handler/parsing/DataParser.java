@@ -28,6 +28,7 @@ import net.minecraft.commands.arguments.item.ItemParser.ItemResult;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
@@ -36,6 +37,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
@@ -120,7 +123,7 @@ public class DataParser {
 
    public <T extends Enum<T> & StringRepresentable> DataParser.Parser<T> addEnum(String key, Class<T> clazz, T defaultVal) {
       return this.<T>add(key, (s, l) -> {
-         for (T v : (Enum[])clazz.getEnumConstants()) {
+         for (T v : clazz.getEnumConstants()) {
             if (s.equals(v.getSerializedName())) {
                return v;
             }
@@ -148,7 +151,12 @@ public class DataParser {
          defaultClone = defaultVal.isEmpty() ? new ItemStack((Item)null) : defaultVal.copy();
          ResourceLocation registryName = BuiltInRegistries.ITEM.getKey(defaultClone.getItem());
          if (registryName != null) {
-            CompoundTag tag = defaultClone.save(new CompoundTag());
+            // 1.21.1: the stack's custom NBT lives in the CUSTOM_DATA component instead of a raw tag.
+            CompoundTag tag = new CompoundTag();
+            CustomData customData = defaultClone.get(DataComponents.CUSTOM_DATA);
+            if (customData != null) {
+               tag.merge(customData.copyTag());
+            }
             tag.remove("id");
             defaultValName = registryName.toString() + (tag.isEmpty() ? "" : tag.getAsString());
          }
@@ -167,7 +175,7 @@ public class DataParser {
          .setExample("{key:\"value\", id:0, list:[0, 1, 2]}");
    }
 
-   public <T> DataParser.ResourceKeyParser<ResourceKey<T>> add(String key, @Nonnull ResourceKey<T> defaultVal) throws NullPointerException {
+   public <T> DataParser.ResourceKeyParser<T> add(String key, @Nonnull ResourceKey<T> defaultVal) throws NullPointerException {
       if (defaultVal == null) {
          throw new NullPointerException(
             "defaultVal cannot be null for " + this.dataHandlerType + "." + key + " use add(String, ResourceKey<T>, ResourceKey<Registry<T>>)"
@@ -183,12 +191,14 @@ public class DataParser {
       return parser;
    }
 
-   public <T> DataParser.ResourceKeyParser<ResourceKey<T>> add(String key, @Nonnull ResourceKey<Registry<T>> registryKey, T defaultVal) throws NullPointerException {
-      Registry registry = (Registry)BuiltInRegistries.REGISTRY.get(registryKey);
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   public <T> DataParser.ResourceKeyParser<T> add(String key, @Nonnull ResourceKey<Registry<T>> registryKey, T defaultVal) throws NullPointerException {
+      // BuiltInRegistries.REGISTRY is Registry<Registry<?>>; the wildcard key needs a raw lookup.
+      Registry registry = (Registry) ((Registry) BuiltInRegistries.REGISTRY).get((ResourceKey) registryKey);
       if (registry != null) {
          Optional<ResourceKey> resourceKey = registry.getResourceKey(defaultVal);
          if (resourceKey.isPresent()) {
-            return this.add(key, resourceKey.get());
+            return this.add(key, (ResourceKey<T>) resourceKey.get());
          } else {
             throw new NullPointerException("Could not find the defaultVal in the registry: Registry = " + registryKey.location());
          }
@@ -272,16 +282,37 @@ public class DataParser {
    @Nullable
    private static ItemStack parseItemStack(String key, LevelReader level) {
       try {
-         ItemResult result = ItemParser.parseForItem(BuiltInRegistries.ITEM.asLookup(), new StringReader(key));
-         ItemStack itemStack = new ItemStack((ItemLike)result.item().value());
-         CompoundTag nbt = result.nbt();
-         if (nbt != null) {
-            itemStack.setTag(nbt);
-            if (nbt.contains("Count", 1)) {
-               itemStack.setCount(nbt.getByte("Count"));
+         // Data handler JSON stored in templates still uses the 1.20.4 "id{tag}" syntax, so keep
+         // accepting it: the tag is kept as CUSTOM_DATA and the old "Count" key still controls size.
+         int brace = key.indexOf('{');
+         if (brace >= 0) {
+            ResourceLocation id = ResourceLocation.tryParse(key.substring(0, brace));
+            if (id == null || !BuiltInRegistries.ITEM.containsKey(id)) {
+               return null;
             }
+
+            Item item = BuiltInRegistries.ITEM.get(id);
+            if (item == Items.AIR) {
+               return null;
+            }
+
+            ItemStack itemStack = new ItemStack(item);
+            CompoundTag nbt = parseTag(key.substring(brace));
+            if (nbt != null) {
+               LegacyNbt.setTag(itemStack, nbt);
+               if (nbt.contains("Count", 1)) {
+                  itemStack.setCount(nbt.getByte("Count"));
+               }
+            }
+
+            return itemStack.isItemEnabled(level.enabledFeatures()) ? itemStack : null;
          }
 
+         // 1.21.1 component syntax ("minecraft:apple[minecraft:custom_name=...]").
+         ItemParser parser = new ItemParser(level.registryAccess());
+         ItemResult result = parser.parse(new StringReader(key));
+         ItemStack itemStack = new ItemStack(result.item().value());
+         itemStack.applyComponents(result.components());
          return itemStack.isItemEnabled(level.enabledFeatures()) ? itemStack : null;
       } catch (CommandSyntaxException e) {
          return null;
@@ -494,7 +525,7 @@ public class DataParser {
             key,
             parseFunc,
             defaultVal,
-            ResourceKey.class,
+            (Class) ResourceKey.class,
             "Registry: " + registry.location(),
             (s, l) -> Objects.nonNull(parseFunc.parse(s, l))
          );
@@ -506,13 +537,14 @@ public class DataParser {
       }
 
       @Override
+      @SuppressWarnings({"unchecked", "rawtypes"})
       public Collection<ResourceKey<T>> getSuggestions() {
          List<ResourceKey<?>> suggestions = ClientUtil.REGISTRY_KEYS.get(this.registry);
          if (suggestions == null) {
             SGPacketHandler.sendToServer(new RequestRegistryKeysPacket(this.registry));
          }
 
-         return suggestions == null ? super.getSuggestions() : suggestions;
+         return suggestions == null ? super.getSuggestions() : (Collection) suggestions;
       }
    }
 }

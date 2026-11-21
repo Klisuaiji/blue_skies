@@ -2,7 +2,7 @@ package com.legacy.structure_gel.core.network.s_to_c;
 
 import com.legacy.structure_gel.core.StructureGelMod;
 import com.legacy.structure_gel.core.network.SGPacketHandler;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
@@ -25,11 +25,11 @@ public class ToggleViewBoundsPacket implements SGPacketHandler.ModPacket<ToggleV
          return StructureGelMod.locate("toggle_view_bounds");
       }
 
-      public void encoder(ToggleViewBoundsPacket packet, FriendlyByteBuf buff) {
+      public void encoder(ToggleViewBoundsPacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeBoolean(packet.shouldViewBounds);
       }
 
-      public ToggleViewBoundsPacket decoder(FriendlyByteBuf buff) {
+      public ToggleViewBoundsPacket decoder(RegistryFriendlyByteBuf buff) {
          boolean shouldViewBounds = buff.readBoolean();
          return new ToggleViewBoundsPacket(shouldViewBounds);
       }

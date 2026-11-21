@@ -9,7 +9,7 @@ import com.legacy.blue_skies.registries.SkiesItems;
 import com.legacy.blue_skies.util.StringUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Item;
@@ -35,11 +35,11 @@ public class DisplayToastPacket implements PacketHandler.ModPacket<DisplayToastP
          return BlueSkies.locate("display_toast");
       }
 
-      public void encoder(DisplayToastPacket packet, FriendlyByteBuf buff) {
+      public void encoder(DisplayToastPacket packet, RegistryFriendlyByteBuf buff) {
          buff.writeByte(packet.toastId);
       }
 
-      public DisplayToastPacket decoder(FriendlyByteBuf buff) {
+      public DisplayToastPacket decoder(RegistryFriendlyByteBuf buff) {
          return new DisplayToastPacket(buff.readByte());
       }
 

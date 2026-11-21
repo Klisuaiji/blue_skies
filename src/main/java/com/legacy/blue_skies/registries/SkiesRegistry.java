@@ -10,6 +10,7 @@ import com.legacy.structure_gel.api.registry.StructureGelRegistries.Keys;
 import java.util.List;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
@@ -83,14 +84,16 @@ public class SkiesRegistry {
 
    @SubscribeEvent
    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-      for (BlockEntityType type : List.of(SkiesBlockEntityTypes.SNOWCAP_OVEN, SkiesBlockEntityTypes.HORIZONITE_FORGE)) {
-         event.registerBlockEntity(
-            ItemHandler.BLOCK,
-            type,
-            (sidedContainer, side) -> (IItemHandler)(side == null
-               ? new InvWrapper(sidedContainer)
-               : new SidedInvWrapper((WorldlyContainer)sidedContainer, side))
-         );
-      }
+      registerItemHandler(event, SkiesBlockEntityTypes.SNOWCAP_OVEN);
+      registerItemHandler(event, SkiesBlockEntityTypes.HORIZONITE_FORGE);
+   }
+
+   /** Registers the sided inventory capability for a container block entity (1.21.1 capability API). */
+   private static <T extends BlockEntity & WorldlyContainer> void registerItemHandler(RegisterCapabilitiesEvent event, BlockEntityType<T> type) {
+      event.registerBlockEntity(
+         ItemHandler.BLOCK,
+         type,
+         (blockEntity, side) -> side == null ? new InvWrapper(blockEntity) : new SidedInvWrapper(blockEntity, side)
+      );
    }
 }

@@ -122,22 +122,23 @@ public class ArcInventory implements Container {
       return this.hasArc((stack, arc) -> SkiesItems.dusk_arc == arc && arc.getFunctionalLevel(stack, player) >= 3);
    }
 
-   public ListTag write(ListTag tagList) {
+   public ListTag write(net.minecraft.core.HolderLookup.Provider provider) {
+      ListTag tagList = new ListTag();
       for (int i = 0; i < 4; i++) {
          CompoundTag nbt = new CompoundTag();
-         ((ItemStack)this.items.get(i)).save(nbt);
+         ((ItemStack)this.items.get(i)).save(provider, nbt);
          tagList.add(nbt);
       }
 
       return tagList;
    }
 
-   public void read(ListTag tagList) {
+   public void read(net.minecraft.core.HolderLookup.Provider provider, ListTag tagList) {
       this.items.clear();
 
       for (int i = 0; i < 4; i++) {
          CompoundTag nbt = tagList.getCompound(i);
-         ItemStack stack = ItemStack.of(nbt);
+         ItemStack stack = ItemStack.parseOptional(provider, nbt);
          if (!stack.isEmpty()) {
             this.items.set(i, stack);
          }

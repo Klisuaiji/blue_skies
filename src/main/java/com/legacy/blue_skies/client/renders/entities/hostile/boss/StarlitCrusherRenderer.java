@@ -45,8 +45,9 @@ public class StarlitCrusherRenderer<T extends StarlitCrusherEntity> extends MobR
       return 0.0F;
    }
 
-   protected void setupRotations(T entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
-      super.setupRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
+   // 1.21.1 appended a float scale argument to LivingEntityRenderer#setupRotations.
+   protected void setupRotations(T entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
+      super.setupRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks, scale);
       if (entityLiving.isSpinning()) {
          matrixStackIn.mulPose(Axis.YP.rotationDegrees((entityLiving.tickCount + partialTicks) * -60.0F));
       }

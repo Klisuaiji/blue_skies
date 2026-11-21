@@ -4,7 +4,7 @@ import com.legacy.blue_skies.BlueSkies;
 import com.legacy.blue_skies.network.PacketHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
@@ -28,12 +28,12 @@ public class SetMouseStackPacket implements PacketHandler.ModPacket<SetMouseStac
          return BlueSkies.locate("set_mouse_stack");
       }
 
-      public void encoder(SetMouseStackPacket packet, FriendlyByteBuf buff) {
-         buff.writeItem(packet.stack);
+      public void encoder(SetMouseStackPacket packet, RegistryFriendlyByteBuf buff) {
+         ItemStack.OPTIONAL_STREAM_CODEC.encode(buff, packet.stack);
       }
 
-      public SetMouseStackPacket decoder(FriendlyByteBuf buff) {
-         return new SetMouseStackPacket(buff.readItem());
+      public SetMouseStackPacket decoder(RegistryFriendlyByteBuf buff) {
+         return new SetMouseStackPacket(ItemStack.OPTIONAL_STREAM_CODEC.decode(buff));
       }
 
       public void handler(SetMouseStackPacket packet, IPayloadContext context) {
