@@ -67,9 +67,9 @@ public class BrewberryBushBlock extends BushBlock implements BonemealableBlock {
    }
 
    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource rand) {
-      if (!level.isClientSide && !(Boolean)state.getValue(MATURE) && CommonHooks.onCropsGrowPre(level, pos, state, rand.nextInt(60) == 0)) {
+      if (!level.isClientSide && !(Boolean)state.getValue(MATURE) && CommonHooks.canCropGrow(level, pos, state, rand.nextInt(60) == 0)) {
          level.setBlockAndUpdate(pos, this.getGrownState(level, pos, rand));
-         CommonHooks.onCropsGrowPost(level, pos, state);
+         CommonHooks.fireCropGrowPost(level, pos, state);
       }
    }
 

@@ -682,7 +682,7 @@ public class SkiesLootProv extends LootTableProvider {
                               b,
                               LootItem.lootTableItem(SkiesItems.moonstone_shard)
                                  .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
-                                 .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))
+                                 .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.FORTUNE))
                            )
                         )
                      );
@@ -778,7 +778,7 @@ public class SkiesLootProv extends LootTableProvider {
                   block,
                   ((net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder)TagEntry.expandTag(tag)
                         .when(LootItemRandomChanceCondition.randomChance(0.125F)))
-                     .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, 2))
+                     .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.FORTUNE, 2))
                )
             )
          );
@@ -794,7 +794,7 @@ public class SkiesLootProv extends LootTableProvider {
                ((net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder)this.applyExplosionCondition(
                      block, LootItem.lootTableItem(sapling)
                   ))
-                  .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, this.DEFAULT_SAPLING_DROP_RATES))
+                  .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, this.DEFAULT_SAPLING_DROP_RATES))
             )
             .withPool(
                LootPool.lootPool()
@@ -806,7 +806,7 @@ public class SkiesLootProv extends LootTableProvider {
                         ))
                         .when(
                            BonusLevelTableCondition.bonusLevelFlatChance(
-                              Enchantments.BLOCK_FORTUNE, new float[]{0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F}
+                              Enchantments.FORTUNE, new float[]{0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F}
                            )
                         )
                   )
@@ -837,11 +837,11 @@ public class SkiesLootProv extends LootTableProvider {
          net.minecraft.world.level.storage.loot.LootPool.Builder seedPool = LootPool.lootPool()
             .add(
                LootItem.lootTableItem(seed)
-                  .apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3).when(growthCondition))
+                  .apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.FORTUNE, 0.5714286F, 3).when(growthCondition))
             );
          net.minecraft.world.level.storage.loot.LootPool.Builder foodPool = LootPool.lootPool()
             .when(growthCondition)
-            .add(LootItem.lootTableItem(food).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 1)));
+            .add(LootItem.lootTableItem(food).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.FORTUNE, 0.5714286F, 1)));
          return (Builder)this.applyExplosionDecay(block, LootTable.lootTable().withPool(seedPool).withPool(foodPool));
       }
 
@@ -862,16 +862,16 @@ public class SkiesLootProv extends LootTableProvider {
             );
          net.minecraft.world.level.storage.loot.LootPool.Builder seedPool = LootPool.lootPool()
             .add(
-               LootItem.lootTableItem(seed).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.2F, 2).when(growthCondition))
+               LootItem.lootTableItem(seed).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.FORTUNE, 0.2F, 2).when(growthCondition))
             );
          net.minecraft.world.level.storage.loot.LootPool.Builder topPool = LootPool.lootPool()
             .when(growthCondition)
             .when(topHalf)
-            .add(LootItem.lootTableItem(food).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.4F, 1)));
+            .add(LootItem.lootTableItem(food).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.FORTUNE, 0.4F, 1)));
          net.minecraft.world.level.storage.loot.LootPool.Builder lowerPool = LootPool.lootPool()
             .when(growthCondition)
             .when(lowerHalf)
-            .add(LootItem.lootTableItem(food).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.2F, 1)));
+            .add(LootItem.lootTableItem(food).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.FORTUNE, 0.2F, 1)));
          return (Builder)this.applyExplosionDecay(block, LootTable.lootTable().withPool(seedPool).withPool(topPool).withPool(lowerPool));
       }
 

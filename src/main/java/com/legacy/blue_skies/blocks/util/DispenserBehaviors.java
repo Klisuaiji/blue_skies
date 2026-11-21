@@ -100,7 +100,7 @@ public class DispenserBehaviors {
                      IShearable target = (IShearable)entity;
                      if (target.isShearable(stack, world, oos)) {
                         List<ItemStack> drops = target.onSheared(
-                           null, stack, entity.level(), oos, EnchantmentHelper.getTagEnchantmentLevel(Enchantments.BLOCK_FORTUNE, stack)
+                           null, stack, entity.level(), oos, EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FORTUNE, stack)
                         );
                         Random rand = new Random();
                         drops.forEach(

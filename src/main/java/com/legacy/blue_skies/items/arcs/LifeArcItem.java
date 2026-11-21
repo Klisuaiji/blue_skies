@@ -37,7 +37,7 @@ public class LifeArcItem extends ArcItem {
       int level = this.getFunctionalLevel(stack, player);
       float reductionHealth = level == 0 ? 4.0F : (level == 1 ? 8.0F : 12.0F);
       if (player.getRemainingFireTicks() > 0 && player.getHealth() <= reductionHealth) {
-         pre.setAmount(pre.getAmount() / 2.0F);
+         pre.setNewDamage(pre.getNewDamage() / 2.0F);
       }
    }
 }

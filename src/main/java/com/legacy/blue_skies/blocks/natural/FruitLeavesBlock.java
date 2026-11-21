@@ -39,9 +39,9 @@ public class FruitLeavesBlock extends SkyLeavesBlock implements BonemealableBloc
    }
 
    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource rand) {
-      if (this.ableToGrow(state) && CommonHooks.onCropsGrowPre(level, pos, state, rand.nextFloat() < 0.1F)) {
+      if (this.ableToGrow(state) && CommonHooks.canCropGrow(level, pos, state, rand.nextFloat() < 0.1F)) {
          this.grow(state, level, pos);
-         CommonHooks.onCropsGrowPost(level, pos, state);
+         CommonHooks.fireCropGrowPost(level, pos, state);
       }
 
       super.randomTick(state, level, pos, rand);

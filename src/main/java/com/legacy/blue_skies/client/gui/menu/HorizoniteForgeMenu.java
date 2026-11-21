@@ -19,12 +19,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.event.EventHooks;
 
-public class HorizoniteForgeMenu extends RecipeBookMenu<Container> {
+public class HorizoniteForgeMenu extends RecipeBookMenu<SingleRecipeInput, SmeltingRecipe> {
    private final Container tile;
    private final ContainerData furnaceData;
    protected final Level world;
@@ -70,8 +72,8 @@ public class HorizoniteForgeMenu extends RecipeBookMenu<Container> {
       this.getSlot(2).set(ItemStack.EMPTY);
    }
 
-   public boolean recipeMatches(RecipeHolder<? extends Recipe<Container>> recipeIn) {
-      return recipeIn.value().matches(this.tile, this.world);
+   public boolean recipeMatches(RecipeHolder<SmeltingRecipe> recipeIn) {
+      return recipeIn.value().matches(new SingleRecipeInput(this.tile.getItem(0)), this.world);
    }
 
    public int getResultSlotIndex() {
@@ -143,7 +145,7 @@ public class HorizoniteForgeMenu extends RecipeBookMenu<Container> {
    }
 
    protected boolean hasRecipe(ItemStack stack) {
-      return this.world.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(new ItemStack[]{stack}), this.world).isPresent();
+      return this.world.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(stack), this.world).isPresent();
    }
 
    protected boolean isFuel(ItemStack stack) {

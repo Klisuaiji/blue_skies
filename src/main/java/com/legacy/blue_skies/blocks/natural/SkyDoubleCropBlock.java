@@ -54,17 +54,17 @@ public class SkyDoubleCropBlock extends SkyCropBlock {
             int i = this.getAge(state);
             if (i < this.getMaxAge()) {
                float f = getGrowthSpeed(this, level, pos);
-               if (CommonHooks.onCropsGrowPre(level, pos, state, random.nextInt((int)(25.0F / f) + 1) == 0)) {
+               if (CommonHooks.canCropGrow(level, pos, state, random.nextInt((int)(25.0F / f) + 1) == 0)) {
                   level.setBlock(pos, this.withState(i + 1, (DoubleBlockHalf)state.getValue(HALF)), 2);
-                  CommonHooks.onCropsGrowPost(level, pos, state);
+                  CommonHooks.fireCropGrowPost(level, pos, state);
                }
             }
 
             if (this.isMaxAge(state) && this.isLowerHalf(state) && level.isEmptyBlock(pos.above())) {
                float f = getGrowthSpeed(this, level, pos);
-               if (CommonHooks.onCropsGrowPre(level, pos.above(), state, random.nextInt((int)(25.0F / f) + 1) == 0)) {
+               if (CommonHooks.canCropGrow(level, pos.above(), state, random.nextInt((int)(25.0F / f) + 1) == 0)) {
                   level.setBlock(pos.above(), this.withState(0, DoubleBlockHalf.UPPER), 2);
-                  CommonHooks.onCropsGrowPost(level, pos.above(), state);
+                  CommonHooks.fireCropGrowPost(level, pos.above(), state);
                }
             }
          }

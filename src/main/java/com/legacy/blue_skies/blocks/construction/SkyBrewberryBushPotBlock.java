@@ -44,9 +44,9 @@ public class SkyBrewberryBushPotBlock extends SkyFlowerPotBlock implements Bonem
    }
 
    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-      if (!level.isClientSide && !(Boolean)state.getValue(MATURE) && CommonHooks.onCropsGrowPre(level, pos, state, random.nextInt(60) == 0)) {
+      if (!level.isClientSide && !(Boolean)state.getValue(MATURE) && CommonHooks.canCropGrow(level, pos, state, random.nextInt(60) == 0)) {
          level.setBlockAndUpdate(pos, (BlockState)state.setValue(MATURE, true));
-         CommonHooks.onCropsGrowPost(level, pos, state);
+         CommonHooks.fireCropGrowPost(level, pos, state);
       }
    }
 

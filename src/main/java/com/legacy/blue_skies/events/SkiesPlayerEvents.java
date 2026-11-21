@@ -91,7 +91,7 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.EntityTeleportEvent.ChorusFruit;
 import net.neoforged.neoforge.event.entity.EntityTeleportEvent.EnderPearl;
 import net.neoforged.neoforge.event.entity.living.LivingAttackEvent;
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent.Pre;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
@@ -128,7 +128,7 @@ public class SkiesPlayerEvents {
    }
 
    @SubscribeEvent
-   public static void onPlayerHurt(LivingDamageEvent event) {
+   public static void onPlayerHurt(LivingDamageEvent.Pre event) {
       if (event.getEntity() instanceof Player player && !event.getEntity().level().isClientSide) {
          SkiesPlayer.ifPresent(player, skiesPlayer -> {
             skiesPlayer.getArcInventory().getStacks().forEach(stack -> {
@@ -136,9 +136,9 @@ public class SkiesPlayerEvents {
                   ((IArcItem)stack.getItem()).onHit(stack, player, event);
                }
             });
-            float newHealth = skiesPlayer.getNatureHealth() - event.getAmount();
+            float newHealth = skiesPlayer.getNatureHealth() - event.getNewDamage();
             skiesPlayer.setNatureHealth(Math.max(0.0F, newHealth));
-            event.setAmount(newHealth < 0.0F ? newHealth * -1.0F : 0.0F);
+            event.setNewDamage(newHealth < 0.0F ? newHealth * -1.0F : 0.0F);
          });
       }
    }

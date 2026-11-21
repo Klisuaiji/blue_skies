@@ -69,7 +69,7 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.EntityMobGriefingEvent;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent.Pre;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent.LivingTickEvent;
@@ -199,14 +199,14 @@ public class SkiesEvents {
    }
 
    @SubscribeEvent(priority = EventPriority.HIGHEST)
-   public static void nerfReachAttacks(LivingDamageEvent event) {
+   public static void nerfReachAttacks(LivingDamageEvent.Pre event) {
       if (event.getEntity() instanceof ISkyBoss boss && boss.getMaxReach() >= 0.0F && !event.getSource().isCreativePlayer()) {
          DamageSource source = event.getSource();
          if (source.getDirectEntity() instanceof Player) {
             double dist = source.getDirectEntity().distanceTo(event.getEntity());
             float maxDist = boss.getMaxReach();
             if (dist > maxDist) {
-               event.setAmount(0.0F);
+               event.setNewDamage(0.0F);
                event.setCanceled(true);
             }
          }
@@ -214,7 +214,7 @@ public class SkiesEvents {
    }
 
    @SubscribeEvent
-   public static void onLivingHurt(LivingDamageEvent event) {
+   public static void onLivingHurt(LivingDamageEvent.Pre event) {
       DamageSource source = event.getSource();
       if (source.getDirectEntity() != null) {
          if (event.getEntity() == source.getEntity()) {
@@ -223,28 +223,28 @@ public class SkiesEvents {
 
          if (SkiesDimensions.inSkyDimension(source.getDirectEntity())) {
             if (source.getDirectEntity() instanceof Player) {
-               event.setAmount(SkiesEntityHooks.nerfDamage(source, event.getAmount()));
+               event.setNewDamage(SkiesEntityHooks.nerfDamage(source, event.getNewDamage()));
             } else if ((source.is(DamageTypeTags.IS_PROJECTILE) || source.isIndirect()) && !source.is(DamageTypeTags.IS_EXPLOSION)) {
-               event.setAmount(source.getEntity() == null ? Math.min(5.0F, event.getAmount()) : SkiesEntityHooks.nerfIndirectDamage(source, event.getAmount()));
+               event.setNewDamage(source.getEntity() == null ? Math.min(5.0F, event.getNewDamage()) : SkiesEntityHooks.nerfIndirectDamage(source, event.getNewDamage()));
             }
          }
       }
    }
 
    @SubscribeEvent(priority = EventPriority.LOWEST)
-   public static void capBossDamage(LivingDamageEvent event) {
+   public static void capBossDamage(LivingDamageEvent.Pre event) {
       DamageSource source = event.getSource();
       if (event.getEntity() instanceof ISkyBoss boss
-         && event.getAmount() > boss.getDamageCap()
+         && event.getNewDamage() > boss.getDamageCap()
          && !source.isCreativePlayer()
          && event.getSource() != event.getEntity().level().damageSources().fellOutOfWorld()) {
-         event.setAmount(boss.getDamageCap());
+         event.setNewDamage(boss.getDamageCap());
       }
 
       if (source.getDirectEntity() != null
          && source.getEntity() != null
          && source.getEntity() instanceof ServerPlayer player
-         && event.getAmount() >= event.getEntity().getHealth()) {
+         && event.getNewDamage() >= event.getEntity().getHealth()) {
          if (event.getEntity() instanceof StarlitCrusherEntity
             && source.getDirectEntity() == player
             && !player.isUsingItem()
