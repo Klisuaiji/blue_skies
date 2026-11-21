@@ -59,6 +59,6 @@ public class BlueSkiesDataGen {
       gen.addProvider(server, new JournalSectionProv(gen));
       gen.addProvider(server, new JournalRequirementProv(gen));
       gen.addProvider(server, new SkiesAdvancementProv(gen, lookup, helper));
-      gen.addProvider(server, new SkiesLootProv(gen));
+      gen.addProvider(server, new SkiesLootProv(gen, lookup));
    }
 }

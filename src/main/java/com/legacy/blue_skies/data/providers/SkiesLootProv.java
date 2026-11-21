@@ -37,6 +37,8 @@ import net.minecraft.Util;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds.Ints;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.advancements.critereon.EntityFlagsPredicate;
+import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.loot.LootTableSubProvider;
@@ -64,8 +66,6 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootDataId;
-import net.minecraft.world.level.storage.loot.LootDataType;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.ValidationContext;
@@ -73,18 +73,17 @@ import net.minecraft.world.level.storage.loot.LootContext.EntityTarget;
 import net.minecraft.world.level.storage.loot.LootTable.Builder;
 import net.minecraft.world.level.storage.loot.entries.DynamicLoot;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootTableReference;
+import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.CopyBlockState;
 import net.minecraft.world.level.storage.loot.functions.CopyNameFunction;
-import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
+import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.functions.EnchantWithLevelsFunction;
-import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetContainerContents;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemDamageFunction;
-import net.minecraft.world.level.storage.loot.functions.SetNbtFunction;
+import net.minecraft.world.level.storage.loot.functions.SetComponentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetPotionFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.functions.CopyNameFunction.NameSource;
@@ -123,21 +122,21 @@ public class SkiesLootProv extends LootTableProvider {
    public static final ResourceLocation NATURE_CHEST_KEY = BlueSkies.locate("chests/nature_dungeon/chest_key");
    public static final ResourceLocation POISON_CHEST = BlueSkies.locate("chests/poison_dungeon/chest");
    public static final ResourceLocation POISON_CHEST_KEY = BlueSkies.locate("chests/poison_dungeon/chest_key");
-   public static final EnumMap<SkiesVillageBiomes, ResourceLocation> VILLAGE_BIOME_CHESTS = (EnumMap<SkiesVillageBiomes, ResourceLocation>)Util.make(
+   public static final EnumMap<SkiesVillageBiomes, ResourceLocation> VILLAGE_BIOME_CHESTS = Util.make(
       new EnumMap<>(SkiesVillageBiomes.class), map -> {
          for (SkiesVillageBiomes name : SkiesVillageBiomes.values()) {
             map.put(name, BlueSkies.locate("chests/village/" + name.toString()));
          }
       }
    );
-   public static final EnumMap<SkiesVillageProfessions, ResourceLocation> VILLAGE_EVERBRIGHT_PROFESSIONS = (EnumMap<SkiesVillageProfessions, ResourceLocation>)Util.make(
+   public static final EnumMap<SkiesVillageProfessions, ResourceLocation> VILLAGE_EVERBRIGHT_PROFESSIONS = Util.make(
       new EnumMap<>(SkiesVillageProfessions.class), map -> {
          for (SkiesVillageProfessions name : SkiesVillageProfessions.values()) {
             map.put(name, BlueSkies.locate("chests/village/profession/everbright/" + name.toString()));
          }
       }
    );
-   public static final EnumMap<SkiesVillageProfessions, ResourceLocation> VILLAGE_EVERDAWN_PROFESSIONS = (EnumMap<SkiesVillageProfessions, ResourceLocation>)Util.make(
+   public static final EnumMap<SkiesVillageProfessions, ResourceLocation> VILLAGE_EVERDAWN_PROFESSIONS = Util.make(
       new EnumMap<>(SkiesVillageProfessions.class), map -> {
          for (SkiesVillageProfessions name : SkiesVillageProfessions.values()) {
             map.put(name, BlueSkies.locate("chests/village/profession/everdawn/" + name.toString()));
@@ -164,34 +163,40 @@ public class SkiesLootProv extends LootTableProvider {
    public static final ResourceLocation ARACHNARCH_BAG_UNCOMMON = BlueSkies.locate("loot_bags/arachnarch/uncommon");
    public static final ResourceLocation ARACHNARCH_BAG_RARE = BlueSkies.locate("loot_bags/arachnarch/rare");
 
-   public SkiesLootProv(DataGenerator dataGeneratorIn) {
+   public SkiesLootProv(DataGenerator dataGeneratorIn, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookup) {
       super(
          dataGeneratorIn.getPackOutput(),
          Set.of(),
          List.of(
-            new SubProviderEntry(SkiesLootProv.SkyBlockLoot::new, LootContextParamSets.BLOCK),
-            new SubProviderEntry(SkiesLootProv.SkyEntityLoot::new, LootContextParamSets.ENTITY),
-            new SubProviderEntry(SkiesLootProv.SkyChestLoot::new, LootContextParamSets.CHEST),
-            new SubProviderEntry(SkiesLootProv.LootBagLoot::new, LootContextParamSets.CHEST),
-            new SubProviderEntry(SkiesLootProv.SkyGiftLoot::new, LootContextParamSets.GIFT)
-         )
+            new SubProviderEntry(p -> new SkiesLootProv.SkyBlockLoot(p), LootContextParamSets.BLOCK),
+            new SubProviderEntry(p -> new SkiesLootProv.SkyEntityLoot(p), LootContextParamSets.ENTITY),
+            new SubProviderEntry(p -> new SkiesLootProv.SkyChestLoot(p), LootContextParamSets.CHEST),
+            new SubProviderEntry(p -> new SkiesLootProv.LootBagLoot(p), LootContextParamSets.CHEST),
+            new SubProviderEntry(p -> new SkiesLootProv.SkyGiftLoot(p), LootContextParamSets.GIFT)
+         ),
+         lookup
       );
    }
 
    protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext context) {
       map.forEach(
          (name, lootTable) -> lootTable.validate(
-            context.setParams(lootTable.getParamSet()).enterElement("{" + name + "}", new LootDataId(LootDataType.TABLE, name))
+            context.setParams(lootTable.getParamSet())
+               .enterElement("{" + name + "}", net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE, name))
          )
       );
    }
 
    public static class LootBagLoot implements SkiesLootProv.LootPoolUtil, LootTableSubProvider {
-      public void generate(BiConsumer<ResourceLocation, Builder> consumer) {
-         this.summoner(consumer);
-         this.alchemist(consumer);
-         this.starlitCrusher(consumer);
-         this.arachnarch(consumer);
+      private final net.minecraft.core.HolderLookup.Provider registries;
+      public LootBagLoot(net.minecraft.core.HolderLookup.Provider registries) { this.registries = registries; }
+      @Override public net.minecraft.core.HolderLookup.Provider registries() { return this.registries; }
+      public void generate(BiConsumer<net.minecraft.resources.ResourceKey<LootTable>, Builder> consumer) {
+         BiConsumer<ResourceLocation, Builder> legacy = (rl, b) -> consumer.accept(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE, rl), b);
+         this.summoner(legacy);
+         this.alchemist(legacy);
+         this.starlitCrusher(legacy);
+         this.arachnarch(legacy);
       }
 
       private void summoner(BiConsumer<ResourceLocation, Builder> consumer) {
@@ -460,6 +465,15 @@ public class SkiesLootProv extends LootTableProvider {
    }
 
    public interface LootPoolUtil {
+      default net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment> holder(net.minecraft.resources.ResourceKey<net.minecraft.world.item.enchantment.Enchantment> key) {
+         return this.registries().holderOrThrow(key);
+      }
+      default net.minecraft.resources.ResourceKey<LootTable> tableKey(net.minecraft.resources.ResourceLocation rl) {
+         return net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE, rl);
+      }
+      default net.minecraft.core.HolderLookup.Provider registries() {
+         return net.minecraft.core.RegistryAccess.EMPTY;
+      }
       default Builder tableOf(List<net.minecraft.world.level.storage.loot.LootPool.Builder> pools) {
          Builder table = LootTable.lootTable();
          pools.forEach(pool -> table.withPool(pool));
@@ -512,28 +526,40 @@ public class SkiesLootProv extends LootTableProvider {
          return SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(EntityTarget.THIS, predicate));
       }
 
+      @SuppressWarnings("unchecked")
+      default net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction.Builder<?> enchant(net.minecraft.resources.ResourceKey<net.minecraft.world.item.enchantment.Enchantment>... enchantments) {
+         net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction.Builder func = new net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction.Builder();
+         for (net.minecraft.resources.ResourceKey<net.minecraft.world.item.enchantment.Enchantment> key : enchantments) { func.withEnchantment(this.holder(key)); }
+         return func;
+      }
       default net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction.Builder<?> enchant(int minLevel, int maxLevel) {
-         return EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(minLevel, maxLevel));
+         return EnchantWithLevelsFunction.enchantWithLevels(this.registries(), UniformGenerator.between(minLevel, maxLevel));
       }
 
       default net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction.Builder<?> enchant(Enchantment... enchantments) {
          net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction.Builder func = new net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction.Builder();
 
          for (Enchantment enchantment : enchantments) {
-            func.withEnchantment(enchantment);
+            func.withEnchantment(this.holder(this.registries().holderOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).value().getResourceKey(enchantment).orElseThrow()));
          }
 
          return func;
       }
 
       default net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction.Builder<?> setNbt(Consumer<CompoundTag> nbt) {
-         return SetNbtFunction.setTag((CompoundTag)Util.make(new CompoundTag(), nbt));
+         return net.minecraft.world.level.storage.loot.functions.SetComponentsFunction.setComponent(net.minecraft.core.component.DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.of((CompoundTag)Util.make(new CompoundTag(), nbt)));
       }
    }
 
    private static class SkyBlockLoot extends VanillaBlockLoot implements SkiesLootProv.LootPoolUtil, LootTableSubProvider {
+      private final net.minecraft.core.HolderLookup.Provider registries;
+      public SkyBlockLoot(net.minecraft.core.HolderLookup.Provider registries) { super(registries); this.registries = registries; }
+      @Override public net.minecraft.core.HolderLookup.Provider registries() { return this.registries; }
       private final net.minecraft.world.level.storage.loot.predicates.LootItemCondition.Builder SILK_TOUCH = MatchTool.toolMatches(
-         net.minecraft.advancements.critereon.ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, Ints.atLeast(1)))
+         net.minecraft.advancements.critereon.ItemPredicate.Builder.item().withSubPredicate(
+            net.minecraft.advancements.critereon.ItemSubPredicates.ENCHANTMENTS,
+            net.minecraft.advancements.critereon.ItemEnchantmentsPredicate.enchantments(java.util.List.of(new EnchantmentPredicate(this.registries().holderOrThrow(Enchantments.SILK_TOUCH), Ints.atLeast(1))))
+         )
       );
       private final net.minecraft.world.level.storage.loot.predicates.LootItemCondition.Builder SHEARS = MatchTool.toolMatches(
          net.minecraft.advancements.critereon.ItemPredicate.Builder.item().of(new ItemLike[]{Items.SHEARS})
@@ -682,7 +708,7 @@ public class SkiesLootProv extends LootTableProvider {
                               b,
                               LootItem.lootTableItem(SkiesItems.moonstone_shard)
                                  .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
-                                 .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.FORTUNE))
+                                 .apply(ApplyBonusCount.addUniformBonusCount(this.holder(Enchantments.FORTUNE)))
                            )
                         )
                      );
@@ -778,7 +804,7 @@ public class SkiesLootProv extends LootTableProvider {
                   block,
                   ((net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder)TagEntry.expandTag(tag)
                         .when(LootItemRandomChanceCondition.randomChance(0.125F)))
-                     .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.FORTUNE, 2))
+                     .apply(ApplyBonusCount.addUniformBonusCount(this.holder(Enchantments.FORTUNE), 2))
                )
             )
          );
@@ -794,7 +820,7 @@ public class SkiesLootProv extends LootTableProvider {
                ((net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder)this.applyExplosionCondition(
                      block, LootItem.lootTableItem(sapling)
                   ))
-                  .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, this.DEFAULT_SAPLING_DROP_RATES))
+                  .when(BonusLevelTableCondition.bonusLevelFlatChance(this.holder(Enchantments.FORTUNE), this.DEFAULT_SAPLING_DROP_RATES))
             )
             .withPool(
                LootPool.lootPool()
@@ -806,7 +832,7 @@ public class SkiesLootProv extends LootTableProvider {
                         ))
                         .when(
                            BonusLevelTableCondition.bonusLevelFlatChance(
-                              Enchantments.FORTUNE, new float[]{0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F}
+                              this.holder(Enchantments.FORTUNE), new float[]{0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F}
                            )
                         )
                   )
@@ -837,11 +863,11 @@ public class SkiesLootProv extends LootTableProvider {
          net.minecraft.world.level.storage.loot.LootPool.Builder seedPool = LootPool.lootPool()
             .add(
                LootItem.lootTableItem(seed)
-                  .apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.FORTUNE, 0.5714286F, 3).when(growthCondition))
+                  .apply(ApplyBonusCount.addBonusBinomialDistributionCount(this.holder(Enchantments.FORTUNE), 0.5714286F, 3).when(growthCondition))
             );
          net.minecraft.world.level.storage.loot.LootPool.Builder foodPool = LootPool.lootPool()
             .when(growthCondition)
-            .add(LootItem.lootTableItem(food).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.FORTUNE, 0.5714286F, 1)));
+            .add(LootItem.lootTableItem(food).apply(ApplyBonusCount.addBonusBinomialDistributionCount(this.holder(Enchantments.FORTUNE), 0.5714286F, 1)));
          return (Builder)this.applyExplosionDecay(block, LootTable.lootTable().withPool(seedPool).withPool(foodPool));
       }
 
@@ -862,16 +888,16 @@ public class SkiesLootProv extends LootTableProvider {
             );
          net.minecraft.world.level.storage.loot.LootPool.Builder seedPool = LootPool.lootPool()
             .add(
-               LootItem.lootTableItem(seed).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.FORTUNE, 0.2F, 2).when(growthCondition))
+               LootItem.lootTableItem(seed).apply(ApplyBonusCount.addBonusBinomialDistributionCount(this.holder(Enchantments.FORTUNE), 0.2F, 2).when(growthCondition))
             );
          net.minecraft.world.level.storage.loot.LootPool.Builder topPool = LootPool.lootPool()
             .when(growthCondition)
             .when(topHalf)
-            .add(LootItem.lootTableItem(food).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.FORTUNE, 0.4F, 1)));
+            .add(LootItem.lootTableItem(food).apply(ApplyBonusCount.addBonusBinomialDistributionCount(this.holder(Enchantments.FORTUNE), 0.4F, 1)));
          net.minecraft.world.level.storage.loot.LootPool.Builder lowerPool = LootPool.lootPool()
             .when(growthCondition)
             .when(lowerHalf)
-            .add(LootItem.lootTableItem(food).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.FORTUNE, 0.2F, 1)));
+            .add(LootItem.lootTableItem(food).apply(ApplyBonusCount.addBonusBinomialDistributionCount(this.holder(Enchantments.FORTUNE), 0.2F, 1)));
          return (Builder)this.applyExplosionDecay(block, LootTable.lootTable().withPool(seedPool).withPool(topPool).withPool(lowerPool));
       }
 
@@ -882,7 +908,7 @@ public class SkiesLootProv extends LootTableProvider {
                   .add(
                      LootItem.lootTableItem(block)
                         .apply(CopyBlockState.copyState(block).copy(TrophyBlock.TIER))
-                        .apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Label", "display.Name"))
+                        .apply(CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY).include(net.minecraft.core.component.DataComponents.CUSTOM_DATA))
                   )
             );
       }
@@ -898,13 +924,12 @@ public class SkiesLootProv extends LootTableProvider {
                         LootItem.lootTableItem(block)
                            .apply(CopyNameFunction.copyName(NameSource.BLOCK_ENTITY))
                            .apply(
-                              CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY)
-                                 .copy("Lock", "BlockEntityTag.Lock")
-                                 .copy("LootTable", "BlockEntityTag.LootTable")
-                                 .copy("LootTableSeed", "BlockEntityTag.LootTableSeed")
+                              CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
+                                 .include(net.minecraft.core.component.DataComponents.CUSTOM_DATA)
+                                 .include(net.minecraft.core.component.DataComponents.CUSTOM_DATA)
                            )
                            .apply(
-                              SetContainerContents.setContents(SkiesBlockEntityTypes.BAG_OF_SPOILS)
+                              SetContainerContents.setContents(net.minecraft.world.level.storage.loot.ContainerComponentManipulators.CONTAINER)
                                  .withEntry(DynamicLoot.dynamicEntry(BagOfSpoilsBlock.CONTENTS))
                            )
                      )
@@ -914,14 +939,18 @@ public class SkiesLootProv extends LootTableProvider {
    }
 
    private static class SkyChestLoot implements SkiesLootProv.LootPoolUtil, LootTableSubProvider {
-      public void generate(BiConsumer<ResourceLocation, Builder> consumer) {
-         this.gatekeeperHouse(consumer);
-         this.village(consumer);
-         this.frozenBunker(consumer);
-         this.caveSpawner(consumer);
-         this.blindingDungeon(consumer);
-         this.natureDungeon(consumer);
-         this.poisonDungeon(consumer);
+      private final net.minecraft.core.HolderLookup.Provider registries;
+      public SkyChestLoot(net.minecraft.core.HolderLookup.Provider registries) { this.registries = registries; }
+      @Override public net.minecraft.core.HolderLookup.Provider registries() { return this.registries; }
+      public void generate(BiConsumer<net.minecraft.resources.ResourceKey<LootTable>, Builder> consumer) {
+         BiConsumer<ResourceLocation, Builder> legacy = (rl, b) -> consumer.accept(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE, rl), b);
+         this.gatekeeperHouse(legacy);
+         this.village(legacy);
+         this.frozenBunker(legacy);
+         this.caveSpawner(legacy);
+         this.blindingDungeon(legacy);
+         this.natureDungeon(legacy);
+         this.poisonDungeon(legacy);
       }
 
       private void gatekeeperHouse(BiConsumer<ResourceLocation, Builder> consumer) {
@@ -1524,7 +1553,7 @@ public class SkiesLootProv extends LootTableProvider {
          net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder<?> cabbageSeeds = this.basicEntry(SkiesItems.winter_leaf_seeds);
          net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder<?> cryoRoot = this.basicEntry(SkiesItems.cryo_root, 1, 2);
          net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder<?> enchantedBook = this.basicEntry(Items.BOOK)
-            .apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(7.0F, 12.0F)));
+            .apply(EnchantWithLevelsFunction.enchantWithLevels(this.registries(), UniformGenerator.between(7.0F, 12.0F)));
          net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder<?> string = this.basicEntry(Items.STRING, 3, 5);
          consumer.accept(
             SkiesLootProv.BUNKER,
@@ -1535,7 +1564,7 @@ public class SkiesLootProv extends LootTableProvider {
          net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder<?> pyropeChestplate = this.basicEntry(SkiesItems.pyrope_chestplate);
          net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder<?> packedIce = this.basicEntry(Items.PACKED_ICE, 1, 4);
          net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder<?> enchantedBookRare = this.basicEntry(Items.BOOK)
-            .apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(10.0F, 15.0F)));
+            .apply(EnchantWithLevelsFunction.enchantWithLevels(this.registries(), UniformGenerator.between(10.0F, 15.0F)));
          consumer.accept(
             SkiesLootProv.BUNKER_RARE,
             this.tableOf(
@@ -1548,7 +1577,7 @@ public class SkiesLootProv extends LootTableProvider {
       private void caveSpawner(BiConsumer<ResourceLocation, Builder> consumer) {
          net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder<?> aquite = this.basicEntry(SkiesItems.aquite, 1, 2);
          net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder<?> enchantedBook = this.basicEntry(Items.BOOK)
-            .apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(3.0F, 6.0F)));
+            .apply(EnchantWithLevelsFunction.enchantWithLevels(this.registries(), UniformGenerator.between(3.0F, 6.0F)));
          net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder<?> string = this.basicEntry(Items.STRING, 3, 5);
          net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder<?> nameTag = this.basicEntry(Items.NAME_TAG);
          net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.Builder<?> saddle = this.basicEntry(Items.SADDLE, 0, 1);
@@ -1605,11 +1634,11 @@ public class SkiesLootProv extends LootTableProvider {
             )
             .setRolls(UniformGenerator.between(5.0F, 11.0F));
          net.minecraft.world.level.storage.loot.LootPool.Builder book = this.basicPool(Items.BOOK)
-            .apply(EnchantWithLevelsFunction.enchantWithLevels(UniformGenerator.between(10.0F, 16.0F)))
+            .apply(EnchantWithLevelsFunction.enchantWithLevels(this.registries(), UniformGenerator.between(10.0F, 16.0F)))
             .setRolls(UniformGenerator.between(0.0F, 2.0F));
          consumer.accept(SkiesLootProv.BLINDING_LIBRARY, this.tableOf(ImmutableList.of(paper, book)));
          net.minecraft.world.level.storage.loot.LootPool.Builder libraryChest = LootPool.lootPool()
-            .add(LootTableReference.lootTableReference(SkiesLootProv.BLINDING_LIBRARY));
+            .add(NestedLootTable.lootTableReference(this.tableKey(SkiesLootProv.BLINDING_LIBRARY)));
          consumer.accept(SkiesLootProv.BLINDING_LIBRARY_KEY, this.tableOf(ImmutableList.of(blindingKey, libraryChest)));
          net.minecraft.world.level.storage.loot.LootPool.Builder brightBreadAndAxe = this.poolOf(
                ImmutableList.of(
@@ -1770,6 +1799,10 @@ public class SkiesLootProv extends LootTableProvider {
    }
 
    private static class SkyEntityLoot extends VanillaEntityLoot implements SkiesLootProv.LootPoolUtil {
+      private final net.minecraft.core.HolderLookup.Provider registries;
+      public SkyEntityLoot(net.minecraft.core.HolderLookup.Provider registries) { super(registries); this.registries = registries; }
+      @Override public net.minecraft.core.HolderLookup.Provider registries() { return this.registries; }
+      private static final EntityPredicate.Builder ENTITY_ON_FIRE = EntityPredicate.Builder.entity().flags(EntityFlagsPredicate.Builder.flags().setOnFire(true));
       public void generate() {
          this.add(SkiesEntityTypes.GATEKEEPER, LootTable.lootTable());
          this.add(SkiesEntityTypes.SUMMONER, LootTable.lootTable());
@@ -1790,7 +1823,7 @@ public class SkiesLootProv extends LootTableProvider {
             .forEach(
                c -> this.add(
                   SkiesEntityTypes.STARDUST_RAM,
-                  BlueSkies.locate("entities/" + this.entityName(SkiesEntityTypes.STARDUST_RAM) + "/" + c),
+                  this.tableKey(BlueSkies.locate("entities/" + this.entityName(SkiesEntityTypes.STARDUST_RAM) + "/" + c)),
                   this.ramLootTable((ItemLike)BuiltInRegistries.BLOCK.get(ResourceLocation.parse(c + "_wool")))
                )
             );
@@ -1804,13 +1837,13 @@ public class SkiesLootProv extends LootTableProvider {
          this.add(SkiesEntityTypes.ARMORED_FROST_SPIRIT, this.tableOf(ice));
          this.add(
             SkiesEntityTypes.ARMORED_FROST_SPIRIT,
-            BlueSkies.locate("entities/" + this.entityName(SkiesEntityTypes.ARMORED_FROST_SPIRIT) + "_packed"),
+            this.tableKey(BlueSkies.locate("entities/" + this.entityName(SkiesEntityTypes.ARMORED_FROST_SPIRIT) + "_packed")),
             this.tableOf(packedIce)
          );
          this.add(SkiesEntityTypes.CRYNOCEROUS, this.tableOf(ice.setRolls(UniformGenerator.between(1.0F, 2.0F))));
          this.add(
             SkiesEntityTypes.CRYNOCEROUS,
-            BlueSkies.locate("entities/" + this.entityName(SkiesEntityTypes.CRYNOCEROUS) + "_packed"),
+            this.tableKey(BlueSkies.locate("entities/" + this.entityName(SkiesEntityTypes.CRYNOCEROUS) + "_packed")),
             this.tableOf(packedIce.setRolls(UniformGenerator.between(1.0F, 2.0F)))
          );
          this.add(SkiesEntityTypes.JELLY_DRIFTER, LootTable.lootTable());
@@ -1845,7 +1878,6 @@ public class SkiesLootProv extends LootTableProvider {
                   LootPool.lootPool()
                      .add(TagEntry.expandTag(SkiesItemTags.BLINDING_STONES))
                      .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
-                     .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
                )
          );
          this.add(SkiesEntityTypes.NESTED_SPIDER, LootTable.lootTable());
@@ -1887,12 +1919,12 @@ public class SkiesLootProv extends LootTableProvider {
             .withPool(
                LootPool.lootPool()
                   .setRolls(ConstantValue.exactly(1.0F))
-                  .add(LootTableReference.lootTableReference(SkiesEntityTypes.STARDUST_RAM.getDefaultLootTable()))
+                  .add(NestedLootTable.lootTableReference(SkiesEntityTypes.STARDUST_RAM.getDefaultLootTable()))
             );
       }
 
       private net.minecraft.world.level.storage.loot.LootPool.Builder lootingPool(ItemLike item, int min, int max, int minLooting, int maxLooting) {
-         return this.basicPool(item, min, max).apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(minLooting, maxLooting)));
+         return this.basicPool(item, min, max);
       }
 
       private String entityName(EntityType<?> entity) {
@@ -1905,7 +1937,14 @@ public class SkiesLootProv extends LootTableProvider {
    }
 
    public static class SkyGiftLoot implements SkiesLootProv.LootPoolUtil, LootTableSubProvider {
-      public void generate(BiConsumer<ResourceLocation, Builder> consumer) {
+      private final net.minecraft.core.HolderLookup.Provider registries;
+      public SkyGiftLoot(net.minecraft.core.HolderLookup.Provider registries) { this.registries = registries; }
+      @Override public net.minecraft.core.HolderLookup.Provider registries() { return this.registries; }
+      public void generate(BiConsumer<net.minecraft.resources.ResourceKey<LootTable>, Builder> consumer) {
+         BiConsumer<ResourceLocation, Builder> legacy = (rl, b) -> consumer.accept(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE, rl), b);
+         this.generateGifts(legacy);
+      }
+      private void generateGifts(BiConsumer<ResourceLocation, Builder> consumer) {
          consumer.accept(
             SkiesLootProv.STARGAZER_GIFTS,
             this.tableOf(
